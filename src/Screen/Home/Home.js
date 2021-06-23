@@ -1,10 +1,15 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-
+import FastImage from 'react-native-fast-image';
+import {IconBPJS} from '../../Assets/Images/images';
 const Home = () => {
   return (
     <View>
-      <Text>Home</Text>
+      <FastImage
+        style={styles.apa}
+        source={IconBPJS}
+        resizeMode={FastImage.resizeMode.contain}
+      />
     </View>
   );
 };
