@@ -6,7 +6,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 //Screen
-import {Home} from './src/Screen/Screen';
+
 import {BottomNav} from './src/Component/Component';
 
 const Stack = createStackNavigator();
