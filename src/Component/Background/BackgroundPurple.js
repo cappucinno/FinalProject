@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
-import {COLOR} from '../../Assets/Color/color';
+import {COLOR} from '../../Assets/Color/Color';
 
 export default function BackgroundPurple(props) {
   return (

@@ -9,6 +9,8 @@ import IconMobile from './IconMobile.png';
 import IconPDAM from './IconPDAM.png';
 import NoBill from './NoBill.png';
 import IconFilter from './IconFilter.png';
+import InfoPayment from './InfoPayment.png';
+import InfoSubscription from './InfoSubscription.png';
 
 export {
   IconBell,
@@ -22,4 +24,6 @@ export {
   IconPDAM,
   NoBill,
   IconFilter,
+  InfoPayment,
+  InfoSubscription,
 };
