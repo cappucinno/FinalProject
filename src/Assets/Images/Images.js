@@ -12,6 +12,10 @@ import IconFilter from './IconFilter.png';
 import InfoPayment from './InfoPayment.png';
 import InfoSubscription from './InfoSubscription.png';
 import ButtonNewSub from './ButtonNewSub.png';
+import IconSubscribtion from './IconSubscribtion.png';
+import ArrowBack from './ArrowBack.png';
+import CheckActive from './CheckActive.png';
+import CheckBox1 from './CheckBox.png';
 
 export {
   IconBell,
@@ -28,4 +32,8 @@ export {
   InfoPayment,
   InfoSubscription,
   ButtonNewSub,
+  IconSubscribtion,
+  ArrowBack,
+  CheckActive,
+  CheckBox1,
 };
