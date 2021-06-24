@@ -11,13 +11,11 @@ import NoBill from './NoBill.png';
 import IconFilter from './IconFilter.png';
 import InfoPayment from './InfoPayment.png';
 import InfoSubscription from './InfoSubscription.png';
+import ButtonNewSub from './ButtonNewSub.png';
 import IconSubscribtion from './IconSubscribtion.png';
-import IconElectricityActive from './IconElectricityActive.png';
-import IconBPJSActive from './IconBPJSActive.png';
-import IconInternetActive from './IconInternetActive.png';
-import IconLandlineActive from './IconLandlineActive.png';
-import IconMobileActive from './IconMobileActive.png';
-import IconPDAMActive from './IconPDAMActive.png';
+import ArrowBack from './ArrowBack.png';
+import CheckActive from './CheckActive.png';
+import CheckBox1 from './CheckBox.png';
 
 export {
   IconBell,
@@ -33,11 +31,9 @@ export {
   IconFilter,
   InfoPayment,
   InfoSubscription,
+  ButtonNewSub,
   IconSubscribtion,
-  IconElectricityActive,
-  IconBPJSActive,
-  IconInternetActive,
-  IconLandlineActive,
-  IconPDAMActive,
-  IconMobileActive,
+  ArrowBack,
+  CheckActive,
+  CheckBox1,
 };

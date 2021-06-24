@@ -72,7 +72,7 @@ const PaymentCard = ({late = false, success = false}) => {
       paddingTop: moderateScale(10),
       flexDirection: 'row',
       justifyContent: 'flex-start',
-      paddingRight: widthPercentageToDP(9),
+      marginRight: widthPercentageToDP(16),
     },
 
     ContainerIconPayment: {
@@ -81,8 +81,9 @@ const PaymentCard = ({late = false, success = false}) => {
       backgroundColor: '#EBEDF4',
       width: widthPercentageToDP(9),
       height: heightPercentageToDP(5),
+      marginRight: moderateScale(8),
     },
-
+    // Icon Payment
     IconPayment: {
       height: heightPercentageToDP(5),
       width: widthPercentageToDP(3),
@@ -91,30 +92,27 @@ const PaymentCard = ({late = false, success = false}) => {
     ContainerListBill: {
       flexDirection: 'row',
       justifyContent: 'space-evenly',
-      backgroundColor: 'red',
     },
     //nama List
     TextIcon1: {
       color: '#333333',
       fontSize: moderateScale(12),
       fontFamily: 'Montserrat-Bold',
-      marginLeft: moderateScale(128),
-      paddingRight: moderateScale(20),
-      backgroundColor: 'white',
+      paddingRight: moderateScale(79),
     },
     TextIcon2: {
       color: '#828282',
       fontSize: moderateScale(12),
       fontFamily: 'Montserrat-Bold',
-      marginLeft: moderateScale(24),
+      paddingRight: moderateScale(79),
     },
+
     // Uang
     TextIcon3: {
       color: '#828282',
       fontSize: moderateScale(12),
       fontFamily: 'Montserrat-Bold',
-
-      paddingLeft: moderateScale(2),
+      marginRight: moderateScale(8),
     },
     CountDayLeft: {
       paddingTop: moderateScale(20),
@@ -122,15 +120,15 @@ const PaymentCard = ({late = false, success = false}) => {
     },
     TextCount: {
       color: '#EB5757',
-      fontSize: moderateScale(10),
+      fontSize: moderateScale(11),
       fontFamily: 'Montserrat-Bold',
+      paddingRight: moderateScale(39),
     },
+    // taotal uang
     TextCount2: {
       color: '#828282',
       fontSize: moderateScale(12),
       fontFamily: 'Montserrat-Bold',
-      paddingLeft: widthPercentageToDP(24),
-      paddingRight: moderateScale(150),
     },
 
     ContainerTotalCount: {
@@ -140,26 +138,25 @@ const PaymentCard = ({late = false, success = false}) => {
 
     TotalCount: {
       backgroundColor: '#EBEDF4',
-      borderTopStartRadius: moderateScale(5),
-      borderTopEndRadius: moderateScale(5),
-      borderBottomStartRadius: moderateScale(5),
-      borderBottomEndRadius: moderateScale(5),
+      borderTopStartRadius: heightPercentageToDP(1),
+      borderTopEndRadius: heightPercentageToDP(1),
+      borderBottomStartRadius: heightPercentageToDP(1),
+      borderBottomEndRadius: heightPercentageToDP(1),
       height: heightPercentageToDP(6),
       flexDirection: 'row',
-      justifyContent: 'space-between',
       alignItems: 'center',
-      paddingRight: moderateScale(10),
       paddingLeft: moderateScale(10),
     },
 
     TextTotal: {
       color: '#000000',
-      fontSize: 12,
+      fontSize: moderateScale(12),
       fontFamily: 'Montserrat-Regular',
+      paddingRight: moderateScale(168),
     },
     TextTotalCount: {
       color: '#000000',
-      fontSize: 12,
+      fontSize: moderateScale(12),
       fontFamily: 'Montserrat-Bold',
     },
     ButtonPay: {
@@ -224,7 +221,7 @@ const PaymentCard = ({late = false, success = false}) => {
               <Text style={styles.TextIcon1}>PLN - Token</Text>
               <Text style={styles.TextIcon2}>141234567890</Text>
             </View>
-            <Text style={styles.TextIcon3}>Rp.50000</Text>
+            <Text style={styles.TextIcon3}>Rp.5000000</Text>
           </View>
         </View>
         <View style={styles.containerbill}>

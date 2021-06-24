@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,21 +13,29 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
-import {IconFilter, IconElectricity} from '../../Assets/Assets';
+import {IconFilter, ButtonNewSub, IconSubscribtion} from '../../Assets/Assets';
 import PaymentCard from '../../Component/PaymentCard/PaymentCard';
 import BackgroundPurple from '../../Component/Background/BackgroundPurple';
+import {Overlay} from 'react-native-elements';
+import {COLOR} from '../../Assets/Color/Color';
 
-const Subscription = () => {
+const Subscription = props => {
+  const [visible, setVisible] = useState(false);
+  const subscribtion = false;
+  const CreateSubs = () => {
+    setVisible(!visible);
+  };
   return (
     <SafeAreaView style={{flex: 1}}>
       {/* Headerr  */}
-      <ScrollView
-        contentContainerStyle={styles.Grow}
-        style={styles.containerSub}>
-        <BackgroundPurple>
+      <BackgroundPurple>
+        <ScrollView
+          contentContainerStyle={styles.Grow}
+          style={styles.containerSub}>
           <View style={styles.containerHead}>
             <Text style={styles.TextHead}>Recurring Billing</Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('FilterSubscription')}>
               <FastImage
                 style={styles.IconFilter}
                 source={IconFilter}
@@ -48,11 +56,45 @@ const Subscription = () => {
             </View>
           </View>
           {/* DATA ada */}
-          <PaymentCard late={true} />
-          <PaymentCard late={false} success={false} />
-          <PaymentCard success={true} />
-        </BackgroundPurple>
-      </ScrollView>
+          {subscribtion ? (
+            <View>
+              <PaymentCard late={true} />
+              <PaymentCard late={false} success={false} />
+              <PaymentCard success={true} />
+            </View>
+          ) : (
+            <View style={styles.ContainerImgSub}>
+              <View style={styles.ImgSub}>
+                <FastImage
+                  style={styles.Subscription}
+                  source={IconSubscribtion}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
+              <Text style={styles.TextSubs}>
+                You don't have any subscribtion
+              </Text>
+              <TouchableOpacity style={styles.ContainerButtonSubs}>
+                <View style={styles.ButtonSubs}>
+                  <Text style={styles.TextButtonSubs}>Create New</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          )}
+        </ScrollView>
+      </BackgroundPurple>
+      {subscribtion ? (
+        <TouchableOpacity onPress={CreateSubs} style={styles.PresNewSub}>
+          <View>
+            <FastImage
+              style={styles.ButtonNewSub}
+              source={ButtonNewSub}
+              resizeMode={FastImage.resizeMode.contain}
+              onBackdropPress={CreateSubs}
+            />
+          </View>
+        </TouchableOpacity>
+      ) : null}
     </SafeAreaView>
   );
 };
@@ -108,5 +150,64 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  ButtonNewSub: {
+    height: heightPercentageToDP(20),
+    width: widthPercentageToDP(20),
+  },
+  PresNewSub: {
+    position: 'absolute',
+    margin: moderateScale(0),
+    right: moderateScale(0),
+    bottom: moderateScale(-36),
+  },
+  ContainerImgSub: {
+    marginTop: heightPercentageToDP(10),
+    display: 'flex',
+    borderRadius: moderateScale(20),
+    backgroundColor: 'white',
+    width: widthPercentageToDP(90),
+    height: heightPercentageToDP(40),
+    alignSelf: 'center',
+  },
+  ImgSub: {
+    alignItems: 'center',
+  },
+  Subscription: {
+    height: heightPercentageToDP(24),
+    width: widthPercentageToDP(30),
+    justifyContent: 'center',
+    color: COLOR.purple.purpleBold,
+    fontSize: moderateScale(13),
+  },
+  TextSubs: {
+    color: COLOR.purple.purpleBold,
+    fontSize: moderateScale(13),
+    fontFamily: 'Montserrat-Bold',
+    alignSelf: 'center',
+    paddingBottom: moderateScale(18),
+  },
+  ContainerButtonSubs: {
+    alignSelf: 'center',
+    backgroundColor: '#4493AC',
+    borderTopStartRadius: moderateScale(5),
+    borderTopEndRadius: moderateScale(5),
+    borderBottomStartRadius: moderateScale(5),
+    borderBottomEndRadius: moderateScale(5),
+    height: heightPercentageToDP(6),
+    width: widthPercentageToDP(80),
+  },
+  ButtonSubs: {
+    color: 'white',
+    fontSize: moderateScale(21),
+    paddingTop: moderateScale(5),
+    fontFamily: 'Montserrat-Bold',
+  },
+  TextButtonSubs: {
+    alignSelf: 'center',
+    color: 'white',
+    fontSize: moderateScale(18),
+    fontFamily: 'Montserrat-Bold',
+    paddingTop: moderateScale(5),
   },
 });

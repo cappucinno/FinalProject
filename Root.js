@@ -6,7 +6,12 @@ import {StyleSheet, Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 //Screen
-import {Home, SignUp} from './src/Screen/Screen';
+import {
+  Home,
+  SignUp,
+  FilterSubscription,
+  Subscription,
+} from './src/Screen/Screen';
 
 import {BottomNav} from './src/Component/Component';
 
@@ -30,6 +35,16 @@ const Root = () => {
         <Stack.Screen
           name="Mainapp"
           component={mainApp}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Subscription"
+          component={Subscription}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="FilterSubscription"
+          component={FilterSubscription}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
