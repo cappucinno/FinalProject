@@ -11,6 +11,7 @@ import NoBill from './NoBill.png';
 import IconFilter from './IconFilter.png';
 import InfoPayment from './InfoPayment.png';
 import InfoSubscription from './InfoSubscription.png';
+import ButtonNewSub from './ButtonNewSub.png';
 
 export {
   IconBell,
@@ -26,4 +27,5 @@ export {
   IconFilter,
   InfoPayment,
   InfoSubscription,
+  ButtonNewSub,
 };

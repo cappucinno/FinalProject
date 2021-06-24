@@ -13,7 +13,7 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
-import {IconFilter, IconElectricity} from '../../Assets/Assets';
+import {IconFilter, ButtonNewSub} from '../../Assets/Assets';
 import PaymentCard from '../../Component/PaymentCard/PaymentCard';
 import BackgroundPurple from '../../Component/Background/BackgroundPurple';
 
@@ -53,6 +53,15 @@ const Subscription = () => {
           <PaymentCard success={true} />
         </BackgroundPurple>
       </ScrollView>
+      <TouchableOpacity>
+        <View style={styles.PresNewSub}>
+          <FastImage
+            style={styles.ButtonNewSub}
+            source={ButtonNewSub}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        </View>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -108,5 +117,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  ButtonNewSub: {
+    height: heightPercentageToDP(20),
+    width: widthPercentageToDP(20),
+  },
+  PresNewSub: {
+    position: 'absolute',
+    margin: 8,
+    right: 0,
+    bottom: 0,
   },
 });
