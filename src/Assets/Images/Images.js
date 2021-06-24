@@ -8,6 +8,7 @@ import IconMasterCard from './IconMasterCard.png';
 import IconMobile from './IconMobile.png';
 import IconPDAM from './IconPDAM.png';
 import NoBill from './NoBill.png';
+import IconFilter from './IconFilter.png';
 
 export {
   IconBell,
@@ -20,4 +21,5 @@ export {
   IconMobile,
   IconPDAM,
   NoBill,
+  IconFilter,
 };

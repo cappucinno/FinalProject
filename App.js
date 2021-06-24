@@ -11,7 +11,7 @@ const App = () => {
       <StatusBar
         barStyle="light-content"
         hidden={false}
-        backgroundColor="#364F90"
+        backgroundColor="#263765"
         translucent={false}
       />
       <Root />

@@ -1,20 +1,15 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import FastImage from 'react-native-fast-image';
-import {Home, Subscription, History, Account} from '../../Screen/Screen';
 import Foundation from 'react-native-vector-icons/Foundation';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {Home, Subscription, History, Account} from '../../Screen/Screen';
 
-const Stack = createStackNavigator();
 const Bot = createBottomTabNavigator();
 
 const BottomNav = () => {

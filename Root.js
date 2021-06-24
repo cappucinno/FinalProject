@@ -7,6 +7,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 //Screen
 import {Home, SignUp} from './src/Screen/Screen';
+
 import {BottomNav} from './src/Component/Component';
 
 const Stack = createStackNavigator();
