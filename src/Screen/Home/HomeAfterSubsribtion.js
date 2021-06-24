@@ -11,25 +11,33 @@ import FastImage from 'react-native-fast-image';
 import {
   IconBiller,
   IconBell,
-  IconBPJSActive,
-  IconElectricityActive,
-  IconInternetActive,
-  IconLandlineActive,
-  IconMobileActive,
-  IconPDAMActive,
-  NoBill,
+  IconBPJS,
+  IconElectricity,
+  IconInternet,
+  IconLandLine,
+  IconMobile,
+  IconPDAM,
+  IconSubscribtion,
 } from '../../Assets/Assets';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {moderateScale} from 'react-native-size-matters';
+import BackgroundPurple from '../../Component/Background/BackgroundPurple';
+import {IconFilter} from '../../Assets/Assets';
+import PaymentCardHome from '../../Component/PaymentCardHome/PaymentCardHome';
 
 const Home = () => {
+  const subscribtion = false;
+
   return (
     <SafeAreaView style={{flex: 1}}>
-      <ScrollView contentContainerStyle={styles.Grow}>
-        <View style={styles.containerSub}>
+      {/* Headerr  */}
+      <ScrollView
+        contentContainerStyle={styles.Grow}
+        style={styles.containerSub}>
+        <View style={styles.containerFull}>
           <View style={styles.containerHead}>
             <FastImage
               style={styles.imageBiller}
@@ -49,7 +57,7 @@ const Home = () => {
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconElectricity}
-                source={IconElectricityActive}
+                source={IconElectricity}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>Electricity</Text>
@@ -57,7 +65,7 @@ const Home = () => {
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconMobile}
-                source={IconMobileActive}
+                source={IconMobile}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>Mobile</Text>
@@ -65,7 +73,7 @@ const Home = () => {
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconInternet}
-                source={IconInternetActive}
+                source={IconInternet}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>Internet & TV</Text>
@@ -75,7 +83,7 @@ const Home = () => {
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconLandline}
-                source={IconLandlineActive}
+                source={IconLandLine}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>Landline</Text>
@@ -83,7 +91,7 @@ const Home = () => {
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconBPJS}
-                source={IconBPJSActive}
+                source={IconBPJS}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>BPJS</Text>
@@ -91,7 +99,7 @@ const Home = () => {
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconPDAM}
-                source={IconPDAMActive}
+                source={IconPDAM}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>PDAM</Text>
@@ -99,17 +107,31 @@ const Home = () => {
           </View>
         </View>
         <View style={styles.container1} />
-        <Text style={styles.textBottom}>Active subsribtion</Text>
-        <View style={styles.containerRes}>
-          <FastImage
-            style={styles.imageSubsribtion}
-            source={NoBill}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-          <Text style={styles.textSubsribtion}>
-            No upcoming bill right now!
-          </Text>
-        </View>
+        <Text style={styles.textSubsribtion}>Active Subscriptions</Text>
+        {/* DATA ada */}
+        {subscribtion ? (
+          <View>
+            <PaymentCardHome late={true} />
+            <PaymentCardHome late={false} success={false} />
+          </View>
+        ) : (
+          <View style={styles.containerRes}>
+            <FastImage
+              style={styles.imageSubsribtion}
+              source={IconSubscribtion}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+            <Text style={styles.textSubsribtion}>
+              You don't have any subscribtion
+            </Text>
+            <TouchableOpacity style={styles.buttonBottom} activeOpacity={0.5}>
+              <Text style={styles.buttonTextBottom}>Create New</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {/* <PaymentCardHome late={true} />
+        <PaymentCardHome late={false} success={false} /> */}
       </ScrollView>
     </SafeAreaView>
   );
@@ -121,12 +143,11 @@ const styles = StyleSheet.create({
   Grow: {
     flexGrow: 1,
   },
-  container: {
-    backgroundColor: 'white',
-    height: hp(100),
-    width: wp(100),
-  },
   containerSub: {
+    // paddingBottom: moderateScale(100),
+    backgroundColor: 'white',
+  },
+  containerFull: {
     backgroundColor: '#263765',
   },
   containerHead: {
@@ -168,6 +189,11 @@ const styles = StyleSheet.create({
     width: moderateScale(40),
     top: moderateScale(12),
   },
+  containerMiddle: {
+    flexDirection: 'row',
+    marginTop: hp(2),
+    marginBottom: hp(4),
+  },
   imageIconLandline: {
     height: moderateScale(44),
     width: moderateScale(40),
@@ -200,11 +226,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Regular',
     fontWeight: 'bold',
   },
-  containerMiddle: {
-    flexDirection: 'row',
-    marginTop: hp(2),
-    marginBottom: hp(4),
-  },
   container1: {
     backgroundColor: '#263765',
     height: moderateScale(78),
@@ -215,12 +236,12 @@ const styles = StyleSheet.create({
     transform: [{scaleX: 2}],
     marginLeft: moderateScale(84),
   },
-  textBottom: {
-    top: hp(5),
-    marginLeft: wp(5),
-    fontSize: moderateScale(16),
+  textSubsribtion: {
+    fontSize: 18,
     fontFamily: 'Montserrat-Regular',
     fontWeight: 'bold',
+    top: moderateScale(30),
+    marginLeft: wp(5),
   },
   containerRes: {
     // display: 'flex',
@@ -232,16 +253,27 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   imageSubsribtion: {
-    height: moderateScale(160),
-    width: moderateScale(215),
+    height: moderateScale(100),
+    width: moderateScale(150),
     alignSelf: 'center',
     top: moderateScale(40),
   },
-  textSubsribtion: {
+  buttonBottom: {
+    backgroundColor: 'blue',
+    borderWidth: 0.5,
+    borderColor: 'white',
+    height: moderateScale(42),
+    width: moderateScale(308),
+    borderRadius: 5,
+    top: moderateScale(50),
     alignSelf: 'center',
-    fontSize: 18,
+  },
+  buttonTextBottom: {
+    fontSize: 20,
+    color: 'white',
+    alignSelf: 'center',
     fontFamily: 'Montserrat-Regular',
     fontWeight: 'bold',
-    top: moderateScale(45),
+    top: moderateScale(6),
   },
 });

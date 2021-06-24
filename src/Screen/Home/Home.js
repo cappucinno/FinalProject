@@ -29,7 +29,7 @@ const Home = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView contentContainerStyle={styles.Grow}>
-        <View style={styles.containerSub}>
+        <View style={styles.containerFull}>
           <View style={styles.containerHead}>
             <FastImage
               style={styles.imageBiller}
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     height: hp(100),
     width: wp(100),
   },
-  containerSub: {
+  containerFull: {
     backgroundColor: '#263765',
   },
   containerHead: {
