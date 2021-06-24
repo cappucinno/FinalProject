@@ -6,6 +6,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 //Screen
+import {Home, SignUp} from './src/Screen/Screen';
 
 import {BottomNav} from './src/Component/Component';
 
@@ -20,7 +21,12 @@ const Root = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="SignUp">
+        <Stack.Screen
+          name="SignUp"
+          component={SignUp}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="Mainapp"
           component={mainApp}
