@@ -24,12 +24,11 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {moderateScale} from 'react-native-size-matters';
-import {SearchBar} from 'react-native-elements';
 
 const Home = () => {
   return (
     <SafeAreaView>
-      <ScrollView style={styles.container}>
+      <ScrollView>
         <View style={styles.containerSub}>
           <View style={styles.containerHead}>
             <FastImage
@@ -38,11 +37,13 @@ const Home = () => {
               resizeMode={FastImage.resizeMode.contain}
             />
             <Text style={styles.StyleText}>biller</Text>
-            <FastImage
-              style={styles.imageBell}
-              source={IconBell}
-              resizeMode={FastImage.resizeMode.contain}
-            />
+            <TouchableOpacity>
+              <FastImage
+                style={styles.imageBell}
+                source={IconBell}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </TouchableOpacity>
           </View>
           <View style={styles.containerTop}>
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
@@ -97,7 +98,21 @@ const Home = () => {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.containerBottom} />
+        <View style={styles.container1} />
+        <Text style={styles.textBottom}>Active subsribtion</Text>
+        <View style={styles.containerRes}>
+          <FastImage
+            style={styles.imageSubsribtion}
+            source={NoBill}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+          <Text style={styles.textSubsribtion}>
+            You don't have any subscribtion
+          </Text>
+          <TouchableOpacity style={styles.buttonBottom} activeOpacity={0.5}>
+            <Text style={styles.buttonTextBottom}>Create New</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -113,8 +128,6 @@ const styles = StyleSheet.create({
   },
   containerSub: {
     backgroundColor: '#263765',
-    borderBottomLeftRadius: hp(7),
-    borderBottomRightRadius: hp(7),
   },
   containerHead: {
     flexDirection: 'row',
@@ -155,6 +168,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginLeft: wp(5),
     marginRight: wp(1),
+    top: hp(3),
   },
   textInButton: {
     top: moderateScale(20),
@@ -166,13 +180,61 @@ const styles = StyleSheet.create({
     marginTop: hp(2),
     marginBottom: hp(4),
   },
-  // containerBottom: {
-  //   width: 220,
-  //   height: 200,
-  //   borderRadius: 100,
-  //   backgroundColor: '#263765',
-  //   transform: [{scaleX: 2}],
-  //   marginLeft: 97,
-  //   top: -105,
-  // },
+  container1: {
+    backgroundColor: '#263765',
+    height: moderateScale(78),
+    width: moderateScale(210),
+    borderBottomLeftRadius: 85,
+    borderBottomRightRadius: 85,
+    borderRadius: 2,
+    transform: [{scaleX: 2}],
+    marginLeft: moderateScale(84),
+  },
+  textBottom: {
+    top: hp(5),
+    marginLeft: wp(5),
+    fontSize: moderateScale(16),
+    fontFamily: 'Montserrat-Regular',
+    fontWeight: 'bold',
+  },
+  containerRes: {
+    // display: 'flex',
+    borderRadius: moderateScale(10),
+    top: hp(7),
+    backgroundColor: 'white',
+    width: moderateScale(332),
+    height: moderateScale(285),
+    alignSelf: 'center',
+  },
+  imageSubsribtion: {
+    height: moderateScale(100),
+    width: moderateScale(150),
+    alignSelf: 'center',
+    top: moderateScale(40),
+  },
+  textSubsribtion: {
+    alignSelf: 'center',
+    fontSize: 14,
+    fontFamily: 'Montserrat-Regular',
+    fontWeight: 'bold',
+    top: moderateScale(42),
+  },
+  buttonBottom: {
+    backgroundColor: 'blue',
+    borderWidth: 0.5,
+    borderColor: 'white',
+    height: moderateScale(42),
+    width: moderateScale(308),
+    borderRadius: 5,
+    top: moderateScale(50),
+    alignSelf: 'center',
+  },
+  buttonTextBottom: {
+    fontSize: 20,
+    color: 'white',
+    alignSelf: 'center',
+    fontFamily: 'Montserrat-Regular',
+    fontWeight: 'bold',
+    top: moderateScale(6),
+  },
 });
