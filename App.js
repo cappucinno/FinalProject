@@ -3,6 +3,7 @@ import {StyleSheet, StatusBar, View} from 'react-native';
 import {Store} from './src/Store/Store';
 import {Provider} from 'react-redux';
 import Root from './Root';
+import BackgroundPurple from './src/Component/Background/BackgroundPurple';
 
 const App = () => {
   return (
