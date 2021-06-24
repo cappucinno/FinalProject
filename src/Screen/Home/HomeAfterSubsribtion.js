@@ -11,13 +11,13 @@ import FastImage from 'react-native-fast-image';
 import {
   IconBiller,
   IconBell,
-  IconBPJS,
-  IconElectricity,
-  IconInternet,
-  IconLandLine,
-  IconMobile,
-  IconPDAM,
-  IconSubscribtion,
+  IconBPJSActive,
+  IconElectricityActive,
+  IconInternetActive,
+  IconLandlineActive,
+  IconMobileActive,
+  IconPDAMActive,
+  NoBill,
 } from '../../Assets/Assets';
 import {
   widthPercentageToDP as wp,
@@ -49,7 +49,7 @@ const Home = () => {
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconElectricity}
-                source={IconElectricity}
+                source={IconElectricityActive}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>Electricity</Text>
@@ -57,7 +57,7 @@ const Home = () => {
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconMobile}
-                source={IconMobile}
+                source={IconMobileActive}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>Mobile</Text>
@@ -65,7 +65,7 @@ const Home = () => {
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconInternet}
-                source={IconInternet}
+                source={IconInternetActive}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>Internet & TV</Text>
@@ -75,7 +75,7 @@ const Home = () => {
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconLandline}
-                source={IconLandLine}
+                source={IconLandlineActive}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>Landline</Text>
@@ -83,7 +83,7 @@ const Home = () => {
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconBPJS}
-                source={IconBPJS}
+                source={IconBPJSActive}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>BPJS</Text>
@@ -91,7 +91,7 @@ const Home = () => {
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconPDAM}
-                source={IconPDAM}
+                source={IconPDAMActive}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>PDAM</Text>
@@ -103,15 +103,12 @@ const Home = () => {
         <View style={styles.containerRes}>
           <FastImage
             style={styles.imageSubsribtion}
-            source={IconSubscribtion}
+            source={NoBill}
             resizeMode={FastImage.resizeMode.contain}
           />
           <Text style={styles.textSubsribtion}>
-            You don't have any subscribtion
+            No upcoming bill right now!
           </Text>
-          <TouchableOpacity style={styles.buttonBottom} activeOpacity={0.5}>
-            <Text style={styles.buttonTextBottom}>Create New</Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -235,34 +232,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   imageSubsribtion: {
-    height: moderateScale(100),
-    width: moderateScale(150),
+    height: moderateScale(160),
+    width: moderateScale(215),
     alignSelf: 'center',
     top: moderateScale(40),
   },
   textSubsribtion: {
     alignSelf: 'center',
-    fontSize: 14,
+    fontSize: 18,
     fontFamily: 'Montserrat-Regular',
     fontWeight: 'bold',
-    top: moderateScale(42),
-  },
-  buttonBottom: {
-    backgroundColor: 'blue',
-    borderWidth: 0.5,
-    borderColor: 'white',
-    height: moderateScale(42),
-    width: moderateScale(308),
-    borderRadius: 5,
-    top: moderateScale(50),
-    alignSelf: 'center',
-  },
-  buttonTextBottom: {
-    fontSize: 20,
-    color: 'white',
-    alignSelf: 'center',
-    fontFamily: 'Montserrat-Regular',
-    fontWeight: 'bold',
-    top: moderateScale(6),
+    top: moderateScale(45),
   },
 });
