@@ -29,7 +29,8 @@ import {IconFilter} from '../../Assets/Assets';
 import PaymentCardHome from '../../Component/PaymentCardHome/PaymentCardHome';
 
 const Home = () => {
-  const subscribtion = false;
+  const subscribtion = true;
+  const listValue = [];
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -107,25 +108,29 @@ const Home = () => {
           </View>
         </View>
         <View style={styles.container1} />
-        <Text style={styles.textSubsribtion}>Active Subscriptions</Text>
         {/* DATA ada */}
         {subscribtion ? (
           <View>
+            <Text style={styles.textSubsribtion}>Ongoing Purchase</Text>
+            <PaymentCardHome late={false} success={false} ongoing={true} />
+            <Text style={styles.textSubsribtion}>Active Subscriptions</Text>
             <PaymentCardHome late={true} />
             <PaymentCardHome late={false} success={false} />
           </View>
         ) : (
-          <View style={styles.containerRes}>
-            <FastImage
-              style={styles.imageSubsribtion}
-              source={IconSubscribtion}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-            <Text style={styles.textSubsribtion}>
-              You don't have any subscribtion
-            </Text>
-            <TouchableOpacity style={styles.buttonBottom} activeOpacity={0.5}>
-              <Text style={styles.buttonTextBottom}>Create New</Text>
+          <View style={styles.ContainerImgSub}>
+            <View style={styles.ImgSub}>
+              <FastImage
+                style={styles.Subscription}
+                source={IconSubscribtion}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </View>
+            <Text style={styles.TextSubs}>You don't have any subscribtion</Text>
+            <TouchableOpacity style={styles.ContainerButtonSubs}>
+              <View style={styles.ButtonSubs}>
+                <Text style={styles.TextButtonSubs}>Create New</Text>
+              </View>
             </TouchableOpacity>
           </View>
         )}
@@ -142,6 +147,7 @@ export default Home;
 const styles = StyleSheet.create({
   Grow: {
     flexGrow: 1,
+    paddingBottom: moderateScale(100),
   },
   containerSub: {
     // paddingBottom: moderateScale(100),
@@ -161,7 +167,7 @@ const styles = StyleSheet.create({
   imageBell: {
     height: hp(5),
     width: wp(5),
-    marginLeft: moderateScale(260),
+    marginLeft: moderateScale(250),
   },
   StyleText: {
     color: 'white',
@@ -211,14 +217,15 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     alignItems: 'center',
+    elevation: 10,
     backgroundColor: 'white',
-    borderWidth: 0.5,
+    borderWidth: 2,
     borderColor: 'white',
-    height: hp(12),
-    width: wp(26),
+    height: moderateScale(90),
+    width: moderateScale(93),
     borderRadius: 20,
-    marginLeft: wp(5),
-    marginRight: wp(1),
+    marginLeft: moderateScale(20),
+    marginRight: moderateScale(9),
     top: hp(3),
   },
   textInButton: {
@@ -243,37 +250,58 @@ const styles = StyleSheet.create({
     top: moderateScale(30),
     marginLeft: wp(5),
   },
-  containerRes: {
-    // display: 'flex',
+  ContainerImgSub: {
+    marginTop: hp(10),
     borderRadius: moderateScale(20),
-    top: hp(7),
     backgroundColor: 'white',
-    width: moderateScale(332),
-    height: moderateScale(285),
+    borderWidth: 2,
+    borderColor: '#ddd',
+    elevation: 10,
+    width: wp(90),
+    height: hp(39),
     alignSelf: 'center',
   },
-  imageSubsribtion: {
-    height: moderateScale(100),
-    width: moderateScale(150),
-    alignSelf: 'center',
-    top: moderateScale(40),
+  ImgSub: {
+    alignItems: 'center',
   },
-  buttonBottom: {
-    backgroundColor: 'blue',
-    borderWidth: 0.5,
-    borderColor: 'white',
-    height: moderateScale(42),
-    width: moderateScale(308),
-    borderRadius: 5,
-    top: moderateScale(50),
-    alignSelf: 'center',
+  Subscription: {
+    height: moderateScale(107),
+    width: moderateScale(154),
+    justifyContent: 'center',
+    top: moderateScale(45),
+    // color: COLOR.purple.purpleBold,
+    fontSize: moderateScale(13),
   },
-  buttonTextBottom: {
-    fontSize: 20,
+  TextSubs: {
+    // color: COLOR.purple.purpleBold,
+    fontSize: moderateScale(15),
+    fontFamily: 'Montserrat-Bold',
+    alignSelf: 'center',
+    top: moderateScale(65),
+    paddingBottom: moderateScale(18),
+  },
+  ContainerButtonSubs: {
+    alignSelf: 'center',
+    top: moderateScale(75),
+    backgroundColor: '#4493AC',
+    borderTopStartRadius: moderateScale(5),
+    borderTopEndRadius: moderateScale(5),
+    borderBottomStartRadius: moderateScale(5),
+    borderBottomEndRadius: moderateScale(5),
+    height: hp(6),
+    width: wp(80),
+  },
+  ButtonSubs: {
     color: 'white',
+    fontSize: moderateScale(21),
+    paddingTop: moderateScale(5),
+    fontFamily: 'Montserrat-Bold',
+  },
+  TextButtonSubs: {
     alignSelf: 'center',
-    fontFamily: 'Montserrat-Regular',
-    fontWeight: 'bold',
-    top: moderateScale(6),
+    color: 'white',
+    fontSize: moderateScale(18),
+    fontFamily: 'Montserrat-Bold',
+    paddingTop: moderateScale(5),
   },
 });

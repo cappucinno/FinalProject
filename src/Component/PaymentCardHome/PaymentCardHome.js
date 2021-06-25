@@ -10,25 +10,22 @@ import {
   IconFilter,
   IconElectricity,
   InfoSubscription,
+  PLN,
 } from '../../Assets/Assets';
 import {COLOR} from '../../Assets/Color/Color';
 
-const PaymentCard = ({
-  late = false,
-  success = false,
-  ongoing = false,
-  Nonsubscribtion = false,
-}) => {
+const PaymentCard = ({late = false, success = false, ongoing = false}) => {
   const styles = StyleSheet.create({
     ContainerRes: {
       display: 'flex',
       borderRadius: moderateScale(20),
       backgroundColor: 'white',
       width: widthPercentageToDP(90),
-      height: heightPercentageToDP(50),
+      height: ongoing ? heightPercentageToDP(45) : heightPercentageToDP(48),
       alignSelf: 'center',
-      marginBottom: moderateScale(16),
+      marginBottom: moderateScale(40),
       top: moderateScale(50),
+      elevation: 10,
     },
     ContainerFild: {
       display: 'flex',
@@ -47,7 +44,7 @@ const PaymentCard = ({
       alignItems: 'center',
     },
     status: {
-      backgroundColor: late ? '#EB5757' : '#4493AC',
+      backgroundColor: late ? '#EB5757' : ongoing ? '#263765' : '#4493AC',
       borderTopStartRadius: moderateScale(20),
       borderTopEndRadius: moderateScale(20),
       height: heightPercentageToDP(5),
@@ -71,16 +68,17 @@ const PaymentCard = ({
       fontSize: moderateScale(11),
       fontFamily: 'Montserrat-Bold',
       alignSelf: 'flex-end',
-      padding: moderateScale(18),
+      // padding: moderateScale(18),
+      top: moderateScale(18),
+      right: moderateScale(9),
     },
-
     containerbill: {
       paddingTop: moderateScale(10),
       flexDirection: 'row',
       justifyContent: 'flex-start',
       paddingRight: widthPercentageToDP(9),
+      top: moderateScale(23),
     },
-
     ContainerIconPayment: {
       display: 'flex',
       borderRadius: moderateScale(5),
@@ -97,15 +95,15 @@ const PaymentCard = ({
     ContainerListBill: {
       flexDirection: 'row',
       justifyContent: 'space-evenly',
-      backgroundColor: 'red',
+      backgroundColor: 'white',
     },
     //nama List
     TextIcon1: {
       color: '#333333',
       fontSize: moderateScale(12),
       fontFamily: 'Montserrat-Bold',
-      marginLeft: moderateScale(128),
-      paddingRight: moderateScale(20),
+      marginLeft: moderateScale(24),
+      paddingRight: moderateScale(100),
       backgroundColor: 'white',
     },
     TextIcon2: {
@@ -130,18 +128,25 @@ const PaymentCard = ({
       color: '#EB5757',
       fontSize: moderateScale(10),
       fontFamily: 'Montserrat-Bold',
+      top: moderateScale(20),
     },
     TextCount2: {
       color: '#828282',
       fontSize: moderateScale(12),
       fontFamily: 'Montserrat-Bold',
-      paddingLeft: widthPercentageToDP(24),
-      paddingRight: moderateScale(150),
+      paddingLeft: widthPercentageToDP(21),
+      paddingRight: moderateScale(100),
+      top: moderateScale(20),
     },
 
     ContainerTotalCount: {
       paddingRight: moderateScale(20),
       paddingTop: moderateScale(20),
+      top: ongoing
+        ? moderateScale(30)
+        : late
+        ? moderateScale(20)
+        : moderateScale(40),
     },
 
     TotalCount: {
@@ -157,7 +162,6 @@ const PaymentCard = ({
       paddingRight: moderateScale(10),
       paddingLeft: moderateScale(10),
     },
-
     TextTotal: {
       color: '#000000',
       fontSize: 12,
@@ -177,6 +181,11 @@ const PaymentCard = ({
       height: heightPercentageToDP(6),
       width: widthPercentageToDP(80),
       alignItems: 'center',
+      top: ongoing
+        ? moderateScale(40)
+        : late
+        ? moderateScale(20)
+        : moderateScale(40),
     },
     ContainerButton: {
       alignItems: 'center',
@@ -209,19 +218,28 @@ const PaymentCard = ({
   });
   return (
     <View style={styles.ContainerRes}>
-      <View style={styles.status}>
-        <Text style={styles.textStatus}> Last payment date:</Text>
-        <Text style={styles.textResStatus}> 30 May 2021</Text>
-      </View>
+      {ongoing ? (
+        <View style={styles.status}>
+          <Text style={styles.textStatus}> Complete your payment in</Text>
+          <Text style={styles.textResStatus}> 59min 59s </Text>
+        </View>
+      ) : (
+        <View style={styles.status}>
+          <Text style={styles.textStatus}> Last payment date:</Text>
+          <Text style={styles.textResStatus}> 30 May 2021</Text>
+        </View>
+      )}
       <View style={styles.ContainerFild}>
-        <Text style={styles.StatusBilled}>Billed Every Monday</Text>
+        {ongoing ? null : (
+          <Text style={styles.StatusBilled}>Billed Every Monday</Text>
+        )}
 
         {/* LIST PAYMENT */}
         <View style={styles.containerbill}>
           <View style={styles.ContainerIconPayment}>
             <FastImage
               style={styles.IconPayment}
-              source={IconElectricity}
+              source={PLN}
               resizeMode={FastImage.resizeMode.contain}
             />
           </View>
@@ -230,14 +248,14 @@ const PaymentCard = ({
               <Text style={styles.TextIcon1}>PLN - Token</Text>
               <Text style={styles.TextIcon2}>141234567890</Text>
             </View>
-            <Text style={styles.TextIcon3}>Rp.50000</Text>
+            <Text style={styles.TextIcon3}>Rp.51.500</Text>
           </View>
         </View>
         <View style={styles.containerbill}>
           <View style={styles.ContainerIconPayment}>
             <FastImage
               style={styles.IconPayment}
-              source={IconElectricity}
+              source={PLN}
               resizeMode={FastImage.resizeMode.contain}
             />
           </View>
@@ -246,19 +264,19 @@ const PaymentCard = ({
               <Text style={styles.TextIcon1}>PLN - Token</Text>
               <Text style={styles.TextIcon2}>141234567890</Text>
             </View>
-            <Text style={styles.TextIcon3}>Rp.500</Text>
+            <Text style={styles.TextIcon3}>Rp. 51.500</Text>
           </View>
         </View>
         {late ? (
           <View style={styles.CountDayLeft}>
             <Text style={styles.TextCount}>1 day late payment fee (0,5%)</Text>
-            <Text style={styles.TextCount2}>Rp.5000</Text>
+            <Text style={styles.TextCount2}>Rp. 5.150</Text>
           </View>
         ) : null}
         <View style={styles.ContainerTotalCount}>
           <View style={styles.TotalCount}>
             <Text style={styles.TextTotal}>Total</Text>
-            <Text style={styles.TextTotalCount}>Rp.100000</Text>
+            <Text style={styles.TextTotalCount}>Rp. 108.150</Text>
           </View>
         </View>
         {success ? (
@@ -287,9 +305,15 @@ const PaymentCard = ({
           </View>
         ) : (
           <TouchableOpacity style={styles.ContainerButton}>
-            <View style={styles.ButtonPay}>
-              <Text style={styles.TextButton}>Pay</Text>
-            </View>
+            {ongoing ? (
+              <View style={styles.ButtonPay}>
+                <Text style={styles.TextButton}>Confirm Payment</Text>
+              </View>
+            ) : (
+              <View style={styles.ButtonPay}>
+                <Text style={styles.TextButton}>Pay</Text>
+              </View>
+            )}
           </TouchableOpacity>
         )}
       </View>

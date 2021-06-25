@@ -99,19 +99,59 @@ const Home = () => {
           </View>
         </View>
         <View style={styles.container1} />
-        <Text style={styles.textBottom}>Active subsribtion</Text>
-        <View style={styles.containerRes}>
-          <FastImage
-            style={styles.imageSubsribtion}
-            source={IconSubscribtion}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-          <Text style={styles.textSubsribtion}>
-            You don't have any subscribtion
-          </Text>
-          <TouchableOpacity style={styles.buttonBottom} activeOpacity={0.5}>
-            <Text style={styles.buttonTextBottom}>Create New</Text>
-          </TouchableOpacity>
+        <Text style={styles.textBottom}>Ongoing Purchase</Text>
+        {/* Tubuh Cardnya */}
+        <View style={styles.ContainerRes}>
+          <View style={styles.status}>
+            <Text style={styles.textStatus}> Complete your payment in</Text>
+            <Text style={styles.textResStatus}> 59min 59s </Text>
+          </View>
+          <View style={styles.ContainerFild}>
+            {/* LIST PAYMENT */}
+            <View style={styles.containerbill}>
+              <View style={styles.ContainerIconPayment}>
+                <FastImage
+                  style={styles.IconPayment}
+                  source={IconElectricity}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
+              <View style={styles.ContainerListBill}>
+                <View>
+                  <Text style={styles.TextIcon1}>PLN - Token</Text>
+                  <Text style={styles.TextIcon2}>141234567890</Text>
+                </View>
+                <Text style={styles.TextIcon3}>Rp.50000</Text>
+              </View>
+            </View>
+            <View style={styles.containerbill}>
+              <View style={styles.ContainerIconPayment}>
+                <FastImage
+                  style={styles.IconPayment}
+                  source={IconElectricity}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
+              <View style={styles.ContainerListBill}>
+                <View>
+                  <Text style={styles.TextIcon1}>PLN - Token</Text>
+                  <Text style={styles.TextIcon2}>141234567890</Text>
+                </View>
+                <Text style={styles.TextIcon3}>Rp.500</Text>
+              </View>
+            </View>
+            <View style={styles.ContainerTotalCount}>
+              <View style={styles.TotalCount}>
+                <Text style={styles.TextTotal}>Total</Text>
+                <Text style={styles.TextTotalCount}>Rp.100000</Text>
+              </View>
+            </View>
+            <TouchableOpacity style={styles.ContainerButton}>
+              <View style={styles.ButtonPay}>
+                <Text style={styles.TextButton}>Confirm Payment</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -123,6 +163,7 @@ export default Home;
 const styles = StyleSheet.create({
   Grow: {
     flexGrow: 1,
+    paddingBottom: moderateScale(100),
   },
   container: {
     backgroundColor: 'white',
@@ -225,15 +266,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Regular',
     fontWeight: 'bold',
   },
-  containerRes: {
-    // display: 'flex',
-    borderRadius: moderateScale(20),
-    top: hp(7),
-    backgroundColor: 'white',
-    width: moderateScale(332),
-    height: moderateScale(285),
-    alignSelf: 'center',
-  },
   imageSubsribtion: {
     height: moderateScale(100),
     width: moderateScale(150),
@@ -264,5 +296,137 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Regular',
     fontWeight: 'bold',
     top: moderateScale(6),
+  },
+  ContainerRes: {
+    borderRadius: moderateScale(20),
+    backgroundColor: 'white',
+    width: wp(90),
+    height: hp(35),
+    alignSelf: 'center',
+    marginBottom: moderateScale(1),
+    top: moderateScale(50),
+  },
+  status: {
+    backgroundColor: '#EB5757',
+    borderTopStartRadius: moderateScale(20),
+    borderTopEndRadius: moderateScale(20),
+    height: hp(5),
+    padding: moderateScale(10),
+    flexDirection: 'row',
+  },
+  textStatus: {
+    color: 'white',
+    fontSize: moderateScale(9),
+    fontFamily: 'Montserrat-Regular',
+    paddingLeft: moderateScale(10),
+  },
+  textResStatus: {
+    color: 'white',
+    fontSize: moderateScale(10),
+    fontFamily: 'Montserrat-Bold',
+    paddingLeft: moderateScale(5),
+  },
+  ContainerFild: {
+    display: 'flex',
+    borderRadius: moderateScale(20),
+    backgroundColor: 'white',
+    width: wp(90),
+    height: hp(32),
+    alignSelf: 'center',
+    paddingLeft: wp(5),
+  },
+  containerbill: {
+    paddingTop: moderateScale(10),
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    paddingRight: wp(9),
+  },
+  ContainerIconPayment: {
+    display: 'flex',
+    borderRadius: moderateScale(5),
+    backgroundColor: '#EBEDF4',
+    width: wp(9),
+    height: hp(5),
+  },
+  IconPayment: {
+    height: hp(5),
+    width: wp(3),
+    alignSelf: 'center',
+  },
+  ContainerListBill: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    backgroundColor: 'red',
+  },
+  //nama List
+  TextIcon1: {
+    color: '#333333',
+    fontSize: moderateScale(12),
+    fontFamily: 'Montserrat-Bold',
+    marginLeft: moderateScale(128),
+    paddingRight: moderateScale(20),
+    backgroundColor: 'white',
+  },
+  TextIcon2: {
+    color: '#828282',
+    fontSize: moderateScale(12),
+    fontFamily: 'Montserrat-Bold',
+    marginLeft: moderateScale(24),
+  },
+  // Uang
+  TextIcon3: {
+    color: '#828282',
+    fontSize: moderateScale(12),
+    fontFamily: 'Montserrat-Bold',
+
+    paddingLeft: moderateScale(2),
+  },
+  ContainerTotalCount: {
+    paddingRight: moderateScale(20),
+    paddingTop: moderateScale(20),
+  },
+  TotalCount: {
+    backgroundColor: '#EBEDF4',
+    borderTopStartRadius: moderateScale(5),
+    borderTopEndRadius: moderateScale(5),
+    borderBottomStartRadius: moderateScale(5),
+    borderBottomEndRadius: moderateScale(5),
+    height: hp(6),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingRight: moderateScale(10),
+    paddingLeft: moderateScale(10),
+  },
+  TextTotal: {
+    color: '#000000',
+    fontSize: 12,
+    fontFamily: 'Montserrat-Regular',
+  },
+  TextTotalCount: {
+    color: '#000000',
+    fontSize: 12,
+    fontFamily: 'Montserrat-Bold',
+  },
+  ContainerButton: {
+    alignItems: 'center',
+    paddingRight: wp(5),
+    marginTop: moderateScale(15),
+  },
+  ButtonPay: {
+    backgroundColor: '#4493AC',
+    borderTopStartRadius: moderateScale(5),
+    borderTopEndRadius: moderateScale(5),
+    borderBottomStartRadius: moderateScale(5),
+    borderBottomEndRadius: moderateScale(5),
+    height: hp(6),
+    width: wp(80),
+    alignItems: 'center',
+  },
+  TextButton: {
+    color: 'white',
+    fontSize: moderateScale(21),
+    fontFamily: 'Montserrat-Bold',
+    paddingTop: moderateScale(5),
   },
 });
