@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -18,6 +18,7 @@ import {
   IconMobile,
   IconPDAM,
   IconSubscribtion,
+  NoBill,
 } from '../../Assets/Assets';
 import {
   widthPercentageToDP as wp,
@@ -29,8 +30,12 @@ import {IconFilter} from '../../Assets/Assets';
 import PaymentCardHome from '../../Component/PaymentCardHome/PaymentCardHome';
 
 const Home = () => {
-  const subscribtion = true;
-  const listValue = [];
+  // const subscribtion = false;
+  const [subscribtion, Setsubsribtion] = useState(true);
+  const [tagihan, Settagihan] = useState(true);
+  // subcribtion false tagihan false = Layar create
+  // subcribtion true tagihan true = Layar tagihan
+  // subcription true tagihan false = Layar No bill
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -109,7 +114,7 @@ const Home = () => {
         </View>
         <View style={styles.container1} />
         {/* DATA ada */}
-        {subscribtion ? (
+        {subscribtion && tagihan ? (
           <View>
             <Text style={styles.textSubsribtion}>Ongoing Purchase</Text>
             <PaymentCardHome late={false} success={false} ongoing={true} />
@@ -117,21 +122,45 @@ const Home = () => {
             <PaymentCardHome late={true} />
             <PaymentCardHome late={false} success={false} />
           </View>
-        ) : (
-          <View style={styles.ContainerImgSub}>
-            <View style={styles.ImgSub}>
-              <FastImage
-                style={styles.Subscription}
-                source={IconSubscribtion}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </View>
-            <Text style={styles.TextSubs}>You don't have any subscribtion</Text>
-            <TouchableOpacity style={styles.ContainerButtonSubs}>
+        ) : subscribtion && tagihan === false ? (
+          <View>
+            <Text style={styles.textSubsribtion}>Active subscribtion</Text>
+            <View style={styles.ContainerImgSub}>
+              <View style={styles.ImgSub}>
+                <FastImage
+                  style={styles.Subscription}
+                  source={NoBill}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
+              <Text style={styles.TextSubs}>No upcoming bill right now!</Text>
+              {/* <TouchableOpacity style={styles.ContainerButtonSubs}>
               <View style={styles.ButtonSubs}>
                 <Text style={styles.TextButtonSubs}>Create New</Text>
               </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+            </View>
+          </View>
+        ) : (
+          <View>
+            <Text style={styles.textSubsribtion}>Active subscribtion</Text>
+            <View style={styles.ContainerImgSub}>
+              <View style={styles.ImgSub}>
+                <FastImage
+                  style={styles.Subscription}
+                  source={IconSubscribtion}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
+              <Text style={styles.TextSubs}>
+                You don't have any subscribtion
+              </Text>
+              <TouchableOpacity style={styles.ContainerButtonSubs}>
+                <View style={styles.ButtonSubs}>
+                  <Text style={styles.TextButtonSubs}>Create New</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
 
