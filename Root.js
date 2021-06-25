@@ -11,6 +11,7 @@ import {
   SignUp,
   FilterSubscription,
   Subscription,
+  RecurringBilling,
 } from './src/Screen/Screen';
 
 import {BottomNav} from './src/Component/Component';
@@ -21,7 +22,7 @@ const Root = () => {
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
-    }, 1000);
+    }, 9000);
   }, []);
 
   return (
@@ -45,6 +46,11 @@ const Root = () => {
         <Stack.Screen
           name="FilterSubscription"
           component={FilterSubscription}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="RecurringBilling"
+          component={RecurringBilling}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

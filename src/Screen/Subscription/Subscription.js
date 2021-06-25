@@ -21,10 +21,11 @@ import {COLOR} from '../../Assets/Color/Color';
 
 const Subscription = props => {
   const [visible, setVisible] = useState(false);
-  const subscribtion = false;
+  const subscribtion = true;
   const CreateSubs = () => {
     setVisible(!visible);
   };
+
   return (
     <SafeAreaView style={{flex: 1}}>
       {/* Headerr  */}
@@ -54,12 +55,22 @@ const Subscription = props => {
             <View style={styles.ContainerTexFil}>
               <Text style={styles.textfil}>Planing</Text>
             </View>
+            <View style={styles.ContainerTexFil}>
+              <Text style={styles.textfil}>Actived</Text>
+            </View>
+            <View style={styles.ContainerTexFil}>
+              <Text style={styles.textfil}>Actived</Text>
+            </View>
           </View>
           {/* DATA ada */}
           {subscribtion ? (
             <View>
-              <PaymentCard late={true} />
-              <PaymentCard late={false} success={false} />
+              <PaymentCard late={true} navigation={props.navigation} />
+              <PaymentCard
+                late={false}
+                success={false}
+                navigation={props.navigation}
+              />
               <PaymentCard success={true} />
             </View>
           ) : (
@@ -127,11 +138,10 @@ const styles = StyleSheet.create({
   },
   ResFilter: {
     flexDirection: 'row',
-    alignItems: 'center',
-    paddingBottom: heightPercentageToDP(5),
-    paddingTop: heightPercentageToDP(1),
-    paddingLeft: widthPercentageToDP(5),
-    paddingRight: widthPercentageToDP(7),
+    marginTop: heightPercentageToDP(3),
+    marginLeft: widthPercentageToDP(5),
+    marginRight: widthPercentageToDP(5),
+    marginBottom: heightPercentageToDP(7),
   },
   ContainerTexFil: {
     display: 'flex',
