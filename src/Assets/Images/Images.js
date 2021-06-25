@@ -16,6 +16,7 @@ import IconSubscribtion from './IconSubscribtion.png';
 import ArrowBack from './ArrowBack.png';
 import CheckActive from './CheckActive.png';
 import CheckBox1 from './CheckBox.png';
+import PLN from './PLN.png';
 
 export {
   IconBell,
@@ -36,4 +37,5 @@ export {
   ArrowBack,
   CheckActive,
   CheckBox1,
+  PLN,
 };

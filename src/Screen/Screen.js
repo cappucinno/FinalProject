@@ -1,4 +1,5 @@
 import Home from './Home/HomeAfterSubsribtion';
+// import Home from './Home/Home';
 import Account from './Account/Account';
 import History from './History/History';
 import Subscription from './Subscription/Subscription';

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -11,12 +11,13 @@ import FastImage from 'react-native-fast-image';
 import {
   IconBiller,
   IconBell,
-  IconBPJSActive,
-  IconElectricityActive,
-  IconInternetActive,
-  IconLandlineActive,
-  IconMobileActive,
-  IconPDAMActive,
+  IconBPJS,
+  IconElectricity,
+  IconInternet,
+  IconLandLine,
+  IconMobile,
+  IconPDAM,
+  IconSubscribtion,
   NoBill,
 } from '../../Assets/Assets';
 import {
@@ -24,12 +25,25 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {moderateScale} from 'react-native-size-matters';
+import BackgroundPurple from '../../Component/Background/BackgroundPurple';
+import {IconFilter} from '../../Assets/Assets';
+import PaymentCardHome from '../../Component/PaymentCardHome/PaymentCardHome';
 
 const Home = () => {
+  // const subscribtion = false;
+  const [subscribtion, Setsubsribtion] = useState(true);
+  const [tagihan, Settagihan] = useState(true);
+  // subcribtion false tagihan false = Layar create
+  // subcribtion true tagihan true = Layar tagihan
+  // subcription true tagihan false = Layar No bill
+
   return (
     <SafeAreaView style={{flex: 1}}>
-      <ScrollView contentContainerStyle={styles.Grow}>
-        <View style={styles.containerSub}>
+      {/* Headerr  */}
+      <ScrollView
+        contentContainerStyle={styles.Grow}
+        style={styles.containerSub}>
+        <View style={styles.containerFull}>
           <View style={styles.containerHead}>
             <FastImage
               style={styles.imageBiller}
@@ -49,7 +63,7 @@ const Home = () => {
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconElectricity}
-                source={IconElectricityActive}
+                source={IconElectricity}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>Electricity</Text>
@@ -57,7 +71,7 @@ const Home = () => {
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconMobile}
-                source={IconMobileActive}
+                source={IconMobile}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>Mobile</Text>
@@ -65,7 +79,7 @@ const Home = () => {
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconInternet}
-                source={IconInternetActive}
+                source={IconInternet}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>Internet & TV</Text>
@@ -75,7 +89,7 @@ const Home = () => {
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconLandline}
-                source={IconLandlineActive}
+                source={IconLandLine}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>Landline</Text>
@@ -83,7 +97,7 @@ const Home = () => {
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconBPJS}
-                source={IconBPJSActive}
+                source={IconBPJS}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>BPJS</Text>
@@ -91,7 +105,7 @@ const Home = () => {
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconPDAM}
-                source={IconPDAMActive}
+                source={IconPDAM}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>PDAM</Text>
@@ -99,17 +113,59 @@ const Home = () => {
           </View>
         </View>
         <View style={styles.container1} />
-        <Text style={styles.textBottom}>Active subsribtion</Text>
-        <View style={styles.containerRes}>
-          <FastImage
-            style={styles.imageSubsribtion}
-            source={NoBill}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-          <Text style={styles.textSubsribtion}>
-            No upcoming bill right now!
-          </Text>
-        </View>
+        {/* DATA ada */}
+        {subscribtion && tagihan ? (
+          <View>
+            <Text style={styles.textSubsribtion}>Ongoing Purchase</Text>
+            <PaymentCardHome late={false} success={false} ongoing={true} />
+            <Text style={styles.textSubsribtion}>Active Subscriptions</Text>
+            <PaymentCardHome late={true} />
+            <PaymentCardHome late={false} success={false} />
+          </View>
+        ) : subscribtion && tagihan === false ? (
+          <View>
+            <Text style={styles.textSubsribtion}>Active subscribtion</Text>
+            <View style={styles.ContainerImgSub}>
+              <View style={styles.ImgSub}>
+                <FastImage
+                  style={styles.Subscription}
+                  source={NoBill}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
+              <Text style={styles.TextSubs}>No upcoming bill right now!</Text>
+              {/* <TouchableOpacity style={styles.ContainerButtonSubs}>
+              <View style={styles.ButtonSubs}>
+                <Text style={styles.TextButtonSubs}>Create New</Text>
+              </View>
+            </TouchableOpacity> */}
+            </View>
+          </View>
+        ) : (
+          <View>
+            <Text style={styles.textSubsribtion}>Active subscribtion</Text>
+            <View style={styles.ContainerImgSub}>
+              <View style={styles.ImgSub}>
+                <FastImage
+                  style={styles.Subscription}
+                  source={IconSubscribtion}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
+              <Text style={styles.TextSubs}>
+                You don't have any subscribtion
+              </Text>
+              <TouchableOpacity style={styles.ContainerButtonSubs}>
+                <View style={styles.ButtonSubs}>
+                  <Text style={styles.TextButtonSubs}>Create New</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+
+        {/* <PaymentCardHome late={true} />
+        <PaymentCardHome late={false} success={false} /> */}
       </ScrollView>
     </SafeAreaView>
   );
@@ -120,13 +176,13 @@ export default Home;
 const styles = StyleSheet.create({
   Grow: {
     flexGrow: 1,
-  },
-  container: {
-    backgroundColor: 'white',
-    height: hp(100),
-    width: wp(100),
+    paddingBottom: moderateScale(100),
   },
   containerSub: {
+    // paddingBottom: moderateScale(100),
+    backgroundColor: 'white',
+  },
+  containerFull: {
     backgroundColor: '#263765',
   },
   containerHead: {
@@ -140,7 +196,7 @@ const styles = StyleSheet.create({
   imageBell: {
     height: hp(5),
     width: wp(5),
-    marginLeft: moderateScale(260),
+    marginLeft: moderateScale(250),
   },
   StyleText: {
     color: 'white',
@@ -168,6 +224,11 @@ const styles = StyleSheet.create({
     width: moderateScale(40),
     top: moderateScale(12),
   },
+  containerMiddle: {
+    flexDirection: 'row',
+    marginTop: hp(2),
+    marginBottom: hp(4),
+  },
   imageIconLandline: {
     height: moderateScale(44),
     width: moderateScale(40),
@@ -185,25 +246,21 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     alignItems: 'center',
+    elevation: 10,
     backgroundColor: 'white',
-    borderWidth: 0.5,
+    borderWidth: 2,
     borderColor: 'white',
-    height: hp(12),
-    width: wp(26),
+    height: moderateScale(90),
+    width: moderateScale(93),
     borderRadius: 20,
-    marginLeft: wp(5),
-    marginRight: wp(1),
+    marginLeft: moderateScale(20),
+    marginRight: moderateScale(9),
     top: hp(3),
   },
   textInButton: {
     top: moderateScale(20),
     fontFamily: 'Montserrat-Regular',
     fontWeight: 'bold',
-  },
-  containerMiddle: {
-    flexDirection: 'row',
-    marginTop: hp(2),
-    marginBottom: hp(4),
   },
   container1: {
     backgroundColor: '#263765',
@@ -215,33 +272,65 @@ const styles = StyleSheet.create({
     transform: [{scaleX: 2}],
     marginLeft: moderateScale(84),
   },
-  textBottom: {
-    top: hp(5),
-    marginLeft: wp(5),
-    fontSize: moderateScale(16),
-    fontFamily: 'Montserrat-Regular',
-    fontWeight: 'bold',
-  },
-  containerRes: {
-    // display: 'flex',
-    borderRadius: moderateScale(20),
-    top: hp(7),
-    backgroundColor: 'white',
-    width: moderateScale(332),
-    height: moderateScale(285),
-    alignSelf: 'center',
-  },
-  imageSubsribtion: {
-    height: moderateScale(160),
-    width: moderateScale(215),
-    alignSelf: 'center',
-    top: moderateScale(40),
-  },
   textSubsribtion: {
-    alignSelf: 'center',
     fontSize: 18,
     fontFamily: 'Montserrat-Regular',
     fontWeight: 'bold',
+    top: moderateScale(30),
+    marginLeft: wp(5),
+  },
+  ContainerImgSub: {
+    marginTop: hp(10),
+    borderRadius: moderateScale(20),
+    backgroundColor: 'white',
+    borderWidth: 2,
+    borderColor: '#ddd',
+    elevation: 10,
+    width: wp(90),
+    height: hp(39),
+    alignSelf: 'center',
+  },
+  ImgSub: {
+    alignItems: 'center',
+  },
+  Subscription: {
+    height: moderateScale(107),
+    width: moderateScale(154),
+    justifyContent: 'center',
     top: moderateScale(45),
+    // color: COLOR.purple.purpleBold,
+    fontSize: moderateScale(13),
+  },
+  TextSubs: {
+    // color: COLOR.purple.purpleBold,
+    fontSize: moderateScale(15),
+    fontFamily: 'Montserrat-Bold',
+    alignSelf: 'center',
+    top: moderateScale(65),
+    paddingBottom: moderateScale(18),
+  },
+  ContainerButtonSubs: {
+    alignSelf: 'center',
+    top: moderateScale(75),
+    backgroundColor: '#4493AC',
+    borderTopStartRadius: moderateScale(5),
+    borderTopEndRadius: moderateScale(5),
+    borderBottomStartRadius: moderateScale(5),
+    borderBottomEndRadius: moderateScale(5),
+    height: hp(6),
+    width: wp(80),
+  },
+  ButtonSubs: {
+    color: 'white',
+    fontSize: moderateScale(21),
+    paddingTop: moderateScale(5),
+    fontFamily: 'Montserrat-Bold',
+  },
+  TextButtonSubs: {
+    alignSelf: 'center',
+    color: 'white',
+    fontSize: moderateScale(18),
+    fontFamily: 'Montserrat-Bold',
+    paddingTop: moderateScale(5),
   },
 });
