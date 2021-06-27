@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -18,17 +18,31 @@ import {
   IconMobile,
   IconPDAM,
   IconSubscribtion,
+  NoBill,
 } from '../../Assets/Assets';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {moderateScale} from 'react-native-size-matters';
+import BackgroundPurple from '../../Component/Background/BackgroundPurple';
+import {IconFilter} from '../../Assets/Assets';
+import PaymentCardHome from '../../Component/PaymentCardHome/PaymentCardHome';
 
 const Home = () => {
+  // const subscribtion = false;
+  const [subscribtion, Setsubsribtion] = useState(true);
+  const [tagihan, Settagihan] = useState(false);
+  // subcribtion false tagihan false = Layar create
+  // subcribtion true tagihan true = Layar tagihan
+  // subcription true tagihan false = Layar No bill
+
   return (
     <SafeAreaView style={{flex: 1}}>
-      <ScrollView contentContainerStyle={styles.Grow}>
+      {/* Headerr  */}
+      <ScrollView
+        contentContainerStyle={styles.Grow}
+        style={styles.containerSub}>
         <View style={styles.containerFull}>
           <View style={styles.containerHead}>
             <FastImage
@@ -99,60 +113,59 @@ const Home = () => {
           </View>
         </View>
         <View style={styles.container1} />
-        <Text style={styles.textBottom}>Ongoing Purchase</Text>
-        {/* Tubuh Cardnya */}
-        <View style={styles.ContainerRes}>
-          <View style={styles.status}>
-            <Text style={styles.textStatus}> Complete your payment in</Text>
-            <Text style={styles.textResStatus}> 59min 59s </Text>
+        {/* DATA ada */}
+        {subscribtion && tagihan ? (
+          <View>
+            <Text style={styles.textSubsribtion}>Ongoing Purchase</Text>
+            <PaymentCardHome late={false} success={false} ongoing={true} />
+            <Text style={styles.textSubsribtion}>Active Subscriptions</Text>
+            <PaymentCardHome late={true} />
+            <PaymentCardHome late={false} success={false} />
           </View>
-          <View style={styles.ContainerFild}>
-            {/* LIST PAYMENT */}
-            <View style={styles.containerbill}>
-              <View style={styles.ContainerIconPayment}>
+        ) : subscribtion && tagihan === false ? (
+          <View>
+            <Text style={styles.textSubsribtion}>Active subscribtion</Text>
+            <View style={styles.ContainerImgSub}>
+              <View style={styles.ImgSub}>
                 <FastImage
-                  style={styles.IconPayment}
-                  source={IconElectricity}
+                  style={styles.Subscription}
+                  source={NoBill}
                   resizeMode={FastImage.resizeMode.contain}
                 />
               </View>
-              <View style={styles.ContainerListBill}>
-                <View>
-                  <Text style={styles.TextIcon1}>PLN - Token</Text>
-                  <Text style={styles.TextIcon2}>141234567890</Text>
-                </View>
-                <Text style={styles.TextIcon3}>Rp.50000</Text>
+              <Text style={styles.TextSubs}>No upcoming bill right now!</Text>
+              {/* <TouchableOpacity style={styles.ContainerButtonSubs}>
+              <View style={styles.ButtonSubs}>
+                <Text style={styles.TextButtonSubs}>Create New</Text>
               </View>
+            </TouchableOpacity> */}
             </View>
-            <View style={styles.containerbill}>
-              <View style={styles.ContainerIconPayment}>
+          </View>
+        ) : (
+          <View>
+            <Text style={styles.textSubsribtion}>Active subscribtion</Text>
+            <View style={styles.ContainerImgSub}>
+              <View style={styles.ImgSub}>
                 <FastImage
-                  style={styles.IconPayment}
-                  source={IconElectricity}
+                  style={styles.Subscription}
+                  source={IconSubscribtion}
                   resizeMode={FastImage.resizeMode.contain}
                 />
               </View>
-              <View style={styles.ContainerListBill}>
-                <View>
-                  <Text style={styles.TextIcon1}>PLN - Token</Text>
-                  <Text style={styles.TextIcon2}>141234567890</Text>
+              <Text style={styles.TextSubs}>
+                You don't have any subscribtion
+              </Text>
+              <TouchableOpacity style={styles.ContainerButtonSubs}>
+                <View style={styles.ButtonSubs}>
+                  <Text style={styles.TextButtonSubs}>Create New</Text>
                 </View>
-                <Text style={styles.TextIcon3}>Rp.500</Text>
-              </View>
+              </TouchableOpacity>
             </View>
-            <View style={styles.ContainerTotalCount}>
-              <View style={styles.TotalCount}>
-                <Text style={styles.TextTotal}>Total</Text>
-                <Text style={styles.TextTotalCount}>Rp.100000</Text>
-              </View>
-            </View>
-            <TouchableOpacity style={styles.ContainerButton}>
-              <View style={styles.ButtonPay}>
-                <Text style={styles.TextButton}>Confirm Payment</Text>
-              </View>
-            </TouchableOpacity>
           </View>
-        </View>
+        )}
+
+        {/* <PaymentCardHome late={true} />
+        <PaymentCardHome late={false} success={false} /> */}
       </ScrollView>
     </SafeAreaView>
   );
@@ -165,10 +178,9 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingBottom: moderateScale(100),
   },
-  container: {
+  containerSub: {
+    // paddingBottom: moderateScale(100),
     backgroundColor: 'white',
-    height: hp(100),
-    width: wp(100),
   },
   containerFull: {
     backgroundColor: '#263765',
@@ -184,7 +196,7 @@ const styles = StyleSheet.create({
   imageBell: {
     height: hp(5),
     width: wp(5),
-    marginLeft: moderateScale(260),
+    marginLeft: moderateScale(250),
   },
   StyleText: {
     color: 'white',
@@ -212,6 +224,11 @@ const styles = StyleSheet.create({
     width: moderateScale(40),
     top: moderateScale(12),
   },
+  containerMiddle: {
+    flexDirection: 'row',
+    marginTop: hp(2),
+    marginBottom: hp(4),
+  },
   imageIconLandline: {
     height: moderateScale(44),
     width: moderateScale(40),
@@ -229,25 +246,21 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     alignItems: 'center',
+    elevation: 10,
     backgroundColor: 'white',
-    borderWidth: 0.5,
+    borderWidth: 2,
     borderColor: 'white',
-    height: hp(12),
-    width: wp(26),
+    height: moderateScale(90),
+    width: moderateScale(93),
     borderRadius: 20,
-    marginLeft: wp(5),
-    marginRight: wp(1),
+    marginLeft: moderateScale(20),
+    marginRight: moderateScale(9),
     top: hp(3),
   },
   textInButton: {
     top: moderateScale(20),
     fontFamily: 'Montserrat-Regular',
     fontWeight: 'bold',
-  },
-  containerMiddle: {
-    flexDirection: 'row',
-    marginTop: hp(2),
-    marginBottom: hp(4),
   },
   container1: {
     backgroundColor: '#263765',
@@ -259,161 +272,46 @@ const styles = StyleSheet.create({
     transform: [{scaleX: 2}],
     marginLeft: moderateScale(84),
   },
-  textBottom: {
-    top: hp(5),
-    marginLeft: wp(5),
-    fontSize: moderateScale(16),
-    fontFamily: 'Montserrat-Regular',
-    fontWeight: 'bold',
-  },
-  imageSubsribtion: {
-    height: moderateScale(100),
-    width: moderateScale(150),
-    alignSelf: 'center',
-    top: moderateScale(40),
-  },
   textSubsribtion: {
-    alignSelf: 'center',
-    fontSize: 14,
+    fontSize: 18,
     fontFamily: 'Montserrat-Regular',
     fontWeight: 'bold',
-    top: moderateScale(42),
+    top: moderateScale(30),
+    marginLeft: wp(5),
   },
-  buttonBottom: {
-    backgroundColor: 'blue',
-    borderWidth: 0.5,
-    borderColor: 'white',
-    height: moderateScale(42),
-    width: moderateScale(308),
-    borderRadius: 5,
-    top: moderateScale(50),
-    alignSelf: 'center',
-  },
-  buttonTextBottom: {
-    fontSize: 20,
-    color: 'white',
-    alignSelf: 'center',
-    fontFamily: 'Montserrat-Regular',
-    fontWeight: 'bold',
-    top: moderateScale(6),
-  },
-  ContainerRes: {
+  ContainerImgSub: {
+    marginTop: hp(10),
     borderRadius: moderateScale(20),
     backgroundColor: 'white',
+    borderWidth: 2,
+    borderColor: '#ddd',
+    elevation: 10,
     width: wp(90),
-    height: hp(35),
-    alignSelf: 'center',
-    marginBottom: moderateScale(1),
-    top: moderateScale(50),
-  },
-  status: {
-    backgroundColor: '#EB5757',
-    borderTopStartRadius: moderateScale(20),
-    borderTopEndRadius: moderateScale(20),
-    height: hp(5),
-    padding: moderateScale(10),
-    flexDirection: 'row',
-  },
-  textStatus: {
-    color: 'white',
-    fontSize: moderateScale(9),
-    fontFamily: 'Montserrat-Regular',
-    paddingLeft: moderateScale(10),
-  },
-  textResStatus: {
-    color: 'white',
-    fontSize: moderateScale(10),
-    fontFamily: 'Montserrat-Bold',
-    paddingLeft: moderateScale(5),
-  },
-  ContainerFild: {
-    display: 'flex',
-    borderRadius: moderateScale(20),
-    backgroundColor: 'white',
-    width: wp(90),
-    height: hp(32),
-    alignSelf: 'center',
-    paddingLeft: wp(5),
-  },
-  containerbill: {
-    paddingTop: moderateScale(10),
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    paddingRight: wp(9),
-  },
-  ContainerIconPayment: {
-    display: 'flex',
-    borderRadius: moderateScale(5),
-    backgroundColor: '#EBEDF4',
-    width: wp(9),
-    height: hp(5),
-  },
-  IconPayment: {
-    height: hp(5),
-    width: wp(3),
+    height: hp(39),
     alignSelf: 'center',
   },
-  ContainerListBill: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    backgroundColor: 'red',
-  },
-  //nama List
-  TextIcon1: {
-    color: '#333333',
-    fontSize: moderateScale(12),
-    fontFamily: 'Montserrat-Bold',
-    marginLeft: moderateScale(128),
-    paddingRight: moderateScale(20),
-    backgroundColor: 'white',
-  },
-  TextIcon2: {
-    color: '#828282',
-    fontSize: moderateScale(12),
-    fontFamily: 'Montserrat-Bold',
-    marginLeft: moderateScale(24),
-  },
-  // Uang
-  TextIcon3: {
-    color: '#828282',
-    fontSize: moderateScale(12),
-    fontFamily: 'Montserrat-Bold',
-
-    paddingLeft: moderateScale(2),
-  },
-  ContainerTotalCount: {
-    paddingRight: moderateScale(20),
-    paddingTop: moderateScale(20),
-  },
-  TotalCount: {
-    backgroundColor: '#EBEDF4',
-    borderTopStartRadius: moderateScale(5),
-    borderTopEndRadius: moderateScale(5),
-    borderBottomStartRadius: moderateScale(5),
-    borderBottomEndRadius: moderateScale(5),
-    height: hp(6),
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  ImgSub: {
     alignItems: 'center',
-    paddingRight: moderateScale(10),
-    paddingLeft: moderateScale(10),
   },
-  TextTotal: {
-    color: '#000000',
-    fontSize: 12,
-    fontFamily: 'Montserrat-Regular',
+  Subscription: {
+    height: moderateScale(107),
+    width: moderateScale(154),
+    justifyContent: 'center',
+    top: moderateScale(45),
+    // color: COLOR.purple.purpleBold,
+    fontSize: moderateScale(13),
   },
-  TextTotalCount: {
-    color: '#000000',
-    fontSize: 12,
+  TextSubs: {
+    // color: COLOR.purple.purpleBold,
+    fontSize: moderateScale(15),
     fontFamily: 'Montserrat-Bold',
+    alignSelf: 'center',
+    top: moderateScale(65),
+    paddingBottom: moderateScale(18),
   },
-  ContainerButton: {
-    alignItems: 'center',
-    paddingRight: wp(5),
-    marginTop: moderateScale(15),
-  },
-  ButtonPay: {
+  ContainerButtonSubs: {
+    alignSelf: 'center',
+    top: moderateScale(75),
     backgroundColor: '#4493AC',
     borderTopStartRadius: moderateScale(5),
     borderTopEndRadius: moderateScale(5),
@@ -421,11 +319,17 @@ const styles = StyleSheet.create({
     borderBottomEndRadius: moderateScale(5),
     height: hp(6),
     width: wp(80),
-    alignItems: 'center',
   },
-  TextButton: {
+  ButtonSubs: {
     color: 'white',
     fontSize: moderateScale(21),
+    paddingTop: moderateScale(5),
+    fontFamily: 'Montserrat-Bold',
+  },
+  TextButtonSubs: {
+    alignSelf: 'center',
+    color: 'white',
+    fontSize: moderateScale(18),
     fontFamily: 'Montserrat-Bold',
     paddingTop: moderateScale(5),
   },
