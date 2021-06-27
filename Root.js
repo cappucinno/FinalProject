@@ -26,7 +26,7 @@ const Root = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Mainapp">
+      <Stack.Navigator initialRouteName="mainApp">
         <Stack.Screen
           name="SignUp"
           component={SignUp}
