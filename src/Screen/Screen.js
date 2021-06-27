@@ -5,6 +5,10 @@ import Account from './Account/Account';
 import History from './History/History';
 import Subscription from './Subscription/Subscription';
 import FilterSubscription from './Subscription/SubscriptionFilter/FilterSubscription';
+import Electricity from './Electricity/Electricity';
+import ListPaymentElectricity from './Electricity/ListPayment/ListPaymentElectricity';
+import RecurringBilling from './Subscription/RecurringBilling/RecurringBilling';
+import Mobile from './Mobile/Mobile';
 
 export {
   Electricity,
