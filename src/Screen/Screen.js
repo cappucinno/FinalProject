@@ -9,6 +9,7 @@ import Electricity from './Electricity/Electricity';
 import ListPaymentElectricity from './Electricity/ListPayment/ListPaymentElectricity';
 import RecurringBilling from './Subscription/RecurringBilling/RecurringBilling';
 import Mobile from './Mobile/Mobile';
+import Login from './Login/Login';
 
 export {
   Electricity,
@@ -21,4 +22,5 @@ export {
   FilterSubscription,
   RecurringBilling,
   Mobile,
+  Login,
 };

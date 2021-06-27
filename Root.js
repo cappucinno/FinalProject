@@ -15,6 +15,7 @@ import {
   Electricity,
   ListPaymentElectricity,
   Mobile,
+  Login,
 } from './src/Screen/Screen';
 
 import {BottomNav} from './src/Component/Component';
@@ -30,7 +31,12 @@ const Root = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="mainApp">
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="SignUp"
           component={SignUp}
