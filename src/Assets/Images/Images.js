@@ -2,10 +2,12 @@ import IconBell from './IconBell.png';
 import IconBiller from './IconBiller.png';
 import IconBPJS from './IconBPJS.png';
 import IconElectricity from './IconElectricity.png';
+import IconElectricityActive from './IconElectricityActive.png';
 import IconInternet from './IconInternet.png';
 import IconLandLine from './IconLandline.png';
 import IconMasterCard from './IconMasterCard.png';
 import IconMobile from './IconMobile.png';
+import IconMoibileActive from './IconMobileActive.png';
 import IconPDAM from './IconPDAM.png';
 import NoBill from './NoBill.png';
 import IconFilter from './IconFilter.png';
@@ -23,10 +25,12 @@ export {
   IconBiller,
   IconBPJS,
   IconElectricity,
+  IconElectricityActive,
   IconInternet,
   IconLandLine,
   IconMasterCard,
   IconMobile,
+  IconMoibileActive,
   IconPDAM,
   NoBill,
   IconFilter,

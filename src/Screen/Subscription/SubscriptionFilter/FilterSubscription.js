@@ -15,15 +15,12 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import {CheckBox} from 'react-native-elements';
-import {
-  ArrowBack,
-  CheckActive,
-  CheckBox1,
-  IconElectricity,
-} from '../../../Assets/Assets';
+import {ArrowBack, CheckActive, CheckBox1} from '../../../Assets/Assets';
 
 const FilterSubscription = props => {
-  const [checked, SetChecked] = useState([]);
+  const [statuschecked, SetStatusChecked] = useState([]);
+  const [categorychecked, SetCategoryChecked] = useState([]);
+  const [periodchecked, SetPeriodChecked] = useState([]);
 
   const Status = [
     {StatusName: 'Active', checked: false},
@@ -61,10 +58,10 @@ const FilterSubscription = props => {
           {Status.map((v, i) => {
             return (
               <View key={i} style={styles.ListCheck}>
-                <TouchableOpacity onPress={() => SetChecked(i)}>
+                <TouchableOpacity onPress={() => SetStatusChecked(i)}>
                   <FastImage
                     style={styles.Check}
-                    source={checked ? CheckActive : CheckBox1}
+                    source={statuschecked === i ? CheckActive : CheckBox1}
                     resizeMode={FastImage.resizeMode.contain}
                   />
                 </TouchableOpacity>
@@ -79,10 +76,10 @@ const FilterSubscription = props => {
           {Category.map((v, i) => {
             return (
               <View key={i} style={styles.ListCheck}>
-                <TouchableOpacity onPress={() => SetChecked(!checked)}>
+                <TouchableOpacity onPress={() => SetCategoryChecked(i)}>
                   <FastImage
                     style={styles.Check}
-                    source={checked ? CheckActive : CheckBox1}
+                    source={categorychecked === i ? CheckActive : CheckBox1}
                     resizeMode={FastImage.resizeMode.contain}
                   />
                 </TouchableOpacity>
@@ -97,10 +94,10 @@ const FilterSubscription = props => {
           {Period.map((v, i) => {
             return (
               <View key={i} style={styles.ListCheck}>
-                <TouchableOpacity onPress={() => SetChecked(!checked)}>
+                <TouchableOpacity onPress={() => SetPeriodChecked(i)}>
                   <FastImage
                     style={styles.Check}
-                    source={checked ? CheckActive : CheckBox1}
+                    source={periodchecked === i ? CheckActive : CheckBox1}
                     resizeMode={FastImage.resizeMode.contain}
                   />
                 </TouchableOpacity>

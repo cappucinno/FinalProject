@@ -29,7 +29,7 @@ import BackgroundPurple from '../../Component/Background/BackgroundPurple';
 import {IconFilter} from '../../Assets/Assets';
 import PaymentCardHome from '../../Component/PaymentCardHome/PaymentCardHome';
 
-const Home = () => {
+const Home = props => {
   // const subscribtion = false;
   const [subscribtion, Setsubsribtion] = useState(true);
   const [tagihan, Settagihan] = useState(true);
@@ -60,7 +60,10 @@ const Home = () => {
             </TouchableOpacity>
           </View>
           <View style={styles.containerTop}>
-            <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('Electricity')}
+              style={styles.buttonStyle}
+              activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconElectricity}
                 source={IconElectricity}
@@ -68,7 +71,10 @@ const Home = () => {
               />
               <Text style={styles.textInButton}>Electricity</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('Mobile')}
+              style={styles.buttonStyle}
+              activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconMobile}
                 source={IconMobile}

@@ -16,7 +16,6 @@ import {
 import {IconFilter, ButtonNewSub, IconSubscribtion} from '../../Assets/Assets';
 import PaymentCard from '../../Component/PaymentCard/PaymentCard';
 import BackgroundPurple from '../../Component/Background/BackgroundPurple';
-import {Overlay} from 'react-native-elements';
 import {COLOR} from '../../Assets/Color/Color';
 
 const Subscription = props => {
@@ -138,10 +137,11 @@ const styles = StyleSheet.create({
   },
   ResFilter: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     marginTop: heightPercentageToDP(3),
     marginLeft: widthPercentageToDP(5),
     marginRight: widthPercentageToDP(5),
-    marginBottom: heightPercentageToDP(7),
+    marginBottom: heightPercentageToDP(3),
   },
   ContainerTexFil: {
     display: 'flex',
@@ -152,6 +152,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     opacity: 0.9,
+    marginTop: moderateScale(12),
     marginRight: moderateScale(8),
   },
   textfil: {

@@ -9,7 +9,7 @@ import {
 } from 'react-native-responsive-screen';
 import {
   IconFilter,
-  IconElectricity,
+  IconElectricityActive,
   InfoSubscription,
 } from '../../Assets/Assets';
 import {RecurringBilling} from '../../Screen/Screen';
@@ -273,7 +273,7 @@ const PaymentCard = ({
           <View style={styles.ContainerIconPayment}>
             <FastImage
               style={styles.IconPayment}
-              source={IconElectricity}
+              source={IconElectricityActive}
               resizeMode={FastImage.resizeMode.contain}
             />
           </View>
@@ -296,7 +296,7 @@ const PaymentCard = ({
           <View style={styles.ContainerIconPayment}>
             <FastImage
               style={styles.IconPayment}
-              source={IconElectricity}
+              source={IconElectricityActive}
               resizeMode={FastImage.resizeMode.contain}
             />
           </View>

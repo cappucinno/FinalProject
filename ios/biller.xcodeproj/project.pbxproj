@@ -46,6 +46,10 @@
 		4AA51C26D6864D8893356345 /* Montserrat-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C3E79E0EC904CD1AA4C5E00 /* Montserrat-SemiBoldItalic.ttf */; };
 		A081F05975764229AC9DEADD /* Montserrat-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1316DAEF07D14EA79F94A5A3 /* Montserrat-Thin.ttf */; };
 		69AE86EBEA8A462798F508ED /* Montserrat-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5874C180C4094E6190FB2557 /* Montserrat-ThinItalic.ttf */; };
+		4B16CF94C8A9489E857D36EE /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2C7C72712F34851AB3C2535 /* NotoSans-Bold.ttf */; };
+		61C37057CC864F1F9517D4D5 /* NotoSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DF0D283BEAA40DF8F2F5F32 /* NotoSans-BoldItalic.ttf */; };
+		8A16F0F219974C4F9E5077D0 /* NotoSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E88D3846E43445EB51B615D /* NotoSans-Italic.ttf */; };
+		8493CBD225E74B258D31DFA5 /* NotoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DE35446D9E2D44F6A958F8C9 /* NotoSans-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +108,10 @@
 		2C3E79E0EC904CD1AA4C5E00 /* Montserrat-SemiBoldItalic.ttf */ = {isa = PBXFileReference; name = "Montserrat-SemiBoldItalic.ttf"; path = "../src/Assets/Fonts/Montserrat-SemiBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		1316DAEF07D14EA79F94A5A3 /* Montserrat-Thin.ttf */ = {isa = PBXFileReference; name = "Montserrat-Thin.ttf"; path = "../src/Assets/Fonts/Montserrat-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		5874C180C4094E6190FB2557 /* Montserrat-ThinItalic.ttf */ = {isa = PBXFileReference; name = "Montserrat-ThinItalic.ttf"; path = "../src/Assets/Fonts/Montserrat-ThinItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C2C7C72712F34851AB3C2535 /* NotoSans-Bold.ttf */ = {isa = PBXFileReference; name = "NotoSans-Bold.ttf"; path = "../src/Assets/Fonts/NotoSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0DF0D283BEAA40DF8F2F5F32 /* NotoSans-BoldItalic.ttf */ = {isa = PBXFileReference; name = "NotoSans-BoldItalic.ttf"; path = "../src/Assets/Fonts/NotoSans-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8E88D3846E43445EB51B615D /* NotoSans-Italic.ttf */ = {isa = PBXFileReference; name = "NotoSans-Italic.ttf"; path = "../src/Assets/Fonts/NotoSans-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DE35446D9E2D44F6A958F8C9 /* NotoSans-Regular.ttf */ = {isa = PBXFileReference; name = "NotoSans-Regular.ttf"; path = "../src/Assets/Fonts/NotoSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +238,10 @@
 				2C3E79E0EC904CD1AA4C5E00 /* Montserrat-SemiBoldItalic.ttf */,
 				1316DAEF07D14EA79F94A5A3 /* Montserrat-Thin.ttf */,
 				5874C180C4094E6190FB2557 /* Montserrat-ThinItalic.ttf */,
+				C2C7C72712F34851AB3C2535 /* NotoSans-Bold.ttf */,
+				0DF0D283BEAA40DF8F2F5F32 /* NotoSans-BoldItalic.ttf */,
+				8E88D3846E43445EB51B615D /* NotoSans-Italic.ttf */,
+				DE35446D9E2D44F6A958F8C9 /* NotoSans-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -359,6 +371,10 @@
 				4AA51C26D6864D8893356345 /* Montserrat-SemiBoldItalic.ttf in Resources */,
 				A081F05975764229AC9DEADD /* Montserrat-Thin.ttf in Resources */,
 				69AE86EBEA8A462798F508ED /* Montserrat-ThinItalic.ttf in Resources */,
+				4B16CF94C8A9489E857D36EE /* NotoSans-Bold.ttf in Resources */,
+				61C37057CC864F1F9517D4D5 /* NotoSans-BoldItalic.ttf in Resources */,
+				8A16F0F219974C4F9E5077D0 /* NotoSans-Italic.ttf in Resources */,
+				8493CBD225E74B258D31DFA5 /* NotoSans-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
