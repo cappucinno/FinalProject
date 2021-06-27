@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
+import {Overlay} from 'react-native-elements';
 import {moderateScale} from 'react-native-size-matters';
 import {
   heightPercentageToDP,
@@ -8,12 +9,18 @@ import {
 } from 'react-native-responsive-screen';
 import {
   IconFilter,
-  IconElectricity,
+  IconElectricityActive,
   InfoSubscription,
 } from '../../Assets/Assets';
+import {RecurringBilling} from '../../Screen/Screen';
 import {COLOR} from '../../Assets/Color/Color';
 
-const PaymentCard = ({late = false, success = false}) => {
+const PaymentCard = ({
+  late = false,
+  success = false,
+  detail = false,
+  navigation,
+}) => {
   const styles = StyleSheet.create({
     ContainerRes: {
       display: 'flex',
@@ -133,7 +140,7 @@ const PaymentCard = ({late = false, success = false}) => {
 
     ContainerTotalCount: {
       paddingRight: moderateScale(20),
-      paddingTop: moderateScale(20),
+      paddingTop: moderateScale(15),
     },
 
     TotalCount: {
@@ -172,7 +179,7 @@ const PaymentCard = ({late = false, success = false}) => {
     ContainerButton: {
       alignItems: 'center',
       paddingRight: widthPercentageToDP(5),
-      marginTop: moderateScale(15),
+      marginTop: moderateScale(13),
     },
     TextButton: {
       color: 'white',
@@ -197,7 +204,61 @@ const PaymentCard = ({late = false, success = false}) => {
       fontSize: moderateScale(11),
       fontFamily: 'Montserrat-Regular',
     },
+    ContainerShowdetails: {
+      marginTop: moderateScale(0),
+    },
+    Textshowdetails: {
+      color: '#000000',
+      fontSize: moderateScale(10),
+      fontFamily: 'Montserrat-Regular',
+      textDecorationLine: 'underline',
+    },
+    containerOverlay: {
+      marginTop: moderateScale(0),
+      width: widthPercentageToDP(100),
+      height: heightPercentageToDP(59),
+      backgroundColor: '#FFFFFF',
+      borderTopLeftRadius: moderateScale(20),
+      borderTopRightRadius: moderateScale(20),
+      padding: moderateScale(43),
+      position: 'absolute',
+      left: moderateScale(-163),
+      margin: moderateScale(-20),
+    },
+    headerOverlay: {
+      color: '#000000',
+      fontSize: moderateScale(14),
+      fontFamily: 'Montserrat-Regular',
+    },
+    ContainerForm: {
+      paddingTop: moderateScale(16),
+    },
+    FormDetail1: {
+      marginBottom: moderateScale(12),
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    FormDetail2: {
+      marginTop: moderateScale(12),
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    TextDataDetail: {
+      color: '#000000',
+      fontSize: moderateScale(12),
+      fontFamily: 'Montserrat-Regular',
+    },
+    ResDetail: {
+      color: '#000000',
+      fontSize: moderateScale(12),
+      fontFamily: 'Montserrat-Bold',
+    },
   });
+  const [visible, setVisible] = useState(false);
+
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
   return (
     <View style={styles.ContainerRes}>
       <View style={styles.status}>
@@ -212,7 +273,7 @@ const PaymentCard = ({late = false, success = false}) => {
           <View style={styles.ContainerIconPayment}>
             <FastImage
               style={styles.IconPayment}
-              source={IconElectricity}
+              source={IconElectricityActive}
               resizeMode={FastImage.resizeMode.contain}
             />
           </View>
@@ -220,6 +281,13 @@ const PaymentCard = ({late = false, success = false}) => {
             <View>
               <Text style={styles.TextIcon1}>PLN - Token</Text>
               <Text style={styles.TextIcon2}>141234567890</Text>
+              {detail ? (
+                <TouchableOpacity
+                  onPress={toggleOverlay}
+                  style={styles.ContainerShowdetails}>
+                  <Text style={styles.Textshowdetails}>show details</Text>
+                </TouchableOpacity>
+              ) : null}
             </View>
             <Text style={styles.TextIcon3}>Rp.5000000</Text>
           </View>
@@ -228,7 +296,7 @@ const PaymentCard = ({late = false, success = false}) => {
           <View style={styles.ContainerIconPayment}>
             <FastImage
               style={styles.IconPayment}
-              source={IconElectricity}
+              source={IconElectricityActive}
               resizeMode={FastImage.resizeMode.contain}
             />
           </View>
@@ -236,11 +304,18 @@ const PaymentCard = ({late = false, success = false}) => {
             <View>
               <Text style={styles.TextIcon1}>PLN - Token</Text>
               <Text style={styles.TextIcon2}>141234567890</Text>
+              {detail ? (
+                <TouchableOpacity
+                  onPress={toggleOverlay}
+                  style={styles.ContainerShowdetails}>
+                  <Text style={styles.Textshowdetails}>show details</Text>
+                </TouchableOpacity>
+              ) : null}
             </View>
             <Text style={styles.TextIcon3}>Rp.500</Text>
           </View>
         </View>
-        {late ? (
+        {late && navigation ? (
           <View style={styles.CountDayLeft}>
             <Text style={styles.TextCount}>1 day late payment fee (0,5%)</Text>
             <Text style={styles.TextCount2}>Rp.5000</Text>
@@ -277,12 +352,56 @@ const PaymentCard = ({late = false, success = false}) => {
             </View>
           </View>
         ) : (
-          <TouchableOpacity style={styles.ContainerButton}>
+          <TouchableOpacity
+            style={styles.ContainerButton}
+            onPress={() => navigation.navigate('RecurringBilling')}>
             <View style={styles.ButtonPay}>
               <Text style={styles.TextButton}>Pay</Text>
             </View>
           </TouchableOpacity>
         )}
+        <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+          <View style={styles.containerOverlay}>
+            <Text style={styles.headerOverlay}>Bill Details</Text>
+            <View style={styles.ContainerForm}>
+              <View style={styles.FormDetail1}>
+                <Text style={styles.TextDataDetail}>No Meter</Text>
+                <Text style={styles.ResDetail}>141234567690</Text>
+              </View>
+              <View style={styles.FormDetail1}>
+                <Text style={styles.TextDataDetail}>IDPEL</Text>
+                <Text style={styles.ResDetail}>511234567890</Text>
+              </View>
+              <View style={styles.FormDetail1}>
+                <Text style={styles.TextDataDetail}>Tarif/Daya</Text>
+                <Text style={styles.ResDetail}>R1/2200 VA</Text>
+              </View>
+              <View style={styles.FormDetail2}>
+                <Text style={styles.TextDataDetail}>Token</Text>
+                <Text style={styles.ResDetail}>Rp 50.000,00</Text>
+              </View>
+              <View style={styles.FormDetail2}>
+                <Text style={styles.TextDataDetail}>PPJ</Text>
+                <Text style={styles.ResDetail}>Rp 3.704,00</Text>
+              </View>
+              <View style={styles.FormDetail2}>
+                <Text style={styles.TextDataDetail}>Admin</Text>
+                <Text style={styles.ResDetail}>Rp 1.500,00</Text>
+              </View>
+              <View style={styles.FormDetail2}>
+                <Text
+                  style={{
+                    fontFamily: 'Montserrat-Bold',
+                    color: '#000000',
+                    fontSize: moderateScale(12),
+                  }}>
+                  Total
+                </Text>
+                <Text style={styles.ResDetail}>Rp 51.500,00</Text>
+              </View>
+            </View>
+          </View>
+        </Overlay>
       </View>
     </View>
   );

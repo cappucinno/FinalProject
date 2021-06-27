@@ -6,4 +6,15 @@ import History from './History/History';
 import Subscription from './Subscription/Subscription';
 import FilterSubscription from './Subscription/SubscriptionFilter/FilterSubscription';
 
-export {Home, Account, History, Subscription, SignUp, FilterSubscription};
+export {
+  Electricity,
+  ListPaymentElectricity,
+  Home,
+  Account,
+  History,
+  Subscription,
+  SignUp,
+  FilterSubscription,
+  RecurringBilling,
+  Mobile,
+};

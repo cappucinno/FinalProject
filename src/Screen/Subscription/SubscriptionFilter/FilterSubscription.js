@@ -18,18 +18,30 @@ import {CheckBox} from 'react-native-elements';
 import {ArrowBack, CheckActive, CheckBox1} from '../../../Assets/Assets';
 
 const FilterSubscription = props => {
-  const DataFilter = {
-    Status: ['Active', 'Planed'],
-    Category: ['Electricity', 'Mobile', 'Internet', 'Landline', 'PDAM', 'BPJS'],
-    Period: ['Weekly', 'Monthly', 'Annualy'],
-  };
-  const [checked, SetChecked] = useState(false);
+  const [statuschecked, SetStatusChecked] = useState([]);
+  const [categorychecked, SetCategoryChecked] = useState([]);
+  const [periodchecked, SetPeriodChecked] = useState([]);
+
+  const Status = [
+    {StatusName: 'Active', checked: false},
+    {StatusName: 'Planned', checked: false},
+  ];
+  const Category = [
+    'Electricity',
+    'Mobile',
+    'Internet',
+    'Landline',
+    'PDAM',
+    'BPJS',
+  ];
+  const Period = ['Weekly', 'MOnthly', 'Annualy'];
+
   return (
     <SafeAreaView>
       <ScrollView>
         <View style={styles.ContainerScroll}>
           <View style={styles.HeaderFillter}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => props.navigation.goBack()}>
               <FastImage
                 style={styles.ArrowBack}
                 source={ArrowBack}
@@ -43,20 +55,61 @@ const FilterSubscription = props => {
           <View style={styles.ContainerStatus}>
             <Text style={styles.HeaderStatus}>Status</Text>
           </View>
-          {DataFilter.map((e, i) => {
+          {Status.map((v, i) => {
             return (
-              <View style={styles.ListCheck} key={i}>
-                <TouchableOpacity onPress={() => SetChecked(!checked)}>
+              <View key={i} style={styles.ListCheck}>
+                <TouchableOpacity onPress={() => SetStatusChecked(i)}>
                   <FastImage
                     style={styles.Check}
-                    source={checked ? CheckActive : CheckBox1}
+                    source={statuschecked === i ? CheckActive : CheckBox1}
                     resizeMode={FastImage.resizeMode.contain}
                   />
                 </TouchableOpacity>
-                <Text style={styles.IsiFillter}>{e.Status}</Text>
+                <Text style={styles.IsiFillter}>{Status[i].StatusName}</Text>
               </View>
             );
           })}
+
+          <View style={styles.ContainerStatus}>
+            <Text style={styles.HeaderStatus}>Category</Text>
+          </View>
+          {Category.map((v, i) => {
+            return (
+              <View key={i} style={styles.ListCheck}>
+                <TouchableOpacity onPress={() => SetCategoryChecked(i)}>
+                  <FastImage
+                    style={styles.Check}
+                    source={categorychecked === i ? CheckActive : CheckBox1}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                </TouchableOpacity>
+                <Text style={styles.IsiFillter}>{Category[i]}</Text>
+              </View>
+            );
+          })}
+
+          <View style={styles.ContainerStatus}>
+            <Text style={styles.HeaderStatus}>Period</Text>
+          </View>
+          {Period.map((v, i) => {
+            return (
+              <View key={i} style={styles.ListCheck}>
+                <TouchableOpacity onPress={() => SetPeriodChecked(i)}>
+                  <FastImage
+                    style={styles.Check}
+                    source={periodchecked === i ? CheckActive : CheckBox1}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                </TouchableOpacity>
+                <Text style={styles.IsiFillter}>{Period[i]}</Text>
+              </View>
+            );
+          })}
+          <TouchableOpacity style={styles.ContainerButtonFillter}>
+            <View style={styles.ButtonFilter}>
+              <Text style={styles.TextButtonFilter}>Filter</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -86,17 +139,19 @@ const styles = StyleSheet.create({
   Judul: {
     marginLeft: moderateScale(16),
     color: 'white',
-    fontSize: moderateScale(18),
+    fontSize: moderateScale(16),
     fontFamily: 'Montserrat-Bold',
   },
   ContainerCheck: {
     marginLeft: moderateScale(34),
-    marginTop: moderateScale(16),
+    // marginTop: moderateScale(16),
   },
 
   HeaderStatus: {
     fontFamily: 'Montserrat-Bold',
     fontSize: moderateScale(14),
+    marginTop: moderateScale(16),
+    marginBottom: moderateScale(12),
   },
   garis: {
     paddingLeft: 10,
@@ -117,5 +172,27 @@ const styles = StyleSheet.create({
   IsiFillter: {
     fontSize: moderateScale(14),
     fontFamily: 'Montserrat-Regular',
+  },
+  ContainerButtonFillter: {
+    alignItems: 'center',
+    paddingRight: widthPercentageToDP(8),
+    marginTop: moderateScale(15),
+    paddingTop: moderateScale(12),
+  },
+  ButtonFilter: {
+    backgroundColor: '#4493AC',
+    borderTopStartRadius: moderateScale(5),
+    borderTopEndRadius: moderateScale(5),
+    borderBottomStartRadius: moderateScale(5),
+    borderBottomEndRadius: moderateScale(5),
+    height: heightPercentageToDP(6),
+    width: widthPercentageToDP(80),
+    alignItems: 'center',
+  },
+  TextButtonFilter: {
+    color: 'white',
+    fontSize: moderateScale(16),
+    fontFamily: 'Montserrat-Bold',
+    paddingTop: moderateScale(8),
   },
 });

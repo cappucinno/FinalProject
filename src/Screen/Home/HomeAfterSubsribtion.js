@@ -32,7 +32,7 @@ import PaymentCardHome from '../../Component/PaymentCardHome/PaymentCardHome';
 const Home = props => {
   // const subscribtion = false;
   const [subscribtion, Setsubsribtion] = useState(true);
-  const [tagihan, Settagihan] = useState(false);
+  const [tagihan, Settagihan] = useState(true);
   // subcribtion false tagihan false = Layar create
   // subcribtion true tagihan true = Layar tagihan
   // subcription true tagihan false = Layar No bill
