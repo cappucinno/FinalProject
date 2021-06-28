@@ -14,6 +14,8 @@ import {
   RecurringBilling,
   Electricity,
   ListPaymentElectricity,
+  DetailPaymentElectricity,
+  PaymentMethodElectricity,
   Mobile,
 } from './src/Screen/Screen';
 
@@ -64,6 +66,16 @@ const Root = () => {
         <Stack.Screen
           name="ListPaymentElectricity"
           component={ListPaymentElectricity}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="DetailPaymentElectricity"
+          component={DetailPaymentElectricity}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PaymentMethodElectricity"
+          component={PaymentMethodElectricity}
           options={{headerShown: false}}
         />
         <Stack.Screen

@@ -17,7 +17,7 @@ import {
 import {ArrowBack, IconElectricityActive} from '../../../Assets/Assets';
 
 const ListPaymentElectricity = props => {
-  const [nometer, setNometer] = useState(null);
+  const [nometer, setNometer] = useState('');
   const [pres, setPres] = useState('');
 
   const DataCostomer = '12345';
@@ -132,12 +132,26 @@ const ListPaymentElectricity = props => {
       height: moderateScale(44),
       width: moderateScale(290),
       marginTop: moderateScale(4),
-      backgroundColor: nometer !== DataCostomer ? '#FFF4F7' : 'white',
+      backgroundColor:
+        nometer === ''
+          ? 'white'
+          : nometer.length <= DataCostomer.length
+          ? 'white'
+          : nometer !== DataCostomer
+          ? '#FFF4F7'
+          : 'white',
     },
     TextNotRegister: {
       paddingTop: moderateScale(4),
       alignSelf: 'center',
-      color: nometer !== DataCostomer ? '#EB5757' : '#EBEDF4',
+      color:
+        nometer === ''
+          ? '#EBEDF4'
+          : nometer.length <= DataCostomer.length
+          ? '#EBEDF4'
+          : nometer !== DataCostomer
+          ? '#EB5757'
+          : '#EBEDF4',
       fontSize: moderateScale(12),
       fontFamily: 'Montserrat-Regular',
     },
@@ -260,7 +274,11 @@ const ListPaymentElectricity = props => {
             );
           })}
 
-          <TouchableOpacity style={styles.ContainerButtonConfirm}>
+          <TouchableOpacity
+            onPress={() =>
+              props.navigation.navigate('DetailPaymentElectricity')
+            }
+            style={styles.ContainerButtonConfirm}>
             <View style={styles.ButtonConfirm}>
               <Text style={styles.TextButtonConfirm}>Confirm</Text>
             </View>

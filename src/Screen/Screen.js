@@ -7,12 +7,16 @@ import FilterSubscription from './Subscription/SubscriptionFilter/FilterSubscrip
 import RecurringBilling from './Subscription/RecurringBilling/RecurringBilling';
 import Electricity from './Electricity/Electricity';
 import ListPaymentElectricity from './Electricity/ListPayment/ListPaymentElectricity';
+import DetailPaymentElectricity from './Electricity/DetailPaymentElectricity/DetailPaymentElectricity';
+import PaymentMethodElectricity from './Electricity/PaymentMethodElectricity/PaymentMethodElectricity';
 import Mobile from './Mobile/Mobile';
 import SignUp from './SignUp/SignUp';
 
 export {
   Electricity,
   ListPaymentElectricity,
+  DetailPaymentElectricity,
+  PaymentMethodElectricity,
   Home,
   Account,
   History,
