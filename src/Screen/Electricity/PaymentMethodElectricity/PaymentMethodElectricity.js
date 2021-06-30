@@ -76,7 +76,7 @@ const PaymentMethodElectricity = props => {
                   },
                 ]}>
                 <TouchableOpacity onPress={() => setIsSelected(i)}>
-                  <Text style={styles.TextBank}>{v[i]}</Text>
+                  <Text style={styles.TextBank}>{Object.keys(v)}</Text>
                 </TouchableOpacity>
                 {isselected === i ? (
                   <View style={styles.ContainerRadio}>
