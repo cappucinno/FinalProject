@@ -19,12 +19,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLOR.purple.purpleBold,
   },
+  StyleOverflow: {
+    position: 'absolute',
+  },
   bigRect: {
     height: moderateScale(380),
     width: moderateScale(380),
     backgroundColor: COLOR.purple.purple10,
     opacity: 0.05,
     borderRadius: moderateScale(60),
+
     // transform: [{rotate: '-45deg'}],
   },
   top: {

@@ -14,6 +14,9 @@ import {
   RecurringBilling,
   Electricity,
   ListPaymentElectricity,
+  DetailPaymentElectricity,
+  PaymentMethodElectricity,
+  AddPaymentCardElectric,
   Mobile,
   Login,
   NewSubscription,
@@ -77,6 +80,21 @@ const Root = () => {
         <Stack.Screen
           name="ListPaymentElectricity"
           component={ListPaymentElectricity}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="DetailPaymentElectricity"
+          component={DetailPaymentElectricity}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PaymentMethodElectricity"
+          component={PaymentMethodElectricity}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="AddPaymentCardElectric"
+          component={AddPaymentCardElectric}
           options={{headerShown: false}}
         />
         <Stack.Screen

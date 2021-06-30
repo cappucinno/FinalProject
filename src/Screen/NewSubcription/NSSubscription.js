@@ -14,7 +14,7 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import {ArrowBack} from '../../Assets/Assets';
-import {close, PLN, InfoPayment} from '../../Assets/Assets';
+import {ButtonClose, PLN, InfoPayment} from '../../Assets/Assets';
 import {COLOR} from '../../Assets/Color/Color';
 
 const NSSubscription = () => {
@@ -30,7 +30,7 @@ const NSSubscription = () => {
           <TouchableOpacity>
             <FastImage
               style={styles.closeIcon}
-              source={close}
+              source={ButtonClose}
               resizeMode={FastImage.resizeMode.contain}
             />
           </TouchableOpacity>

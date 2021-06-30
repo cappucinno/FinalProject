@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {Overlay} from 'react-native-elements';
+import {Overlay, BottomSheet} from 'react-native-elements';
 import {moderateScale} from 'react-native-size-matters';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import {
-  IconFilter,
+  ButtonClose,
   IconElectricityActive,
   InfoSubscription,
 } from '../../Assets/Assets';
@@ -214,16 +214,13 @@ const PaymentCard = ({
       textDecorationLine: 'underline',
     },
     containerOverlay: {
-      marginTop: moderateScale(0),
+      marginTop: moderateScale(410),
       width: widthPercentageToDP(100),
-      height: heightPercentageToDP(59),
+      height: heightPercentageToDP(46),
       backgroundColor: '#FFFFFF',
       borderTopLeftRadius: moderateScale(20),
       borderTopRightRadius: moderateScale(20),
       padding: moderateScale(43),
-      position: 'absolute',
-      left: moderateScale(-163),
-      margin: moderateScale(-20),
     },
     headerOverlay: {
       color: '#000000',
@@ -252,6 +249,19 @@ const PaymentCard = ({
       color: '#000000',
       fontSize: moderateScale(12),
       fontFamily: 'Montserrat-Bold',
+    },
+    ContainerClose: {
+      position: 'absolute',
+      marginTop: moderateScale(18),
+      right: moderateScale(24),
+    },
+    ButtonCloseStyle: {
+      height: moderateScale(13),
+      width: moderateScale(13),
+    },
+    HeaderBottmSheet: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
     },
   });
   const [visible, setVisible] = useState(false);
@@ -360,9 +370,20 @@ const PaymentCard = ({
             </View>
           </TouchableOpacity>
         )}
-        <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+        <BottomSheet isVisible={visible}>
           <View style={styles.containerOverlay}>
-            <Text style={styles.headerOverlay}>Bill Details</Text>
+            <TouchableOpacity
+              style={styles.ContainerClose}
+              onPress={toggleOverlay}>
+              <FastImage
+                style={styles.ButtonCloseStyle}
+                source={ButtonClose}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </TouchableOpacity>
+            <View style={styles.HeaderBottmSheet}>
+              <Text style={styles.headerOverlay}>Bill Details</Text>
+            </View>
             <View style={styles.ContainerForm}>
               <View style={styles.FormDetail1}>
                 <Text style={styles.TextDataDetail}>No Meter</Text>
@@ -401,7 +422,7 @@ const PaymentCard = ({
               </View>
             </View>
           </View>
-        </Overlay>
+        </BottomSheet>
       </View>
     </View>
   );

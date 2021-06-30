@@ -21,7 +21,15 @@ const FilterSubscription = props => {
   const [statuschecked, SetStatusChecked] = useState([]);
   const [categorychecked, SetCategoryChecked] = useState([]);
   const [periodchecked, SetPeriodChecked] = useState([]);
+  const [senddata, Setsenddata] = useState({
+    status: '',
+    category: '',
+    period: '',
+  });
 
+  const Data = props.route.params;
+  console.log(props.ContainerButtonFillter, 'datasss');
+  console.log(statuschecked, 'status');
   const Status = [
     {StatusName: 'Active', checked: false},
     {StatusName: 'Planned', checked: false},
@@ -34,7 +42,7 @@ const FilterSubscription = props => {
     'PDAM',
     'BPJS',
   ];
-  const Period = ['Weekly', 'MOnthly', 'Annualy'];
+  const Period = ['Weekly', 'Monthly', 'Annualy'];
 
   return (
     <SafeAreaView>
@@ -58,7 +66,14 @@ const FilterSubscription = props => {
           {Status.map((v, i) => {
             return (
               <View key={i} style={styles.ListCheck}>
-                <TouchableOpacity onPress={() => SetStatusChecked(i)}>
+                <TouchableOpacity
+                  onPress={() => {
+                    Setsenddata({
+                      ...senddata,
+                      status: Status[i].StatusName,
+                    });
+                    SetStatusChecked(i);
+                  }}>
                   <FastImage
                     style={styles.Check}
                     source={statuschecked === i ? CheckActive : CheckBox1}
@@ -76,7 +91,14 @@ const FilterSubscription = props => {
           {Category.map((v, i) => {
             return (
               <View key={i} style={styles.ListCheck}>
-                <TouchableOpacity onPress={() => SetCategoryChecked(i)}>
+                <TouchableOpacity
+                  onPress={() => {
+                    Setsenddata({
+                      ...senddata,
+                      category: Category[i],
+                    });
+                    SetCategoryChecked(i);
+                  }}>
                   <FastImage
                     style={styles.Check}
                     source={categorychecked === i ? CheckActive : CheckBox1}
@@ -94,7 +116,14 @@ const FilterSubscription = props => {
           {Period.map((v, i) => {
             return (
               <View key={i} style={styles.ListCheck}>
-                <TouchableOpacity onPress={() => SetPeriodChecked(i)}>
+                <TouchableOpacity
+                  onPress={() => {
+                    Setsenddata({
+                      ...senddata,
+                      period: Period[i],
+                    });
+                    SetPeriodChecked(i);
+                  }}>
                   <FastImage
                     style={styles.Check}
                     source={periodchecked === i ? CheckActive : CheckBox1}
@@ -105,7 +134,9 @@ const FilterSubscription = props => {
               </View>
             );
           })}
-          <TouchableOpacity style={styles.ContainerButtonFillter}>
+          <TouchableOpacity
+            onPress={() => Data(senddata)}
+            style={styles.ContainerButtonFillter}>
             <View style={styles.ButtonFilter}>
               <Text style={styles.TextButtonFilter}>Filter</Text>
             </View>
