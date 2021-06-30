@@ -7,7 +7,7 @@ import IconInternet from './IconInternet.png';
 import IconLandLine from './IconLandline.png';
 import IconMasterCard from './IconMasterCard.png';
 import IconMobile from './IconMobile.png';
-import IconMoibileActive from './IconMobileActive.png';
+import IconMobileActive from './IconMobileActive.png';
 import IconPDAM from './IconPDAM.png';
 import NoBill from './NoBill.png';
 import IconFilter from './IconFilter.png';
@@ -19,6 +19,12 @@ import ArrowBack from './ArrowBack.png';
 import CheckActive from './CheckActive.png';
 import CheckBox1 from './CheckBox.png';
 import PLN from './PLN.png';
+import Line from './Line.png';
+import IconInternetActive from './IconInternetActive.png';
+import IconLandlineActive from './IconLandlineActive.png';
+import IconPDAMActive from './IconPDAMActive.png';
+import IconBPJSActive from './IconBPJSActive.png';
+import close from './close.png';
 
 export {
   IconBell,
@@ -30,7 +36,7 @@ export {
   IconLandLine,
   IconMasterCard,
   IconMobile,
-  IconMoibileActive,
+  IconMobileActive,
   IconPDAM,
   NoBill,
   IconFilter,
@@ -42,4 +48,10 @@ export {
   CheckActive,
   CheckBox1,
   PLN,
+  Line,
+  IconInternetActive,
+  IconLandlineActive,
+  IconPDAMActive,
+  IconBPJSActive,
+  close,
 };

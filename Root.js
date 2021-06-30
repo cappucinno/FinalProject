@@ -16,6 +16,13 @@ import {
   ListPaymentElectricity,
   Mobile,
   Login,
+  NewSubscription,
+  NSBillsCategory,
+  NSMobile,
+  NSPulsa,
+  NSBillDetail,
+  NSRecurringBilling,
+  NSSubscription,
 } from './src/Screen/Screen';
 
 import {BottomNav} from './src/Component/Component';
@@ -31,7 +38,7 @@ const Root = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="NSSubscription">
         <Stack.Screen
           name="Login"
           component={Login}
@@ -75,6 +82,41 @@ const Root = () => {
         <Stack.Screen
           name="Mobile"
           component={Mobile}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NewSubscription"
+          component={NewSubscription}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NSBillsCategory"
+          component={NSBillsCategory}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NSMobile"
+          component={NSMobile}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NSPulsa"
+          component={NSPulsa}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NSBillDetail"
+          component={NSBillDetail}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NSRecurringBilling"
+          component={NSRecurringBilling}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NSSubscription"
+          component={NSSubscription}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

@@ -10,6 +10,13 @@ import ListPaymentElectricity from './Electricity/ListPayment/ListPaymentElectri
 import RecurringBilling from './Subscription/RecurringBilling/RecurringBilling';
 import Mobile from './Mobile/Mobile';
 import Login from './Login/Login';
+import NewSubscription from './NewSubcription/NewSubscription';
+import NSBillsCategory from './NewSubcription/NSBillsCategory';
+import NSMobile from './NewSubcription/NSMobile';
+import NSPulsa from './NewSubcription/NSPulsa';
+import NSBillDetail from './NewSubcription/NSBillDetail';
+import NSRecurringBilling from './NewSubcription/NSRecurringBilling';
+import NSSubscription from './NewSubcription/NSSubscription';
 
 export {
   Electricity,
@@ -23,4 +30,11 @@ export {
   RecurringBilling,
   Mobile,
   Login,
+  NewSubscription,
+  NSBillsCategory,
+  NSMobile,
+  NSPulsa,
+  NSBillDetail,
+  NSRecurringBilling,
+  NSSubscription,
 };

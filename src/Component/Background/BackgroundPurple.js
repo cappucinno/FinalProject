@@ -6,10 +6,10 @@ import {COLOR} from '../../Assets/Color/Color';
 export default function BackgroundPurple(props) {
   return (
     <View style={styles.container}>
-      {props.children}
       <View style={[styles.bigRect, styles.top]} />
       <View style={[styles.bigRect, styles.bottom]} />
       <View style={[styles.smallRect, styles.bottomLeft]} />
+      {props.children}
     </View>
   );
 }
