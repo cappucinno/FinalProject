@@ -1,8 +1,10 @@
 import React from 'react';
-import {StyleSheet, SafeAreaView, ScrollView} from 'react-native';
+import {StyleSheet, SafeAreaView, ScrollView, View} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 import CoverPayment from '../../Component/CoverPayment/CoverPayment';
 import {IconElectricityActive} from '../../Assets/Assets';
+import BackgroundPurple from '../../Component/Background/BackgroundPurple';
+
 const Electricity = props => {
   const dataentry = [
     {
@@ -17,16 +19,18 @@ const Electricity = props => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <ScrollView
-        contentContainerStyle={styles.Grow}
-        style={styles.containerSub}>
-        <CoverPayment
-          navigation={props.navigation}
-          titlecover={'Electricity'}
-          iconcover={IconElectricityActive}
-          data={dataentry}
-        />
-      </ScrollView>
+      <BackgroundPurple>
+        <ScrollView
+          contentContainerStyle={styles.Grow}
+          style={styles.containerSub}>
+          <CoverPayment
+            navigation={props.navigation}
+            titlecover={'Electricity'}
+            iconcover={IconElectricityActive}
+            data={dataentry}
+          />
+        </ScrollView>
+      </BackgroundPurple>
     </SafeAreaView>
   );
 };
@@ -39,6 +43,5 @@ const styles = StyleSheet.create({
   },
   containerSub: {
     paddingBottom: moderateScale(100),
-    backgroundColor: '#263765',
   },
 });

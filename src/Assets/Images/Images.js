@@ -23,6 +23,7 @@ import RadioActive from './RadioActive.png';
 import Radio from './Radio.png';
 import AddNewCard from './AddNewCard.png';
 import PLN from './PLN.png';
+import IconVisa from './IconVisa.png';
 
 export {
   IconBell,
@@ -50,4 +51,5 @@ export {
   Radio,
   AddNewCard,
   PLN,
+  IconVisa,
 };

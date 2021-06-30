@@ -16,7 +16,9 @@ import {
   ListPaymentElectricity,
   DetailPaymentElectricity,
   PaymentMethodElectricity,
+  AddPaymentCardElectric,
   Mobile,
+  Login,
 } from './src/Screen/Screen';
 
 import {BottomNav} from './src/Component/Component';
@@ -32,7 +34,12 @@ const Root = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Mainapp">
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="SignUp"
           component={SignUp}
@@ -76,6 +83,11 @@ const Root = () => {
         <Stack.Screen
           name="PaymentMethodElectricity"
           component={PaymentMethodElectricity}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="AddPaymentCardElectric"
+          component={AddPaymentCardElectric}
           options={{headerShown: false}}
         />
         <Stack.Screen

@@ -5,7 +5,7 @@ const initialState = {
   token: {},
 };
 
-const globalReducer = (state = initialState, action) => {
+const GlobalReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_LOADING':
       return {
@@ -22,13 +22,19 @@ const globalReducer = (state = initialState, action) => {
       return {
         ...state,
         isLogged: true,
+      };
+
+    case 'SET_TOKEN':
+      return {
+        ...state,
         token: action.payload.token,
       };
+
     case 'SET_IS_LOGOUT':
       return {
         ...state,
         isLogged: false,
-        token: action.payload.token,
+        token: '',
       };
 
     default:
@@ -36,4 +42,4 @@ const globalReducer = (state = initialState, action) => {
   }
 };
 
-export default globalReducer;
+export default GlobalReducer;

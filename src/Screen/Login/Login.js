@@ -9,45 +9,37 @@ import {
 } from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 import {
-  heightPercentageToDP,
   heightPercentageToDP as hp,
-  widthPercentageToDP,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import BackgroundPurple from '../../Component/Background/BackgroundPurple';
-import {COLOR} from '../../Assets/Color/Color';
 import FastImage from 'react-native-fast-image';
-import {IconBiller} from '../../Assets/Assets';
 import {useSelector, useDispatch} from 'react-redux';
-import {signupAction} from './redux/action';
+import {IconBiller} from '../../Assets/Assets';
+import {loginAction} from './redux/action';
 import Loading from '../../Component/Loading/Loading';
 
-const SignUp = props => {
-  const dispatch = useDispatch();
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+const Login = props => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
-  const submitData = () => {
+  const isLoading = useSelector(state => state.GlobalReducer.Loading);
+  const isLogged = useSelector(state => state.GlobalReducer.isLogged);
+
+  useEffect(() => {
+    if (isLogged) {
+      props.navigation.navigate('Mainapp');
+    }
+  }, [isLogged]);
+
+  const submitLogin = () => {
     dispatch(
-      signupAction({
-        first_name: firstName,
-        last_name: lastName,
+      loginAction({
         email: email,
         password: password,
       }),
     );
   };
-
-  const isSignup = useSelector(state => state.SignupReducer.isSignup);
-  const isLoading = useSelector(state => state.GlobalReducer.Loading);
-
-  useEffect(() => {
-    if (isSignup) {
-      props.navigation.navigate('Login');
-    }
-  }, [isSignup, props.navigation]);
   return (
     <KeyboardAvoidingView style={styles.container}>
       {isLoading ? (
@@ -65,46 +57,43 @@ const SignUp = props => {
           </View>
 
           <View style={styles.topContainer}>
-            <Text style={styles.text1}>Getting Started</Text>
+            <Text style={styles.text1}>Welcome Back!</Text>
             <View style={styles.textLogin}>
-              <Text style={styles.text2}>Already have account? </Text>
+              <Text style={styles.text2}>Don't have account? </Text>
               <TouchableOpacity
-                onPress={() => props.navigation.navigate('Login')}>
-                <Text style={styles.text3}>Login</Text>
+                onPress={() => {
+                  dispatch({type: 'RESET_AUTH'});
+                  props.navigation.navigate('SignUp');
+                }}>
+                <Text style={styles.text3}>Sign up</Text>
               </TouchableOpacity>
             </View>
           </View>
 
           <TextInput
             style={styles.textContainer1}
-            placeholder="FirstName"
-            placeholderTextColor="#999999"
-            onChangeText={text => setFirstName(text)}
-          />
-          <TextInput
-            style={styles.textContainer2}
-            placeholder="LastName"
-            placeholderTextColor="#999999"
-            onChangeText={text => setLastName(text)}
-          />
-          <TextInput
-            style={styles.textContainer3}
             placeholder="Email"
             placeholderTextColor="#999999"
             onChangeText={text => setEmail(text)}
           />
           <TextInput
-            style={styles.textContainer4}
+            style={styles.textContainer2}
             placeholder="Password"
             placeholderTextColor="#999999"
-            secureTextEntry
             onChangeText={text => setPassword(text)}
+            secureTextEntry
           />
           <TouchableOpacity
-            onPress={submitData}
+            onPress={submitLogin}
             style={styles.ContainerButtonSubs}>
             <View style={styles.ButtonSubs}>
-              <Text style={styles.TextButtonSubs}>Signup</Text>
+              <Text style={styles.TextButtonSubs}>Login</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.buttonForgetPassword}>
+            <View>
+              <Text style={styles.textForgotPassword}>Forgot Password</Text>
             </View>
           </TouchableOpacity>
         </>
@@ -113,7 +102,7 @@ const SignUp = props => {
   );
 };
 
-export default SignUp;
+export default Login;
 
 const styles = StyleSheet.create({
   bigRect: {
@@ -132,7 +121,7 @@ const styles = StyleSheet.create({
   },
   containerHead: {
     flexDirection: 'row',
-    bottom: moderateScale(195),
+    bottom: moderateScale(220),
     left: moderateScale(265),
   },
   imageBiller: {
@@ -149,7 +138,7 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     paddingLeft: wp(8),
-    bottom: moderateScale(10),
+    bottom: moderateScale(16),
   },
   text1: {
     fontSize: moderateScale(26),
@@ -179,7 +168,7 @@ const styles = StyleSheet.create({
     height: hp(6),
     alignSelf: 'center',
     borderRadius: moderateScale(5),
-    top: moderateScale(20),
+    top: moderateScale(30),
     borderWidth: 1,
     borderColor: '#999999',
     fontSize: moderateScale(14),
@@ -191,7 +180,7 @@ const styles = StyleSheet.create({
     height: hp(6),
     alignSelf: 'center',
     borderRadius: moderateScale(5),
-    top: moderateScale(35),
+    top: moderateScale(50),
     borderWidth: 1,
     borderColor: '#999999',
     fontSize: moderateScale(14),
@@ -246,5 +235,14 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(18),
     fontFamily: 'Montserrat-Bold',
     paddingTop: moderateScale(5),
+  },
+  buttonForgetPassword: {
+    alignSelf: 'center',
+    top: moderateScale(120),
+  },
+  textForgotPassword: {
+    fontSize: moderateScale(14),
+    color: '#214457',
+    textDecorationLine: 'underline',
   },
 });

@@ -5,12 +5,14 @@ import {COLOR} from '../../Assets/Color/Color';
 
 export default function BackgroundPurple(props) {
   return (
-    <View style={styles.container}>
-      {props.children}
-      <View style={[styles.bigRect, styles.top]} />
-      <View style={[styles.bigRect, styles.bottom]} />
-      <View style={[styles.smallRect, styles.bottomLeft]} />
-    </View>
+    <>
+      <View style={styles.container}>
+        <View style={[styles.bigRect, styles.top]} />
+        <View style={[styles.bigRect, styles.bottom]} />
+        <View style={[styles.smallRect, styles.bottomLeft]} />
+      </View>
+      <View style={styles.StyleOverflow}>{props.children}</View>
+    </>
   );
 }
 
@@ -19,12 +21,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLOR.purple.purpleBold,
   },
+  StyleOverflow: {
+    position: 'absolute',
+  },
   bigRect: {
     height: moderateScale(380),
     width: moderateScale(380),
     backgroundColor: COLOR.purple.purple10,
     opacity: 0.05,
     borderRadius: moderateScale(60),
+
     // transform: [{rotate: '-45deg'}],
   },
   top: {
