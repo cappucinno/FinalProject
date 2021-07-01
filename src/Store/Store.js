@@ -22,4 +22,4 @@ export const Store = createStore(
 
 export const Persistor = persistStore(Store);
 
-// sagaMiddleWare.run(SagaWacther);
+sagaMiddleWare.run(SagaWacther);

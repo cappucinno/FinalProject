@@ -6,6 +6,8 @@ import Root from './Root';
 import BackgroundPurple from './src/Component/Background/BackgroundPurple';
 
 const App = () => {
+  const isloading = true;
+
   return (
     <Provider store={Store}>
       <StatusBar

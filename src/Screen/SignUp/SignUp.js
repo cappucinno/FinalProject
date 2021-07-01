@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -9,63 +9,106 @@ import {
 } from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 import {
+  heightPercentageToDP,
   heightPercentageToDP as hp,
+  widthPercentageToDP,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import BackgroundPurple from '../../Component/Background/BackgroundPurple';
 import {COLOR} from '../../Assets/Color/Color';
 import FastImage from 'react-native-fast-image';
 import {IconBiller} from '../../Assets/Assets';
+import {useSelector, useDispatch} from 'react-redux';
+import {signupAction} from './redux/action';
+import Loading from '../../Component/Loading/Loading';
 
-const SignUp = () => {
+const SignUp = props => {
+  const dispatch = useDispatch();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const submitData = () => {
+    dispatch(
+      signupAction({
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        password: password,
+      }),
+    );
+  };
+
+  const isSignup = useSelector(state => state.SignupReducer.isSignup);
+  const isLoading = useSelector(state => state.GlobalReducer.Loading);
+
+  useEffect(() => {
+    if (isSignup) {
+      props.navigation.navigate('Login');
+    }
+  }, [isSignup, props.navigation]);
   return (
     <KeyboardAvoidingView style={styles.container}>
-      <View style={[styles.bigRect, styles.top]} />
-      <View style={styles.containerHead}>
-        <FastImage
-          style={styles.imageBiller}
-          source={IconBiller}
-          resizeMode={FastImage.resizeMode.contain}
-        />
-        <Text style={styles.StyleText}>biller</Text>
-      </View>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <View style={[styles.bigRect, styles.top]} />
+          <View style={styles.containerHead}>
+            <FastImage
+              style={styles.imageBiller}
+              source={IconBiller}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+            <Text style={styles.StyleText}>biller</Text>
+          </View>
 
-      <View style={styles.topContainer}>
-        <Text style={styles.text1}>Getting Started</Text>
-        <View style={styles.textLogin}>
-          <Text style={styles.text2}>Already have account? </Text>
-          <TouchableOpacity>
-            <Text style={styles.text3}>Login</Text>
+          <View style={styles.topContainer}>
+            <Text style={styles.text1}>Getting Started</Text>
+            <View style={styles.textLogin}>
+              <Text style={styles.text2}>Already have account? </Text>
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate('Login')}>
+                <Text style={styles.text3}>Login</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <TextInput
+            style={styles.textContainer1}
+            placeholder="FirstName"
+            placeholderTextColor="#999999"
+            onChangeText={text => setFirstName(text)}
+          />
+          <TextInput
+            style={styles.textContainer2}
+            placeholder="LastName"
+            placeholderTextColor="#999999"
+            onChangeText={text => setLastName(text)}
+          />
+          <TextInput
+            style={styles.textContainer3}
+            placeholder="Email"
+            placeholderTextColor="#999999"
+            onChangeText={text => setEmail(text)}
+          />
+          <TextInput
+            style={styles.textContainer4}
+            placeholder="Password"
+            placeholderTextColor="#999999"
+            secureTextEntry
+            onChangeText={text => setPassword(text)}
+          />
+          <TouchableOpacity
+            onPress={submitData}
+            style={styles.ContainerButtonSubs}>
+            <View style={styles.ButtonSubs}>
+              <Text style={styles.TextButtonSubs}>Signup</Text>
+            </View>
           </TouchableOpacity>
-        </View>
-      </View>
-
-      <TextInput
-        style={styles.textContainer1}
-        placeholder="First Name"
-        placeholderTextColor="#999999"
-      />
-      <TextInput
-        style={styles.textContainer2}
-        placeholder="Last Name"
-        placeholderTextColor="#999999"
-      />
-      <TextInput
-        style={styles.textContainer3}
-        placeholder="Email"
-        placeholderTextColor="#999999"
-      />
-      <TextInput
-        style={styles.textContainer4}
-        placeholder="Password"
-        placeholderTextColor="#999999"
-        secureTextEntry
-      />
-      <TouchableOpacity style={styles.ContainerButtonSubs}>
-        <View style={styles.ButtonSubs}>
-          <Text style={styles.TextButtonSubs}>Signup</Text>
-        </View>
-      </TouchableOpacity>
+        </>
+      )}
     </KeyboardAvoidingView>
   );
 };

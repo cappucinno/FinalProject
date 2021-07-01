@@ -20,91 +20,83 @@ import {COLOR} from '../../Assets/Color/Color';
 
 const Subscription = props => {
   const [visible, setVisible] = useState(false);
+  const [datafilter, setDataFilter] = useState([]);
+
   const subscribtion = true;
+
+  const HandelFilter = e => {
+    setDataFilter(e);
+  };
+
   const CreateSubs = () => {
     setVisible(!visible);
   };
 
+  console.log(datafilter, '<===== Data Filter');
+
   return (
     <SafeAreaView style={{flex: 1}}>
       {/* Headerr  */}
-      <BackgroundPurple>
-        <ScrollView
-          contentContainerStyle={styles.Grow}
-          style={styles.containerSub}>
-          <View style={styles.containerHead}>
-            <Text style={styles.TextHead}>Recurring Billing</Text>
-            <TouchableOpacity
-              onPress={() => props.navigation.navigate('FilterSubscription')}>
+
+      <ScrollView
+        contentContainerStyle={styles.Grow}
+        style={styles.containerSub}>
+        <View style={styles.containerHead}>
+          <Text style={styles.TextHead}>Recurring Billing</Text>
+          <TouchableOpacity
+            onPress={() =>
+              props.navigation.navigate('FilterSubscription', HandelFilter)
+            }>
+            <FastImage
+              style={styles.IconFilter}
+              source={IconFilter}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.ResFilter}>
+          <View style={styles.ContainerTexFil}>
+            <Text style={styles.textfil}>{datafilter?.status}</Text>
+          </View>
+          <View style={styles.ContainerTexFil}>
+            <Text style={styles.textfil}>{datafilter?.category}</Text>
+          </View>
+          <View style={styles.ContainerTexFil}>
+            <Text style={styles.textfil}>{datafilter?.period}</Text>
+          </View>
+        </View>
+        {/* DATA ada */}
+        {subscribtion ? (
+          <View>
+            <PaymentCard late={true} navigation={props.navigation} />
+            <PaymentCard
+              late={false}
+              success={false}
+              navigation={props.navigation}
+            />
+            <PaymentCard success={true} />
+          </View>
+        ) : (
+          <View style={styles.ContainerImgSub}>
+            <View style={styles.ImgSub}>
               <FastImage
-                style={styles.IconFilter}
-                source={IconFilter}
+                style={styles.Subscription}
+                source={IconSubscribtion}
                 resizeMode={FastImage.resizeMode.contain}
               />
+            </View>
+            <Text style={styles.TextSubs}>You don't have any subscribtion</Text>
+            <TouchableOpacity style={styles.ContainerButtonSubs}>
+              <View style={styles.ButtonSubs}>
+                <Text style={styles.TextButtonSubs}>Create New</Text>
+              </View>
             </TouchableOpacity>
           </View>
+        )}
+      </ScrollView>
 
-          <View style={styles.ResFilter}>
-            <View style={styles.ContainerTexFil}>
-              <Text style={styles.textfil}>Actived</Text>
-            </View>
-            <View style={styles.ContainerTexFil}>
-              <Text style={styles.textfil}>Planing</Text>
-            </View>
-            <View style={styles.ContainerTexFil}>
-              <Text style={styles.textfil}>Planing</Text>
-            </View>
-            <View style={styles.ContainerTexFil}>
-              <Text style={styles.textfil}>Actived</Text>
-            </View>
-            <View style={styles.ContainerTexFil}>
-              <Text style={styles.textfil}>Actived</Text>
-            </View>
-          </View>
-          {/* DATA ada */}
-          {subscribtion ? (
-            <View>
-              <PaymentCard late={true} navigation={props.navigation} />
-              <PaymentCard
-                late={false}
-                success={false}
-                navigation={props.navigation}
-              />
-              <PaymentCard success={true} />
-            </View>
-          ) : (
-            <View style={styles.ContainerImgSub}>
-              <View style={styles.ImgSub}>
-                <FastImage
-                  style={styles.Subscription}
-                  source={IconSubscribtion}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </View>
-              <Text style={styles.TextSubs}>
-                You don't have any subscribtion
-              </Text>
-              <TouchableOpacity style={styles.ContainerButtonSubs}>
-                <View style={styles.ButtonSubs}>
-                  <Text style={styles.TextButtonSubs}>Create New</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          )}
-        </ScrollView>
-      </BackgroundPurple>
-      {subscribtion ? (
-        <TouchableOpacity onPress={CreateSubs} style={styles.PresNewSub}>
-          <View>
-            <FastImage
-              style={styles.ButtonNewSub}
-              source={ButtonNewSub}
-              resizeMode={FastImage.resizeMode.contain}
-              onBackdropPress={CreateSubs}
-            />
-          </View>
-        </TouchableOpacity>
-      ) : null}
+      {}
     </SafeAreaView>
   );
 };

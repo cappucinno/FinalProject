@@ -14,11 +14,16 @@ import IconFilter from './IconFilter.png';
 import InfoPayment from './InfoPayment.png';
 import InfoSubscription from './InfoSubscription.png';
 import ButtonNewSub from './ButtonNewSub.png';
+import ButtonClose from './ButtonClose.png';
 import IconSubscribtion from './IconSubscribtion.png';
 import ArrowBack from './ArrowBack.png';
 import CheckActive from './CheckActive.png';
 import CheckBox1 from './CheckBox.png';
+import RadioActive from './RadioActive.png';
+import Radio from './Radio.png';
+import AddNewCard from './AddNewCard.png';
 import PLN from './PLN.png';
+import IconVisa from './IconVisa.png';
 
 export {
   IconBell,
@@ -37,9 +42,14 @@ export {
   InfoPayment,
   InfoSubscription,
   ButtonNewSub,
+  ButtonClose,
   IconSubscribtion,
   ArrowBack,
   CheckActive,
   CheckBox1,
+  RadioActive,
+  Radio,
+  AddNewCard,
   PLN,
+  IconVisa,
 };

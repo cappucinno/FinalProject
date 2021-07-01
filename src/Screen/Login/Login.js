@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -13,52 +13,91 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import FastImage from 'react-native-fast-image';
+import {useSelector, useDispatch} from 'react-redux';
 import {IconBiller} from '../../Assets/Assets';
+import {loginAction} from './redux/action';
+import Loading from '../../Component/Loading/Loading';
 
-const Login = () => {
+const Login = props => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
+  const isLoading = useSelector(state => state.GlobalReducer.Loading);
+  const isLogged = useSelector(state => state.GlobalReducer.isLogged);
+
+  useEffect(() => {
+    if (isLogged) {
+      props.navigation.navigate('Mainapp');
+    }
+  }, [isLogged]);
+
+  const submitLogin = () => {
+    dispatch(
+      loginAction({
+        email: email,
+        password: password,
+      }),
+    );
+  };
   return (
     <KeyboardAvoidingView style={styles.container}>
-      <View style={[styles.bigRect, styles.top]} />
-      <View style={styles.containerHead}>
-        <FastImage
-          style={styles.imageBiller}
-          source={IconBiller}
-          resizeMode={FastImage.resizeMode.contain}
-        />
-        <Text style={styles.StyleText}>biller</Text>
-      </View>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <View style={[styles.bigRect, styles.top]} />
+          <View style={styles.containerHead}>
+            <FastImage
+              style={styles.imageBiller}
+              source={IconBiller}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+            <Text style={styles.StyleText}>biller</Text>
+          </View>
 
-      <View style={styles.topContainer}>
-        <Text style={styles.text1}>Welcome Back!</Text>
-        <View style={styles.textLogin}>
-          <Text style={styles.text2}>Don't have account? </Text>
-          <TouchableOpacity>
-            <Text style={styles.text3}>Sign up</Text>
+          <View style={styles.topContainer}>
+            <Text style={styles.text1}>Welcome Back!</Text>
+            <View style={styles.textLogin}>
+              <Text style={styles.text2}>Don't have account? </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  dispatch({type: 'RESET_AUTH'});
+                  props.navigation.navigate('SignUp');
+                }}>
+                <Text style={styles.text3}>Sign up</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <TextInput
+            style={styles.textContainer1}
+            placeholder="Email"
+            placeholderTextColor="#999999"
+            onChangeText={text => setEmail(text)}
+          />
+          <TextInput
+            style={styles.textContainer2}
+            placeholder="Password"
+            placeholderTextColor="#999999"
+            onChangeText={text => setPassword(text)}
+            secureTextEntry
+          />
+          <TouchableOpacity
+            onPress={submitLogin}
+            style={styles.ContainerButtonSubs}>
+            <View style={styles.ButtonSubs}>
+              <Text style={styles.TextButtonSubs}>Login</Text>
+            </View>
           </TouchableOpacity>
-        </View>
-      </View>
 
-      <TextInput
-        style={styles.textContainer1}
-        placeholder="Email"
-        placeholderTextColor="#999999"
-      />
-      <TextInput
-        style={styles.textContainer2}
-        placeholder="Password"
-        placeholderTextColor="#999999"
-        secureTextEntry
-      />
-      <TouchableOpacity style={styles.ContainerButtonSubs}>
-        <View style={styles.ButtonSubs}>
-          <Text style={styles.TextButtonSubs}>Login</Text>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.buttonForgetPassword}>
-        <View>
-          <Text style={styles.textForgotPassword}>Forgot Password</Text>
-        </View>
-      </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonForgetPassword}>
+            <View>
+              <Text style={styles.textForgotPassword}>Forgot Password</Text>
+            </View>
+          </TouchableOpacity>
+        </>
+      )}
     </KeyboardAvoidingView>
   );
 };

@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
   },
   containerSub: {
     paddingBottom: moderateScale(100),
-    backgroundColor: '#263765',
   },
   ContainerHeader: {
     marginLeft: widthPercentageToDP(8),
