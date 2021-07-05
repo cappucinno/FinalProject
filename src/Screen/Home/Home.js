@@ -82,7 +82,10 @@ const Home = props => {
               />
               <Text style={styles.textInButton}>Mobile</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('InternetTv')}
+              style={styles.buttonStyle}
+              activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconInternet}
                 source={IconInternet}
@@ -92,7 +95,10 @@ const Home = props => {
             </TouchableOpacity>
           </View>
           <View style={styles.containerMiddle}>
-            <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('Landline')}
+              style={styles.buttonStyle}
+              activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconLandline}
                 source={IconLandLine}

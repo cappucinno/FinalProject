@@ -1,21 +1,26 @@
-import React from 'react';
-import {StyleSheet, SafeAreaView, ScrollView, View} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, SafeAreaView, Text, ScrollView} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 import CoverPayment from '../../Component/CoverPayment/CoverPayment';
-import {IconElectricityActive} from '../../Assets/Assets';
 import BackgroundPurple from '../../Component/Background/BackgroundPurple';
+import {IconInternetActive} from '../../Assets/Assets';
 
-const Electricity = props => {
+const InternetTv = props => {
   const dataentry = [
     {
-      NameData: 'PLN-Token',
-      Naigation: 'ListPaymentElectricity',
-      Page: 'PLN-Token',
+      NameData: 'IndiHome',
+      Naigation: 'ListPaymentInternetTv',
+      Page: 'IndiHome',
     },
     {
-      NameData: 'PLN-Tagihan Listrik',
-      Naigation: 'ListPaymentElectricity',
-      Page: 'PLN-Tagihan Listrik',
+      NameData: 'MNC Play',
+      Naigation: 'ListPaymentInternetTv',
+      Page: 'MNC Play',
+    },
+    {
+      NameData: 'Biznet Home',
+      Naigation: 'ListPaymentInternetTv',
+      Page: 'Biznet Home',
     },
   ];
 
@@ -27,8 +32,8 @@ const Electricity = props => {
           style={styles.containerSub}>
           <CoverPayment
             navigation={props.navigation}
-            titlecover={'Electricity'}
-            iconcover={IconElectricityActive}
+            titlecover={'Internet & Tv'}
+            iconcover={IconInternetActive}
             data={dataentry}
           />
         </ScrollView>
@@ -37,7 +42,7 @@ const Electricity = props => {
   );
 };
 
-export default Electricity;
+export default InternetTv;
 
 const styles = StyleSheet.create({
   Grow: {

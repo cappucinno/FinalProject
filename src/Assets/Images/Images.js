@@ -4,6 +4,7 @@ import IconBPJS from './IconBPJS.png';
 import IconElectricity from './IconElectricity.png';
 import IconElectricityActive from './IconElectricityActive.png';
 import IconInternet from './IconInternet.png';
+import IconInternetActive from './IconInternetActive.png';
 import IconLandLine from './IconLandline.png';
 import IconMasterCard from './IconMasterCard.png';
 import IconMobile from './IconMobile.png';
@@ -24,6 +25,8 @@ import Radio from './Radio.png';
 import AddNewCard from './AddNewCard.png';
 import PLN from './PLN.png';
 import IconVisa from './IconVisa.png';
+import IconCloseWhite from './IconCloseWhite.png';
+import ButtonDownload from './ButtonDownload.png';
 
 export {
   IconBell,
@@ -32,6 +35,7 @@ export {
   IconElectricity,
   IconElectricityActive,
   IconInternet,
+  IconInternetActive,
   IconLandLine,
   IconMasterCard,
   IconMobile,
@@ -52,4 +56,6 @@ export {
   AddNewCard,
   PLN,
   IconVisa,
+  IconCloseWhite,
+  ButtonDownload,
 };

@@ -27,9 +27,10 @@ const CoverPayment = ({navigation, titlecover, iconcover, data}) => {
         </View>
         {dataentry.map((v, i) => {
           return (
-            <View key={i} style={styles.ContainerList}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate(v.Naigation)}>
+            <TouchableOpacity
+              key={i}
+              onPress={() => navigation.navigate(v.Naigation, v.Page)}>
+              <View style={styles.ContainerList}>
                 <View style={styles.ContainerLogo}>
                   <FastImage
                     style={styles.Logo}
@@ -37,11 +38,11 @@ const CoverPayment = ({navigation, titlecover, iconcover, data}) => {
                     resizeMode={FastImage.resizeMode.contain}
                   />
                 </View>
-              </TouchableOpacity>
-              <View style={styles.ContainerText}>
-                <Text style={styles.TextList}>{v.NameData}</Text>
+                <View style={styles.ContainerText}>
+                  <Text style={styles.TextList}>{v.NameData}</Text>
+                </View>
               </View>
-            </View>
+            </TouchableOpacity>
           );
         })}
         <View />

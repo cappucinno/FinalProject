@@ -1,36 +1,42 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, SafeAreaView, ScrollView} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 import CoverPayment from '../../Component/CoverPayment/CoverPayment';
-import {IconElectricityActive, IconMoibileActive} from '../../Assets/Assets';
+import BackgroundPurple from '../../Component/Background/BackgroundPurple';
+import {IconMoibileActive} from '../../Assets/Assets';
 const Mobile = props => {
   const dataentry = [
     {
       NameData: 'Pulsa (pre-paid)',
-      Naigation: 'ListPaymentElectricity',
+      Naigation: 'ListPaymentMobile',
+      Page: 'Pulsa',
     },
     {
       NameData: 'Internet (pre-paid)',
-      Naigation: 'ListPaymentElectricity',
+      Naigation: 'ListPaymentMobile',
+      Page: 'Internet',
     },
     {
       NameData: 'Pascaa bayar (post-paid)',
-      Naigation: 'ListPaymentElectricity',
+      Naigation: 'ListPaymentMobile',
+      Page: 'Pasca bayar',
     },
   ];
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <ScrollView
-        contentContainerStyle={styles.Grow}
-        style={styles.containerSub}>
-        <CoverPayment
-          navigation={props.navigation}
-          titlecover={'Mobile'}
-          iconcover={IconMoibileActive}
-          data={dataentry}
-        />
-      </ScrollView>
+      <BackgroundPurple>
+        <ScrollView
+          contentContainerStyle={styles.Grow}
+          style={styles.containerSub}>
+          <CoverPayment
+            navigation={props.navigation}
+            titlecover={'Mobile'}
+            iconcover={IconMoibileActive}
+            data={dataentry}
+          />
+        </ScrollView>
+      </BackgroundPurple>
     </SafeAreaView>
   );
 };
@@ -43,6 +49,5 @@ const styles = StyleSheet.create({
   },
   containerSub: {
     paddingBottom: moderateScale(100),
-    backgroundColor: '#263765',
   },
 });

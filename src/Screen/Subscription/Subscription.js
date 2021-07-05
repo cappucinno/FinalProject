@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -26,10 +26,6 @@ const Subscription = props => {
 
   const HandelFilter = e => {
     setDataFilter(e);
-  };
-
-  const CreateSubs = () => {
-    setVisible(!visible);
   };
 
   console.log(datafilter, '<===== Data Filter');
@@ -66,6 +62,7 @@ const Subscription = props => {
             <Text style={styles.textfil}>{datafilter?.period}</Text>
           </View>
         </View>
+
         {/* DATA ada */}
         {subscribtion ? (
           <View>

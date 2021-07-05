@@ -7,8 +7,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 //Screen
 import {
-  Home,
   SignUp,
+  Login,
   FilterSubscription,
   Subscription,
   RecurringBilling,
@@ -17,8 +17,16 @@ import {
   DetailPaymentElectricity,
   PaymentMethodElectricity,
   AddPaymentCardElectric,
+  ResultPaymentElectricity,
+  ResultPaymentElectToken,
   Mobile,
-  Login,
+  ListPaymentMobile,
+  ResultPaymentMobile,
+  Landline,
+  LandlineResult,
+  InternetTv,
+  ListPaymentInternetTv,
+  ResultPaymentInternetTv,
 } from './src/Screen/Screen';
 
 import {BottomNav} from './src/Component/Component';
@@ -91,8 +99,53 @@ const Root = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
+          name="ResultPaymentElectricity"
+          component={ResultPaymentElectricity}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ResultPaymentElectToken"
+          component={ResultPaymentElectToken}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
           name="Mobile"
           component={Mobile}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ListPaymentMobile"
+          component={ListPaymentMobile}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ResultPaymentMobile"
+          component={ResultPaymentMobile}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Landline"
+          component={Landline}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="LandlineResult"
+          component={LandlineResult}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="InternetTv"
+          component={InternetTv}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ListPaymentInternetTv"
+          component={ListPaymentInternetTv}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ResultPaymentInternetTv"
+          component={ResultPaymentInternetTv}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
