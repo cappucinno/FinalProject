@@ -21,7 +21,7 @@ import {
 } from '../../Assets/Assets';
 import {Overlay, BottomSheet, CheckBox} from 'react-native-elements';
 
-const History = () => {
+const History = props => {
   const [visible, setVisible] = useState(false);
 
   const toggleOverlay = () => {
@@ -70,7 +70,9 @@ const History = () => {
                 <Text style={styles.data2}>Rp. 51.500</Text>
               </View>
             </View>
-            <TouchableOpacity style={styles.seeDetail}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('HistoryReceipt')}
+              style={styles.seeDetail}>
               <Text style={styles.textseeDetail}>see receipt</Text>
             </TouchableOpacity>
           </View>
