@@ -213,11 +213,6 @@ const Root = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="History"
-          component={History}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
           name="Notification"
           component={Notification}
           options={{headerShown: false}}

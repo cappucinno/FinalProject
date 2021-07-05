@@ -13,10 +13,10 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import {ButtonClose, PLN, InfoPayment} from '../../Assets/Assets';
+import {IconCloseWhite, PLN, InfoPayment} from '../../Assets/Assets';
 import {COLOR} from '../../Assets/Color/Color';
 
-const HistoryReceipt = () => {
+const HistoryReceipt = props => {
   return (
     <SafeAreaView
       style={{backgroundColor: '#263765', width: wp(100), height: hp(100)}}>
@@ -26,10 +26,11 @@ const HistoryReceipt = () => {
         }}>
         <View style={styles.topContainer}>
           <Text style={styles.text1}>Electricity</Text>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate('History')}>
             <FastImage
               style={styles.closeIcon}
-              source={ButtonClose}
+              source={IconCloseWhite}
               resizeMode={FastImage.resizeMode.contain}
             />
           </TouchableOpacity>
@@ -124,7 +125,6 @@ const styles = StyleSheet.create({
     width: moderateScale(14),
     height: moderateScale(14),
     top: moderateScale(23),
-    backgroundColor: 'white',
   },
   PLNIcon: {
     width: moderateScale(16),

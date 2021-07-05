@@ -18,10 +18,11 @@ import {
   IconElectricityActive,
   IconMobileActive,
   ButtonClose,
+  ArrowBack,
 } from '../../Assets/Assets';
 import {Overlay, BottomSheet, CheckBox} from 'react-native-elements';
 
-const History = () => {
+const History = props => {
   const [visible, setVisible] = useState(false);
 
   const toggleOverlay = () => {
@@ -70,7 +71,9 @@ const History = () => {
                 <Text style={styles.data2}>Rp. 51.500</Text>
               </View>
             </View>
-            <TouchableOpacity style={styles.seeDetail}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('HistoryReceipt')}
+              style={styles.seeDetail}>
               <Text style={styles.textseeDetail}>see receipt</Text>
             </TouchableOpacity>
           </View>
@@ -363,16 +366,17 @@ const styles = StyleSheet.create({
   },
   HeaderBilling: {
     marginTop: moderateScale(14),
-    marginLeft: moderateScale(24),
+    marginLeft: moderateScale(28),
     flexDirection: 'row',
   },
+
   lokasiFilter: {
     alignSelf: 'center',
     left: moderateScale(250),
   },
   IconFilter: {
     width: moderateScale(19),
-    height: moderateScale(12),
+    height: moderateScale(18),
   },
   Judul: {
     color: 'white',
