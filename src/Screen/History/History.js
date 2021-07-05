@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -17,15 +17,36 @@ import {
   IconFilter,
   IconElectricityActive,
   IconMobileActive,
+  ButtonClose,
 } from '../../Assets/Assets';
+import {Overlay, BottomSheet, CheckBox} from 'react-native-elements';
 
 const History = () => {
+  const [visible, setVisible] = useState(false);
+
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
+
+  const [check1, setCheck1] = useState(false);
+  const [check2, setCheck2] = useState(false);
+  const [check3, setCheck3] = useState(false);
+  const [check4, setCheck4] = useState(false);
   return (
     <SafeAreaView>
       <ScrollView style={styles.containerAll}>
         <View style={styles.containerHead}>
           <View style={styles.HeaderBilling}>
             <Text style={styles.Judul}>History</Text>
+            <View style={styles.lokasiFilter}>
+              <TouchableOpacity onPress={toggleOverlay}>
+                <FastImage
+                  style={styles.IconFilter}
+                  source={IconFilter}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
         <View>
@@ -283,6 +304,45 @@ const History = () => {
           </View>
         </View>
       </ScrollView>
+      <BottomSheet isVisible={visible}>
+        <View style={styles.containerOverlay}>
+          <TouchableOpacity onPress={() => setVisible(false)}>
+            <FastImage
+              style={styles.imageCloseOverlay}
+              source={ButtonClose}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </TouchableOpacity>
+          <View style={styles.textFilterContainer}>
+            <Text style={styles.textFilter}>Filter</Text>
+          </View>
+          <Text style={{alignSelf: 'center'}}>
+            {' '}
+            - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+            - - - - - - - - - - - - - - - - -
+          </Text>
+          <CheckBox
+            onPress={() => setCheck1(!check1)}
+            title="Today"
+            checked={check1}
+          />
+          <CheckBox
+            onPress={() => setCheck2(!check2)}
+            title="Last week"
+            checked={check2}
+          />
+          <CheckBox
+            onPress={() => setCheck3(!check3)}
+            title="Last month"
+            checked={!check3}
+          />
+          <CheckBox
+            onPress={() => setCheck4(!check4)}
+            title="Last 3 months"
+            checked={!check4}
+          />
+        </View>
+      </BottomSheet>
     </SafeAreaView>
   );
 };
@@ -304,8 +364,16 @@ const styles = StyleSheet.create({
   HeaderBilling: {
     marginTop: moderateScale(14),
     marginLeft: moderateScale(24),
+    flexDirection: 'row',
   },
-
+  lokasiFilter: {
+    alignSelf: 'center',
+    left: moderateScale(250),
+  },
+  IconFilter: {
+    width: moderateScale(19),
+    height: moderateScale(12),
+  },
   Judul: {
     color: 'white',
     fontSize: moderateScale(16),
@@ -419,5 +487,23 @@ const styles = StyleSheet.create({
     marginBottom: moderateScale(40),
     top: moderateScale(30),
     elevation: 10,
+  },
+  containerOverlay: {
+    backgroundColor: 'white',
+    borderTopLeftRadius: moderateScale(10),
+    borderTopRightRadius: moderateScale(10),
+  },
+  imageCloseOverlay: {
+    width: moderateScale(13),
+    height: moderateScale(17),
+    top: moderateScale(7),
+    left: moderateScale(345),
+  },
+  textFilterContainer: {
+    left: moderateScale(22),
+  },
+  textFilter: {
+    fontSize: moderateScale(14),
+    fontFamily: 'Montserrat-Regular',
   },
 });
