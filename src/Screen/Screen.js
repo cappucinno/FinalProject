@@ -21,6 +21,9 @@ import LandlineResult from './Landline/LandlineResult';
 import InternetTv from './InternetTv/InternetTv';
 import ListPaymentInternetTv from './InternetTv/ListPayment/ListPaymentInternetTv';
 import ResultPaymentInternetTv from './InternetTv/ResultPaymentInternetTv/ResultPaymentInternetTv';
+import BPJS from './BPJS/BPJS';
+import DetailPaymentBPJS from './BPJS/DetailPaymentBPJS';
+import ResultPaymentBPJS from './BPJS/ResultPaymentBPJS';
 import Login from './Login/Login';
 import NewSubscription from './NewSubcription/NewSubscription';
 import NSBillsCategory from './NewSubcription/NSBillsCategory';
@@ -67,4 +70,7 @@ export {
   Notification,
   Profile,
   HistoryReceipt,
+  BPJS,
+  DetailPaymentBPJS,
+  ResultPaymentBPJS,
 };

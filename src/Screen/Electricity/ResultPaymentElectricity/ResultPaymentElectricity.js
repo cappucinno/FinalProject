@@ -13,11 +13,7 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
-import {
-  IconMoibileActive,
-  IconCloseWhite,
-  ButtonDownload,
-} from '../../../Assets/Assets';
+import {IconElectricityActive} from '../../../Assets/Assets';
 import ComResultPaymentElect from '../../../Component/ComResultPaymentElect/ComResultPaymentElect';
 
 const ResultPaymentElectricity = props => {
@@ -31,6 +27,7 @@ const ResultPaymentElectricity = props => {
           navigate={props.navigation}
           head={'Electricity'}
           titleicon={titles}
+          icon={IconElectricityActive}
           tagihan={true}
         />
       </ScrollView>

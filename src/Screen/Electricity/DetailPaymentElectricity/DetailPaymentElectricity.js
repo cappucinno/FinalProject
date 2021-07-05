@@ -16,17 +16,12 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import DetailPayment from '../../../Component/DetailPayment/DetailPayment';
-import {
-  ArrowBack,
-  IconElectricityActive,
-  CheckBox1,
-  CheckActive,
-  InfoPayment,
-} from '../../../Assets/Assets';
+import {IconElectricityActive} from '../../../Assets/Assets';
 
 const DetailPaymentElectricity = props => {
   const title = props.route.params;
-  const page = 'ResultPaymentElectricity';
+  const page1 = 'ResultPaymentElectToken';
+  const page2 = 'ResultPaymentElectricity';
   console.log(title, '<<<<< ini title');
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -38,6 +33,7 @@ const DetailPaymentElectricity = props => {
             titleicon={title}
             navigation={props.navigation}
             token={true}
+            page={page1}
           />
         ) : title === 'PLN-Tagihan Listrik' ? (
           <DetailPayment
@@ -46,6 +42,7 @@ const DetailPaymentElectricity = props => {
             titleicon={title}
             navigation={props.navigation}
             tagihan={true}
+            page={page2}
           />
         ) : null}
       </ScrollView>

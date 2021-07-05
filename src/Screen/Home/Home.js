@@ -106,7 +106,10 @@ const Home = props => {
               />
               <Text style={styles.textInButton}>Landline</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('BPJS')}
+              style={styles.buttonStyle}
+              activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconBPJS}
                 source={IconBPJS}

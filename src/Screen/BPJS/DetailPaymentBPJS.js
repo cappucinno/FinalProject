@@ -22,15 +22,7 @@ import {
   InfoPayment,
 } from '../../Assets/Assets';
 
-const DetailPayment = ({
-  header,
-  navigation,
-  titleicon,
-  icon,
-  token = false,
-  tagihan = false,
-  page,
-}) => {
+const DetailPaymentBPJS = props => {
   const [cheked, setCheked] = useState(false);
   const [period, setPeriod] = useState(false);
   const [value, setValue] = useState('');
@@ -56,126 +48,70 @@ const DetailPayment = ({
       <ScrollView contentContainerStyle={styles.Grow} style={styles.container}>
         <View style={styles.ContainerHeaderPayment}>
           <View style={styles.HeaderPayment}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity onPress={() => props.navigation.goBack()}>
               <FastImage
                 style={styles.ArrowBack}
                 source={ArrowBack}
                 resizeMode={FastImage.resizeMode.contain}
               />
             </TouchableOpacity>
-            <Text style={styles.Judul}>{header}</Text>
+            <Text style={styles.Judul}>BPJS</Text>
           </View>
-          <View>
-            <View style={styles.ContainerDetailListPayment}>
-              <View style={styles.ContainerLogo}>
-                <FastImage
-                  style={styles.Logo}
-                  source={icon}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </View>
-              <View style={styles.ContainerText}>
-                <Text style={styles.TextList}>{titleicon}</Text>
-              </View>
+        </View>
+
+        <View style={styles.Containerisi}>
+          <View style={styles.ContainerTextBillDetail1}>
+            <Text style={styles.TextHeadBill}>Bill Details</Text>
+            <View style={styles.ContainerTextData}>
+              <Text style={styles.TextData}>No VA</Text>
+              <Text style={styles.TextDataRes}>000000012345678</Text>
+            </View>
+            <View style={styles.ContainerTextData}>
+              <Text style={styles.TextData}>Fullname</Text>
+              <Text style={styles.TextDataRes}>Justin Junedi</Text>
+            </View>
+            <View style={styles.ContainerTextData}>
+              <Text style={styles.TextData}>Branch</Text>
+              <Text style={styles.TextDataRes}>Surabaya</Text>
+            </View>
+            <View style={styles.ContainerTextData}>
+              <Text style={styles.TextData}>Family Member</Text>
+              <Text style={styles.TextDataRes}>4</Text>
+            </View>
+            <View style={styles.ContainerTextData}>
+              <Text style={styles.TextData}>Payment Period</Text>
+              <Text style={styles.TextDataRes}>May 2021 - June 2021</Text>
+            </View>
+            <Text style={styles.TextData2}>2 month</Text>
+          </View>
+          <View style={styles.ContainerTextBillDetail2}>
+            <View style={styles.ContainerTextData}>
+              <Text style={styles.TextData}>Bill</Text>
+              <Text style={styles.TextDataRes}>Rp 1.224.000,00</Text>
+            </View>
+            <View style={styles.ContainerTextData}>
+              <Text style={styles.TextData}>Admin</Text>
+              <Text style={styles.TextDataRes}>Rp 2.500,00</Text>
+            </View>
+            <View style={styles.ContainerTextData}>
+              <Text style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
+                Total
+              </Text>
+              <Text style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
+                Rp 1.226.500,00
+              </Text>
             </View>
           </View>
         </View>
-        {token ? (
-          <View style={styles.Containerisi}>
-            <View style={styles.ContainerTextBillDetail1}>
-              <Text style={styles.TextHeadBill}>Bill Details</Text>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>No Meter</Text>
-                <Text style={styles.TextDataRes}>141234567890</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>IDPEL</Text>
-                <Text style={styles.TextDataRes}>511234567890</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Name</Text>
-                <Text style={styles.TextDataRes}>Justin Junaedi</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Tarif/Daya</Text>
-                <Text style={styles.TextDataRes}>R1/2200 VA</Text>
-              </View>
-            </View>
-            <View style={styles.ContainerTextBillDetail2}>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Token</Text>
-                <Text style={styles.TextDataRes}>Rp 50.000,00</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>PPJ</Text>
-                <Text style={styles.TextDataRes}>Rp 3.704,00</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Admin</Text>
-                <Text style={styles.TextDataRes}>Rp 1.500,00</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
-                  Total
-                </Text>
-                <Text style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
-                  Rp 51.500,00
-                </Text>
-              </View>
-            </View>
-          </View>
-        ) : tagihan ? (
-          <View style={styles.Containerisi}>
-            <View style={styles.ContainerTextBillDetail1}>
-              <Text style={styles.TextHeadBill}>Bill Details</Text>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>IDPEL</Text>
-                <Text style={styles.TextDataRes}>511234567890</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Name</Text>
-                <Text style={styles.TextDataRes}>Justin Junaedi</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Tarif/Daya</Text>
-                <Text style={styles.TextDataRes}>R1/2200 VA</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Bulan/Tahun</Text>
-                <Text style={styles.TextDataRes}>May 2021</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Stand Meter</Text>
-                <Text style={styles.TextDataRes}>00001804-00002054</Text>
-              </View>
-            </View>
-            <View style={styles.ContainerTextBillDetail2}>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Bill</Text>
-                <Text style={styles.TextDataRes}>Rp 89.704,00</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Admin</Text>
-                <Text style={styles.TextDataRes}>Rp 1.500,00</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
-                  Total
-                </Text>
-                <Text style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
-                  Rp 51.500,00
-                </Text>
-              </View>
-            </View>
-          </View>
-        ) : null}
 
         <View style={styles.PaymentMethod}>
           <View style={styles.ContainerTextPaymentMethod}>
             <Text style={styles.TextPaymentMethod}>Payment Method</Text>
             <View>
               <TouchableOpacity
-                onPress={() => navigation.navigate('PaymentMethodElectricity')}>
+                onPress={() =>
+                  props.navigation.navigate('PaymentMethodElectricity')
+                }>
                 <Text style={styles.TextChange}>change</Text>
               </TouchableOpacity>
             </View>
@@ -261,10 +197,10 @@ const DetailPayment = ({
         </View>
         <View>
           <TouchableOpacity
-            onPress={() => navigation.navigate(page, titleicon)}
+            onPress={() => props.navigation.navigate('ResultPaymentBPJS')}
             style={styles.ContainerButton}>
             <View>
-              <Text style={styles.TextButtonBuy}>Pay : Rp 50.0000</Text>
+              <Text style={styles.TextButtonBuy}>Pay : Rp 1.226.500,00</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -273,26 +209,26 @@ const DetailPayment = ({
   );
 };
 
-export default DetailPayment;
+export default DetailPaymentBPJS;
 
 const styles = StyleSheet.create({
   Grow: {
     flexGrow: 1,
   },
   container: {
-    paddingBottom: moderateScale(100),
+    paddingBottom: moderateScale(8),
     backgroundColor: 'white',
   },
   ContainerHeaderPayment: {
     backgroundColor: '#263765',
-    height: heightPercentageToDP(13),
+    height: heightPercentageToDP(10),
     borderBottomLeftRadius: moderateScale(16),
     borderBottomRightRadius: moderateScale(16),
   },
   HeaderPayment: {
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: moderateScale(12),
+    marginTop: moderateScale(24),
     marginLeft: moderateScale(34),
     marginRight: moderateScale(36),
   },
@@ -373,6 +309,11 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: moderateScale(12),
     fontFamily: 'Montserrat-Regular',
+  },
+  TextData2: {
+    alignSelf: 'flex-end',
+    marginTop: moderateScale(4),
+    marginRight: moderateScale(24),
   },
   TextDataRes: {
     color: '#000000',

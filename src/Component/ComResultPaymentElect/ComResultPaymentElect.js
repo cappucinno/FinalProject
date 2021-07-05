@@ -23,6 +23,7 @@ const ComResultPaymentElect = ({
   navigate,
   head,
   titleicon,
+  icon,
   token = false,
   tagihan = false,
 }) => {
@@ -45,7 +46,7 @@ const ComResultPaymentElect = ({
               <View style={styles.ContainerLogo}>
                 <FastImage
                   style={styles.Logo}
-                  source={IconMoibileActive}
+                  source={icon}
                   resizeMode={FastImage.resizeMode.contain}
                 />
               </View>

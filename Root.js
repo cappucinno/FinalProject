@@ -38,6 +38,9 @@ import {
   Notification,
   Profile,
   HistoryReceipt,
+  BPJS,
+  DetailPaymentBPJS,
+  ResultPaymentBPJS,
 } from './src/Screen/Screen';
 
 import {BottomNav} from './src/Component/Component';
@@ -157,6 +160,21 @@ const Root = () => {
         <Stack.Screen
           name="ResultPaymentInternetTv"
           component={ResultPaymentInternetTv}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="BPJS"
+          component={BPJS}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="DetailPaymentBPJS"
+          component={DetailPaymentBPJS}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ResultPaymentBPJS"
+          component={ResultPaymentBPJS}
           options={{headerShown: false}}
         />
         <Stack.Screen
