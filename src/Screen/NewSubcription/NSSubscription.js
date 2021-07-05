@@ -106,6 +106,11 @@ const NSSubscription = () => {
             </View>
           </View>
         </View>
+        <View style={styles.tombolHome}>
+          <TouchableOpacity>
+            <Text style={styles.textToHome}>Back to home</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -118,6 +123,7 @@ const styles = StyleSheet.create({
     width: moderateScale(14),
     height: moderateScale(14),
     top: moderateScale(23),
+    backgroundColor: 'white',
   },
   topContainer: {
     flexDirection: 'row',
@@ -255,5 +261,15 @@ const styles = StyleSheet.create({
     color: COLOR.purple.purpleBold,
     fontSize: moderateScale(10),
     fontFamily: 'Montserrat-Regular',
+  },
+  tombolHome: {
+    height: hp(10),
+    alignSelf: 'center',
+    bottom: moderateScale(40),
+  },
+  textToHome: {
+    fontSize: moderateScale(10),
+    fontFamily: 'Montserrat-Bold',
+    color: 'white',
   },
 });

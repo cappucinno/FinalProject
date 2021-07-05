@@ -26,6 +26,10 @@ import {
   NSBillDetail,
   NSRecurringBilling,
   NSSubscription,
+  History,
+  Notification,
+  Profile,
+  HistoryReceipt,
 } from './src/Screen/Screen';
 
 import {BottomNav} from './src/Component/Component';
@@ -41,7 +45,7 @@ const Root = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="NSSubscription">
+      <Stack.Navigator initialRouteName="HistoryReceipt">
         <Stack.Screen
           name="Login"
           component={Login}
@@ -135,6 +139,26 @@ const Root = () => {
         <Stack.Screen
           name="NSSubscription"
           component={NSSubscription}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="History"
+          component={History}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Notification"
+          component={Notification}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="HistoryReceipt"
+          component={HistoryReceipt}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

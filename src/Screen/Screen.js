@@ -20,6 +20,9 @@ import NSPulsa from './NewSubcription/NSPulsa';
 import NSBillDetail from './NewSubcription/NSBillDetail';
 import NSRecurringBilling from './NewSubcription/NSRecurringBilling';
 import NSSubscription from './NewSubcription/NSSubscription';
+import Notification from './Notification/Notification';
+import Profile from './Profile/Profile';
+import HistoryReceipt from './History/HistoryReceipt';
 
 export {
   Electricity,
@@ -43,4 +46,7 @@ export {
   NSBillDetail,
   NSRecurringBilling,
   NSSubscription,
+  Notification,
+  Profile,
+  HistoryReceipt,
 };
