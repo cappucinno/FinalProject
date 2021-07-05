@@ -92,8 +92,17 @@ const Subscription = props => {
           </View>
         )}
       </ScrollView>
-
-      {}
+      {subscribtion ? (
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('NewSubscription')}
+          style={styles.PresNewSub}>
+          <FastImage
+            style={styles.ButtonNewSub}
+            source={ButtonNewSub}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        </TouchableOpacity>
+      ) : null}
     </SafeAreaView>
   );
 };
