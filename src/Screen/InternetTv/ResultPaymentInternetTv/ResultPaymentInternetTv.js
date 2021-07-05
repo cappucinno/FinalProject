@@ -73,7 +73,7 @@ const ResultPaymentInternetTv = props => {
             </View>
             <View style={styles.Form1}>
               <Text>Provider</Text>
-              <Text style={styles.textRes}>Telkomsel</Text>
+              <Text style={styles.textRes}>{title}</Text>
             </View>
           </View>
           <View style={styles.ContainerForm2}>

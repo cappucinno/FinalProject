@@ -1,23 +1,6 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, SafeAreaView, ScrollView} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
-import FastImage from 'react-native-fast-image';
-import {
-  heightPercentageToDP,
-  widthPercentageToDP,
-} from 'react-native-responsive-screen';
-import {
-  IconMoibileActive,
-  IconCloseWhite,
-  ButtonDownload,
-} from '../../../Assets/Assets';
 import ComResultPaymentMobile from '../../../Component/ComResultPaymentMobile/ComResultPaymentMobile';
 
 const ResultPaymentMobile = props => {

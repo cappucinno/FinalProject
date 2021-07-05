@@ -3,7 +3,7 @@ import {StyleSheet, SafeAreaView, ScrollView} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 import CoverPayment from '../../Component/CoverPayment/CoverPayment';
 import BackgroundPurple from '../../Component/Background/BackgroundPurple';
-import {IconMoibileActive} from '../../Assets/Assets';
+import {IconMobileActive} from '../../Assets/Assets';
 const Mobile = props => {
   const dataentry = [
     {
@@ -32,7 +32,7 @@ const Mobile = props => {
           <CoverPayment
             navigation={props.navigation}
             titlecover={'Mobile'}
-            iconcover={IconMoibileActive}
+            iconcover={IconMobileActive}
             data={dataentry}
           />
         </ScrollView>

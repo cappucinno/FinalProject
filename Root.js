@@ -27,6 +27,17 @@ import {
   InternetTv,
   ListPaymentInternetTv,
   ResultPaymentInternetTv,
+  NewSubscription,
+  NSBillsCategory,
+  NSMobile,
+  NSPulsa,
+  NSBillDetail,
+  NSRecurringBilling,
+  NSSubscription,
+  History,
+  Notification,
+  Profile,
+  HistoryReceipt,
 } from './src/Screen/Screen';
 
 import {BottomNav} from './src/Component/Component';
@@ -42,7 +53,7 @@ const Root = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Mainapp">
         <Stack.Screen
           name="Login"
           component={Login}
@@ -146,6 +157,61 @@ const Root = () => {
         <Stack.Screen
           name="ResultPaymentInternetTv"
           component={ResultPaymentInternetTv}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NewSubscription"
+          component={NewSubscription}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NSBillsCategory"
+          component={NSBillsCategory}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NSMobile"
+          component={NSMobile}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NSPulsa"
+          component={NSPulsa}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NSBillDetail"
+          component={NSBillDetail}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NSRecurringBilling"
+          component={NSRecurringBilling}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NSSubscription"
+          component={NSSubscription}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="History"
+          component={History}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Notification"
+          component={Notification}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="HistoryReceipt"
+          component={HistoryReceipt}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

@@ -14,7 +14,7 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
-import {IconMoibileActive} from '../../../Assets/Assets';
+import {IconMobileActive} from '../../../Assets/Assets';
 
 const ListPaymentMobile = props => {
   const title = props.route.params;
@@ -72,7 +72,7 @@ const ListPaymentMobile = props => {
             navigation={props.navigation}
             headtitle={'Mobile'}
             pulsa={true}
-            headericon={IconMoibileActive}
+            headericon={IconMobileActive}
             titleicon={title}
             titleinput={'Phone Number'}
             datacostomer={DataCostomer}
@@ -83,7 +83,7 @@ const ListPaymentMobile = props => {
             navigation={props.navigation}
             headtitle={'Mobile'}
             internet={true}
-            headericon={IconMoibileActive}
+            headericon={IconMobileActive}
             titleicon={title}
             titleinput={'Phone Number'}
             datacostomer={DataCostomer}
@@ -94,7 +94,7 @@ const ListPaymentMobile = props => {
             navigation={props.navigation}
             headtitle={'Mobile'}
             pasca={true}
-            headericon={IconMoibileActive}
+            headericon={IconMobileActive}
             titleicon={title}
             titleinput={'Phone Number'}
             datacostomer={DataCostomer}

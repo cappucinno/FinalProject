@@ -14,7 +14,7 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import {
-  IconMoibileActive,
+  IconMobileActive,
   IconCloseWhite,
   ButtonDownload,
 } from '../../Assets/Assets';
@@ -46,7 +46,7 @@ const ComResultPaymentMobile = ({
               <View style={styles.ContainerLogo}>
                 <FastImage
                   style={styles.Logo}
-                  source={IconMoibileActive}
+                  source={IconMobileActive}
                   resizeMode={FastImage.resizeMode.contain}
                 />
               </View>

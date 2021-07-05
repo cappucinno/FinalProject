@@ -5,14 +5,12 @@ import {COLOR} from '../../Assets/Color/Color';
 
 export default function BackgroundPurple(props) {
   return (
-    <>
-      <View style={styles.container}>
-        <View style={[styles.bigRect, styles.top]} />
-        <View style={[styles.bigRect, styles.bottom]} />
-        <View style={[styles.smallRect, styles.bottomLeft]} />
-      </View>
-      <View style={styles.StyleOverflow}>{props.children}</View>
-    </>
+    <View style={styles.container}>
+      <View style={[styles.bigRect, styles.top]} />
+      <View style={[styles.bigRect, styles.bottom]} />
+      <View style={[styles.smallRect, styles.bottomLeft]} />
+      {props.children}
+    </View>
   );
 }
 

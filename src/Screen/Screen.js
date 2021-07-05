@@ -22,6 +22,16 @@ import InternetTv from './InternetTv/InternetTv';
 import ListPaymentInternetTv from './InternetTv/ListPayment/ListPaymentInternetTv';
 import ResultPaymentInternetTv from './InternetTv/ResultPaymentInternetTv/ResultPaymentInternetTv';
 import Login from './Login/Login';
+import NewSubscription from './NewSubcription/NewSubscription';
+import NSBillsCategory from './NewSubcription/NSBillsCategory';
+import NSMobile from './NewSubcription/NSMobile';
+import NSPulsa from './NewSubcription/NSPulsa';
+import NSBillDetail from './NewSubcription/NSBillDetail';
+import NSRecurringBilling from './NewSubcription/NSRecurringBilling';
+import NSSubscription from './NewSubcription/NSSubscription';
+import Notification from './Notification/Notification';
+import Profile from './Profile/Profile';
+import HistoryReceipt from './History/HistoryReceipt';
 
 export {
   Electricity,
@@ -47,4 +57,14 @@ export {
   InternetTv,
   ListPaymentInternetTv,
   ResultPaymentInternetTv,
+  NewSubscription,
+  NSBillsCategory,
+  NSMobile,
+  NSPulsa,
+  NSBillDetail,
+  NSRecurringBilling,
+  NSSubscription,
+  Notification,
+  Profile,
+  HistoryReceipt,
 };
