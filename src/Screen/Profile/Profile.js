@@ -19,22 +19,7 @@ const Profile = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topContainer}>
-        <View style={styles.iconDistance}>
-          <TouchableOpacity onPress={() => props.navigation.goBack()}>
-            <FastImage
-              style={styles.ArrowBack}
-              source={ArrowBack}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <FastImage
-              style={styles.iconEditProfile}
-              source={IconEditProfile}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </TouchableOpacity>
-        </View>
+        <View style={styles.iconDistance} />
       </View>
       <View style={styles.userInfoSection}>
         <View style={{flexDirection: 'row', marginTop: 15}}>
@@ -87,26 +72,8 @@ const Profile = () => {
       <View style={styles.menuWrapper}>
         <TouchableOpacity onPress={() => {}}>
           <View style={styles.menuItem}>
-            <Icon name="heart-outline" color="#FF6347" size={25} />
-            <Text style={styles.menuItemText}>Your Favorites</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}}>
-          <View style={styles.menuItem}>
             <Icon name="credit-card" color="#FF6347" size={25} />
             <Text style={styles.menuItemText}>Payment</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Icon name="share-outline" color="#FF6347" size={25} />
-            <Text style={styles.menuItemText}>Tell Your Friends</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Icon name="account-check-outline" color="#FF6347" size={25} />
-            <Text style={styles.menuItemText}>Support</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => {}}>
@@ -129,16 +96,8 @@ const styles = StyleSheet.create({
   topContainer: {
     backgroundColor: '#263765',
     height: hp(8),
-  },
-  ArrowBack: {
-    height: hp(2),
-    width: wp(6),
-    marginTop: moderateScale(10),
-  },
-  iconEditProfile: {
-    width: moderateScale(28),
-    height: moderateScale(28),
-    marginTop: moderateScale(6),
+    borderBottomLeftRadius: moderateScale(12),
+    borderBottomRightRadius: moderateScale(12),
   },
   iconDistance: {
     width: moderateScale(330),

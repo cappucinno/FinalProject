@@ -45,6 +45,7 @@ import {
   NewPDAMBlank,
   NewPDAMBillDetail,
   NewPDAMBankPayment,
+  EditProfile,
 } from './src/Screen/Screen';
 
 import {BottomNav} from './src/Component/Component';
@@ -220,6 +221,11 @@ const Root = () => {
         <Stack.Screen
           name="Profile"
           component={Profile}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="EditProfile"
+          component={EditProfile}
           options={{headerShown: false}}
         />
         <Stack.Screen
