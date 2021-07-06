@@ -58,7 +58,7 @@ const Root = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="NewPDAMBankPayment">
+      <Stack.Navigator initialRouteName="Mainapp">
         <Stack.Screen
           name="Login"
           component={Login}
