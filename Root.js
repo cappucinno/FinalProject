@@ -60,7 +60,7 @@ const Root = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="NewPDAMBankPayment">
+      <Stack.Navigator initialRouteName="Notification">
         <Stack.Screen
           name="Login"
           component={Login}
