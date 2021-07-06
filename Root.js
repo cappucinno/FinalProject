@@ -39,6 +39,10 @@ import {
   BPJS,
   DetailPaymentBPJS,
   ResultPaymentBPJS,
+  NewPDAMOption,
+  NewPDAMBlank,
+  NewPDAMBillDetail,
+  NewPDAMBankPayment,
 } from './src/Screen/Screen';
 
 import {BottomNav} from './src/Component/Component';
@@ -54,7 +58,7 @@ const Root = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Mainapp">
+      <Stack.Navigator initialRouteName="NewPDAMBankPayment">
         <Stack.Screen
           name="Login"
           component={Login}
@@ -219,6 +223,26 @@ const Root = () => {
         <Stack.Screen
           name="HistoryReceipt"
           component={HistoryReceipt}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NewPDAMOption"
+          component={NewPDAMOption}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NewPDAMBlank"
+          component={NewPDAMBlank}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NewPDAMBillDetail"
+          component={NewPDAMBillDetail}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NewPDAMBankPayment"
+          component={NewPDAMBankPayment}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

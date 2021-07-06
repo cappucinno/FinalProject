@@ -35,6 +35,10 @@ import NSSubscription from './NewSubcription/NSSubscription';
 import Notification from './Notification/Notification';
 import Profile from './Profile/Profile';
 import HistoryReceipt from './History/HistoryReceipt';
+import NewPDAMOption from './PDAM/NewPDAMOption';
+import NewPDAMBlank from './PDAM/NewPDAMBlank';
+import NewPDAMBillDetail from './PDAM/NewPDAMBillDetail';
+import NewPDAMBankPayment from './PDAM/NewPDAMBankPayment';
 
 export {
   Electricity,
@@ -73,4 +77,8 @@ export {
   BPJS,
   DetailPaymentBPJS,
   ResultPaymentBPJS,
+  NewPDAMOption,
+  NewPDAMBlank,
+  NewPDAMBillDetail,
+  NewPDAMBankPayment,
 };
