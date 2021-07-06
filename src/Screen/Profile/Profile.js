@@ -19,7 +19,9 @@ const Profile = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topContainer}>
-        <View style={styles.iconDistance} />
+        <View style={styles.iconDistance}>
+          <Text style={styles.textAccount}>Account</Text>
+        </View>
       </View>
       <View style={styles.userInfoSection}>
         <View style={{flexDirection: 'row', marginTop: 15}}>
@@ -106,6 +108,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'space-between',
     marginTop: moderateScale(10),
+  },
+  textAccount: {
+    fontFamily: 'Montserrat-Bold',
+    fontSize: moderateScale(20),
+    color: 'white',
+    paddingTop: moderateScale(3),
+    left: moderateScale(120),
   },
   userInfoSection: {
     paddingHorizontal: 30,
