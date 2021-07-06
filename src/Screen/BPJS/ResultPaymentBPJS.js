@@ -77,11 +77,7 @@ const ResultPaymentBPJS = props => {
               <Text>Account No</Text>
               <Text style={styles.textRes}>1234567890</Text>
             </View>
-            <TouchableOpacity
-              style={styles.ContainerAdd}
-              onPress={() =>
-                props.navigation.navigate('AddPaymentCardElectric')
-              }>
+            <TouchableOpacity style={styles.ContainerAdd}>
               <Text style={styles.TextAddCard}>Upload Receipt</Text>
             </TouchableOpacity>
           </View>

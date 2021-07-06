@@ -31,6 +31,11 @@ import ButtonDownload from './ButtonDownload.png';
 import Line from './Line.png';
 import IconPDAMActive from './IconPDAMActive.png';
 import IconBPJSActive from './IconBPJSActive.png';
+import Subtract from './Subtract.png';
+import NotifikasiFailed from './NotifikasiFailed.png';
+import NotifikasiSucces from './NotifikasiSucces.png';
+import IconProfile from './IconProfile.png';
+import IconEditProfile from './IconEditProfile.png';
 
 export {
   IconBell,
@@ -66,4 +71,9 @@ export {
   Line,
   IconPDAMActive,
   IconBPJSActive,
+  Subtract,
+  NotifikasiFailed,
+  NotifikasiSucces,
+  IconProfile,
+  IconEditProfile,
 };
