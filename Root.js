@@ -10,12 +10,11 @@ import {
   SignUp,
   Login,
   FilterSubscription,
-  Subscription,
   RecurringBilling,
   Electricity,
   ListPaymentElectricity,
   DetailPaymentElectricity,
-  PaymentMethodElectricity,
+  PaymentMethod,
   AddPaymentCardElectric,
   ResultPaymentElectricity,
   ResultPaymentElectToken,
@@ -34,7 +33,6 @@ import {
   NSBillDetail,
   NSRecurringBilling,
   NSSubscription,
-  History,
   Notification,
   Profile,
   HistoryReceipt,
@@ -51,7 +49,7 @@ const Root = () => {
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
-    }, 100);
+    }, 200);
   }, []);
 
   return (
@@ -99,8 +97,8 @@ const Root = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="PaymentMethodElectricity"
-          component={PaymentMethodElectricity}
+          name="PaymentMethod"
+          component={PaymentMethod}
           options={{headerShown: false}}
         />
         <Stack.Screen

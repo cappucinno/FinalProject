@@ -8,7 +8,7 @@ import FilterSubscription from './Subscription/SubscriptionFilter/FilterSubscrip
 import Electricity from './Electricity/Electricity';
 import ListPaymentElectricity from './Electricity/ListPayment/ListPaymentElectricity';
 import DetailPaymentElectricity from './Electricity/DetailPaymentElectricity/DetailPaymentElectricity';
-import PaymentMethodElectricity from './Electricity/PaymentMethodElectricity/PaymentMethodElectricity';
+import PaymentMethod from './PaymentMethod/PaymentMethod';
 import ResultPaymentElectricity from './Electricity/ResultPaymentElectricity/ResultPaymentElectricity';
 import ResultPaymentElectToken from './Electricity/ResultPaymentElectricity/ResultPaymentElectToken';
 import RecurringBilling from './Subscription/RecurringBilling/RecurringBilling';
@@ -40,7 +40,7 @@ export {
   Electricity,
   ListPaymentElectricity,
   DetailPaymentElectricity,
-  PaymentMethodElectricity,
+  PaymentMethod,
   ResultPaymentElectricity,
   ResultPaymentElectToken,
   AddPaymentCardElectric,
