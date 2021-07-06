@@ -14,7 +14,7 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import {
-  IconLandLine,
+  IconLandlineActive,
   IconCloseWhite,
   ButtonDownload,
 } from '../../Assets/Assets';
@@ -30,7 +30,7 @@ const LandlineResult = props => {
             <View style={styles.ContainerLogo}>
               <FastImage
                 style={styles.Logo}
-                source={IconLandLine}
+                source={IconLandlineActive}
                 resizeMode={FastImage.resizeMode.contain}
               />
             </View>
