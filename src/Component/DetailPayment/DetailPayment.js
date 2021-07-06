@@ -175,7 +175,7 @@ const DetailPayment = ({
             <Text style={styles.TextPaymentMethod}>Payment Method</Text>
             <View>
               <TouchableOpacity
-                onPress={() => navigation.navigate('PaymentMethodElectricity')}>
+                onPress={() => navigation.navigate('PaymentMethod')}>
                 <Text style={styles.TextChange}>change</Text>
               </TouchableOpacity>
             </View>

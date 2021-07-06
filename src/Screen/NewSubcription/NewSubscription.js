@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,7 +6,9 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
+  LogBox,
 } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
 import FastImage from 'react-native-fast-image';
 import {moderateScale} from 'react-native-size-matters';
 import {
@@ -17,6 +19,18 @@ import {ArrowBack} from '../../Assets/Assets';
 import {Line} from '../../Assets/Assets';
 
 const NewSubscription = props => {
+  const [period, setPeriod] = useState(false);
+  const [value, setValue] = useState('');
+  const [items, setItems] = useState([
+    {label: 'Every Week', value: 'Every Week'},
+    {label: 'Every Month', value: 'Every Month'},
+    {label: 'Every Year', value: 'Every Year'},
+  ]);
+
+  useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+  }, []);
+
   return (
     <SafeAreaView>
       <ScrollView style={styles.containerAll}>
@@ -53,22 +67,23 @@ const NewSubscription = props => {
             </Text>
           </View>
           <Text style={styles.fontText3}>Period</Text>
-          <View style={styles.boxKecil}>
-            <View style={styles.textDirection}>
-              <Text style={styles.textSelect}>Please select</Text>
-              <TouchableOpacity
-                style={{
-                  top: moderateScale(15),
-                  left: moderateScale(160),
-                }}>
-                <FastImage
-                  style={styles.imageLine}
-                  source={Line}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
+          <DropDownPicker
+            placeholder="Please Select..."
+            placeholderStyle={{color: '#BDBDBD'}}
+            style={styles.dropDownContainerStyle}
+            dropDownDirection="BOTTOM"
+            dropDownContainerStyle={{
+              width: wp(75),
+              marginTop: moderateScale(59),
+              marginLeft: moderateScale(24),
+            }}
+            open={period}
+            value={value}
+            items={items}
+            setOpen={setPeriod}
+            setValue={setValue}
+            setItems={setItems}
+          />
         </View>
         <View style={styles.containerBox2}>
           <Text style={styles.fontText}>Bills</Text>
@@ -170,15 +185,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Bold',
     color: 'black',
   },
-  boxKecil: {
-    display: 'flex',
-    width: moderateScale(290),
-    height: moderateScale(42),
-    borderRadius: moderateScale(5),
-    alignSelf: 'center',
-    borderWidth: 1,
+  dropDownContainerStyle: {
+    backgroundColor: 'white',
+    marginTop: moderateScale(59),
+    marginLeft: moderateScale(24),
+    width: wp(75),
     borderColor: '#BDBDBD',
-    top: moderateScale(50),
   },
   textDirection: {
     flexDirection: 'row',
@@ -206,6 +218,7 @@ const styles = StyleSheet.create({
     marginBottom: moderateScale(40),
     top: moderateScale(30),
     elevation: 10,
+    zIndex: -10,
   },
   addnewbill: {
     width: moderateScale(290),

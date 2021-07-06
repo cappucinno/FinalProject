@@ -20,7 +20,7 @@ import {
   NotifikasiFailed,
 } from '../../Assets/Assets';
 
-const Notification = () => {
+const Notification = props => {
   return (
     <SafeAreaView
       style={{width: wp(100), height: hp(100), backgroundColor: 'white'}}>

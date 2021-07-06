@@ -109,9 +109,7 @@ const DetailPaymentBPJS = props => {
             <Text style={styles.TextPaymentMethod}>Payment Method</Text>
             <View>
               <TouchableOpacity
-                onPress={() =>
-                  props.navigation.navigate('PaymentMethodElectricity')
-                }>
+                onPress={() => props.navigation.navigate('PaymentMethod')}>
                 <Text style={styles.TextChange}>change</Text>
               </TouchableOpacity>
             </View>

@@ -57,7 +57,8 @@ const Home = props => {
               resizeMode={FastImage.resizeMode.contain}
             />
             <Text style={styles.StyleText}>biller</Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('Notification')}>
               <FastImage
                 style={styles.imageBell}
                 source={IconBell}
