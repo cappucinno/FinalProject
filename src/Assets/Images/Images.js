@@ -6,6 +6,7 @@ import IconElectricityActive from './IconElectricityActive.png';
 import IconInternet from './IconInternet.png';
 import IconInternetActive from './IconInternetActive.png';
 import IconLandLine from './IconLandline.png';
+import IconLandlineActive from './IconLandlineActive.png';
 import IconMasterCard from './IconMasterCard.png';
 import IconMobile from './IconMobile.png';
 import IconMobileActive from './IconMobileActive.png';
@@ -40,6 +41,7 @@ export {
   IconInternet,
   IconInternetActive,
   IconLandLine,
+  IconLandlineActive,
   IconMasterCard,
   IconMobile,
   IconMobileActive,

@@ -72,11 +72,7 @@ const Root = () => {
           component={mainApp}
           options={{headerShown: false}}
         />
-        <Stack.Screen
-          name="Subscription"
-          component={Subscription}
-          options={{headerShown: false}}
-        />
+
         <Stack.Screen
           name="FilterSubscription"
           component={FilterSubscription}

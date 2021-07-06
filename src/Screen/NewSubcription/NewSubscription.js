@@ -16,13 +16,13 @@ import {
 import {ArrowBack} from '../../Assets/Assets';
 import {Line} from '../../Assets/Assets';
 
-const NewSubscription = () => {
+const NewSubscription = props => {
   return (
     <SafeAreaView>
       <ScrollView style={styles.containerAll}>
         <View style={styles.containerHead}>
           <View style={styles.HeaderBilling}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => props.navigation.goBack()}>
               <FastImage
                 style={styles.ArrowBack}
                 source={ArrowBack}
@@ -83,7 +83,9 @@ const NewSubscription = () => {
             - - - - - - - -
           </Text>
           <View style={styles.addnewbill}>
-            <TouchableOpacity style={{top: moderateScale(15)}}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('NSBillsCategory')}
+              style={{top: moderateScale(15)}}>
               <Text
                 style={{
                   alignSelf: 'center',

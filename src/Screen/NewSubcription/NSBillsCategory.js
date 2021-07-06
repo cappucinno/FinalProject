@@ -26,13 +26,15 @@ import {
   IconBPJSActive,
 } from '../../Assets/Assets';
 
-const NSBillsCategory = () => {
+const NSBillsCategory = props => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <BackgroundPurple>
         <ScrollView>
           <View style={styles.HeaderBilling}>
-            <TouchableOpacity style={styles.iconTop}>
+            <TouchableOpacity
+              onPress={() => props.navigation.goBack()}
+              style={styles.iconTop}>
               <FastImage
                 style={styles.ArrowBack}
                 source={ArrowBack}
