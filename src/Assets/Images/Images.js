@@ -34,6 +34,8 @@ import IconBPJSActive from './IconBPJSActive.png';
 import Subtract from './Subtract.png';
 import NotifikasiFailed from './NotifikasiFailed.png';
 import NotifikasiSucces from './NotifikasiSucces.png';
+import IconProfile from './IconProfile.png';
+import IconEditProfile from './IconEditProfile.png';
 
 export {
   IconBell,
@@ -72,4 +74,6 @@ export {
   Subtract,
   NotifikasiFailed,
   NotifikasiSucces,
+  IconProfile,
+  IconEditProfile,
 };
