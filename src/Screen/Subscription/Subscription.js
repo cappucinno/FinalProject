@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -19,20 +19,12 @@ import BackgroundPurple from '../../Component/Background/BackgroundPurple';
 import {COLOR} from '../../Assets/Color/Color';
 
 const Subscription = props => {
+  const data = props.route.params;
+  console.log(data, '<<<<< ini data');
   const [visible, setVisible] = useState(false);
-  const [datafilter, setDataFilter] = useState([]);
+  // const [datafilter, setDataFilter] = useState([data]);
 
   const subscribtion = true;
-
-  const HandelFilter = e => {
-    setDataFilter(e);
-  };
-
-  const CreateSubs = () => {
-    setVisible(!visible);
-  };
-
-  console.log(datafilter, '<===== Data Filter');
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -44,9 +36,7 @@ const Subscription = props => {
         <View style={styles.containerHead}>
           <Text style={styles.TextHead}>Recurring Billing</Text>
           <TouchableOpacity
-            onPress={() =>
-              props.navigation.navigate('FilterSubscription', HandelFilter)
-            }>
+            onPress={() => props.navigation.navigate('FilterSubscription')}>
             <FastImage
               style={styles.IconFilter}
               source={IconFilter}
@@ -55,17 +45,22 @@ const Subscription = props => {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.ResFilter}>
-          <View style={styles.ContainerTexFil}>
-            <Text style={styles.textfil}>{datafilter?.status}</Text>
-          </View>
-          <View style={styles.ContainerTexFil}>
-            <Text style={styles.textfil}>{datafilter?.category}</Text>
-          </View>
-          <View style={styles.ContainerTexFil}>
-            <Text style={styles.textfil}>{datafilter?.period}</Text>
-          </View>
+        <View style={styles.ContainerResFilter}>
+          {data ? (
+            <View style={styles.ResFilter}>
+              <View style={styles.ContainerTexFil}>
+                <Text style={styles.textfil}>{data?.status}</Text>
+              </View>
+              <View style={styles.ContainerTexFil}>
+                <Text style={styles.textfil}>{data?.category}</Text>
+              </View>
+              <View style={styles.ContainerTexFil}>
+                <Text style={styles.textfil}>{data?.period}</Text>
+              </View>
+            </View>
+          ) : null}
         </View>
+
         {/* DATA ada */}
         {subscribtion ? (
           <View>
@@ -95,8 +90,17 @@ const Subscription = props => {
           </View>
         )}
       </ScrollView>
-
-      {}
+      {subscribtion ? (
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('NewSubscription')}
+          style={styles.PresNewSub}>
+          <FastImage
+            style={styles.ButtonNewSub}
+            source={ButtonNewSub}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        </TouchableOpacity>
+      ) : null}
     </SafeAreaView>
   );
 };
@@ -127,13 +131,15 @@ const styles = StyleSheet.create({
     height: heightPercentageToDP(4),
     width: widthPercentageToDP(5),
   },
-  ResFilter: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+  ContainerResFilter: {
     marginTop: heightPercentageToDP(3),
     marginLeft: widthPercentageToDP(5),
     marginRight: widthPercentageToDP(5),
     marginBottom: heightPercentageToDP(3),
+  },
+  ResFilter: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   ContainerTexFil: {
     display: 'flex',

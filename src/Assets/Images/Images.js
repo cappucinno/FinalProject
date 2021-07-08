@@ -4,10 +4,12 @@ import IconBPJS from './IconBPJS.png';
 import IconElectricity from './IconElectricity.png';
 import IconElectricityActive from './IconElectricityActive.png';
 import IconInternet from './IconInternet.png';
+import IconInternetActive from './IconInternetActive.png';
 import IconLandLine from './IconLandline.png';
+import IconLandlineActive from './IconLandlineActive.png';
 import IconMasterCard from './IconMasterCard.png';
 import IconMobile from './IconMobile.png';
-import IconMoibileActive from './IconMobileActive.png';
+import IconMobileActive from './IconMobileActive.png';
 import IconPDAM from './IconPDAM.png';
 import NoBill from './NoBill.png';
 import IconFilter from './IconFilter.png';
@@ -24,6 +26,16 @@ import Radio from './Radio.png';
 import AddNewCard from './AddNewCard.png';
 import PLN from './PLN.png';
 import IconVisa from './IconVisa.png';
+import IconCloseWhite from './IconCloseWhite.png';
+import ButtonDownload from './ButtonDownload.png';
+import Line from './Line.png';
+import IconPDAMActive from './IconPDAMActive.png';
+import IconBPJSActive from './IconBPJSActive.png';
+import Subtract from './Subtract.png';
+import NotifikasiFailed from './NotifikasiFailed.png';
+import NotifikasiSucces from './NotifikasiSucces.png';
+import IconProfile from './IconProfile.png';
+import IconEditProfile from './IconEditProfile.png';
 
 export {
   IconBell,
@@ -32,10 +44,12 @@ export {
   IconElectricity,
   IconElectricityActive,
   IconInternet,
+  IconInternetActive,
   IconLandLine,
+  IconLandlineActive,
   IconMasterCard,
   IconMobile,
-  IconMoibileActive,
+  IconMobileActive,
   IconPDAM,
   NoBill,
   IconFilter,
@@ -52,4 +66,14 @@ export {
   AddNewCard,
   PLN,
   IconVisa,
+  IconCloseWhite,
+  ButtonDownload,
+  Line,
+  IconPDAMActive,
+  IconBPJSActive,
+  Subtract,
+  NotifikasiFailed,
+  NotifikasiSucces,
+  IconProfile,
+  IconEditProfile,
 };

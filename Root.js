@@ -7,18 +7,43 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 //Screen
 import {
-  Home,
   SignUp,
+  Login,
   FilterSubscription,
-  Subscription,
   RecurringBilling,
   Electricity,
   ListPaymentElectricity,
   DetailPaymentElectricity,
-  PaymentMethodElectricity,
+  PaymentMethod,
   AddPaymentCardElectric,
+  ResultPaymentElectricity,
+  ResultPaymentElectToken,
   Mobile,
-  Login,
+  ListPaymentMobile,
+  ResultPaymentMobile,
+  Landline,
+  LandlineResult,
+  InternetTv,
+  ListPaymentInternetTv,
+  ResultPaymentInternetTv,
+  NewSubscription,
+  NSBillsCategory,
+  NSMobile,
+  NSPulsa,
+  NSBillDetail,
+  NSRecurringBilling,
+  NSSubscription,
+  Notification,
+  Profile,
+  HistoryReceipt,
+  BPJS,
+  DetailPaymentBPJS,
+  ResultPaymentBPJS,
+  NewPDAMOption,
+  NewPDAMBlank,
+  NewPDAMBillDetail,
+  NewPDAMBankPayment,
+  EditProfile,
 } from './src/Screen/Screen';
 
 import {BottomNav} from './src/Component/Component';
@@ -29,12 +54,12 @@ const Root = () => {
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
-    }, 100);
+    }, 200);
   }, []);
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="SignUp">
+      <Stack.Navigator initialRouteName="EditProfile">
         <Stack.Screen
           name="Login"
           component={Login}
@@ -50,11 +75,7 @@ const Root = () => {
           component={mainApp}
           options={{headerShown: false}}
         />
-        <Stack.Screen
-          name="Subscription"
-          component={Subscription}
-          options={{headerShown: false}}
-        />
+
         <Stack.Screen
           name="FilterSubscription"
           component={FilterSubscription}
@@ -81,8 +102,8 @@ const Root = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="PaymentMethodElectricity"
-          component={PaymentMethodElectricity}
+          name="PaymentMethod"
+          component={PaymentMethod}
           options={{headerShown: false}}
         />
         <Stack.Screen
@@ -91,8 +112,143 @@ const Root = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
+          name="ResultPaymentElectricity"
+          component={ResultPaymentElectricity}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ResultPaymentElectToken"
+          component={ResultPaymentElectToken}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
           name="Mobile"
           component={Mobile}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ListPaymentMobile"
+          component={ListPaymentMobile}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ResultPaymentMobile"
+          component={ResultPaymentMobile}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Landline"
+          component={Landline}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="LandlineResult"
+          component={LandlineResult}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="InternetTv"
+          component={InternetTv}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ListPaymentInternetTv"
+          component={ListPaymentInternetTv}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ResultPaymentInternetTv"
+          component={ResultPaymentInternetTv}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="BPJS"
+          component={BPJS}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="DetailPaymentBPJS"
+          component={DetailPaymentBPJS}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ResultPaymentBPJS"
+          component={ResultPaymentBPJS}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NewSubscription"
+          component={NewSubscription}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NSBillsCategory"
+          component={NSBillsCategory}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NSMobile"
+          component={NSMobile}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NSPulsa"
+          component={NSPulsa}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NSBillDetail"
+          component={NSBillDetail}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NSRecurringBilling"
+          component={NSRecurringBilling}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NSSubscription"
+          component={NSSubscription}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Notification"
+          component={Notification}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="EditProfile"
+          component={EditProfile}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="HistoryReceipt"
+          component={HistoryReceipt}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NewPDAMOption"
+          component={NewPDAMOption}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NewPDAMBlank"
+          component={NewPDAMBlank}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NewPDAMBillDetail"
+          component={NewPDAMBillDetail}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NewPDAMBankPayment"
+          component={NewPDAMBankPayment}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

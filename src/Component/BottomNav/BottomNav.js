@@ -8,7 +8,7 @@ import {
 import Foundation from 'react-native-vector-icons/Foundation';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Home, Subscription, History, Account} from '../../Screen/Screen';
+import {Home, Subscription, History, Profile} from '../../Screen/Screen';
 
 const Bot = createBottomTabNavigator();
 
@@ -76,7 +76,7 @@ const BottomNav = () => {
           ),
         }}
         name="Account"
-        component={Account}
+        component={Profile}
       />
     </Bot.Navigator>
   );

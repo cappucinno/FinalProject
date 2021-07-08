@@ -8,12 +8,14 @@ import BackgroundPurple from '../../Component/Background/BackgroundPurple';
 const Electricity = props => {
   const dataentry = [
     {
-      NameData: 'Token-Pulsa',
+      NameData: 'PLN-Token',
       Naigation: 'ListPaymentElectricity',
+      Page: 'PLN-Token',
     },
     {
-      NameData: 'Token-Listrik',
+      NameData: 'PLN-Tagihan Listrik',
       Naigation: 'ListPaymentElectricity',
+      Page: 'PLN-Tagihan Listrik',
     },
   ];
 

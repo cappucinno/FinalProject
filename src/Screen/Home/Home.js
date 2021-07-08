@@ -12,11 +12,17 @@ import {
   IconBiller,
   IconBell,
   IconBPJS,
+  IconBPJSActive,
   IconElectricity,
+  IconElectricityActive,
   IconInternet,
+  IconInternetActive,
   IconLandLine,
+  IconLandlineActive,
   IconMobile,
+  IconMobileActive,
   IconPDAM,
+  IconPDAMActive,
   IconSubscribtion,
   NoBill,
 } from '../../Assets/Assets';
@@ -31,7 +37,7 @@ import PaymentCardHome from '../../Component/PaymentCardHome/PaymentCardHome';
 
 const Home = props => {
   // const subscribtion = false;
-  const [subscribtion, Setsubsribtion] = useState(false);
+  const [subscribtion, Setsubsribtion] = useState(true);
   const [tagihan, Settagihan] = useState(true);
   // subcribtion false tagihan false = Layar create
   // subcribtion true tagihan true = Layar tagihan
@@ -51,7 +57,8 @@ const Home = props => {
               resizeMode={FastImage.resizeMode.contain}
             />
             <Text style={styles.StyleText}>biller</Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('Notification')}>
               <FastImage
                 style={styles.imageBell}
                 source={IconBell}
@@ -66,7 +73,7 @@ const Home = props => {
               activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconElectricity}
-                source={IconElectricity}
+                source={subscribtion ? IconElectricityActive : IconElectricity}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>Electricity</Text>
@@ -77,33 +84,42 @@ const Home = props => {
               activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconMobile}
-                source={IconMobile}
+                source={subscribtion ? IconMobileActive : IconMobile}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>Mobile</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('InternetTv')}
+              style={styles.buttonStyle}
+              activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconInternet}
-                source={IconInternet}
+                source={subscribtion ? IconInternetActive : IconInternet}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>Internet & TV</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.containerMiddle}>
-            <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('Landline')}
+              style={styles.buttonStyle}
+              activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconLandline}
-                source={IconLandLine}
+                source={subscribtion ? IconLandlineActive : IconLandLine}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>Landline</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('BPJS')}
+              style={styles.buttonStyle}
+              activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconBPJS}
-                source={IconBPJS}
+                source={subscribtion ? IconBPJSActive : IconBPJS}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>BPJS</Text>
@@ -111,7 +127,7 @@ const Home = props => {
             <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconPDAM}
-                source={IconPDAM}
+                source={subscribtion ? IconPDAMActive : IconPDAM}
                 resizeMode={FastImage.resizeMode.contain}
               />
               <Text style={styles.textInButton}>PDAM</Text>

@@ -13,10 +13,10 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
-import {CheckBox} from 'react-native-elements';
-import {ArrowBack, Radio, RadioActive, IconVisa} from '../../../Assets/Assets';
 
-const PaymentMethodElectricity = props => {
+import {ArrowBack, Radio, RadioActive, IconVisa} from '../../Assets/Assets';
+
+const PaymentMethod = props => {
   const [isselected, setIsSelected] = useState('');
   const [radio, setRadio] = useState('');
 
@@ -120,7 +120,7 @@ const PaymentMethodElectricity = props => {
   );
 };
 
-export default PaymentMethodElectricity;
+export default PaymentMethod;
 
 const styles = StyleSheet.create({
   Grow: {

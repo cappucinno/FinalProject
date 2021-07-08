@@ -27,9 +27,9 @@ const FilterSubscription = props => {
     period: '',
   });
 
-  const Data = props.route.params;
-  console.log(props.ContainerButtonFillter, 'datasss');
-  console.log(statuschecked, 'status');
+  // const Data = props.route.params;
+  // console.log(props.ContainerButtonFillter, 'datasss');
+  // console.log(statuschecked, 'status');
   const Status = [
     {StatusName: 'Active', checked: false},
     {StatusName: 'Planned', checked: false},
@@ -135,7 +135,7 @@ const FilterSubscription = props => {
             );
           })}
           <TouchableOpacity
-            onPress={() => Data(senddata)}
+            onPress={() => props.navigation.navigate('Subscription', senddata)}
             style={styles.ContainerButtonFillter}>
             <View style={styles.ButtonFilter}>
               <Text style={styles.TextButtonFilter}>Filter</Text>
