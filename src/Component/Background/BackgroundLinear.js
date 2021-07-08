@@ -1,52 +1,60 @@
-// import React from 'react';
-// import {StyleSheet, Text, View} from 'react-native';
-// import {moderateScale} from 'react-native-size-matters';
-// import {COLOR} from '../../Assets/Color/color';
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {moderateScale} from 'react-native-size-matters';
+import LinearGradient from 'react-native-linear-gradient';
+import {IconBiller} from '../../Assets/Assets';
+import FastImage from 'react-native-fast-image';
+import {
+  heightPercentageToDP,
+  heightPercentageToDP as hp,
+  widthPercentageToDP,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
-// export default function BackgroundPurple(props) {
-//   return (
-//     <View style={styles.container}>
-//       {props.children}
-//       <View style={[styles.bigRect, styles.top]} />
-//       <View style={[styles.bigRect, styles.bottom]} />
-//       <View style={[styles.smallRect, styles.bottomLeft]} />
-//     </View>
-//   );
-// }
+export default function BackgroundLinear(props) {
+  return (
+    <LinearGradient
+      colors={['#C3FFED', '#FFC8D5', '#FFFFFF']}
+      start={{x: 1.0, y: 0.25}}
+      end={{x: 0.5, y: 1.0}}
+      locations={[0, 0.5, 0.6]}
+      style={styles.container}>
+      {props.children}
+      {/* <LinearGradient
+        colors={['#364F90', '#9CCCBE', '#FAC9D6']}
+        start={{x: 1.0, y: 0.25}}
+        end={{x: 0.5, y: 1.0}}
+        locations={[0, 0.5, 0.6]}
+        style={[styles.bigRect, styles.top]}>
+        <FastImage
+          style={styles.imageBiller}
+          source={IconBiller}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      </LinearGradient> */}
+    </LinearGradient>
+  );
+}
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: COLOR.purple.purpleBold,
-//   },
-//   bigRect: {
-//     height: moderateScale(380),
-//     width: moderateScale(380),
-//     backgroundColor: COLOR.purple.purple10,
-//     opacity: 0.05,
-//     borderRadius: moderateScale(60),
-//     // transform: [{rotate: '-45deg'}],
-//   },
-//   top: {
-//     position: 'absolute',
-//     top: moderateScale(-188),
-//     left: moderateScale(-60),
-//   },
-//   bottom: {
-//     position: 'absolute',
-//     bottom: moderateScale(-188),
-//     right: moderateScale(-60),
-//   },
-//   smallRect: {
-//     height: moderateScale(200),
-//     width: moderateScale(200),
-//     backgroundColor: COLOR.purple.purple30,
-//     opacity: 0.1,
-//     borderRadius: moderateScale(40),
-//   },
-//   bottomLeft: {
-//     position: 'absolute',
-//     bottom: moderateScale(-100),
-//     left: moderateScale(-50),
-//   },
-// });
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  bigRect: {
+    height: moderateScale(380),
+    width: moderateScale(380),
+    opacity: 0.8,
+    borderRadius: moderateScale(60),
+    transform: [{rotate: '-45deg'}],
+  },
+  top: {
+    position: 'absolute',
+    top: moderateScale(-298),
+    right: moderateScale(-60),
+  },
+  imageBiller: {
+    height: hp(8),
+    width: wp(8),
+  },
+});
