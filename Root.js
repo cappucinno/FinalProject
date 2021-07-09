@@ -59,7 +59,7 @@ const Root = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="EditProfile">
+      <Stack.Navigator initialRouteName="NewPDAMBankPayment">
         <Stack.Screen
           name="Login"
           component={Login}
