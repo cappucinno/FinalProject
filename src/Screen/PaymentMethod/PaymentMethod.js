@@ -24,7 +24,7 @@ const PaymentMethod = props => {
 
   const PaymentMethod = [
     {
-      TransferBank: ['BCA', 'BRI', 'BNI', 'Mandiri'],
+      TransferBank: ['BCA', 'MANDIRI'],
     },
     {
       CreditCard: ['VISA', 'MasterCard'],
@@ -62,50 +62,59 @@ const PaymentMethod = props => {
         </View>
         <View style={styles.ContainerIsiPayment}>
           {PaymentMethod.map((v, i) => {
+            console.log(v, ' ini v');
             return (
-              <View
-                key={i}
-                style={[
-                  styles.ContainerBank,
-                  {
-                    borderColor: isselected === i ? '#3E89AE' : 'white',
-                    height:
-                      isselected === i
-                        ? heightPercentageToDP(24)
-                        : heightPercentageToDP(6),
-                  },
-                ]}>
-                <TouchableOpacity onPress={() => setIsSelected(i)}>
-                  <Text style={styles.TextBank}>{Object.keys(v)}</Text>
-                </TouchableOpacity>
-                {isselected === i ? (
-                  <View style={styles.ContainerRadio}>
-                    <TouchableOpacity onPress={() => setRadio(i)}>
-                      <FastImage
-                        style={styles.RadioBtn}
-                        source={radio === i ? RadioActive : Radio}
-                        resizeMode={FastImage.resizeMode.contain}
-                      />
-                    </TouchableOpacity>
-                    <FastImage
-                      style={styles.LogoBank}
-                      source={IconVisa}
-                      resizeMode={FastImage.resizeMode.contain}
-                    />
-                    <Text style={styles.NumberCard}>
-                      {cardHide(DataBankUser)}
-                    </Text>
-                  </View>
-                ) : null}
-                {isselected === i ? (
-                  <TouchableOpacity
-                    style={styles.ContainerAdd}
-                    onPress={() =>
-                      props.navigation.navigate('AddPaymentCardElectric')
-                    }>
-                    <Text style={styles.TextAddCard}>Add NewCard</Text>
+              <View key={i}>
+                <View
+                  style={[
+                    styles.ContainerBank,
+                    {
+                      borderColor: isselected === i ? '#3E89AE' : 'white',
+                      height:
+                        isselected === i
+                          ? heightPercentageToDP(24)
+                          : heightPercentageToDP(6),
+                    },
+                  ]}>
+                  <TouchableOpacity onPress={() => setIsSelected(i)}>
+                    <Text style={styles.TextBank}>{Object.keys(v)}</Text>
                   </TouchableOpacity>
-                ) : null}
+                  {isselected === i ? (
+                    <>
+                      {v[Object.keys(v)].map((e, z) => {
+                        return (
+                          <TouchableOpacity key={z} onPress={() => setRadio(z)}>
+                            <View style={styles.ContainerRadio}>
+                              <Text>{e}</Text>
+                              <FastImage
+                                style={styles.RadioBtn}
+                                source={radio === z ? RadioActive : Radio}
+                                resizeMode={FastImage.resizeMode.contain}
+                              />
+                              <FastImage
+                                style={styles.LogoBank}
+                                source={IconVisa}
+                                resizeMode={FastImage.resizeMode.contain}
+                              />
+                              <Text style={styles.NumberCard}>
+                                {cardHide(DataBankUser)}
+                              </Text>
+                            </View>
+                          </TouchableOpacity>
+                        );
+                      })}
+                    </>
+                  ) : null}
+                  {isselected === i ? (
+                    <TouchableOpacity
+                      style={styles.ContainerAdd}
+                      onPress={() =>
+                        props.navigation.navigate('AddPaymentCardElectric')
+                      }>
+                      <Text style={styles.TextAddCard}>Add NewCard</Text>
+                    </TouchableOpacity>
+                  ) : null}
+                </View>
               </View>
             );
           })}

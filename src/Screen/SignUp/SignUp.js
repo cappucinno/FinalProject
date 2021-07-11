@@ -48,6 +48,7 @@ const SignUp = props => {
       props.navigation.navigate('Login');
     }
   }, [isSignup, props.navigation]);
+
   return (
     <KeyboardAvoidingView style={styles.container}>
       {isLoading ? (

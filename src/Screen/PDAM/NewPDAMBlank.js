@@ -17,14 +17,14 @@ import {ArrowBack} from '../../Assets/Assets';
 import {IconPDAMActive} from '../../Assets/Assets';
 import {TextInput} from 'react-native-gesture-handler';
 
-const NewPDAMBlank = () => {
+const NewPDAMBlank = props => {
   return (
     <SafeAreaView
       style={{backgroundColor: 'white', width: wp(100), height: hp(100)}}>
       <ScrollView style={styles.containerAll}>
         <View style={styles.containerHead}>
           <View style={styles.headerTitle}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => props.navigation.goBack()}>
               <FastImage
                 style={styles.ArrowBack}
                 source={ArrowBack}
@@ -50,7 +50,7 @@ const NewPDAMBlank = () => {
             style={styles.textInput}
             placeholder="E.g 00123456789"
             placeholderTextColor="#999999"
-            onChangeText={text => setFirstName(text)}
+            // onChangeText={text => setFirstName(text)}
           />
         </View>
         <TouchableOpacity>
