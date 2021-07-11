@@ -14,9 +14,9 @@ import {
 } from 'react-native-responsive-screen';
 import FastImage from 'react-native-fast-image';
 import {useSelector, useDispatch} from 'react-redux';
-import {IconBiller} from '../../Assets/Assets';
 import {loginAction} from './redux/action';
 import Loading from '../../Component/Loading/Loading';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Login = props => {
   const [email, setEmail] = useState('');
@@ -41,64 +41,77 @@ const Login = props => {
     );
   };
   return (
-    <KeyboardAvoidingView style={styles.container}>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <>
-          <View style={[styles.bigRect, styles.top]} />
-          <View style={styles.containerHead}>
-            <FastImage
-              style={styles.imageBiller}
-              source={IconBiller}
-              resizeMode={FastImage.resizeMode.contain}
+    <LinearGradient
+      colors={['#C3FFED', '#FFC8D5', '#FFFFFF']}
+      opacity={0.8}
+      start={{x: 0.0, y: 1.0}}
+      end={{x: 0.5, y: 0.0}}
+      locations={[0, 0.26, 0.8]}
+      style={styles.container}>
+      <KeyboardAvoidingView>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            <LinearGradient
+              colors={['#364F90', '#9CCCBE', '#FAC9D6']}
+              start={{x: 1.0, y: 1.0}}
+              end={{x: 0.1, y: 0.1}}
+              locations={[0, 0.84, 1.0]}
+              style={[styles.bigRect, styles.top]}>
+              <View style={styles.containerHead}>
+                <FastImage
+                  style={styles.imageBiller}
+                  source={require('../../Assets/Images/FullLogo.png')}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
+            </LinearGradient>
+
+            <View style={styles.topContainer}>
+              <Text style={styles.text1}>Welcome Back!</Text>
+              <View style={styles.textLogin}>
+                <Text style={styles.text2}>Don't have account? </Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    dispatch({type: 'RESET_AUTH'});
+                    props.navigation.navigate('SignUp');
+                  }}>
+                  <Text style={styles.text3}>Sign up</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <TextInput
+              style={styles.textContainer1}
+              placeholder="Email"
+              placeholderTextColor="#999999"
+              onChangeText={text => setEmail(text)}
             />
-            <Text style={styles.StyleText}>biller</Text>
-          </View>
+            <TextInput
+              style={styles.textContainer2}
+              placeholder="Password"
+              placeholderTextColor="#999999"
+              onChangeText={text => setPassword(text)}
+              secureTextEntry
+            />
+            <TouchableOpacity
+              onPress={submitLogin}
+              style={styles.ContainerButtonSubs}>
+              <View style={styles.ButtonSubs}>
+                <Text style={styles.TextButtonSubs}>Login</Text>
+              </View>
+            </TouchableOpacity>
 
-          <View style={styles.topContainer}>
-            <Text style={styles.text1}>Welcome Back!</Text>
-            <View style={styles.textLogin}>
-              <Text style={styles.text2}>Don't have account? </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  dispatch({type: 'RESET_AUTH'});
-                  props.navigation.navigate('SignUp');
-                }}>
-                <Text style={styles.text3}>Sign up</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          <TextInput
-            style={styles.textContainer1}
-            placeholder="Email"
-            placeholderTextColor="#999999"
-            onChangeText={text => setEmail(text)}
-          />
-          <TextInput
-            style={styles.textContainer2}
-            placeholder="Password"
-            placeholderTextColor="#999999"
-            onChangeText={text => setPassword(text)}
-            secureTextEntry
-          />
-          <TouchableOpacity
-            onPress={submitLogin}
-            style={styles.ContainerButtonSubs}>
-            <View style={styles.ButtonSubs}>
-              <Text style={styles.TextButtonSubs}>Login</Text>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.buttonForgetPassword}>
-            <View>
-              <Text style={styles.textForgotPassword}>Forgot Password</Text>
-            </View>
-          </TouchableOpacity>
-        </>
-      )}
-    </KeyboardAvoidingView>
+            <TouchableOpacity style={styles.buttonForgetPassword}>
+              <View>
+                <Text style={styles.textForgotPassword}>Forgot Password</Text>
+              </View>
+            </TouchableOpacity>
+          </>
+        )}
+      </KeyboardAvoidingView>
+    </LinearGradient>
   );
 };
 
@@ -108,25 +121,24 @@ const styles = StyleSheet.create({
   bigRect: {
     height: moderateScale(380),
     width: moderateScale(382),
-    // backgroundColor: COLOR.purple.purple10,
-    backgroundColor: 'black',
-    opacity: 0.05,
+    opacity: 0.8,
     borderRadius: moderateScale(60),
     transform: [{rotate: '-45deg'}],
   },
   top: {
     position: 'absolute',
-    top: moderateScale(-200),
+    top: moderateScale(-400),
     right: moderateScale(-110),
   },
   containerHead: {
-    flexDirection: 'row',
-    bottom: moderateScale(220),
-    left: moderateScale(265),
+    transform: [{rotate: '45deg'}],
+    alignItems: 'flex-end',
+    paddingTop: 225,
+    paddingRight: 100,
   },
   imageBiller: {
-    height: hp(8),
-    width: wp(8),
+    height: 100,
+    width: 100,
   },
   StyleText: {
     color: 'black',
@@ -159,9 +171,9 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: 'white',
     alignItems: 'flex-start',
     justifyContent: 'center',
+    paddingLeft: 20,
   },
   textContainer1: {
     width: wp(90),
