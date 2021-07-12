@@ -51,7 +51,7 @@ const ResultPaymentElectToken = props => {
   const imageFromCamera = () => {
     ImagePicker.launchCamera(
       {
-        cameraType: 'front',
+        cameraType: 'back',
       },
       response => {
         console.log(response);

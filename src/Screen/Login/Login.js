@@ -14,6 +14,7 @@ import {
 } from 'react-native-responsive-screen';
 import FastImage from 'react-native-fast-image';
 import {useSelector, useDispatch} from 'react-redux';
+import {FullLogo} from '../../Assets/Assets';
 import {loginAction} from './redux/action';
 import Loading from '../../Component/Loading/Loading';
 import LinearGradient from 'react-native-linear-gradient';
@@ -43,7 +44,6 @@ const Login = props => {
   return (
     <LinearGradient
       colors={['#C3FFED', '#FFC8D5', '#FFFFFF']}
-      opacity={0.8}
       start={{x: 0.0, y: 1.0}}
       end={{x: 0.5, y: 0.0}}
       locations={[0, 0.26, 0.8]}
