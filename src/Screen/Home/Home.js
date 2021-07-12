@@ -124,7 +124,10 @@ const Home = props => {
               />
               <Text style={styles.textInButton}>BPJS</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonStyle} activeOpacity={0.5}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('NewPDAMBlank')}
+              style={styles.buttonStyle}
+              activeOpacity={0.5}>
               <FastImage
                 style={styles.imageIconPDAM}
                 source={subscribtion ? IconPDAMActive : IconPDAM}

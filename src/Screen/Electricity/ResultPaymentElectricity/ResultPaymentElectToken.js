@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,8 +7,10 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import * as ImagePicker from 'react-native-image-picker';
 import {moderateScale} from 'react-native-size-matters';
 import FastImage from 'react-native-fast-image';
+import {BottomSheet} from 'react-native-elements';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
@@ -21,6 +23,46 @@ import {
 
 const ResultPaymentElectToken = props => {
   const [pay, setPay] = useState(false);
+  const [image, setImage] = useState('');
+  console.log(image, 'ini image');
+  const [visible, setVisible] = useState(false);
+
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
+
+  const pickImage = () => {
+    ImagePicker.launchImageLibrary(
+      {
+        mediaType: 'photo',
+        quality: 0.5,
+      },
+      response => {
+        console.log(response);
+        if (response.didCancel) {
+          console.log('cancle');
+        } else {
+          setImage(response.assets[0].uri);
+        }
+      },
+    );
+  };
+
+  const imageFromCamera = () => {
+    ImagePicker.launchCamera(
+      {
+        cameraType: 'front',
+      },
+      response => {
+        console.log(response);
+        if (response.didCancel) {
+          console.log('cancle');
+        } else {
+          setImage(response.assets[0].uri);
+        }
+      },
+    );
+  };
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -235,11 +277,50 @@ const ResultPaymentElectToken = props => {
                     <Text>Account No</Text>
                     <Text style={styles.textRes}>1234567890</Text>
                   </View>
-                  <TouchableOpacity
-                    style={styles.ContainerAdd}
-                    onPress={() => setPay(true)}>
-                    <Text style={styles.TextAddCard}>Upload Receipt</Text>
-                  </TouchableOpacity>
+
+                  {/* gambar */}
+                  {image ? (
+                    <>
+                      <FastImage
+                        style={{
+                          height: moderateScale(190),
+                          width: moderateScale(190),
+                          alignSelf: 'center',
+                        }}
+                        source={{uri: image}}
+                        resizeMode={FastImage.resizeMode.contain}
+                      />
+                      <TouchableOpacity
+                        style={{
+                          marginTop: moderateScale(4),
+                          marginBottom: moderateScale(24),
+                          height: moderateScale(43),
+                          width: moderateScale(290),
+                          borderWidth: moderateScale(1),
+                          backgroundColor: '#4493AC',
+                          borderRadius: moderateScale(4),
+                          alignSelf: 'center',
+                        }}
+                        onPress={() => setPay(true)}>
+                        <Text
+                          style={{
+                            color: 'white',
+                            paddingTop: moderateScale(12),
+                            fontSize: moderateScale(12),
+                            fontFamily: 'Montserrat-Bold',
+                            alignSelf: 'center',
+                          }}>
+                          Confirm
+                        </Text>
+                      </TouchableOpacity>
+                    </>
+                  ) : (
+                    <TouchableOpacity
+                      style={styles.ContainerAdd}
+                      onPress={toggleOverlay}>
+                      <Text style={styles.TextAddCard}>Upload Receipt</Text>
+                    </TouchableOpacity>
+                  )}
                 </View>
               </View>
               <View style={styles.ContainerDetail}>
@@ -300,6 +381,81 @@ const ResultPaymentElectToken = props => {
               Back to home
             </Text>
           </TouchableOpacity>
+          <BottomSheet isVisible={visible}>
+            <View style={styles.containerOverlay}>
+              <View style={styles.HeaderBottmSheet}>
+                <Text style={styles.headerOverlay}>Upload Receipt</Text>
+              </View>
+              <View>
+                <TouchableOpacity
+                  style={{
+                    marginTop: moderateScale(24),
+                    marginBottom: moderateScale(13),
+                    height: moderateScale(43),
+                    width: moderateScale(290),
+                    borderWidth: moderateScale(1),
+                    backgroundColor: '#4493AC',
+                    borderRadius: moderateScale(4),
+                    alignSelf: 'center',
+                  }}
+                  onPress={() => imageFromCamera()}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      paddingTop: moderateScale(12),
+                      fontSize: moderateScale(12),
+                      fontFamily: 'Montserrat-Bold',
+                      alignSelf: 'center',
+                    }}>
+                    Take Photo
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    marginBottom: moderateScale(13),
+                    height: moderateScale(43),
+                    width: moderateScale(290),
+                    borderWidth: moderateScale(1),
+                    backgroundColor: '#4493AC',
+                    borderRadius: moderateScale(4),
+                    alignSelf: 'center',
+                  }}
+                  onPress={() => pickImage()}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      paddingTop: moderateScale(12),
+                      fontSize: moderateScale(12),
+                      fontFamily: 'Montserrat-Bold',
+                      alignSelf: 'center',
+                    }}>
+                    Choose From Library
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    height: moderateScale(43),
+                    width: moderateScale(290),
+                    borderWidth: moderateScale(1),
+                    backgroundColor: '#EB5757',
+                    borderRadius: moderateScale(4),
+                    alignSelf: 'center',
+                  }}
+                  onPress={toggleOverlay}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      paddingTop: moderateScale(12),
+                      fontSize: moderateScale(12),
+                      fontFamily: 'Montserrat-Bold',
+                      alignSelf: 'center',
+                    }}>
+                    Cancle
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </BottomSheet>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -367,7 +523,6 @@ const styles = StyleSheet.create({
     marginTop: moderateScale(13),
     marginLeft: moderateScale(28),
     width: widthPercentageToDP(85),
-    height: heightPercentageToDP(38),
     borderTopStartRadius: moderateScale(13),
     borderTopEndRadius: moderateScale(13),
     borderBottomStartRadius: moderateScale(13),
@@ -591,5 +746,57 @@ const styles = StyleSheet.create({
     color: '#263765',
     fontSize: moderateScale(11),
     fontFamily: 'Montserrat-Regular',
+  },
+  containerOverlay: {
+    marginTop: moderateScale(410),
+    width: widthPercentageToDP(100),
+    height: heightPercentageToDP(36),
+    backgroundColor: '#FFFFFF',
+    borderTopLeftRadius: moderateScale(20),
+    borderTopRightRadius: moderateScale(20),
+    padding: moderateScale(43),
+    justifyContent: 'center',
+  },
+  headerOverlay: {
+    color: '#000000',
+    fontSize: moderateScale(24),
+    fontFamily: 'Montserrat-Regular',
+    marginLeft: moderateScale(60),
+  },
+  ContainerForm: {
+    paddingTop: moderateScale(16),
+  },
+  FormDetail1: {
+    marginBottom: moderateScale(12),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  FormDetail2: {
+    marginTop: moderateScale(12),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  TextDataDetail: {
+    color: '#000000',
+    fontSize: moderateScale(12),
+    fontFamily: 'Montserrat-Regular',
+  },
+  ResDetail: {
+    color: '#000000',
+    fontSize: moderateScale(12),
+    fontFamily: 'Montserrat-Bold',
+  },
+  ContainerClose: {
+    position: 'absolute',
+    marginTop: moderateScale(18),
+    right: moderateScale(24),
+  },
+  ButtonCloseStyle: {
+    height: moderateScale(13),
+    width: moderateScale(13),
+  },
+  HeaderBottmSheet: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

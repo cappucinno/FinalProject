@@ -18,6 +18,8 @@ target 'biller' do
 
   pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
 
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
   target 'billerTests' do
     inherit! :complete
     # Pods for testing

@@ -44,6 +44,7 @@ const SignUp = props => {
       props.navigation.navigate('Login');
     }
   }, [isSignup, props.navigation]);
+
   return (
     <LinearGradient
       colors={['#C3FFED', '#FFC8D5', '#FFFFFF']}

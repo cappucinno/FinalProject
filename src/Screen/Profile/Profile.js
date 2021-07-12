@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FastImage from 'react-native-fast-image';
 import {
@@ -15,7 +16,8 @@ import {
 import {moderateScale} from 'react-native-size-matters';
 import {ArrowBack, IconProfile, IconEditProfile} from '../../Assets/Assets';
 
-const Profile = () => {
+const Profile = props => {
+  const dispatch = useDispatch();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topContainer}>
@@ -72,16 +74,20 @@ const Profile = () => {
         </View>
       </View>
       <View style={styles.menuWrapper}>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity>
           <View style={styles.menuItem}>
             <Icon name="credit-card" color="#FF6347" size={25} />
             <Text style={styles.menuItemText}>Payment</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity
+          onPress={() => {
+            dispatch({type: 'SET_IS_LOGOUT'});
+            props.navigation.navigate('Login');
+          }}>
           <View style={styles.menuItem2}>
             <Icon name="settings-outline" color="#FF6347" size={25} />
-            <Text style={styles.menuItemText2}>Settings</Text>
+            <Text style={styles.menuItemText2}>LOGOUT</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -137,10 +143,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(14),
     color: '#7284B1',
   },
-  userInfoSection: {
-    paddingHorizontal: 30,
-    marginBottom: 25,
-  },
+
   row: {
     flexDirection: 'row',
     marginBottom: 10,
@@ -168,19 +171,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(14),
     color: '#777777',
   },
-  infoBoxWrapper: {
-    borderBottomColor: '#dddddd',
-    borderBottomWidth: 1,
-    borderTopColor: '#dddddd',
-    borderTopWidth: 1,
-    flexDirection: 'row',
-    height: 100,
-  },
-  infoBox: {
-    width: '50%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
   menuWrapper: {
     marginTop: 10,
   },
