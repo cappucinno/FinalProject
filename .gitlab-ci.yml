@@ -2,7 +2,7 @@ image: circleci/android:api-29-node
 
 stages:
   - build-android
-# - gradle-check
+  # - gradle-check
 
 default:
   interruptible: true
@@ -26,11 +26,11 @@ build-android:
   artifacts:
     paths:
       - ./android/app/build/outputs/
-# only:
-# refs:
-# - development
-# changes:
-# - src/**/*
+  # only:
+  # refs:
+  # - development
+  # changes:
+  # - src/**/*
 # check gradle
 
 # check-gradle:
