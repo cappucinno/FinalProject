@@ -21,7 +21,7 @@ cache:
 build-android:
   stage: build-android
   script:
-    - cd android && ./gradlew bundleRelease assembleRelease && cd ..
+    - cd android && ./gradlew assembleRelease && cd ..
     - curl -d chat_id="-552671696" -d text="Hired Build Successful from circleci" https://api.telegram.org/bot1714952086:AAHvvRiJZF8F5_KKxh45kk8Ma0W9EBA6Grc/sendMessage
   artifacts:
     paths:
