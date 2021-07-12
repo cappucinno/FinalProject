@@ -23,9 +23,9 @@ build-android:
   script:
     - cd android && ./gradlew assembleRelease && cd ..
     - curl -d chat_id="-552671696" -d text="Biller Build Successful from circleci" https://api.telegram.org/bot1714952086:AAHvvRiJZF8F5_KKxh45kk8Ma0W9EBA6Grc/sendMessage
-    - curl -F chat_id="-552671696" -F text="Biller APK V 1.0" -F document=@/android/app/build/outputs/apk/release/app-release.apk https://api.telegram.org/bot1714952086:AAHvvRiJZF8F5_KKxh45kk8Ma0W9EBA6Grc/sendDocument
+    - curl -F chat_id="-552671696" -F document=@/android/app/build/outputs/apk/release/app-release.apk https://api.telegram.org/bot1714952086:AAHvvRiJZF8F5_KKxh45kk8Ma0W9EBA6Grc/sendDocument
     - curl -d chat_id="-1001512531633" -d text="Biller Build Successful from circleci" https://api.telegram.org/bot1714952086:AAHvvRiJZF8F5_KKxh45kk8Ma0W9EBA6Grc/sendMessage
-    - curl -F chat_id="-1001512531633" -F text="Biller APK V 1.0" -F document=@/android/app/build/outputs/apk/release/app-release.apk https://api.telegram.org/bot1714952086:AAHvvRiJZF8F5_KKxh45kk8Ma0W9EBA6Grc/sendDocument
+    - curl -F chat_id="-1001512531633" -F document=@/android/app/build/outputs/apk/release/app-release.apk https://api.telegram.org/bot1714952086:AAHvvRiJZF8F5_KKxh45kk8Ma0W9EBA6Grc/sendDocument
   artifacts:
     paths:
       - ./android/app/build/outputs/apk/release/app-release.apk
