@@ -1,31 +1,31 @@
 image: circleci/android:api-29-node
 
 stages:
-- build-android
+  - build-android
 # - gradle-check
 
 default:
-interruptible: true
-before_script:
-- yarn install --frozen-lockfile
+  interruptible: true
+  before_script:
+    - yarn install --frozen-lockfile
 
 cache:
-key:
-files:
-- yarn.lock
-paths:
-- node_modules
-- .gradle/wrapper
-- .gradle/caches
+  key:
+    files:
+      - yarn.lock
+  paths:
+    - node_modules
+    - .gradle/wrapper
+    - .gradle/caches
 
 build-android:
-stage: build-android
-script:
-- cd android && ./gradlew bundleRelease assembleRelease && cd ..
-- curl -d chat_id="-552671696" -d text="Hired Build Successful from circleci" https://api.telegram.org/bot1714952086:AAHvvRiJZF8F5_KKxh45kk8Ma0W9EBA6Grc/sendMessage
-artifacts:
-paths:
-- ./android/app/build/outputs/
+  stage: build-android
+  script:
+    - cd android && ./gradlew bundleRelease assembleRelease && cd ..
+    - curl -d chat_id="-552671696" -d text="Hired Build Successful from circleci" https://api.telegram.org/bot1714952086:AAHvvRiJZF8F5_KKxh45kk8Ma0W9EBA6Grc/sendMessage
+  artifacts:
+    paths:
+      - ./android/app/build/outputs/
 # only:
 # refs:
 # - development
@@ -35,4 +35,4 @@ paths:
 
 # check-gradle:
 # stage: gradle-check
-# script: cd android && ./gradlew check && cd .. 
+# script: cd android && ./gradlew check && cd ..
