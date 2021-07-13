@@ -1,28 +1,60 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, SafeAreaView, Text, ScrollView} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 import CoverPayment from '../../Component/CoverPayment/CoverPayment';
+import {useDispatch, useSelector} from 'react-redux';
 import BackgroundPurple from '../../Component/Background/BackgroundPurple';
 import {IconInternetActive} from '../../Assets/Assets';
+import {inTvOptionAction} from './redux/action';
 
 const InternetTv = props => {
-  const dataentry = [
-    {
-      NameData: 'IndiHome',
+  const dispatch = useDispatch();
+  const DataOptionInTv = useSelector(state => {
+    console.log(state, '<===== ini state');
+    // ini aku tambahin untuk handling data pertama kali waktu masih null
+    if (
+      state.inTvOptionReducer.data.data != null &&
+      state.inTvOptionReducer.data.data.length > 0
+    ) {
+      return state.inTvOptionReducer.data.data;
+    } else {
+      return [];
+    }
+  });
+
+  console.log(DataOptionInTv, 'ini hasil data option internet tv');
+
+  useEffect(() => {
+    dispatch(inTvOptionAction());
+  }, [dispatch]);
+
+  const dataentry = DataOptionInTv.map((d, i) => {
+    return {
+      NameData: d.option,
       Naigation: 'ListPaymentInternetTv',
-      Page: 'IndiHome',
-    },
-    {
-      NameData: 'MNC Play',
-      Naigation: 'ListPaymentInternetTv',
-      Page: 'MNC Play',
-    },
-    {
-      NameData: 'Biznet Home',
-      Naigation: 'ListPaymentInternetTv',
-      Page: 'Biznet Home',
-    },
-  ];
+      Page: d.option,
+    };
+  });
+
+  // const dataentry = [
+  //   {
+  //     NameData: 'IndiHome',
+  //     Naigation: 'ListPaymentInternetTv',
+  //     Page: 'IndiHome',
+  //   },
+  //   {
+  //     NameData: 'MNC Play',
+  //     Naigation: 'ListPaymentInternetTv',
+  //     Page: 'MNC Play',
+  //   },
+  //   {
+  //     NameData: 'Biznet Home',
+  //     Naigation: 'ListPaymentInternetTv',
+  //     Page: 'Biznet Home',
+  //   },
+  // ];
+
+  console.log(dataentry, '<==== ini data entry');
 
   return (
     <SafeAreaView style={{flex: 1}}>

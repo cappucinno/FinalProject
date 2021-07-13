@@ -36,8 +36,10 @@ import NotifikasiFailed from './NotifikasiFailed.png';
 import NotifikasiSucces from './NotifikasiSucces.png';
 import IconProfile from './IconProfile.png';
 import IconEditProfile from './IconEditProfile.png';
+import FullLogo from './FullLogo.png';
 
 export {
+  FullLogo,
   IconBell,
   IconBiller,
   IconBPJS,

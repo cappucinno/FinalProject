@@ -16,6 +16,7 @@ import {
 
 const CoverPayment = ({navigation, titlecover, iconcover, data}) => {
   const dataentry = data;
+  console.log(dataentry, ' ini hasil componen cover');
 
   return (
     <SafeAreaView style={{flex: 1}}>
