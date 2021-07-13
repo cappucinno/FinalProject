@@ -6,6 +6,8 @@ import {
   KeyboardAvoidingView,
   TextInput,
   StyleSheet,
+  SafeAreaView,
+  ScrollView,
 } from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 import {
@@ -46,86 +48,90 @@ const SignUp = props => {
   }, [isSignup, props.navigation]);
 
   return (
-    <LinearGradient
-      colors={['#C3FFED', '#FFC8D5', '#FFFFFF']}
-      opacity={0.8}
-      start={{x: 0.0, y: 1.0}}
-      end={{x: 0.5, y: 0.0}}
-      locations={[0, 0.26, 0.8]}
-      style={styles.container}>
-      <KeyboardAvoidingView>
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <>
-            <LinearGradient
-              colors={['#364F90', '#9CCCBE', '#FAC9D6']}
-              start={{x: 1.0, y: 1.0}}
-              end={{x: 0.1, y: 0.1}}
-              locations={[0, 0.84, 1.0]}
-              style={[styles.bigRect, styles.top]}>
-              <View style={styles.containerHead}>
-                <FastImage
-                  style={styles.imageBiller}
-                  source={require('../../Assets/Images/FullLogo.png')}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </View>
-            </LinearGradient>
+    <SafeAreaView>
+      <ScrollView style={styles.containerScroll}>
+        <KeyboardAvoidingView>
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <>
+              <LinearGradient
+                colors={['#364F90', '#9CCCBE', '#FAC9D6']}
+                start={{x: 1.0, y: 1.0}}
+                end={{x: 0.1, y: 0.1}}
+                locations={[0, 0.84, 1.0]}
+                style={[styles.bigRect, styles.top]}>
+                <View style={styles.containerHead}>
+                  <FastImage
+                    style={styles.imageBiller}
+                    source={require('../../Assets/Images/FullLogo.png')}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                </View>
+              </LinearGradient>
 
-            <View style={styles.topContainer}>
-              <Text style={styles.text1}>Getting Started</Text>
-              <View style={styles.textLogin}>
-                <Text style={styles.text2}>Already have account? </Text>
-                <TouchableOpacity
-                  onPress={() => props.navigation.navigate('Login')}>
-                  <Text style={styles.text3}>Login</Text>
-                </TouchableOpacity>
+              <View style={styles.topContainer}>
+                <Text style={styles.text1}>Getting Started</Text>
+                <View style={styles.textLogin}>
+                  <Text style={styles.text2}>Already have account? </Text>
+                  <TouchableOpacity
+                    onPress={() => props.navigation.navigate('Login')}>
+                    <Text style={styles.text3}>Login</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
 
-            <TextInput
-              style={styles.textContainer1}
-              placeholder="FirstName"
-              placeholderTextColor="#999999"
-              onChangeText={text => setFirstName(text)}
-            />
-            <TextInput
-              style={styles.textContainer2}
-              placeholder="LastName"
-              placeholderTextColor="#999999"
-              onChangeText={text => setLastName(text)}
-            />
-            <TextInput
-              style={styles.textContainer3}
-              placeholder="Email"
-              placeholderTextColor="#999999"
-              onChangeText={text => setEmail(text)}
-            />
-            <TextInput
-              style={styles.textContainer4}
-              placeholder="Password"
-              placeholderTextColor="#999999"
-              secureTextEntry
-              onChangeText={text => setPassword(text)}
-            />
-            <TouchableOpacity
-              onPress={submitData}
-              style={styles.ContainerButtonSubs}>
-              <View style={styles.ButtonSubs}>
-                <Text style={styles.TextButtonSubs}>Signup</Text>
-              </View>
-            </TouchableOpacity>
-          </>
-        )}
-      </KeyboardAvoidingView>
-    </LinearGradient>
+              <TextInput
+                style={styles.textContainer1}
+                placeholder="FirstName"
+                placeholderTextColor="#999999"
+                onChangeText={text => setFirstName(text)}
+              />
+              <TextInput
+                style={styles.textContainer2}
+                placeholder="LastName"
+                placeholderTextColor="#999999"
+                onChangeText={text => setLastName(text)}
+              />
+              <TextInput
+                style={styles.textContainer3}
+                placeholder="Email"
+                placeholderTextColor="#999999"
+                onChangeText={text => setEmail(text)}
+              />
+              <TextInput
+                style={styles.textContainer4}
+                placeholder="Password"
+                placeholderTextColor="#999999"
+                secureTextEntry
+                onChangeText={text => setPassword(text)}
+              />
+              <TouchableOpacity
+                onPress={submitData}
+                style={styles.ContainerButtonSubs}>
+                <View style={styles.ButtonSubs}>
+                  <Text style={styles.TextButtonSubs}>Signup</Text>
+                </View>
+              </TouchableOpacity>
+            </>
+          )}
+        </KeyboardAvoidingView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 export default SignUp;
 
 const styles = StyleSheet.create({
+  containerPusat: {
+    width: wp(100),
+    height: hp(100),
+    backgroundColor: 'white',
+  },
+  containerScroll: {
+    paddingBottom: moderateScale(100),
+  },
   bigRect: {
     height: moderateScale(380),
     width: moderateScale(382),
@@ -135,14 +141,14 @@ const styles = StyleSheet.create({
   },
   top: {
     position: 'absolute',
-    top: moderateScale(-400),
+    top: moderateScale(-220),
     right: moderateScale(-110),
   },
   containerHead: {
     transform: [{rotate: '45deg'}],
     alignItems: 'flex-end',
-    paddingTop: 225,
-    paddingRight: 100,
+    paddingTop: moderateScale(225),
+    paddingRight: moderateScale(100),
   },
   imageBiller: {
     height: 100,
@@ -157,8 +163,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   topContainer: {
-    paddingLeft: wp(8),
-    bottom: moderateScale(10),
+    paddingLeft: wp(5),
+    marginTop: moderateScale(250),
   },
   text1: {
     fontSize: moderateScale(26),
@@ -185,11 +191,11 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   textContainer1: {
-    width: 344,
-    height: 42,
+    width: wp(90),
+    height: moderateScale(42),
     alignSelf: 'center',
     borderRadius: moderateScale(4),
-    top: moderateScale(20),
+    marginTop: moderateScale(34),
     borderWidth: 1,
     borderColor: '#999999',
     fontSize: moderateScale(14),
@@ -197,35 +203,35 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   textContainer2: {
-    width: 344,
-    height: 42,
+    width: wp(90),
+    height: moderateScale(42),
     alignSelf: 'center',
     borderRadius: moderateScale(4),
-    top: moderateScale(35),
-    borderWidth: 1,
+    marginTop: moderateScale(24),
+    borderWidth: moderateScale(1),
     borderColor: '#999999',
     fontSize: moderateScale(14),
     paddingLeft: moderateScale(15),
     color: 'black',
   },
   textContainer3: {
-    width: 344,
-    height: 42,
+    width: wp(90),
+    height: moderateScale(42),
     alignSelf: 'center',
     borderRadius: moderateScale(4),
-    top: moderateScale(50),
-    borderWidth: 1,
+    marginTop: moderateScale(24),
+    borderWidth: moderateScale(1),
     borderColor: '#999999',
     fontSize: moderateScale(14),
     paddingLeft: moderateScale(15),
     color: 'black',
   },
   textContainer4: {
-    width: 344,
-    height: 42,
+    width: wp(90),
+    height: moderateScale(42),
     alignSelf: 'center',
     borderRadius: moderateScale(4),
-    top: moderateScale(65),
+    marginTop: moderateScale(24),
     borderWidth: 1,
     borderColor: '#999999',
     fontSize: moderateScale(14),
@@ -234,7 +240,8 @@ const styles = StyleSheet.create({
   },
   ContainerButtonSubs: {
     alignSelf: 'center',
-    top: moderateScale(90),
+    marginTop: moderateScale(21),
+    marginBottom: moderateScale(50),
     backgroundColor: '#4493AC',
     borderRadius: moderateScale(6),
     height: moderateScale(42),
