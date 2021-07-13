@@ -45,7 +45,7 @@ import {
   NewPDAMBankPayment,
   EditProfile,
 } from './src/Screen/Screen';
-
+import {useSelector} from 'react-redux';
 import {BottomNav} from './src/Component/Component';
 
 const Stack = createStackNavigator();
@@ -57,9 +57,11 @@ const Root = () => {
     }, 200);
   }, []);
 
+  const isLogged = useSelector(state => state.GlobalReducer.isLogged);
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="SignUp">
+      <Stack.Navigator initialRouteName={isLogged ? 'Mainapp' : 'Login'}>
         <Stack.Screen
           name="Login"
           component={Login}
