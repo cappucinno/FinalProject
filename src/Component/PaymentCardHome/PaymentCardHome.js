@@ -21,10 +21,10 @@ const PaymentCard = ({late = false, success = false, ongoing = false}) => {
       borderRadius: moderateScale(20),
       backgroundColor: 'white',
       width: widthPercentageToDP(90),
-      height: ongoing ? heightPercentageToDP(45) : heightPercentageToDP(48),
+      height: ongoing ? heightPercentageToDP(45) : heightPercentageToDP(50),
       alignSelf: 'center',
-      marginBottom: moderateScale(40),
-      top: moderateScale(50),
+      marginTop: moderateScale(15),
+      marginBottom: moderateScale(8),
       elevation: 10,
     },
     ContainerFild: {
@@ -69,27 +69,29 @@ const PaymentCard = ({late = false, success = false, ongoing = false}) => {
       fontFamily: 'Montserrat-Bold',
       alignSelf: 'flex-end',
       // padding: moderateScale(18),
-      top: moderateScale(18),
-      right: moderateScale(9),
+      marginTop: moderateScale(13),
+      marginRight: moderateScale(9),
     },
     containerbill: {
-      paddingTop: moderateScale(10),
       flexDirection: 'row',
       justifyContent: 'flex-start',
       paddingRight: widthPercentageToDP(9),
-      top: moderateScale(23),
+      marginTop: moderateScale(23),
+      marginBottom: moderateScale(-8),
+      // backgroundColor: 'black',
     },
     ContainerIconPayment: {
       display: 'flex',
       borderRadius: moderateScale(5),
       backgroundColor: '#EBEDF4',
-      width: widthPercentageToDP(9),
-      height: heightPercentageToDP(5),
+      width: moderateScale(32),
+      height: moderateScale(32),
+      paddingTop: moderateScale(10),
     },
 
     IconPayment: {
-      height: heightPercentageToDP(5),
-      width: widthPercentageToDP(3),
+      height: moderateScale(11),
+      width: moderateScale(18),
       alignSelf: 'center',
     },
     ContainerListBill: {
@@ -121,14 +123,13 @@ const PaymentCard = ({late = false, success = false, ongoing = false}) => {
       paddingLeft: moderateScale(2),
     },
     CountDayLeft: {
-      paddingTop: moderateScale(20),
+      marginTop: moderateScale(16),
       flexDirection: 'row',
     },
     TextCount: {
       color: '#EB5757',
       fontSize: moderateScale(10),
       fontFamily: 'Montserrat-Bold',
-      top: moderateScale(20),
     },
     TextCount2: {
       color: '#828282',
@@ -136,19 +137,16 @@ const PaymentCard = ({late = false, success = false, ongoing = false}) => {
       fontFamily: 'Montserrat-Bold',
       paddingLeft: widthPercentageToDP(21),
       paddingRight: moderateScale(100),
-      top: moderateScale(20),
     },
-
     ContainerTotalCount: {
       paddingRight: moderateScale(20),
       paddingTop: moderateScale(20),
-      top: ongoing
-        ? moderateScale(30)
+      marginTop: ongoing
+        ? moderateScale(16)
         : late
-        ? moderateScale(20)
-        : moderateScale(40),
+        ? moderateScale(16)
+        : moderateScale(14),
     },
-
     TotalCount: {
       backgroundColor: '#EBEDF4',
       borderTopStartRadius: moderateScale(5),
@@ -181,16 +179,17 @@ const PaymentCard = ({late = false, success = false, ongoing = false}) => {
       height: heightPercentageToDP(6),
       width: widthPercentageToDP(80),
       alignItems: 'center',
-      top: ongoing
-        ? moderateScale(40)
+      marginTop: ongoing
+        ? moderateScale(16)
         : late
-        ? moderateScale(20)
-        : moderateScale(40),
+        ? moderateScale(0)
+        : moderateScale(16),
     },
     ContainerButton: {
       alignItems: 'center',
       paddingRight: widthPercentageToDP(5),
       marginTop: moderateScale(15),
+      // backgroundColor: 'black',
     },
     TextButton: {
       color: 'white',

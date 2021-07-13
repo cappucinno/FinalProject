@@ -143,7 +143,7 @@ const Home = props => {
           <View>
             <Text style={styles.textSubsribtion}>Ongoing Purchase</Text>
             <PaymentCardHome late={false} success={false} ongoing={true} />
-            <Text style={styles.textSubsribtion}>Active Subscriptions</Text>
+            <Text style={styles.textSubsribtion2}>Active Subscriptions</Text>
             <PaymentCardHome late={true} />
             <PaymentCardHome late={false} success={false} />
           </View>
@@ -301,7 +301,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'Montserrat-Regular',
     fontWeight: 'bold',
-    top: moderateScale(30),
+    marginTop: moderateScale(30),
+    marginLeft: wp(5),
+  },
+  textSubsribtion2: {
+    fontSize: 18,
+    fontFamily: 'Montserrat-Regular',
+    fontWeight: 'bold',
+    marginTop: moderateScale(35),
     marginLeft: wp(5),
   },
   ContainerImgSub: {
