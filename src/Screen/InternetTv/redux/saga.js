@@ -4,15 +4,13 @@ import {inTvOptionActionSuccess, inTvOptionActionFailed} from './action';
 import {actionLoading} from '../../../Store/GlobalAction';
 
 // GET OPTIONS
-const inTvOptions = (token, payload) => {
+const inTvOptions = (payload, token) => {
   return axios({
     method: 'GET',
     url: 'https://biller-app-api.herokuapp.com/api/biller/internet_TV/options/3',
     data: payload,
     headers: {
-      Authorization:
-        'Bearer ' +
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozfSwiaWF0IjoxNjI2MTQwMjgzLCJleHAiOjE2MjYxNjkwODN9.7LA_856-98qAx9V4RJCYibOyfjpOtNuAAJjT343C8TM',
+      Authorization: 'Bearer ' + token,
     },
   });
 };
@@ -20,6 +18,7 @@ const inTvOptions = (token, payload) => {
 // GET OPTIONS
 function* inTvOptionAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
+
   try {
     yield put(actionLoading(true));
     const res = yield inTvOptions(action.payload, token);

@@ -61,12 +61,8 @@ const Root = () => {
 
   return (
     <NavigationContainer>
-<<<<<<< HEAD
       {/* <Stack.Navigator initialRouteName="Mainapp"> */}
       <Stack.Navigator initialRouteName={isLogged ? 'Mainapp' : 'Login'}>
-=======
-      <Stack.Navigator initialRouteName="Login">
->>>>>>> c3cddc387d52fd23b40e77717ff42b8a15c40a4a
         <Stack.Screen
           name="Login"
           component={Login}
