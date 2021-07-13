@@ -6,6 +6,8 @@ import {
   KeyboardAvoidingView,
   TextInput,
   StyleSheet,
+  SafeAreaView,
+  ScrollView,
 } from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 import {
@@ -42,82 +44,87 @@ const Login = props => {
     );
   };
   return (
-    <LinearGradient
-      colors={['#C3FFED', '#FFC8D5', '#FFFFFF']}
-      start={{x: 0.0, y: 1.0}}
-      end={{x: 0.5, y: 0.0}}
-      locations={[0, 0.26, 0.8]}
-      style={styles.container}>
-      <KeyboardAvoidingView>
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <>
-            <LinearGradient
-              colors={['#364F90', '#9CCCBE', '#FAC9D6']}
-              start={{x: 1.0, y: 1.0}}
-              end={{x: 0.1, y: 0.1}}
-              locations={[0, 0.84, 1.0]}
-              style={[styles.bigRect, styles.top]}>
-              <View style={styles.containerHead}>
-                <FastImage
-                  style={styles.imageBiller}
-                  source={require('../../Assets/Images/FullLogo.png')}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </View>
-            </LinearGradient>
+    <SafeAreaView>
+      <ScrollView style={styles.containerScroll}>
+        <KeyboardAvoidingView>
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <>
+              <LinearGradient
+                colors={['#364F90', '#9CCCBE', '#FAC9D6']}
+                start={{x: 1.0, y: 1.0}}
+                end={{x: 0.1, y: 0.1}}
+                locations={[0, 0.84, 1.0]}
+                style={[styles.bigRect, styles.top]}>
+                <View style={styles.containerHead}>
+                  <FastImage
+                    style={styles.imageBiller}
+                    source={require('../../Assets/Images/FullLogo.png')}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                </View>
+              </LinearGradient>
 
-            <View style={styles.topContainer}>
-              <Text style={styles.text1}>Welcome Back!</Text>
-              <View style={styles.textLogin}>
-                <Text style={styles.text2}>Don't have account? </Text>
-                <TouchableOpacity
-                  onPress={() => {
-                    dispatch({type: 'RESET_AUTH'});
-                    props.navigation.navigate('SignUp');
-                  }}>
-                  <Text style={styles.text3}>Sign up</Text>
+              <View style={styles.topContainer}>
+                <Text style={styles.text1}>Welcome Back!</Text>
+                <View style={styles.textLogin}>
+                  <Text style={styles.text2}>Don't have account? </Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      dispatch({type: 'RESET_AUTH'});
+                      props.navigation.navigate('SignUp');
+                    }}>
+                    <Text style={styles.text3}>Sign up</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              <TextInput
+                style={styles.textContainer1}
+                placeholder="Email"
+                placeholderTextColor="#999999"
+                onChangeText={text => setEmail(text)}
+              />
+              <TextInput
+                style={styles.textContainer2}
+                placeholder="Password"
+                placeholderTextColor="#999999"
+                onChangeText={text => setPassword(text)}
+                secureTextEntry
+              />
+              <TouchableOpacity
+                onPress={submitLogin}
+                style={styles.ContainerButtonSubs}>
+                <View style={styles.ButtonSubs}>
+                  <Text style={styles.TextButtonSubs}>Login</Text>
+                </View>
+              </TouchableOpacity>
+
+              <View>
+                <TouchableOpacity style={styles.buttonForgetPassword}>
+                  <Text style={styles.textForgotPassword}>Forgot Password</Text>
                 </TouchableOpacity>
               </View>
-            </View>
-
-            <TextInput
-              style={styles.textContainer1}
-              placeholder="Email"
-              placeholderTextColor="#999999"
-              onChangeText={text => setEmail(text)}
-            />
-            <TextInput
-              style={styles.textContainer2}
-              placeholder="Password"
-              placeholderTextColor="#999999"
-              onChangeText={text => setPassword(text)}
-              secureTextEntry
-            />
-            <TouchableOpacity
-              onPress={submitLogin}
-              style={styles.ContainerButtonSubs}>
-              <View style={styles.ButtonSubs}>
-                <Text style={styles.TextButtonSubs}>Login</Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.buttonForgetPassword}>
-              <View>
-                <Text style={styles.textForgotPassword}>Forgot Password</Text>
-              </View>
-            </TouchableOpacity>
-          </>
-        )}
-      </KeyboardAvoidingView>
-    </LinearGradient>
+            </>
+          )}
+        </KeyboardAvoidingView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 export default Login;
 
 const styles = StyleSheet.create({
+  containerPusat: {
+    width: wp(100),
+    height: hp(100),
+    backgroundColor: 'white',
+  },
+  containerScroll: {
+    paddingBottom: moderateScale(100),
+  },
   bigRect: {
     height: moderateScale(380),
     width: moderateScale(382),
@@ -127,14 +134,14 @@ const styles = StyleSheet.create({
   },
   top: {
     position: 'absolute',
-    top: moderateScale(-400),
+    top: moderateScale(-220),
     right: moderateScale(-110),
   },
   containerHead: {
     transform: [{rotate: '45deg'}],
     alignItems: 'flex-end',
-    paddingTop: 225,
-    paddingRight: 100,
+    paddingTop: moderateScale(225),
+    paddingRight: moderateScale(100),
   },
   imageBiller: {
     height: 100,
@@ -149,8 +156,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   topContainer: {
-    paddingLeft: wp(8),
-    bottom: moderateScale(16),
+    paddingLeft: wp(5),
+    marginTop: moderateScale(250),
   },
   text1: {
     fontSize: moderateScale(26),
@@ -177,10 +184,10 @@ const styles = StyleSheet.create({
   },
   textContainer1: {
     width: wp(90),
-    height: hp(6),
+    height: moderateScale(42),
     alignSelf: 'center',
     borderRadius: moderateScale(5),
-    top: moderateScale(30),
+    marginTop: moderateScale(35),
     borderWidth: 1,
     borderColor: '#999999',
     fontSize: moderateScale(14),
@@ -189,10 +196,10 @@ const styles = StyleSheet.create({
   },
   textContainer2: {
     width: wp(90),
-    height: hp(6),
+    height: moderateScale(42),
     alignSelf: 'center',
     borderRadius: moderateScale(5),
-    top: moderateScale(50),
+    marginTop: moderateScale(21),
     borderWidth: 1,
     borderColor: '#999999',
     fontSize: moderateScale(14),
@@ -225,13 +232,10 @@ const styles = StyleSheet.create({
   },
   ContainerButtonSubs: {
     alignSelf: 'center',
-    top: moderateScale(90),
+    marginTop: moderateScale(21),
     backgroundColor: '#4493AC',
-    borderTopStartRadius: moderateScale(5),
-    borderTopEndRadius: moderateScale(5),
-    borderBottomStartRadius: moderateScale(5),
-    borderBottomEndRadius: moderateScale(5),
-    height: hp(6),
+    borderRadius: moderateScale(6),
+    height: moderateScale(42),
     width: wp(90),
     elevation: moderateScale(3),
   },
@@ -246,11 +250,12 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: moderateScale(18),
     fontFamily: 'Montserrat-Bold',
-    paddingTop: moderateScale(5),
+    paddingTop: moderateScale(4),
   },
   buttonForgetPassword: {
     alignSelf: 'center',
-    top: moderateScale(120),
+    marginTop: moderateScale(32),
+    marginBottom: moderateScale(50),
   },
   textForgotPassword: {
     fontSize: moderateScale(14),

@@ -59,7 +59,7 @@ const Root = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Mainapp">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="Login"
           component={Login}
