@@ -21,7 +21,11 @@ const PaymentCard = ({late = false, success = false, ongoing = false}) => {
       borderRadius: moderateScale(20),
       backgroundColor: 'white',
       width: widthPercentageToDP(90),
-      height: ongoing ? heightPercentageToDP(45) : heightPercentageToDP(50),
+      height: ongoing
+        ? moderateScale(285)
+        : late
+        ? moderateScale(353)
+        : moderateScale(319),
       alignSelf: 'center',
       marginTop: moderateScale(15),
       marginBottom: moderateScale(8),
@@ -32,7 +36,7 @@ const PaymentCard = ({late = false, success = false, ongoing = false}) => {
       borderRadius: moderateScale(20),
       backgroundColor: 'white',
       width: widthPercentageToDP(90),
-      height: heightPercentageToDP(40),
+      height: ongoing ? moderateScale(248) : heightPercentageToDP(40),
       alignSelf: 'center',
       paddingLeft: widthPercentageToDP(5),
     },
@@ -123,7 +127,7 @@ const PaymentCard = ({late = false, success = false, ongoing = false}) => {
       paddingLeft: moderateScale(2),
     },
     CountDayLeft: {
-      marginTop: moderateScale(16),
+      marginTop: moderateScale(28),
       flexDirection: 'row',
     },
     TextCount: {
@@ -140,12 +144,17 @@ const PaymentCard = ({late = false, success = false, ongoing = false}) => {
     },
     ContainerTotalCount: {
       paddingRight: moderateScale(20),
-      paddingTop: moderateScale(20),
-      marginTop: ongoing
-        ? moderateScale(16)
+      paddingTop: ongoing
+        ? moderateScale(20)
         : late
-        ? moderateScale(16)
+        ? moderateScale(10)
+        : moderateScale(20),
+      marginTop: ongoing
+        ? moderateScale(10)
+        : late
+        ? moderateScale(10)
         : moderateScale(14),
+      // backgroundColor: 'red',
     },
     TotalCount: {
       backgroundColor: '#EBEDF4',
@@ -188,7 +197,11 @@ const PaymentCard = ({late = false, success = false, ongoing = false}) => {
     ContainerButton: {
       alignItems: 'center',
       paddingRight: widthPercentageToDP(5),
-      marginTop: moderateScale(15),
+      marginTop: ongoing
+        ? moderateScale(2)
+        : late
+        ? moderateScale(20)
+        : moderateScale(15),
       // backgroundColor: 'black',
     },
     TextButton: {
