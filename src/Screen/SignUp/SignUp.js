@@ -26,6 +26,7 @@ const SignUp = props => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [PIN, setPIN] = useState('');
 
   const submitData = () => {
     dispatch(
@@ -34,6 +35,7 @@ const SignUp = props => {
         last_name: lastName,
         email: email,
         password: password,
+        PIN: PIN,
       }),
     );
   };
@@ -105,6 +107,13 @@ const SignUp = props => {
                 placeholderTextColor="#999999"
                 secureTextEntry
                 onChangeText={text => setPassword(text)}
+              />
+              <TextInput
+                style={styles.textContainer4}
+                placeholder="PIN"
+                placeholderTextColor="#999999"
+                secureTextEntry
+                onChangeText={text => setPIN(text)}
               />
               <TouchableOpacity
                 onPress={submitData}
