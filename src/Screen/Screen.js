@@ -19,6 +19,7 @@ import Landline from './Landline/Landline';
 import LandlineResult from './Landline/LandlineResult';
 import InternetTv from './InternetTv/InternetTv';
 import ListPaymentInternetTv from './InternetTv/ListPayment/ListPaymentInternetTv';
+import DetailPaymentInternetTv from './InternetTv/DetailPaymentINternetTv/DetailPaymentInternetTv';
 import ResultPaymentInternetTv from './InternetTv/ResultPaymentInternetTv/ResultPaymentInternetTv';
 import BPJS from './BPJS/BPJS';
 import DetailPaymentBPJS from './BPJS/DetailPaymentBPJS';
@@ -62,6 +63,7 @@ export {
   LandlineResult,
   InternetTv,
   ListPaymentInternetTv,
+  DetailPaymentInternetTv,
   ResultPaymentInternetTv,
   NewSubscription,
   NSBillsCategory,

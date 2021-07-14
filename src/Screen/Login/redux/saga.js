@@ -31,7 +31,7 @@ function* loginAction(action) {
       yield put(actionLoading(false));
     }
   } catch (err) {
-    console.log(err.response.data.message, 'Gagal SignUp');
+    console.log(err.response.data.message, 'Gagal Login');
     yield put(actionLoading(false));
     const errorMessage = err.response.data.message + '';
     ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);

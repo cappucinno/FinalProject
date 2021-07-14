@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -15,12 +15,25 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import {ArrowBack, IconInternetActive} from '../../../Assets/Assets';
+import {inTvAccountAction} from '../redux/action';
+import {useSelector, useDispatch} from 'react-redux';
 
 const ListPaymentInternetTv = props => {
   const [input, setInput] = useState('');
   const title = props.route.params;
   console.log(title, '<<<<< ini InternetTV');
-  const DataCostomer = '12345';
+  const DataCostomer = useSelector(state => state.GlobalReducer.Success);
+  console.log(DataCostomer, 'status datacostumer');
+  const dispatch = useDispatch();
+
+  const submitDataCostomer = () => {
+    dispatch(
+      inTvAccountAction({
+        customer_number: input,
+      }),
+    );
+  };
+  useEffect(() => {}, [DataCostomer]);
 
   const styles = StyleSheet.create({
     Grow: {
@@ -105,26 +118,12 @@ const ListPaymentInternetTv = props => {
       height: moderateScale(44),
       width: moderateScale(290),
       marginTop: moderateScale(4),
-      backgroundColor:
-        input === ''
-          ? 'white'
-          : input.length <= DataCostomer.length
-          ? 'white'
-          : input !== DataCostomer
-          ? '#FFF4F7'
-          : 'white',
+      backgroundColor: DataCostomer ? 'white' : '#FFF4F7',
     },
     TextNotRegister: {
       paddingTop: moderateScale(4),
       alignSelf: 'center',
-      color:
-        input === ''
-          ? '#EBEDF4'
-          : input.length <= DataCostomer.length
-          ? '#EBEDF4'
-          : input !== DataCostomer
-          ? '#EB5757'
-          : '#EBEDF4',
+      color: DataCostomer ? '#EBEDF4' : '#EB5757',
       fontSize: moderateScale(12),
       fontFamily: 'Montserrat-Regular',
     },
@@ -254,9 +253,7 @@ const ListPaymentInternetTv = props => {
         {/* {pencetan nilai harga} */}
         <View style={{marginTop: moderateScale(350)}}>
           <TouchableOpacity
-            onPress={() =>
-              props.navigation.navigate('ResultPaymentInternetTv', title)
-            }
+            onPress={submitDataCostomer}
             style={styles.ContainerButtonConfirm}>
             <View style={styles.ButtonConfirm}>
               <Text style={styles.TextButtonConfirm}>Confirm</Text>
