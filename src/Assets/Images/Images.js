@@ -37,6 +37,8 @@ import NotifikasiSucces from './NotifikasiSucces.png';
 import IconProfile from './IconProfile.png';
 import IconEditProfile from './IconEditProfile.png';
 import FullLogo from './FullLogo.png';
+import mandiri from './mandiri.png';
+import BCA from './BCA.png';
 
 export {
   FullLogo,
@@ -78,4 +80,6 @@ export {
   NotifikasiSucces,
   IconProfile,
   IconEditProfile,
+  mandiri,
+  BCA,
 };
