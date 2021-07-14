@@ -14,7 +14,15 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 
-import {ArrowBack, Radio, RadioActive, IconVisa} from '../../Assets/Assets';
+import {
+  ArrowBack,
+  Radio,
+  RadioActive,
+  IconVisa,
+  IconMasterCard,
+  mandiri,
+  BCA,
+} from '../../Assets/Assets';
 
 const PaymentMethod = props => {
   const [isselected, setIsSelected] = useState('');
@@ -24,10 +32,16 @@ const PaymentMethod = props => {
 
   const PaymentMethod = [
     {
-      TransferBank: ['BCA', 'MANDIRI'],
+      TransferBank: [
+        {name: 'BCA', logo: BCA},
+        {name: 'MANDIRI', logo: mandiri},
+      ],
     },
     {
-      CreditCard: ['VISA', 'MasterCard'],
+      CreditCard: [
+        {name: 'VISA', logo: IconVisa},
+        {name: 'MasterCard', logo: IconMasterCard},
+      ],
     },
   ];
 
@@ -72,7 +86,7 @@ const PaymentMethod = props => {
                       borderColor: isselected === i ? '#3E89AE' : 'white',
                       height:
                         isselected === i
-                          ? heightPercentageToDP(24)
+                          ? heightPercentageToDP(30)
                           : heightPercentageToDP(6),
                     },
                   ]}>
@@ -85,7 +99,7 @@ const PaymentMethod = props => {
                         return (
                           <TouchableOpacity key={z} onPress={() => setRadio(z)}>
                             <View style={styles.ContainerRadio}>
-                              <Text>{e}</Text>
+                              {/* <Text>{e}</Text> */}
                               <FastImage
                                 style={styles.RadioBtn}
                                 source={radio === z ? RadioActive : Radio}
@@ -93,7 +107,7 @@ const PaymentMethod = props => {
                               />
                               <FastImage
                                 style={styles.LogoBank}
-                                source={IconVisa}
+                                source={e.logo}
                                 resizeMode={FastImage.resizeMode.contain}
                               />
                               <Text style={styles.NumberCard}>
@@ -118,13 +132,13 @@ const PaymentMethod = props => {
               </View>
             );
           })}
-          <TouchableOpacity>
-            <View style={styles.ContainerSave}>
-              <Text style={styles.TextButtonSave}>SAVE</Text>
-            </View>
-          </TouchableOpacity>
         </View>
       </ScrollView>
+      <TouchableOpacity>
+        <View style={styles.ContainerSave}>
+          <Text style={styles.TextButtonSave}>SAVE</Text>
+        </View>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -186,13 +200,15 @@ const styles = StyleSheet.create({
   },
   ContainerRadio: {
     margin: moderateScale(7),
-    marginLeft: moderateScale(18),
+    marginLeft: moderateScale(10),
+    paddingLeft: moderateScale(5),
     height: moderateScale(43),
-    width: moderateScale(290),
+    width: moderateScale(285),
     borderWidth: moderateScale(1),
     backgroundColor: 'white',
     borderColor: '#999999',
     flexDirection: 'row',
+    alignSelf: 'center',
   },
   RadioBtn: {
     height: heightPercentageToDP(2),
@@ -222,6 +238,7 @@ const styles = StyleSheet.create({
   },
 
   ContainerAdd: {
+    marginTop: moderateScale(10),
     height: moderateScale(43),
     width: moderateScale(290),
     borderWidth: moderateScale(1),
@@ -237,14 +254,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   ContainerSave: {
-    marginTop: heightPercentageToDP(42),
+    marginBottom: widthPercentageToDP(6),
+    marginHorizontal: widthPercentageToDP(6),
     backgroundColor: '#4493AC',
     borderTopStartRadius: moderateScale(5),
     borderTopEndRadius: moderateScale(5),
     borderBottomStartRadius: moderateScale(5),
     borderBottomEndRadius: moderateScale(5),
     height: heightPercentageToDP(6),
-    width: widthPercentageToDP(87),
+    width: widthPercentageToDP(88),
     alignItems: 'center',
   },
   TextButtonSave: {
