@@ -1,6 +1,7 @@
 const initialState = {
   dataOption: [],
   dataUser: [],
+  resBill: [],
 };
 
 const inTvOptionReducer = (state = initialState, action) => {
@@ -25,6 +26,17 @@ const inTvOptionReducer = (state = initialState, action) => {
       return {
         ...state,
         dataUser: action.payload,
+      };
+
+    case 'CREATE_INTV_PAYMENT':
+      return {
+        ...state,
+      };
+
+    case 'CREATE_INTV_PAYMENT_SUCCESS':
+      return {
+        ...state,
+        resBill: action.payload,
       };
     default:
       return state;

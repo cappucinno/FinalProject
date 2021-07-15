@@ -128,15 +128,15 @@ function* inTvCreateAction(action) {
   try {
     yield put(actionLoading(true));
     const res = yield inTvCreate(action.payload, token);
-    console.log(res, '<=======ini hasil user INTV Api');
+    console.log(res, '<=======ini hasil CreateBill INTV Api');
     if (res && res.data) {
       console.log(res.data, 'ini hasil res');
-      console.log('Berhasil Mengambil data User InTv');
+      console.log('Berhasil Create Bill InTv');
 
       yield put(inTvCreatePaymentActionSuccess(res.data));
       yield put(actionSuccess(true));
 
-      yield navigate('DetailPaymentInternetTv');
+      yield navigate('ResultPaymentInternetTv');
     } else if (res.status === 204) {
       yield put(actionSuccess(false));
       yield put(actionIsLogged(false));
@@ -150,7 +150,7 @@ function* inTvCreateAction(action) {
       const errorMessage = err.response.data.message + '';
       ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
     } else {
-      console.log(err.response.data.message, 'Gagal Mengambil data');
+      console.log(err.response, 'Gagal Mengambil data');
       const errorMessage = err.response.data.message + '';
       ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
     }
