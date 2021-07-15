@@ -16,7 +16,7 @@ import {
 import {TextInput} from 'react-native-gesture-handler';
 import {IconPDAMActive, IconCloseWhite} from '../../Assets/Assets';
 
-const NewPDAMBankPayment = () => {
+const NewPDAMBankPayment = props => {
   return (
     <SafeAreaView
       style={{
@@ -30,7 +30,7 @@ const NewPDAMBankPayment = () => {
         }}>
         <View style={styles.topContainer}>
           <Text style={styles.textTitle}>PDAM</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => props.navigation.goBack()}>
             <FastImage
               style={styles.iconClose}
               source={IconCloseWhite}

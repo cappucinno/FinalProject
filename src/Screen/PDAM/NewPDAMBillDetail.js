@@ -16,7 +16,7 @@ import {
 import {ArrowBack} from '../../Assets/Assets';
 import {CheckBox} from 'react-native-elements';
 
-const NewPDAMBillDetail = () => {
+const NewPDAMBillDetail = props => {
   const [check, setCheck] = useState(false);
 
   return (
@@ -103,7 +103,8 @@ const NewPDAMBillDetail = () => {
             subscriptions on selected pay dates
           </Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('NewPDAMBankPayment')}>
           <View style={styles.paybox}>
             <Text style={styles.textPaybox}>Pay: Rp 55.000</Text>
           </View>

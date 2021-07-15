@@ -125,7 +125,7 @@ const Home = props => {
               <Text style={styles.textInButton}>BPJS</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => props.navigation.navigate('NewPDAMBlank')}
+              onPress={() => props.navigation.navigate('NewPDAMOption')}
               style={styles.buttonStyle}
               activeOpacity={0.5}>
               <FastImage
