@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import DropDownPicker from 'react-native-dropdown-picker';
+import DatePicker from 'react-native-date-picker';
 import {moderateScale} from 'react-native-size-matters';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import bcrypt from 'react-native-bcrypt';
@@ -40,23 +41,19 @@ const DetailPaymentInternetTv = props => {
     {label: 'Every Month', value: 'Month'},
     {label: 'Every Year', value: 'Year'},
   ]);
-  const [day, setDay] = useState('');
-  const [valueDay, setValueDay] = useState('');
-  const [itemsDay, setItemsDay] = useState([
-    {label: 'Sunday', value: 'Sunday'},
-    {label: 'Monday', value: 'Monday'},
-    {label: 'Tuesday', value: 'Tuesday'},
-  ]);
+  const [date, setDate] = useState(new Date());
   const [visible, setVisible] = useState(false);
+  const [visibleDate, setVisibleDate] = useState(false);
   const [pinuser, setPinUser] = useState('');
   const [countFalse, setCountFalse] = useState(2);
+  const dispatch = useDispatch();
 
   const [recuring, setRecuring] = useState({
     status: '',
     period: '',
     date: '',
   });
-
+  console.log(value, 'ini values');
   console.log(recuring.status, 'ini status recuring');
 
   useEffect(() => {
@@ -67,26 +64,25 @@ const DetailPaymentInternetTv = props => {
     type: 'Bank Transfer',
     bank_destination: 'Mandiri',
   };
+  // Dummy Data
+  const recuringBilling = {
+    status: true,
+    period: value,
+    date: dateChoice,
+  };
 
   const toggleOverlay = () => {
     setVisible(!visible);
   };
-  const dispatch = useDispatch();
-
+  const toggleOverlayDate = () => {
+    setVisibleDate(!visibleDate);
+  };
   const submitData = () => {
     dispatch(
       inTvCreatePaymentAction({
-        name: DetailRes?.name,
-        customer_number: DetailRes?.customer_number,
-        provider: DetailRes?.provider,
-        address: DetailRes?.address,
-        payment_period: DetailRes?.payment_period,
-        bill: DetailRes?.bill,
-        late_payment: DetailRes?.payment_period,
-        admin_fee: DetailRes?.admin_fee,
-        total: DetailRes?.total,
-        payment: 'ss',
-        recurringBilling: 'aa',
+        data: billData,
+        payment: paymentMethod,
+        recurringBilling: recuringBilling,
       }),
     );
   };
@@ -95,13 +91,24 @@ const DetailPaymentInternetTv = props => {
     state => state.inTvOptionReducer?.dataUser.data,
   );
   console.log(DetailRes, '<=== hasil resDetail InTv');
+  const billData = {
+    name: DetailRes?.name,
+    customer_number: DetailRes?.customer_number,
+    provider: DetailRes?.provider,
+    address: DetailRes?.address,
+    payment_period: DetailRes?.payment_period,
+    bill: DetailRes?.bill,
+    late_payment: DetailRes?.late_payment,
+    admin_fee: DetailRes?.admin_fee,
+    total: DetailRes?.total,
+  };
 
   const CompareToken = () => {
     let resCompare = bcrypt.compareSync(pinuser, DetailRes.pin);
     console.log(resCompare, '<=====ini compare token');
     console.log(countFalse, '<=====ini hasil count false');
     resCompare
-      ? props.navigation.navigate('ResultPaymentInternetTv')
+      ? submitData()
       : countFalse === 0
       ? props.navigation.navigate(
           'Home',
@@ -120,7 +127,17 @@ const DetailPaymentInternetTv = props => {
     );
   };
 
+  const dateChoice = () => {
+    let res = date + '';
+    let resDate = res.slice(4, 16);
+    return resDate;
+  };
   const isLoading = useSelector(state => state.GlobalReducer.Loading);
+  const dateNow = () => {
+    return DetailRes?.payment_period[0].slice(4, 8);
+  };
+
+  console.log(dateNow(), 'inidate now');
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -264,19 +281,30 @@ const DetailPaymentInternetTv = props => {
                       setValue={setValue}
                       setItems={setItems}
                     />
-                    <Text style={styles.HeaderDropdown}>Day</Text>
-                    <DropDownPicker
-                      disabled={!value}
-                      placeholder="Select an Day"
-                      style={styles.dropDownContainerStyle}
-                      dropDownDirection="BOTTOM"
-                      open={day}
-                      value={valueDay}
-                      items={itemsDay}
-                      setOpen={setDay}
-                      setValue={setValueDay}
-                      setItems={setItemsDay}
-                    />
+                    <Text style={styles.HeaderDropdown}>Date</Text>
+                    <TouchableOpacity
+                      style={styles.ContainerDate}
+                      onPress={toggleOverlayDate}>
+                      <View>
+                        {date ? (
+                          <Text
+                            style={{
+                              marginTop: moderateScale(10),
+                              marginLeft: moderateScale(12),
+                            }}>
+                            {dateChoice()}
+                          </Text>
+                        ) : (
+                          <Text
+                            style={{
+                              marginTop: moderateScale(10),
+                              marginLeft: moderateScale(12),
+                            }}>
+                            Select an Date
+                          </Text>
+                        )}
+                      </View>
+                    </TouchableOpacity>
                     <View style={styles.ContainerInfoPayment}>
                       <FastImage
                         style={styles.InfoPaymentStyle}
@@ -291,11 +319,11 @@ const DetailPaymentInternetTv = props => {
                               fontFamily: 'Montserrat-Bold',
                               color: '#263765',
                             }}>
-                            17 May 2021
+                            {dateChoice()}
                           </Text>
                         </Text>
                         <Text style={styles.TextInfo1}>
-                          Pay before 20 May 2021, 23:59 to avoid late payment
+                          Pay before {dateChoice()}, 23:59 to avoid late payment
                           fee
                         </Text>
                       </View>
@@ -318,6 +346,18 @@ const DetailPaymentInternetTv = props => {
           </View>
         )}
       </ScrollView>
+      <Overlay isVisible={visibleDate} onBackdropPress={toggleOverlayDate}>
+        <DatePicker
+          date={date}
+          onDateChange={setDate}
+          mode={'date'}
+          androidVariant={'nativeAndroid'}
+          textColor={'#4493AC'}
+          minimumDate={new Date(dateNow())}
+          // DetailRes?.payment_period,
+        />
+      </Overlay>
+
       <Overlay
         style={stylesOverlay.overlay}
         isVisible={visible}
@@ -605,6 +645,14 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(11),
     color: '#263765',
     fontFamily: 'Montserrat-Regular',
+  },
+  ContainerDate: {
+    height: moderateScale(41),
+    width: moderateScale(290),
+    borderWidth: moderateScale(1),
+    backgroundColor: 'white',
+    borderColor: '#000000',
+    borderRadius: moderateScale(6),
   },
 });
 
