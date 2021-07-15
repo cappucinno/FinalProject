@@ -30,7 +30,7 @@ const CoverPayment = ({navigation, titlecover, iconcover, data}) => {
           return (
             <TouchableOpacity
               key={i}
-              onPress={() => navigation.navigate(v.Naigation, v.Page)}>
+              onPress={() => navigation.navigate(v.Navigations, v.Page)}>
               <View style={styles.ContainerList}>
                 <View style={styles.ContainerLogo}>
                   <FastImage
