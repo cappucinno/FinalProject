@@ -182,8 +182,8 @@ const styles = StyleSheet.create({
   sprit: {
     backgroundColor: '#E5E5E5',
     height: moderateScale(0),
-    width: moderateScale(310),
-    borderWidth: moderateScale(1),
+    width: moderateScale(300),
+    borderWidth: moderateScale(0.5),
     borderRadius: moderateScale(20),
     alignSelf: 'center',
     borderStyle: 'dashed',

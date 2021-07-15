@@ -14,7 +14,7 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
-import {ArrowBack, IconElectricityActive} from '../../Assets/Assets';
+import {ArrowBack, IconElectricityActive, mandiri} from '../../Assets/Assets';
 
 const Landline = props => {
   const [nometer, setNometer] = useState('');
@@ -129,13 +129,11 @@ const Landline = props => {
       fontFamily: 'Montserrat-Regular',
     },
     ContainerHarga: {
-      height: moderateScale(433),
+      height: moderateScale(470),
       marginTop: moderateScale(24),
-      backgroundColor: 'white',
       flexDirection: 'row',
       flexWrap: 'wrap',
     },
-
     ContainerButtonHarga: {
       marginTop: heightPercentageToDP(2),
       marginLeft: moderateScale(28),
@@ -157,7 +155,7 @@ const Landline = props => {
     },
     ContainerButtonConfirm: {
       marginLeft: moderateScale(27),
-      marginTop: moderateScale(350),
+      marginTop: moderateScale(400),
     },
     ButtonConfirm: {
       backgroundColor: '#4493AC',

@@ -15,7 +15,7 @@ import {
 } from 'react-native-responsive-screen';
 import {TextInput} from 'react-native-gesture-handler';
 
-const NewPDAMOption = () => {
+const NewPDAMOption = props => {
   return (
     <SafeAreaView
       style={{
@@ -36,37 +36,44 @@ const NewPDAMOption = () => {
           placeholderTextColor="#999999"
           onChangeText={text => setFirstName(text)}
         />
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
           <View style={styles.textLokasi}>
             <Text style={styles.textTitle}>DKI Jakarta - AETRA</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
           <View style={styles.textLokasi}>
             <Text style={styles.textTitle}>DKI Jakarta - PALYJA</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
           <View style={styles.textLokasi}>
             <Text style={styles.textTitle}>Kota Bandung</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
           <View style={styles.textLokasi}>
             <Text style={styles.textTitle}>Kab Bandung</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
           <View style={styles.textLokasi}>
             <Text style={styles.textTitle}>Kota Surabaya</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
           <View style={styles.textLokasi}>
             <Text style={styles.textTitle}>Kota Semarang</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
           <View style={styles.textLokasi}>
             <Text style={styles.textTitle}>Yogyakarta</Text>
           </View>

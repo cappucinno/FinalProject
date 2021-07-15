@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -50,10 +50,12 @@ const NewPDAMBlank = props => {
             style={styles.textInput}
             placeholder="E.g 00123456789"
             placeholderTextColor="#999999"
+            keyboardType="numeric"
             // onChangeText={text => setFirstName(text)}
           />
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('NewPDAMBillDetail')}>
           <View style={styles.bottomButton}>
             <Text style={styles.textConfirm}>Confirm</Text>
           </View>
