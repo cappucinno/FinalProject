@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   LogBox,
+  ToastAndroid,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -28,15 +29,16 @@ import {
   IconInternetActive,
 } from '../../../Assets/Assets';
 import Loading from '../../../Component/Loading/Loading';
+import {inTvCreatePaymentAction} from '../redux/action';
 
-const DetailPaymentBPJS = props => {
+const DetailPaymentInternetTv = props => {
   const [cheked, setCheked] = useState(false);
   const [period, setPeriod] = useState(false);
   const [value, setValue] = useState('');
   const [items, setItems] = useState([
-    {label: 'Every Week', value: 'Every Week'},
-    {label: 'Every Month', value: 'Every Month'},
-    {label: 'Every Year', value: 'Every Year'},
+    {label: 'Every Week', value: 'Week'},
+    {label: 'Every Month', value: 'Month'},
+    {label: 'Every Year', value: 'Year'},
   ]);
   const [day, setDay] = useState('');
   const [valueDay, setValueDay] = useState('');
@@ -47,14 +49,46 @@ const DetailPaymentBPJS = props => {
   ]);
   const [visible, setVisible] = useState(false);
   const [pinuser, setPinUser] = useState('');
+  const [countFalse, setCountFalse] = useState(2);
+
+  const [recuring, setRecuring] = useState({
+    status: '',
+    period: '',
+    date: '',
+  });
+
+  console.log(recuring.status, 'ini status recuring');
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-    LogBox.ignoreLogs(['Using Math.random']);
   }, []);
+
+  const paymentMethod = {
+    type: 'Bank Transfer',
+    bank_destination: 'Mandiri',
+  };
 
   const toggleOverlay = () => {
     setVisible(!visible);
+  };
+  const dispatch = useDispatch();
+
+  const submitData = () => {
+    dispatch(
+      inTvCreatePaymentAction({
+        name: DetailRes?.name,
+        customer_number: DetailRes?.customer_number,
+        provider: DetailRes?.provider,
+        address: DetailRes?.address,
+        payment_period: DetailRes?.payment_period,
+        bill: DetailRes?.bill,
+        late_payment: DetailRes?.payment_period,
+        admin_fee: DetailRes?.admin_fee,
+        total: DetailRes?.total,
+        payment: 'ss',
+        recurringBilling: 'aa',
+      }),
+    );
   };
 
   const DetailRes = useSelector(
@@ -65,7 +99,25 @@ const DetailPaymentBPJS = props => {
   const CompareToken = () => {
     let resCompare = bcrypt.compareSync(pinuser, DetailRes.pin);
     console.log(resCompare, '<=====ini compare token');
-    resCompare ? props.navigation.navigate('ResultPaymentInternetTv') : null;
+    console.log(countFalse, '<=====ini hasil count false');
+    resCompare
+      ? props.navigation.navigate('ResultPaymentInternetTv')
+      : countFalse === 0
+      ? props.navigation.navigate(
+          'Home',
+          setCountFalse(1),
+          ToastAndroid.show(
+            'Kesempatan anda telah habis, Silahkan ulangi kembali',
+            ToastAndroid.LONG,
+            ToastAndroid.TOP,
+          ),
+        )
+      : setCountFalse(prevtState => prevtState - 1);
+    ToastAndroid.show(
+      `PIN Anda Salah !!! Sisa Kesempatan ${countFalse}`,
+      ToastAndroid.LONG,
+      ToastAndroid.TOP,
+    );
   };
 
   const isLoading = useSelector(state => state.GlobalReducer.Loading);
@@ -177,7 +229,14 @@ const DetailPaymentBPJS = props => {
                 },
               ]}>
               <View style={styles.ContainerRecurringBilling}>
-                <TouchableOpacity onPress={() => setCheked(!cheked)}>
+                <TouchableOpacity
+                  onPress={() => {
+                    setRecuring({
+                      ...recuring,
+                      status: !cheked,
+                    });
+                    setCheked(!cheked);
+                  }}>
                   <FastImage
                     style={styles.CheckBox}
                     source={cheked ? CheckActive : CheckBox1}
@@ -265,7 +324,7 @@ const DetailPaymentBPJS = props => {
         onBackdropPress={toggleOverlay}>
         <View style={stylesOverlay.container}>
           <Text style={stylesOverlay.header}>
-            Please Submite Your PIN to Continue
+            Please Submit Your PIN to Continue
           </Text>
           <FastImage
             style={stylesOverlay.ImgPin}
@@ -300,7 +359,7 @@ const DetailPaymentBPJS = props => {
               onPress={CompareToken}
               style={stylesOverlay.ContainerButton}>
               <View>
-                <Text style={stylesOverlay.TextButtonBuy}>SUBMITE</Text>
+                <Text style={stylesOverlay.TextButtonBuy}>SUBMIT</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -310,7 +369,7 @@ const DetailPaymentBPJS = props => {
   );
 };
 
-export default DetailPaymentBPJS;
+export default DetailPaymentInternetTv;
 
 const styles = StyleSheet.create({
   Grow: {

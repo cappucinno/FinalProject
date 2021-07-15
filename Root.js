@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, {useEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, LogBox} from 'react-native';
 // Navigation
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -57,6 +57,10 @@ const Root = () => {
     setTimeout(() => {
       SplashScreen.hide();
     }, 200);
+  }, []);
+
+  useEffect(() => {
+    LogBox.ignoreLogs(['Using Math.random']);
   }, []);
 
   const isLogged = useSelector(state => state.GlobalReducer.isLogged);
