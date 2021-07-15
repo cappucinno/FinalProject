@@ -8,6 +8,7 @@ export const actionLoading = payload => {
 export const actionSuccess = payload => {
   return {
     type: 'SET_SUCCESS',
+    payload,
   };
 };
 

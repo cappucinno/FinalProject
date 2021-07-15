@@ -25,6 +25,7 @@ import {
   LandlineResult,
   InternetTv,
   ListPaymentInternetTv,
+  DetailPaymentInternetTv,
   ResultPaymentInternetTv,
   NewSubscription,
   NSBillsCategory,
@@ -47,6 +48,7 @@ import {
 } from './src/Screen/Screen';
 import {useSelector} from 'react-redux';
 import {BottomNav} from './src/Component/Component';
+import {navigationRef} from './src/Function/Nav';
 
 const Stack = createStackNavigator();
 
@@ -60,8 +62,8 @@ const Root = () => {
   const isLogged = useSelector(state => state.GlobalReducer.isLogged);
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName={isLogged ? 'Mainapp' : 'Login'}>
+    <NavigationContainer ref={navigationRef}>
+      <Stack.Navigator initialRouteName="{isLogged ? 'Mainapp' : 'Login'}">
         <Stack.Screen
           name="Login"
           component={Login}
@@ -156,6 +158,11 @@ const Root = () => {
         <Stack.Screen
           name="ListPaymentInternetTv"
           component={ListPaymentInternetTv}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="DetailPaymentInternetTv"
+          component={DetailPaymentInternetTv}
           options={{headerShown: false}}
         />
         <Stack.Screen

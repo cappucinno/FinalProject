@@ -32,6 +32,8 @@ const Login = props => {
   useEffect(() => {
     if (isLogged) {
       props.navigation.navigate('Mainapp');
+    } else {
+      props.navigation.navigate('Login');
     }
   }, [isLogged]);
 
