@@ -27,8 +27,13 @@ import {
 const PaymentMethod = props => {
   const [isselected, setIsSelected] = useState('');
   const [radio, setRadio] = useState('');
-
-  const Method = ['Transfer Bank', 'Debit/Credit Card'];
+  const [savedata, Setsavedata] = useState({
+    type: '',
+    bank_destination: '',
+  });
+  console.log(savedata.type, 'ini hasil senddata Payment Method');
+  console.log(savedata.bank_destination, 'ini hasil senddata Bank');
+  console.log(savedata, 'data full payment Method');
 
   const PaymentMethod = [
     {
@@ -90,16 +95,30 @@ const PaymentMethod = props => {
                           : heightPercentageToDP(6),
                     },
                   ]}>
-                  <TouchableOpacity onPress={() => setIsSelected(i)}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      Setsavedata({
+                        ...savedata,
+                        type: Object.keys(v).join(''),
+                      });
+                      setIsSelected(i);
+                    }}>
                     <Text style={styles.TextBank}>{Object.keys(v)}</Text>
                   </TouchableOpacity>
                   {isselected === i ? (
                     <>
                       {v[Object.keys(v)].map((e, z) => {
                         return (
-                          <TouchableOpacity key={z} onPress={() => setRadio(z)}>
+                          <TouchableOpacity
+                            key={z}
+                            onPress={() => {
+                              Setsavedata({
+                                ...savedata,
+                                bank_destination: e.name,
+                              });
+                              setRadio(z);
+                            }}>
                             <View style={styles.ContainerRadio}>
-                              {/* <Text>{e}</Text> */}
                               <FastImage
                                 style={styles.RadioBtn}
                                 source={radio === z ? RadioActive : Radio}
@@ -134,7 +153,7 @@ const PaymentMethod = props => {
           })}
         </View>
       </ScrollView>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => props.navigation.navigate(savedata)}>
         <View style={styles.ContainerSave}>
           <Text style={styles.TextButtonSave}>SAVE</Text>
         </View>
