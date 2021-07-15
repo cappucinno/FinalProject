@@ -31,7 +31,7 @@ const InternetTv = props => {
   const dataentry = DataOptionInTv.map((d, i) => {
     return {
       NameData: d.option,
-      Naigation: 'ListPaymentInternetTv',
+      Navigations: 'ListPaymentInternetTv',
       Page: d.option,
     };
   });
