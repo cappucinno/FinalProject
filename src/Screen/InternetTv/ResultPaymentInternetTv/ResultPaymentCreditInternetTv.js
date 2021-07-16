@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 import FastImage from 'react-native-fast-image';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
@@ -19,9 +20,10 @@ import {
   ButtonDownload,
 } from '../../../Assets/Assets';
 
-const ResultPaymentInternetTv = props => {
-  const title = props.route.params;
-  console.log(title, '<<<<< ini InternetTV');
+const ResultPaymentCreditInternetTv = props => {
+  const resPayment = useSelector(state => state.inTvReducer?.resBill);
+  console.log(resPayment, '<==== ini res payment');
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView contentContainerStyle={styles.Grow} style={styles.container}>
@@ -46,7 +48,9 @@ const ResultPaymentInternetTv = props => {
                 />
               </View>
               <View style={styles.ContainerText}>
-                <Text style={styles.TextList}>{title}</Text>
+                <Text style={styles.TextList}>
+                  {resPayment?.bill_details.provider}
+                </Text>
               </View>
             </View>
           </View>
@@ -69,26 +73,36 @@ const ResultPaymentInternetTv = props => {
           <View style={styles.ContainerForm1}>
             <View style={styles.Form1}>
               <Text>Phone Number</Text>
-              <Text style={styles.textRes}>0821232456789</Text>
+              <Text style={styles.textRes}>
+                {resPayment?.payment_details.account_number}
+              </Text>
             </View>
             <View style={styles.Form1}>
               <Text>Provider</Text>
-              <Text style={styles.textRes}>{title}</Text>
+              <Text style={styles.textRes}>
+                {resPayment?.bill_details.provider}
+              </Text>
             </View>
           </View>
           <View style={styles.ContainerForm2}>
             <View style={styles.Form2}>
               <Text>Bill</Text>
-              <Text style={styles.textRes}>Rp 50.000,00</Text>
+              <Text style={styles.textRes}>
+                {resPayment?.bill_details.bill}
+              </Text>
             </View>
 
             <View style={styles.Form2}>
               <Text>Admin</Text>
-              <Text style={styles.textRes}>Rp 1.500,00</Text>
+              <Text style={styles.textRes}>
+                {resPayment?.bill_details.admin}
+              </Text>
             </View>
             <View style={styles.Form2}>
               <Text style={styles.textRes}>Total</Text>
-              <Text style={styles.textRes}>Rp 51.500,00</Text>
+              <Text style={styles.textRes}>
+                {resPayment?.bill_details.total}
+              </Text>
             </View>
           </View>
         </View>
@@ -97,7 +111,7 @@ const ResultPaymentInternetTv = props => {
   );
 };
 
-export default ResultPaymentInternetTv;
+export default ResultPaymentCreditInternetTv;
 
 const styles = StyleSheet.create({
   Grow: {

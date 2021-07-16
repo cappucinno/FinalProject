@@ -4,7 +4,7 @@ const initialState = {
   resBill: [],
 };
 
-const inTvOptionReducer = (state = initialState, action) => {
+const inTvReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'GET_OPTION_INTV':
       return {
@@ -43,4 +43,4 @@ const inTvOptionReducer = (state = initialState, action) => {
   }
 };
 
-export default inTvOptionReducer;
+export default inTvReducer;

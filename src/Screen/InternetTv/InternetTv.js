@@ -13,10 +13,10 @@ const InternetTv = props => {
     console.log(state, '<===== ini state');
     // ini aku tambahin untuk handling data pertama kali waktu masih null
     if (
-      state.inTvOptionReducer.dataOption.data != null &&
-      state.inTvOptionReducer.dataOption.data.length > 0
+      state.inTvReducer.dataOption.data != null &&
+      state.inTvReducer.dataOption.data.length > 0
     ) {
-      return state.inTvOptionReducer.dataOption.data;
+      return state.inTvReducer.dataOption.data;
     } else {
       return [];
     }
