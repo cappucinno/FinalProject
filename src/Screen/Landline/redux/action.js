@@ -17,3 +17,13 @@ export const LandlineAccountAction = payload => {
 export const LandlineAccountActionSuccess = payload => {
   return {type: 'GET_ACCOUNT_LANDLINE_SUCCESS', payload};
 };
+
+// CREATE PAYMENT INTV
+export const LandlineCreatePaymentAction = payload => {
+  return {type: 'CREATE_INTV_PAYMENT', payload};
+};
+
+// GET ACCOUNT INTV
+export const LandlineCreatePaymentActionSuccess = payload => {
+  return {type: 'CREATE_INTV_PAYMENT_SUCCESS', payload};
+};

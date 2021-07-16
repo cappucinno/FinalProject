@@ -12,8 +12,8 @@ import {
   actionSuccess,
 } from '../../../Store/GlobalAction';
 
-// GET OPTIONS
-const LandlineOptions = (payload, token) => {
+// POST ID LANDLINE
+const LandlineUserId = (payload, token) => {
   return axios({
     method: 'POST',
     url: 'https://biller-app-api.herokuapp.com/api/biller/landline/bill/info',
@@ -24,39 +24,45 @@ const LandlineOptions = (payload, token) => {
   });
 };
 
-// GET OPTIONS
-function* LandlineOptionAction(action) {
+// POST GET ID LANDLINE
+function* LandlineUserIdAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
   try {
     yield put(actionLoading(true));
-    const res = yield LandlineOptions(action.payload, token);
-    console.log(action.payload, '<=======ini hasil Option Landline API');
+    const res = yield LandlineUserId(action.payload, token);
+    console.log(res, '<=======ini hasil user Landline Api');
     if (res && res.data) {
       console.log(res.data, 'ini hasil res');
-      console.log('Berhasil Mengambil data Option Landline');
+      console.log('Berhasil Mengambil data User Landline');
 
-      yield put(LandlineOptionActionSuccess(res.data));
-      yield put(actionLoading(false));
+      yield put(LandlineAccountActionSuccess(res.data));
+      yield put(actionSuccess(true));
+
+      yield navigate('DetailPaymentLandline');
+    } else if (res.status === 204) {
+      yield put(actionSuccess(false));
+      yield put(actionIsLogged(false));
+
+      const errorMessage = res.statusText + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
     }
   } catch (err) {
-    if (err.response.status === 401) {
-      console.log(err.response.status, 'Gagal Mengambil data');
-      yield put({type: 'SET_IS_LOGOUT'});
-      yield put(actionLoading(false));
-      ToastAndroid.show(
-        'Seission Anda Telah Habis, silahkan login kembali',
-        ToastAndroid.LONG,
-        ToastAndroid.TOP,
-      );
+    if (err.response === 401) {
+      yield put(actionIsLogged(false));
+      const errorMessage = err.response.data.message + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
     } else {
-      console.log(err.response, 'Gagal Mengambil data');
-      yield put(actionLoading(false));
+      console.log(err.response.data.message, 'Gagal Mengambil data');
+      const errorMessage = err.response.data.message + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
     }
+  } finally {
+    yield put(actionLoading(false));
   }
 }
 
 function* LandlineSaga() {
-  yield takeLatest('GET_OPTION_LANDLINE', LandlineOptionAction);
+  yield takeLatest('GET_ACCOUNT_LANDLINE', LandlineUserIdAction);
 }
 
 export default LandlineSaga;

@@ -2,7 +2,6 @@ import axios from 'axios';
 import {ToastAndroid} from 'react-native';
 import {navigate} from '../../../Function/Nav';
 import {takeLatest, put, select} from 'redux-saga/effects';
-import {axios} from 'axios';
 import {
   ElectricityOptionActionSuccess,
   ElectricityAccountActionSuccess,

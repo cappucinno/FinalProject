@@ -15,50 +15,26 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
-import {ArrowBack, IconElectricityActive, mandiri} from '../../Assets/Assets';
-import {LandlineOptionAction} from './redux/action';
+import {ArrowBack} from '../../Assets/Assets';
+import {LandlineAccountAction} from './redux/action';
 
 const Landline = props => {
-  // const dispatch = useDispatch();
-  // const DataOptionLandline = useSelector(state => {
-  //   console.log(state, '<===== ini state');
-  //   // ini aku tambahin untuk handling data pertama kali waktu masih null
-  //   if (
-  //     state.LandlineReducer.dataOption.data != null &&
-  //     state.LandlineReducer.dataOption.data.length > 0
-  //   ) {
-  //     return state.LandlineReducer.dataOption.data;
-  //   } else {
-  //     return [];
-  //   }
-  // });
+  const dispatch = useDispatch();
 
-  // console.log(DataOptionLandline, 'ini hasil data option internet tv');
-
-  // useEffect(() => {
-  //   dispatch(LandlineOptionAction());
-  // }, [dispatch]);
-
-  // const dataentry = DataOptionMobile.map((d, i) => {
-  //   return {
-  //     NameData: d.name,
-  //     Navigations: 'ListPaymentMobile',
-  //     Page: d.name,
-  //   };
-  // });
-
-  // const dataentry = DataOptionLandline.map((d, i) => {
-  //   return {
-  //     NameData: d.name,
-  //     Navigations: 'ListPaymentLandline',
-  //     Page: d.name,
-  //   };
-  // });
-
-  const [nometer, setNometer] = useState('');
+  const [input, setInput] = useState('');
   const [pres, setPres] = useState('');
 
-  const DataCostomer = '12345';
+  const DataCostomer = useSelector(state => state.GlobalReducer.Success);
+  console.log(DataCostomer, 'status datacostumer');
+
+  const submitDataCostomer = () => {
+    dispatch(
+      LandlineAccountAction({
+        telephone_number: input,
+      }),
+    );
+  };
+  useEffect(() => {}, [DataCostomer]);
 
   const styles = StyleSheet.create({
     Grow: {
@@ -143,26 +119,12 @@ const Landline = props => {
       height: moderateScale(44),
       width: moderateScale(290),
       marginTop: moderateScale(4),
-      backgroundColor:
-        nometer === ''
-          ? 'white'
-          : nometer.length <= DataCostomer.length
-          ? 'white'
-          : nometer !== DataCostomer
-          ? '#FFF4F7'
-          : 'white',
+      backgroundColor: DataCostomer ? 'white' : '#FFF4F7',
     },
     TextNotRegister: {
       paddingTop: moderateScale(4),
       alignSelf: 'center',
-      color:
-        nometer === ''
-          ? '#EBEDF4'
-          : nometer.length <= DataCostomer.length
-          ? '#EBEDF4'
-          : nometer !== DataCostomer
-          ? '#EB5757'
-          : '#EBEDF4',
+      color: DataCostomer ? '#EBEDF4' : '#EB5757',
       fontSize: moderateScale(12),
       fontFamily: 'Montserrat-Regular',
     },
@@ -233,8 +195,8 @@ const Landline = props => {
             <Text style={styles.TextHeadNometer}>Telephone number</Text>
             <TextInput
               style={styles.inputNoMeter}
-              onChangeText={setNometer}
-              value={nometer}
+              onChangeText={setInput}
+              value={input}
               placeholder=" E.g 141234567890"
               keyboardType="numeric"
             />
@@ -245,9 +207,7 @@ const Landline = props => {
 
         <View style={styles.ContainerHarga}>
           <TouchableOpacity
-            onPress={() =>
-              props.navigation.navigate('LandlineResult', 'Landline')
-            }
+            onPress={submitDataCostomer}
             style={styles.ContainerButtonConfirm}>
             <View style={styles.ButtonConfirm}>
               <Text style={styles.TextButtonConfirm}>Confirm</Text>

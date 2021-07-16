@@ -6,6 +6,7 @@ import inTvReducer from '../Screen/InternetTv/redux/reducer';
 import MobileReducer from '../Screen/Mobile/redux/reducer';
 import LandlineReducer from '../Screen/Landline/redux/reducer';
 import PDAMReducer from '../Screen/PDAM/redux/reducer';
+import ElectricityReducer from '../Screen/Electricity/redux/reducer';
 
 export const allReducer = combineReducers({
   GlobalReducer: GlobalReducer,
@@ -15,4 +16,5 @@ export const allReducer = combineReducers({
   MobileReducer: MobileReducer,
   LandlineReducer: LandlineReducer,
   PDAMReducer: PDAMReducer,
+  ElectricityReducer: ElectricityReducer,
 });

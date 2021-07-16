@@ -1,6 +1,7 @@
 const initialState = {
   dataOption: [],
   dataUser: [],
+  resBill: [],
 };
 
 const LandlineReducer = (state = initialState, action) => {
@@ -26,6 +27,18 @@ const LandlineReducer = (state = initialState, action) => {
         ...state,
         dataUser: action.payload,
       };
+
+    case 'CREATE_LANDLINE_PAYMENT':
+      return {
+        ...state,
+      };
+
+    case 'CREATE_LANDLINE_PAYMENT_SUCCESS':
+      return {
+        ...state,
+        resBill: action.payload,
+      };
+
     default:
       return state;
   }
