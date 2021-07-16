@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import {moderateScale} from 'react-native-size-matters';
 import {
@@ -15,8 +16,45 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import {ArrowBack, IconElectricityActive, mandiri} from '../../Assets/Assets';
+import {LandlineOptionAction} from './redux/action';
 
 const Landline = props => {
+  // const dispatch = useDispatch();
+  // const DataOptionLandline = useSelector(state => {
+  //   console.log(state, '<===== ini state');
+  //   // ini aku tambahin untuk handling data pertama kali waktu masih null
+  //   if (
+  //     state.LandlineReducer.dataOption.data != null &&
+  //     state.LandlineReducer.dataOption.data.length > 0
+  //   ) {
+  //     return state.LandlineReducer.dataOption.data;
+  //   } else {
+  //     return [];
+  //   }
+  // });
+
+  // console.log(DataOptionLandline, 'ini hasil data option internet tv');
+
+  // useEffect(() => {
+  //   dispatch(LandlineOptionAction());
+  // }, [dispatch]);
+
+  // const dataentry = DataOptionMobile.map((d, i) => {
+  //   return {
+  //     NameData: d.name,
+  //     Navigations: 'ListPaymentMobile',
+  //     Page: d.name,
+  //   };
+  // });
+
+  // const dataentry = DataOptionLandline.map((d, i) => {
+  //   return {
+  //     NameData: d.name,
+  //     Navigations: 'ListPaymentLandline',
+  //     Page: d.name,
+  //   };
+  // });
+
   const [nometer, setNometer] = useState('');
   const [pres, setPres] = useState('');
 
