@@ -35,11 +35,22 @@ import {inTvCreatePaymentAction} from '../redux/action';
 const DetailPaymentInternetTv = props => {
   const [cheked, setCheked] = useState(false);
   const [period, setPeriod] = useState(false);
+  const [Dates, setDates] = useState(false);
   const [value, setValue] = useState('');
   const [items, setItems] = useState([
     {label: 'Every Week', value: 'Week'},
     {label: 'Every Month', value: 'Month'},
     {label: 'Every Year', value: 'Year'},
+  ]);
+  const [valueDate, setValueDate] = useState('');
+  const [tanggal, setTanggal] = useState([
+    {label: '01', value: '01'},
+    {label: '02', value: '02'},
+    {label: '03', value: '03'},
+    {label: '04', value: '04'},
+    {label: '05', value: '05'},
+    {label: '06', value: '06'},
+    {label: '07', value: '07'},
   ]);
   const [date, setDate] = useState(new Date());
   const [visible, setVisible] = useState(false);
@@ -47,7 +58,20 @@ const DetailPaymentInternetTv = props => {
   const [pinuser, setPinUser] = useState('');
   const [countFalse, setCountFalse] = useState(2);
   const dispatch = useDispatch();
-
+  const month = {
+    Jan: '01',
+    Feb: '02',
+    Mar: '03',
+    Apr: '04',
+    May: '05',
+    Jun: '06',
+    Jul: '07',
+    Agu: '08',
+    Oct: '09',
+    Sep: '10',
+    Nov: '11',
+    Des: '12',
+  };
   const [recuring, setRecuring] = useState({
     status: false,
     period: value,
@@ -64,11 +88,12 @@ const DetailPaymentInternetTv = props => {
     type: 'Bank Transfer',
     bank_destination: 'Mandiri',
   };
-  // Dummy Data
+
+  // Data yg diKirim
   const recuringBilling = {
-    status: recuring.status ? recuring.status : null,
-    period: recuring.status ? period.value : null,
-    date: recuring.status ? dateChoice : null,
+    status: recuring.status ? recuring.status : '',
+    period: recuring.status ? period.value : '',
+    date: recuring.status ? dateChoice : '',
   };
 
   const toggleOverlay = () => {
@@ -78,6 +103,7 @@ const DetailPaymentInternetTv = props => {
     setVisibleDate(!visibleDate);
   };
   const submitData = () => {
+    toggleOverlay();
     dispatch(
       inTvCreatePaymentAction({
         data: billData,
@@ -131,12 +157,20 @@ const DetailPaymentInternetTv = props => {
     return resDate;
   };
   const isLoading = useSelector(state => state.GlobalReducer.Loading);
-  const dateNow = () => {
-    return DetailRes?.payment_period[0].slice(4, 8);
+
+  const dateNow = DetailRes?.payment_period[0].slice(4, 8);
+  console.log(dateNow, 'inidate now');
+
+  const ConvertMonth = DetailRes?.payment_period[0].slice(0, 3);
+  console.log(ConvertMonth, ' ini bulan');
+  console.log(month.ConvertMonth, ' ini bulan angka');
+
+  const sendDate = () => {
+    if (value === 'Week') {
+      console.log(`${dateNow}-09-${valueDate}, ini tanggal loh`);
+    }
   };
-
-  console.log(dateNow(), 'inidate now');
-
+  sendDate();
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView contentContainerStyle={styles.Grow} style={styles.container}>
@@ -280,29 +314,45 @@ const DetailPaymentInternetTv = props => {
                       setItems={setItems}
                     />
                     <Text style={styles.HeaderDropdown}>Date</Text>
-                    <TouchableOpacity
-                      style={styles.ContainerDate}
-                      onPress={toggleOverlayDate}>
-                      <View>
-                        {date ? (
-                          <Text
-                            style={{
-                              marginTop: moderateScale(10),
-                              marginLeft: moderateScale(12),
-                            }}>
-                            {dateChoice()}
-                          </Text>
-                        ) : (
-                          <Text
-                            style={{
-                              marginTop: moderateScale(10),
-                              marginLeft: moderateScale(12),
-                            }}>
-                            Select an Date
-                          </Text>
-                        )}
-                      </View>
-                    </TouchableOpacity>
+                    {value === 'Week' ? (
+                      <DropDownPicker
+                        placeholder="Select an Period"
+                        style={styles.dropDownContainerStyle}
+                        dropDownDirection="BOTTOM"
+                        open={Dates}
+                        value={valueDate}
+                        items={tanggal}
+                        setOpen={setDates}
+                        setValue={setValueDate}
+                        setItems={setTanggal}
+                      />
+                    ) : (
+                      <>
+                        <TouchableOpacity
+                          style={styles.ContainerDate}
+                          onPress={toggleOverlayDate}>
+                          <View>
+                            {date ? (
+                              <Text
+                                style={{
+                                  marginTop: moderateScale(10),
+                                  marginLeft: moderateScale(12),
+                                }}>
+                                {dateChoice()}
+                              </Text>
+                            ) : (
+                              <Text
+                                style={{
+                                  marginTop: moderateScale(10),
+                                  marginLeft: moderateScale(12),
+                                }}>
+                                Select an Date
+                              </Text>
+                            )}
+                          </View>
+                        </TouchableOpacity>
+                      </>
+                    )}
                     <View style={styles.ContainerInfoPayment}>
                       <FastImage
                         style={styles.InfoPaymentStyle}
@@ -351,7 +401,7 @@ const DetailPaymentInternetTv = props => {
           mode={'date'}
           androidVariant={'nativeAndroid'}
           textColor={'#4493AC'}
-          minimumDate={new Date(dateNow())}
+          minimumDate={new Date(dateNow)}
           // DetailRes?.payment_period,
         />
       </Overlay>
@@ -620,6 +670,7 @@ const styles = StyleSheet.create({
     width: widthPercentageToDP(87),
     marginLeft: moderateScale(24),
     marginBottom: moderateScale(64),
+    marginTop: moderateScale(12),
   },
   TextButtonBuy: {
     color: 'white',
