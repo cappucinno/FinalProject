@@ -9,12 +9,12 @@ const Electricity = props => {
   const dataentry = [
     {
       NameData: 'PLN-Token',
-      Naigation: 'ListPaymentElectricity',
+      Navigations: 'ListPaymentElectricity',
       Page: 'PLN-Token',
     },
     {
       NameData: 'PLN-Tagihan Listrik',
-      Naigation: 'ListPaymentElectricity',
+      Navigations: 'ListPaymentElectricity',
       Page: 'PLN-Tagihan Listrik',
     },
   ];

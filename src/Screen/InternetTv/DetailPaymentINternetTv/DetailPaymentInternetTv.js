@@ -49,8 +49,8 @@ const DetailPaymentInternetTv = props => {
   const dispatch = useDispatch();
 
   const [recuring, setRecuring] = useState({
-    status: '',
-    period: '',
+    status: false,
+    period: value,
     date: '',
   });
   console.log(value, 'ini values');
@@ -66,9 +66,9 @@ const DetailPaymentInternetTv = props => {
   };
   // Dummy Data
   const recuringBilling = {
-    status: true,
-    period: value,
-    date: dateChoice,
+    status: recuring.status ? recuring.status : null,
+    period: recuring.status ? period.value : null,
+    date: recuring.status ? dateChoice : null,
   };
 
   const toggleOverlay = () => {
@@ -87,9 +87,7 @@ const DetailPaymentInternetTv = props => {
     );
   };
 
-  const DetailRes = useSelector(
-    state => state.inTvOptionReducer?.dataUser.data,
-  );
+  const DetailRes = useSelector(state => state.inTvReducer?.dataUser.data);
   console.log(DetailRes, '<=== hasil resDetail InTv');
   const billData = {
     name: DetailRes?.name,

@@ -67,7 +67,7 @@ const ListPaymentMobile = props => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView contentContainerStyle={styles.Grow} style={styles.container}>
-        {title === 'Pulsa' ? (
+        {title === 'Pulsa(pre-paid)' ? (
           <ComListPayMobile
             navigation={props.navigation}
             headtitle={'Mobile'}
@@ -78,7 +78,7 @@ const ListPaymentMobile = props => {
             datacostomer={DataCostomer}
             alamat={alamat}
           />
-        ) : title === 'Internet' ? (
+        ) : title === 'Internet(pre-paid)' ? (
           <ComListPayMobile
             navigation={props.navigation}
             headtitle={'Mobile'}
@@ -89,7 +89,7 @@ const ListPaymentMobile = props => {
             datacostomer={DataCostomer}
             alamat={alamat}
           />
-        ) : title === 'Pasca bayar' ? (
+        ) : title === 'Pasca bayar(post-paid' ? (
           <ComListPayMobile
             navigation={props.navigation}
             headtitle={'Mobile'}

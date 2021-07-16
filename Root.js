@@ -26,7 +26,8 @@ import {
   InternetTv,
   ListPaymentInternetTv,
   DetailPaymentInternetTv,
-  ResultPaymentInternetTv,
+  ResultPaymentCreditInternetTv,
+  ResultPaymentBankInternetTv,
   NewSubscription,
   NSBillsCategory,
   NSMobile,
@@ -170,8 +171,13 @@ const Root = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="ResultPaymentInternetTv"
-          component={ResultPaymentInternetTv}
+          name="ResultPaymentCreditInternetTv"
+          component={ResultPaymentCreditInternetTv}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ResultPaymentBankInternetTv"
+          component={ResultPaymentBankInternetTv}
           options={{headerShown: false}}
         />
         <Stack.Screen
