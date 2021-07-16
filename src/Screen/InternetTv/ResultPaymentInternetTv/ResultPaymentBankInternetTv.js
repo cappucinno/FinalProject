@@ -70,19 +70,17 @@ const ResultPaymentBankInternetTv = props => {
     );
   };
 
-  // setInterval(() => {
-  //   timer === 0
-  //     ? ToastAndroid.show(
-  //         'Waktu Pembayaran Habis, Pembelian Di Batalkan !',
-  //         ToastAndroid.LONG,
-  //         ToastAndroid.TOP,
-  //       )
-  //     : setTimer(prevtState => prevtState - 1);
-  // }, 60000);
-
-  // setInterval(() => {
-  //   setSecond(prevtState => prevtState - 1);
-  // }, 1000);
+  useEffect(() => {
+    if (second !== 0) {
+      setInterval(() => {
+        setSecond(prevState => prevState - 1);
+      }, 1000);
+    }
+    if (second === 0) {
+      setSecond(60);
+      setTimer(prevState => prevState - 1);
+    }
+  }, [second]);
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -269,6 +267,7 @@ const ResultPaymentBankInternetTv = props => {
             </>
           ) : (
             <>
+              {/* ini tyimer */}
               <View style={styles.Containerisi}>
                 <View style={styles.Headerisi}>
                   <Text style={styles.TitleIsi}>
