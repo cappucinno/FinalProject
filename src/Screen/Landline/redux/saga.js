@@ -24,7 +24,7 @@ const LandlineUserId = (payload, token) => {
   });
 };
 
-// POST GET ID LANDLINE
+// POST ID LANDLINE
 function* LandlineUserIdAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
   try {

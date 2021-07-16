@@ -132,7 +132,8 @@ const DetailPaymentLandline = props => {
   };
   const isLoading = useSelector(state => state.GlobalReducer.Loading);
   const dateNow = () => {
-    return DetailRes?.payment_period[0].slice(4, 8);
+    return DetailRes?.Period;
+    //   .slice(4, 8);
   };
 
   console.log(dateNow(), 'inidate now');
