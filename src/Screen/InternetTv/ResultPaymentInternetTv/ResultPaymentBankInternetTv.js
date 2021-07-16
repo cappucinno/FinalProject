@@ -26,8 +26,8 @@ import {
 const ResultPaymentBankInternetTv = props => {
   const [pay, setPay] = useState(false);
   const [image, setImage] = useState('');
-  const [timer, setTimer] = useState(60);
-  const [second, setSecond] = useState(60);
+  const [timer, setTimer] = useState(59);
+  const [second, setSecond] = useState(59);
   const [visible, setVisible] = useState(false);
 
   const resPayment = useSelector(state => state.inTvReducer?.resBill);
@@ -71,15 +71,27 @@ const ResultPaymentBankInternetTv = props => {
   };
 
   useEffect(() => {
-    if (second !== 0) {
-      setInterval(() => {
-        setSecond(prevState => prevState - 1);
-      }, 1000);
-    }
-    if (second === 0) {
+    if (!second && timer) {
       setSecond(60);
-      setTimer(prevState => prevState - 1);
+      setTimer(timer - 1);
     }
+    if (timer === 0 && second === 0) {
+      ToastAndroid.show(
+        'Waktu anda habis, Transaksi di batalkan',
+        ToastAndroid.LONG,
+        ToastAndroid.TOP,
+      );
+      props.navigation.navigate('Home');
+    }
+    if (!second) {
+      return;
+    }
+
+    const intervalId = setInterval(() => {
+      setSecond(second - 1);
+    }, 1000);
+
+    return () => clearInterval(intervalId);
   }, [second]);
 
   return (
