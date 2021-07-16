@@ -28,13 +28,13 @@ const ResultPaymentBankInternetTv = props => {
   const [image, setImage] = useState('');
   const [timer, setTimer] = useState(59);
   const [second, setSecond] = useState(59);
-  const [visible, setVisible] = useState(false);
+  const [upload, setUpload] = useState(false);
 
   const resPayment = useSelector(state => state.inTvReducer?.resBill);
   console.log(resPayment, '<==== ini res payment');
 
-  const toggleOverlay = () => {
-    setVisible(!visible);
+  const toggleOverlayUpload = () => {
+    setUpload(!upload);
   };
 
   const pickImage = () => {
@@ -358,7 +358,7 @@ const ResultPaymentBankInternetTv = props => {
                   ) : (
                     <TouchableOpacity
                       style={styles.ContainerAdd}
-                      onPress={toggleOverlay}>
+                      onPress={toggleOverlayUpload}>
                       <Text style={styles.TextAddCard}>Upload Receipt</Text>
                     </TouchableOpacity>
                   )}
@@ -434,7 +434,7 @@ const ResultPaymentBankInternetTv = props => {
               Back to home
             </Text>
           </TouchableOpacity>
-          <BottomSheet isVisible={visible}>
+          <BottomSheet isVisible={upload}>
             <View style={styles.containerOverlay}>
               <View style={styles.HeaderBottmSheet}>
                 <Text style={styles.headerOverlay}>Upload Receipt</Text>
@@ -494,7 +494,7 @@ const ResultPaymentBankInternetTv = props => {
                     borderRadius: moderateScale(4),
                     alignSelf: 'center',
                   }}
-                  onPress={toggleOverlay}>
+                  onPress={toggleOverlayUpload}>
                   <Text
                     style={{
                       color: 'white',

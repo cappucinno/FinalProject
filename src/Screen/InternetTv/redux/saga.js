@@ -138,7 +138,7 @@ function* inTvCreateAction(action) {
       let methodPayment = 'Bank Transfer';
       methodPayment === 'Bank Transfer'
         ? yield navigate('ResultPaymentBankInternetTv')
-        : methodPayment === 'Credit Card'
+        : methodPayment === 'Payment Card'
         ? yield navigate('ResultPaymentCreditInternetTv')
         : null;
     } else if (res.status === 204) {
