@@ -75,6 +75,9 @@ const ResultPaymentBankInternetTv = props => {
       setSecond(60);
       setTimer(timer - 1);
     }
+    if (pay === true) {
+      return;
+    }
     if (timer === 0 && second === 0) {
       ToastAndroid.show(
         'Waktu anda habis, Transaksi di batalkan',

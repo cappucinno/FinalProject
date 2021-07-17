@@ -5,6 +5,7 @@ import inTvOptionSaga from '../Screen/InternetTv/redux/saga';
 import MobileSaga from '../Screen/Mobile/redux/saga';
 import LandlineSaga from '../Screen/Landline/redux/saga';
 import PDAMSaga from '../Screen/PDAM/redux/saga';
+import ElectricitySaga from '../Screen/Electricity/redux/saga';
 
 export function* SagaWacther() {
   yield all([
@@ -14,5 +15,6 @@ export function* SagaWacther() {
     MobileSaga(),
     LandlineSaga(),
     PDAMSaga(),
+    ElectricitySaga(),
   ]);
 }
