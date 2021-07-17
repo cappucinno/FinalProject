@@ -327,7 +327,7 @@ const DetailPaymentLandline = props => {
                 style={styles.ContainerButton}>
                 <View>
                   <Text style={styles.TextButtonBuy}>
-                    Pay : <Text>{DetailRes?.total}</Text>
+                    Pay : <Text>{DetailRes?.Total}</Text>
                   </Text>
                 </View>
               </TouchableOpacity>
