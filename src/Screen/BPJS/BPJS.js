@@ -32,6 +32,7 @@ const BPJS = props => {
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }, []);
+
   const styles = StyleSheet.create({
     Grow: {
       flexGrow: 1,
