@@ -15,6 +15,7 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   ArrowBack,
   CheckBox1,
@@ -51,6 +52,11 @@ const DetailPayment = ({
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }, []);
 
+  const DetailRes = useSelector(
+    state => state.ElectricityReducer?.dataUser.data,
+  );
+  console.log(DetailRes, '<=== hasil resDetail ElectricCity');
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView contentContainerStyle={styles.Grow} style={styles.container}>
@@ -86,40 +92,40 @@ const DetailPayment = ({
               <Text style={styles.TextHeadBill}>Bill Details</Text>
               <View style={styles.ContainerTextData}>
                 <Text style={styles.TextData}>No Meter</Text>
-                <Text style={styles.TextDataRes}>141234567890</Text>
+                <Text style={styles.TextDataRes}>{DetailRes.No_Meter}</Text>
               </View>
               <View style={styles.ContainerTextData}>
                 <Text style={styles.TextData}>IDPEL</Text>
-                <Text style={styles.TextDataRes}>511234567890</Text>
+                <Text style={styles.TextDataRes}>{DetailRes.IDPEL}</Text>
               </View>
               <View style={styles.ContainerTextData}>
                 <Text style={styles.TextData}>Name</Text>
-                <Text style={styles.TextDataRes}>Justin Junaedi</Text>
+                <Text style={styles.TextDataRes}>{DetailRes.Name}</Text>
               </View>
               <View style={styles.ContainerTextData}>
                 <Text style={styles.TextData}>Tarif/Daya</Text>
-                <Text style={styles.TextDataRes}>R1/2200 VA</Text>
+                <Text style={styles.TextDataRes}>{DetailRes.Tarif_Daya}</Text>
               </View>
             </View>
             <View style={styles.ContainerTextBillDetail2}>
               <View style={styles.ContainerTextData}>
                 <Text style={styles.TextData}>Token</Text>
-                <Text style={styles.TextDataRes}>Rp 50.000,00</Text>
+                <Text style={styles.TextDataRes}>Rp {DetailRes.Token}</Text>
               </View>
               <View style={styles.ContainerTextData}>
                 <Text style={styles.TextData}>PPJ</Text>
-                <Text style={styles.TextDataRes}>Rp 3.704,00</Text>
+                <Text style={styles.TextDataRes}>Rp {DetailRes.PPJ}</Text>
               </View>
               <View style={styles.ContainerTextData}>
                 <Text style={styles.TextData}>Admin</Text>
-                <Text style={styles.TextDataRes}>Rp 1.500,00</Text>
+                <Text style={styles.TextDataRes}>Rp {DetailRes.Admin}</Text>
               </View>
               <View style={styles.ContainerTextData}>
                 <Text style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
                   Total
                 </Text>
                 <Text style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
-                  Rp 51.500,00
+                  Rp {DetailRes.Total}
                 </Text>
               </View>
             </View>

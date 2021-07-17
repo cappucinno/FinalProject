@@ -1,23 +1,40 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, SafeAreaView, ScrollView, View} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 import CoverPayment from '../../Component/CoverPayment/CoverPayment';
 import {IconElectricityActive} from '../../Assets/Assets';
 import BackgroundPurple from '../../Component/Background/BackgroundPurple';
+import {useDispatch, useSelector} from 'react-redux';
+import {ElectricityOptionAction} from './redux/action';
 
 const Electricity = props => {
-  const dataentry = [
-    {
-      NameData: 'PLN-Token',
+  const dispatch = useDispatch();
+  const DataOptionElectricity = useSelector(state => {
+    console.log(state, '<===== ini state');
+    // ini aku tambahin untuk handling data pertama kali waktu masih null
+    if (
+      state.ElectricityReducer.dataOption.data != null &&
+      state.ElectricityReducer.dataOption.data.length > 0
+    ) {
+      return state.ElectricityReducer.dataOption.data;
+    } else {
+      return [];
+    }
+  });
+
+  console.log(DataOptionElectricity, 'ini hasil data option internet tv');
+
+  useEffect(() => {
+    dispatch(ElectricityOptionAction());
+  }, [dispatch]);
+
+  const dataentry = DataOptionElectricity.map((d, i) => {
+    return {
+      NameData: d.name,
       Navigations: 'ListPaymentElectricity',
-      Page: 'PLN-Token',
-    },
-    {
-      NameData: 'PLN-Tagihan Listrik',
-      Navigations: 'ListPaymentElectricity',
-      Page: 'PLN-Tagihan Listrik',
-    },
-  ];
+      Page: d.name,
+    };
+  });
 
   return (
     <SafeAreaView style={{flex: 1}}>

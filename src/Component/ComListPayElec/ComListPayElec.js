@@ -9,12 +9,14 @@ import {
   TextInput,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import {useSelector, useDispatch} from 'react-redux';
 import {moderateScale} from 'react-native-size-matters';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import {ArrowBack, IconElectricityActive} from '../../Assets/Assets';
+import {ElectricityAccountAction} from '../../Screen/Electricity/redux/action';
 
 const ComListPayElec = ({
   navigation,
@@ -30,9 +32,23 @@ const ComListPayElec = ({
 }) => {
   const [nometer, setNometer] = useState('');
   const [pres, setPres] = useState('');
-
-  const DataCostomer = datacostomer;
+  const [priceSelect, setPriceSelect] = useState({
+    price: priceSelect,
+  });
+  console.log(priceSelect.price, 'ini price select');
   const ListHarga = dataprice;
+  const DataCostomer = datacostomer;
+  console.log(DataCostomer, 'status datacostumer');
+  const dispatch = useDispatch();
+
+  const submitDataCostomer = () => {
+    dispatch(
+      ElectricityAccountAction({
+        nomor_meter: nometer,
+        price: priceSelect.price,
+      }),
+    );
+  };
 
   const styles = StyleSheet.create({
     Grow: {
@@ -117,26 +133,12 @@ const ComListPayElec = ({
       height: moderateScale(44),
       width: moderateScale(290),
       marginTop: moderateScale(4),
-      backgroundColor:
-        nometer === ''
-          ? 'white'
-          : nometer.length <= DataCostomer.length
-          ? 'white'
-          : nometer !== DataCostomer
-          ? '#FFF4F7'
-          : 'white',
+      backgroundColor: DataCostomer ? 'white' : '#FFF4F7',
     },
     TextNotRegister: {
       paddingTop: moderateScale(4),
       alignSelf: 'center',
-      color:
-        nometer === ''
-          ? '#EBEDF4'
-          : nometer.length <= DataCostomer.length
-          ? '#EBEDF4'
-          : nometer !== DataCostomer
-          ? '#EB5757'
-          : '#EBEDF4',
+      color: DataCostomer ? '#EBEDF4' : '#EB5757',
       fontSize: moderateScale(12),
       fontFamily: 'Montserrat-Regular',
     },
@@ -251,9 +253,16 @@ const ComListPayElec = ({
                     },
                   ]}>
                   <View>
-                    <TouchableOpacity onPress={() => setPres(i)}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setPriceSelect({
+                          ...priceSelect,
+                          price: v.price,
+                        });
+                        setPres(i);
+                      }}>
                       <View style={styles.NummberButton}>
-                        <Text style={styles.TextNumber}>{v.harga}</Text>
+                        <Text style={styles.TextNumber}>{v.price}</Text>
                       </View>
                     </TouchableOpacity>
                   </View>
@@ -261,7 +270,7 @@ const ComListPayElec = ({
               );
             })}
             <TouchableOpacity
-              onPress={() => navigation.navigate(alamat, titleicon)}
+              onPress={submitDataCostomer}
               style={styles.ContainerButtonConfirm}>
               <View style={styles.ButtonConfirm}>
                 <Text style={styles.TextButtonConfirm}>Confirm</Text>
@@ -272,7 +281,7 @@ const ComListPayElec = ({
         {tagihan ? (
           <View>
             <TouchableOpacity
-              onPress={() => navigation.navigate(alamat, titleicon)}
+              onPress={submitDataCostomer}
               style={styles.ContainerButtonConfirm}>
               <View style={styles.ButtonConfirm}>
                 <Text style={styles.TextButtonConfirm}>Confirm</Text>

@@ -1,5 +1,6 @@
 const initialState = {
   dataOption: [],
+  priceList: [],
   dataUser: [],
 };
 
@@ -14,6 +15,28 @@ const ElectricityReducer = (state = initialState, action) => {
       return {
         ...state,
         dataOption: action.payload,
+      };
+
+    case 'GET_TOKEN_ELECTRICITY':
+      return {
+        ...state,
+      };
+
+    case 'GET_TOKEN_ELECTRICITY_SUCCESS':
+      return {
+        ...state,
+        priceList: action.payload,
+      };
+
+    case 'GET_TAGIHAN_ELECTRICITY':
+      return {
+        ...state,
+      };
+
+    case 'GET_TAGIHAN_ELECTRICITY_SUCCESS':
+      return {
+        ...state,
+        priceList: action.payload,
       };
 
     case 'GET_ACCOUNT_ELECTRICITY':
