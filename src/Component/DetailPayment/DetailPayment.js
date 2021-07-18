@@ -7,9 +7,14 @@ import {
   ScrollView,
   TouchableOpacity,
   LogBox,
+  ToastAndroid,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import DropDownPicker from 'react-native-dropdown-picker';
+import {Overlay} from 'react-native-elements';
+import DatePicker from 'react-native-date-picker';
+import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
+import bcrypt from 'react-native-bcrypt';
 import {moderateScale} from 'react-native-size-matters';
 import {
   heightPercentageToDP,
@@ -21,7 +26,13 @@ import {
   CheckBox1,
   CheckActive,
   InfoPayment,
+  IconSubscribtion,
 } from '../../Assets/Assets';
+import Loading from '../../Component/Loading/Loading';
+import {
+  ElectricityTokenCreatePaymentAction,
+  ElectricityTagihanCreatePaymentAction,
+} from '../../Screen/Electricity/redux/action';
 
 const DetailPayment = ({
   header,
@@ -34,247 +45,499 @@ const DetailPayment = ({
 }) => {
   const [cheked, setCheked] = useState(false);
   const [period, setPeriod] = useState(false);
+  const [Dates, setDates] = useState(false);
   const [value, setValue] = useState('');
   const [items, setItems] = useState([
-    {label: 'Every Week', value: 'Every Week'},
-    {label: 'Every Month', value: 'Every Month'},
-    {label: 'Every Year', value: 'Every Year'},
+    {label: 'Every Week', value: 'Week'},
+    {label: 'Every Month', value: 'Month'},
+    {label: 'Every Year', value: 'Year'},
   ]);
-  const [day, setDay] = useState('');
-  const [valueDay, setValueDay] = useState('');
-  const [itemsDay, setItemsDay] = useState([
-    {label: 'Sunday', value: 'Sunday'},
-    {label: 'Monday', value: 'Monday'},
-    {label: 'Tuesday', value: 'Tuesday'},
+  const [valueDate, setValueDate] = useState('');
+  const [tanggal, setTanggal] = useState([
+    {label: '01', value: '01'},
+    {label: '02', value: '02'},
+    {label: '03', value: '03'},
+    {label: '04', value: '04'},
+    {label: '05', value: '05'},
+    {label: '06', value: '06'},
+    {label: '07', value: '07'},
   ]);
+  const [date, setDate] = useState(new Date());
+  const [visible, setVisible] = useState(false);
+  const [visibleDate, setVisibleDate] = useState(false);
+  const [pinuser, setPinUser] = useState('');
+  const [countFalse, setCountFalse] = useState(2);
+  const dispatch = useDispatch();
+
+  const dateChoice = () => date + ''.slice(4, 16);
+  const resDatePicker = () => {
+    let year = dateChoice().slice(11, 15);
+    let dateChoicez = dateChoice().slice(9, 10);
+    let months = dateChoice().slice(4, 7);
+    let resMonth =
+      months === 'Jan'
+        ? '01'
+        : months === 'Feb'
+        ? '02'
+        : months === 'Mar'
+        ? '03'
+        : months === 'Apr'
+        ? '04'
+        : months === 'May'
+        ? '05'
+        : months === 'Jun'
+        ? '06'
+        : months === 'Jul'
+        ? '07'
+        : months === 'Aug'
+        ? '08'
+        : months === 'Oct'
+        ? '09'
+        : months === 'Sep'
+        ? '10'
+        : months === 'Nov'
+        ? '11'
+        : months === 'Dec'
+        ? '12'
+        : null;
+    return year + '-' + resMonth + '-' + dateChoicez;
+  };
+
+  const DetailRes = useSelector(
+    state => state.ElectricityReducer?.dataUser.data,
+  );
+  console.log(DetailRes, '<=== hasil user detail electricity');
+  const billData = {
+    No_Meter: DetailRes?.No_Meter,
+    IDPEL: DetailRes?.IDPEL,
+    Name: DetailRes?.Name,
+    Tarif_Daya: DetailRes?.Tarif_Daya,
+    Token: DetailRes?.Token,
+    PPJ: DetailRes?.PPJ,
+    Admin: DetailRes?.Admin,
+    Total: DetailRes?.Total,
+    PIN: DetailRes?.PIN,
+  };
+  // Data yg diKirim MASIH BUG PERIOD TAK TERBACA
+  const [recuring, setRecuring] = useState({
+    status: cheked,
+    period: 'Month',
+    date: value === 'Week' ? `${dateNow}-09-${valueDate}` : resDatePicker(),
+  });
+
+  const recuringBilling = {
+    status: recuring.status ? recuring.status : '',
+    period: recuring.status ? recuring.period : '',
+    date: recuring.status ? recuring.date : '',
+  };
+
+  console.log(recuring.period, 'ini hasil recuring');
+  console.log(value, 'ini values');
+  console.log(recuring.status, 'ini status recuring');
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }, []);
 
-  const DetailRes = useSelector(
-    state => state.ElectricityReducer?.dataUser.data,
-  );
-  console.log(DetailRes, '<=== hasil resDetail ElectricCity');
+  const paymentMethod = {
+    type: 'Bank Transfer',
+    bank_destination_id: '1',
+  };
+
+  // `${dateNow}-09-${valueDate}`
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
+  const toggleOverlayDate = () => {
+    setVisibleDate(!visibleDate);
+  };
+
+  const submitData = () => {
+    toggleOverlay();
+    if (titleicon === 'PLN - Tagihan') {
+      dispatch(
+        ElectricityTagihanCreatePaymentAction({
+          data: billData,
+          payment: paymentMethod,
+          recurringBilling: recuringBilling,
+        }),
+      );
+    }
+    if (titleicon === 'PLN - Token') {
+      dispatch(
+        ElectricityTokenCreatePaymentAction({
+          data: billData,
+          payment: paymentMethod,
+          recurringBilling: recuringBilling,
+        }),
+      );
+    }
+  };
+
+  const CompareToken = () => {
+    let resCompare = bcrypt.compareSync(pinuser, DetailRes.PIN);
+    console.log(resCompare, '<=====ini compare token');
+    console.log(countFalse, '<=====ini hasil count false');
+    resCompare
+      ? submitData()
+      : countFalse === 0
+      ? navigation.navigate(
+          'Home',
+          setCountFalse(1),
+          ToastAndroid.show(
+            'Kesempatan anda telah habis, Silahkan ulangi kembali',
+            ToastAndroid.LONG,
+            ToastAndroid.TOP,
+          ),
+        )
+      : setCountFalse(prevtState => prevtState - 1);
+    ToastAndroid.show(
+      `PIN Anda Salah !!! Sisa Kesempatan ${countFalse}`,
+      ToastAndroid.LONG,
+      ToastAndroid.TOP,
+    );
+  };
+
+  console.log(date, ' ini date picker');
+  const isLoading = useSelector(state => state.GlobalReducer.Loading);
+  const dateNow =
+    titleicon === 'PLN - Tagihan'
+      ? DetailRes?.payment_period[0].slice(4, 8)
+      : null;
+  console.log(dateNow, 'inidate now');
+
+  // const ConvertMonth = DetailRes?.payment_period[0].slice(0, 3);
+  // console.log(ConvertMonth, ' ini bulan');
+  // console.log(month.ConvertMonth, ' ini bulan angka');
+
+  // const sendDate = () => {
+  //   if (value === 'Week') {
+  //     console.log(`${dateNow}-09-${valueDate}, ini tanggal loh`);
+  //   }
+  // };
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView contentContainerStyle={styles.Grow} style={styles.container}>
-        <View style={styles.ContainerHeaderPayment}>
-          <View style={styles.HeaderPayment}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <FastImage
-                style={styles.ArrowBack}
-                source={ArrowBack}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </TouchableOpacity>
-            <Text style={styles.Judul}>{header}</Text>
-          </View>
-          <View>
-            <View style={styles.ContainerDetailListPayment}>
-              <View style={styles.ContainerLogo}>
-                <FastImage
-                  style={styles.Logo}
-                  source={icon}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </View>
-              <View style={styles.ContainerText}>
-                <Text style={styles.TextList}>{titleicon}</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-        {token ? (
-          <View style={styles.Containerisi}>
-            <View style={styles.ContainerTextBillDetail1}>
-              <Text style={styles.TextHeadBill}>Bill Details</Text>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>No Meter</Text>
-                <Text style={styles.TextDataRes}>{DetailRes.No_Meter}</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>IDPEL</Text>
-                <Text style={styles.TextDataRes}>{DetailRes.IDPEL}</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Name</Text>
-                <Text style={styles.TextDataRes}>{DetailRes.Name}</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Tarif/Daya</Text>
-                <Text style={styles.TextDataRes}>{DetailRes.Tarif_Daya}</Text>
-              </View>
-            </View>
-            <View style={styles.ContainerTextBillDetail2}>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Token</Text>
-                <Text style={styles.TextDataRes}>Rp {DetailRes.Token}</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>PPJ</Text>
-                <Text style={styles.TextDataRes}>Rp {DetailRes.PPJ}</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Admin</Text>
-                <Text style={styles.TextDataRes}>Rp {DetailRes.Admin}</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
-                  Total
-                </Text>
-                <Text style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
-                  Rp {DetailRes.Total}
-                </Text>
-              </View>
-            </View>
-          </View>
-        ) : tagihan ? (
-          <View style={styles.Containerisi}>
-            <View style={styles.ContainerTextBillDetail1}>
-              <Text style={styles.TextHeadBill}>Bill Details</Text>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>IDPEL</Text>
-                <Text style={styles.TextDataRes}>511234567890</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Name</Text>
-                <Text style={styles.TextDataRes}>Justin Junaedi</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Tarif/Daya</Text>
-                <Text style={styles.TextDataRes}>R1/2200 VA</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Bulan/Tahun</Text>
-                <Text style={styles.TextDataRes}>May 2021</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Stand Meter</Text>
-                <Text style={styles.TextDataRes}>00001804-00002054</Text>
-              </View>
-            </View>
-            <View style={styles.ContainerTextBillDetail2}>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Bill</Text>
-                <Text style={styles.TextDataRes}>Rp 89.704,00</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={styles.TextData}>Admin</Text>
-                <Text style={styles.TextDataRes}>Rp 1.500,00</Text>
-              </View>
-              <View style={styles.ContainerTextData}>
-                <Text style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
-                  Total
-                </Text>
-                <Text style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
-                  Rp 51.500,00
-                </Text>
-              </View>
-            </View>
-          </View>
-        ) : null}
-
-        <View style={styles.PaymentMethod}>
-          <View style={styles.ContainerTextPaymentMethod}>
-            <Text style={styles.TextPaymentMethod}>Payment Method</Text>
-            <View>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('PaymentMethod')}>
-                <Text style={styles.TextChange}>change</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <Text style={styles.ResPaymentMethod}>Bank Transfer</Text>
-        </View>
-        <View
-          style={[
-            styles.RecurringBilling,
-            {
-              height: cheked
-                ? heightPercentageToDP(52)
-                : heightPercentageToDP(13),
-            },
-          ]}>
-          <View style={styles.ContainerRecurringBilling}>
-            <TouchableOpacity onPress={() => setCheked(!cheked)}>
-              <FastImage
-                style={styles.CheckBox}
-                source={cheked ? CheckActive : CheckBox1}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </TouchableOpacity>
-            <Text style={styles.HeaderRecurring}>Recurring Billing</Text>
-          </View>
-          <Text style={styles.TextIsiRecurring}>
-            Users will be able to make multiple billing subscriptions on
-            selected pay dates.
-          </Text>
-          <View>
-            {cheked ? (
-              <View style={styles.ContainerDropButton}>
-                <Text style={styles.HeaderDropdown}>Period</Text>
-                <DropDownPicker
-                  placeholder="Select an Period"
-                  style={styles.dropDownContainerStyle}
-                  dropDownDirection="BOTTOM"
-                  open={period}
-                  value={value}
-                  items={items}
-                  setOpen={setPeriod}
-                  setValue={setValue}
-                  setItems={setItems}
-                />
-                <Text style={styles.HeaderDropdown}>Day</Text>
-                <DropDownPicker
-                  disabled={!value}
-                  placeholder="Select an Day"
-                  style={styles.dropDownContainerStyle}
-                  dropDownDirection="BOTTOM"
-                  open={day}
-                  value={valueDay}
-                  items={itemsDay}
-                  setOpen={setDay}
-                  setValue={setValueDay}
-                  setItems={setItemsDay}
-                />
-                <View style={styles.ContainerInfoPayment}>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            <View style={styles.ContainerHeaderPayment}>
+              <View style={styles.HeaderPayment}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
                   <FastImage
-                    style={styles.InfoPaymentStyle}
-                    source={InfoPayment}
+                    style={styles.ArrowBack}
+                    source={ArrowBack}
                     resizeMode={FastImage.resizeMode.contain}
                   />
-                  <View style={styles.TextInfoContainer}>
-                    <Text style={styles.TextInfo1}>
-                      Next payment will due {''}
-                      <Text
-                        style={{
-                          fontFamily: 'Montserrat-Bold',
-                          color: '#263765',
-                        }}>
-                        17 May 2021
-                      </Text>
+                </TouchableOpacity>
+                <Text style={styles.Judul}>{header}</Text>
+              </View>
+              <View>
+                <View style={styles.ContainerDetailListPayment}>
+                  <View style={styles.ContainerLogo}>
+                    <FastImage
+                      style={styles.Logo}
+                      source={icon}
+                      resizeMode={FastImage.resizeMode.contain}
+                    />
+                  </View>
+                  <View style={styles.ContainerText}>
+                    <Text style={styles.TextList}>{titleicon}</Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            {token ? (
+              <View style={styles.Containerisi}>
+                <View style={styles.ContainerTextBillDetail1}>
+                  <Text style={styles.TextHeadBill}>Bill Details</Text>
+                  <View style={styles.ContainerTextData}>
+                    <Text style={styles.TextData}>No Meter</Text>
+                    <Text style={styles.TextDataRes}>{DetailRes.No_Meter}</Text>
+                  </View>
+                  <View style={styles.ContainerTextData}>
+                    <Text style={styles.TextData}>IDPEL</Text>
+                    <Text style={styles.TextDataRes}>{DetailRes.IDPEL}</Text>
+                  </View>
+                  <View style={styles.ContainerTextData}>
+                    <Text style={styles.TextData}>Name</Text>
+                    <Text style={styles.TextDataRes}>{DetailRes.Name}</Text>
+                  </View>
+                  <View style={styles.ContainerTextData}>
+                    <Text style={styles.TextData}>Tarif/Daya</Text>
+                    <Text style={styles.TextDataRes}>
+                      {DetailRes.Tarif_Daya}
                     </Text>
-                    <Text style={styles.TextInfo1}>
-                      Pay before 20 May 2021, 23:59 to avoid late payment fee
+                  </View>
+                </View>
+                <View style={styles.ContainerTextBillDetail2}>
+                  <View style={styles.ContainerTextData}>
+                    <Text style={styles.TextData}>Token</Text>
+                    <Text style={styles.TextDataRes}>Rp {DetailRes.Token}</Text>
+                  </View>
+                  <View style={styles.ContainerTextData}>
+                    <Text style={styles.TextData}>PPJ</Text>
+                    <Text style={styles.TextDataRes}>Rp {DetailRes.PPJ}</Text>
+                  </View>
+                  <View style={styles.ContainerTextData}>
+                    <Text style={styles.TextData}>Admin</Text>
+                    <Text style={styles.TextDataRes}>Rp {DetailRes.Admin}</Text>
+                  </View>
+                  <View style={styles.ContainerTextData}>
+                    <Text
+                      style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
+                      Total
+                    </Text>
+                    <Text
+                      style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
+                      Rp {DetailRes.Total}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            ) : tagihan ? (
+              <View style={styles.Containerisi}>
+                <View style={styles.ContainerTextBillDetail1}>
+                  <Text style={styles.TextHeadBill}>Bill Details</Text>
+                  <View style={styles.ContainerTextData}>
+                    <Text style={styles.TextData}>IDPEL</Text>
+                    <Text style={styles.TextDataRes}>511234567890</Text>
+                  </View>
+                  <View style={styles.ContainerTextData}>
+                    <Text style={styles.TextData}>Name</Text>
+                    <Text style={styles.TextDataRes}>Justin Junaedi</Text>
+                  </View>
+                  <View style={styles.ContainerTextData}>
+                    <Text style={styles.TextData}>Tarif/Daya</Text>
+                    <Text style={styles.TextDataRes}>R1/2200 VA</Text>
+                  </View>
+                  <View style={styles.ContainerTextData}>
+                    <Text style={styles.TextData}>Bulan/Tahun</Text>
+                    <Text style={styles.TextDataRes}>May 2021</Text>
+                  </View>
+                  <View style={styles.ContainerTextData}>
+                    <Text style={styles.TextData}>Stand Meter</Text>
+                    <Text style={styles.TextDataRes}>00001804-00002054</Text>
+                  </View>
+                </View>
+                <View style={styles.ContainerTextBillDetail2}>
+                  <View style={styles.ContainerTextData}>
+                    <Text style={styles.TextData}>Bill</Text>
+                    <Text style={styles.TextDataRes}>Rp 89.704,00</Text>
+                  </View>
+                  <View style={styles.ContainerTextData}>
+                    <Text style={styles.TextData}>Admin</Text>
+                    <Text style={styles.TextDataRes}>Rp 1.500,00</Text>
+                  </View>
+                  <View style={styles.ContainerTextData}>
+                    <Text
+                      style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
+                      Total
+                    </Text>
+                    <Text
+                      style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
+                      Rp 51.500,00
                     </Text>
                   </View>
                 </View>
               </View>
             ) : null}
+
+            <View style={styles.PaymentMethod}>
+              <View style={styles.ContainerTextPaymentMethod}>
+                <Text style={styles.TextPaymentMethod}>Payment Method</Text>
+                <View>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('PaymentMethod')}>
+                    <Text style={styles.TextChange}>change</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <Text style={styles.ResPaymentMethod}>Bank Transfer</Text>
+            </View>
+
+            {titleicon === 'PLN - Tagihan' ? (
+              <View
+                style={[
+                  styles.RecurringBilling,
+                  {
+                    height: cheked
+                      ? heightPercentageToDP(52)
+                      : heightPercentageToDP(13),
+                  },
+                ]}>
+                <View style={styles.ContainerRecurringBilling}>
+                  <TouchableOpacity onPress={() => setCheked(!cheked)}>
+                    <FastImage
+                      style={styles.CheckBox}
+                      source={cheked ? CheckActive : CheckBox1}
+                      resizeMode={FastImage.resizeMode.contain}
+                    />
+                  </TouchableOpacity>
+                  <Text style={styles.HeaderRecurring}>Recurring Billing</Text>
+                </View>
+                <Text style={styles.TextIsiRecurring}>
+                  Users will be able to make multiple billing subscriptions on
+                  selected pay dates.
+                </Text>
+                <View>
+                  {cheked ? (
+                    <View style={styles.ContainerDropButton}>
+                      <Text style={styles.HeaderDropdown}>Period</Text>
+                      <DropDownPicker
+                        placeholder="Select an Period"
+                        style={styles.dropDownContainerStyle}
+                        dropDownDirection="BOTTOM"
+                        open={period}
+                        value={value}
+                        items={items}
+                        setOpen={setPeriod}
+                        setValue={setValue}
+                        setItems={setItems}
+                      />
+                      <Text style={styles.HeaderDropdown}>Date</Text>
+                      {value === 'Week' ? (
+                        <DropDownPicker
+                          placeholder="Select an Period"
+                          style={styles.dropDownContainerStyle}
+                          dropDownDirection="BOTTOM"
+                          open={Dates}
+                          value={valueDate}
+                          items={tanggal}
+                          setOpen={setDates}
+                          setValue={setValueDate}
+                          setItems={setTanggal}
+                        />
+                      ) : (
+                        <>
+                          <TouchableOpacity
+                            style={styles.ContainerDate}
+                            onPress={toggleOverlayDate}>
+                            <View>
+                              {date ? (
+                                <Text
+                                  style={{
+                                    marginTop: moderateScale(10),
+                                    marginLeft: moderateScale(12),
+                                  }}>
+                                  {dateChoice()}
+                                </Text>
+                              ) : (
+                                <Text
+                                  style={{
+                                    marginTop: moderateScale(10),
+                                    marginLeft: moderateScale(12),
+                                  }}>
+                                  Select an Date
+                                </Text>
+                              )}
+                            </View>
+                          </TouchableOpacity>
+                        </>
+                      )}
+                      <View style={styles.ContainerInfoPayment}>
+                        <FastImage
+                          style={styles.InfoPaymentStyle}
+                          source={InfoPayment}
+                          resizeMode={FastImage.resizeMode.contain}
+                        />
+                        <View style={styles.TextInfoContainer}>
+                          <Text style={styles.TextInfo1}>
+                            Next payment will due {''}
+                            <Text
+                              style={{
+                                fontFamily: 'Montserrat-Bold',
+                                color: '#263765',
+                              }}>
+                              {dateChoice()}
+                            </Text>
+                          </Text>
+                          <Text style={styles.TextInfo1}>
+                            Pay before {dateChoice()}, 23:59 to avoid late
+                            payment fee
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  ) : null}
+                </View>
+              </View>
+            ) : null}
+            <View>
+              <TouchableOpacity
+                onPress={toggleOverlay}
+                style={styles.ContainerButton}>
+                <View>
+                  <Text style={styles.TextButtonBuy}>Pay : Rp 50.0000</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
+      </ScrollView>
+      {titleicon === 'PLN - Tagihan' ? (
+        <Overlay isVisible={visibleDate} onBackdropPress={toggleOverlayDate}>
+          <DatePicker
+            date={date}
+            onDateChange={setDate}
+            mode={('year', 'month', 'date')}
+            androidVariant={'nativeAndroid'}
+            textColor={'#4493AC'}
+            minimumDate={new Date(dateNow)}
+            // DetailRes?.payment_period,
+          />
+        </Overlay>
+      ) : null}
+
+      <Overlay
+        style={stylesOverlay.overlay}
+        isVisible={visible}
+        onBackdropPress={toggleOverlay}>
+        <View style={stylesOverlay.container}>
+          <Text style={stylesOverlay.header}>
+            Please Submit Your PIN to Continue
+          </Text>
+          <FastImage
+            style={stylesOverlay.ImgPin}
+            source={IconSubscribtion}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+          <View style={stylesOverlay.inputTitle}>
+            <SmoothPinCodeInput
+              cellSize={54}
+              codeLength={6}
+              mask={
+                <View
+                  style={{
+                    width: moderateScale(10),
+                    height: moderateScale(10),
+                    borderRadius: moderateScale(25),
+                    backgroundColor: '#000000',
+                  }}
+                />
+              }
+              editable={true}
+              maskDelay={1000}
+              password={true}
+              cellStyle={null}
+              cellStyleFocused={null}
+              value={pinuser}
+              onTextChange={setPinUser}
+            />
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={CompareToken}
+              style={stylesOverlay.ContainerButton}>
+              <View>
+                <Text style={stylesOverlay.TextButtonBuy}>SUBMIT</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
-        <View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate(page, titleicon)}
-            style={styles.ContainerButton}>
-            <View>
-              <Text style={styles.TextButtonBuy}>Pay : Rp 50.0000</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+      </Overlay>
     </SafeAreaView>
   );
 };
@@ -286,7 +549,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   container: {
-    paddingBottom: moderateScale(100),
+    paddingBottom: moderateScale(8),
     backgroundColor: 'white',
   },
   ContainerHeaderPayment: {
@@ -486,7 +749,7 @@ const styles = StyleSheet.create({
     height: heightPercentageToDP(6),
     width: widthPercentageToDP(87),
     marginLeft: moderateScale(24),
-    marginBottom: moderateScale(64),
+    marginTop: moderateScale(26),
   },
   TextButtonBuy: {
     color: 'white',
@@ -510,5 +773,56 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(11),
     color: '#263765',
     fontFamily: 'Montserrat-Regular',
+  },
+});
+
+const stylesOverlay = StyleSheet.create({
+  container: {
+    width: widthPercentageToDP(90),
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderRadius: moderateScale(12),
+    paddingTop: moderateScale(20),
+    paddingBottom: moderateScale(20),
+    paddingStart: moderateScale(20),
+    paddingEnd: moderateScale(20),
+    margin: -16,
+  },
+  header: {
+    marginTop: moderateScale(14),
+    marginBottom: moderateScale(24),
+    fontSize: moderateScale(15),
+    fontFamily: 'Montserrat-Bold',
+    color: '#000000',
+  },
+
+  inputTitle: {
+    alignSelf: 'stretch',
+    marginTop: moderateScale(16),
+    backgroundColor: '#EBEDF4',
+    borderRadius: moderateScale(19),
+    fontFamily: 'Roboto-Bold',
+  },
+  ContainerButton: {
+    backgroundColor: '#4493AC',
+    alignItems: 'center',
+    borderTopStartRadius: moderateScale(5),
+    borderTopEndRadius: moderateScale(5),
+    borderBottomStartRadius: moderateScale(5),
+    borderBottomEndRadius: moderateScale(5),
+    height: heightPercentageToDP(6),
+    width: widthPercentageToDP(79),
+    marginTop: moderateScale(60),
+    marginBottom: moderateScale(8),
+  },
+  TextButtonBuy: {
+    color: '#FFFFFF',
+    fontSize: moderateScale(16),
+    fontFamily: 'Montserrat-Bold',
+    paddingTop: moderateScale(11),
+  },
+  ImgPin: {
+    height: moderateScale(120),
+    width: moderateScale(120),
   },
 });
