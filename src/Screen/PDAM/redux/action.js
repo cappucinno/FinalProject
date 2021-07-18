@@ -17,3 +17,13 @@ export const PDAMAccountAction = payload => {
 export const PDAMAccountActionSuccess = payload => {
   return {type: 'GET_ACCOUNT_PDAM_SUCCESS', payload};
 };
+
+// CREATE PAYMENT PDAM
+export const PDAMCreatePaymentAction = payload => {
+  return {type: 'CREATE_PDAM_PAYMENT', payload};
+};
+
+// GET ACCOUNT PDAM
+export const PDAMCreatePaymentActionSuccess = payload => {
+  return {type: 'CREATE_PDAM_PAYMENT_SUCCESS', payload};
+};

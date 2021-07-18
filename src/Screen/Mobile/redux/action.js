@@ -17,3 +17,13 @@ export const MobileAccountAction = payload => {
 export const MobileAccountActionSuccess = payload => {
   return {type: 'GET_ACCOUNT_MOBILE_SUCCESS', payload};
 };
+
+// CREATE PAYMENT MOBILE
+export const MobileCreatePaymentAction = payload => {
+  return {type: 'CREATE_MOBILE_PAYMENT', payload};
+};
+
+// GET ACCOUNT MOBILE
+export const MobileCreatePaymentActionSuccess = payload => {
+  return {type: 'CREATE_MOBILE_PAYMENT_SUCCESS', payload};
+};
