@@ -35,11 +35,22 @@ import {LandlineCreatePaymentAction} from './redux/action';
 const DetailPaymentLandline = props => {
   const [cheked, setCheked] = useState(false);
   const [period, setPeriod] = useState(false);
+  const [Dates, setDates] = useState(false);
   const [value, setValue] = useState('');
   const [items, setItems] = useState([
     {label: 'Every Week', value: 'Week'},
     {label: 'Every Month', value: 'Month'},
     {label: 'Every Year', value: 'Year'},
+  ]);
+  const [valueDate, setValueDate] = useState('');
+  const [tanggal, setTanggal] = useState([
+    {label: '01', value: '01'},
+    {label: '02', value: '02'},
+    {label: '03', value: '03'},
+    {label: '04', value: '04'},
+    {label: '05', value: '05'},
+    {label: '06', value: '06'},
+    {label: '07', value: '07'},
   ]);
   const [date, setDate] = useState(new Date());
   const [visible, setVisible] = useState(false);
@@ -48,36 +59,94 @@ const DetailPaymentLandline = props => {
   const [countFalse, setCountFalse] = useState(2);
   const dispatch = useDispatch();
 
-  const [recuring, setRecuring] = useState({
-    status: false,
-    period: value,
-    date: '',
-  });
-  console.log(value, 'ini values');
-  console.log(recuring.status, 'ini status recuring');
+  const dateChoice = () => date + ''.slice(4, 16);
+  const resDatePicker = () => {
+    let year = dateChoice().slice(11, 15);
+    let dateChoicez = dateChoice().slice(9, 10);
+    let months = dateChoice().slice(4, 7);
+    let resMonth =
+      months === 'Jan'
+        ? '01'
+        : months === 'Feb'
+        ? '02'
+        : months === 'Mar'
+        ? '03'
+        : months === 'Apr'
+        ? '04'
+        : months === 'May'
+        ? '05'
+        : months === 'Jun'
+        ? '06'
+        : months === 'Jul'
+        ? '07'
+        : months === 'Aug'
+        ? '08'
+        : months === 'Oct'
+        ? '09'
+        : months === 'Sep'
+        ? '10'
+        : months === 'Nov'
+        ? '11'
+        : months === 'Dec'
+        ? '12'
+        : null;
+    return year + '-' + resMonth + '-' + dateChoicez;
+  };
+  useEffect(() => {
+    setRecuring({
+      ...recuring,
+      period: value,
+    });
+  }, [period]);
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }, []);
 
-  const paymentMethod = {
-    type: 'Bank Transfer',
-    bank_destination: 'Mandiri',
-  };
-  // Dummy Data
+  // Data yg diKirim MASIH BUG PERIOD TAK TERBACA
+  const [recuring, setRecuring] = useState({
+    status: cheked,
+    period: '',
+    date: value === 'Week' ? `${dateNow}-09-${valueDate}` : resDatePicker(),
+  });
+
   const recuringBilling = {
-    status: recuring.status ? recuring.status : null,
-    period: recuring.status ? period.value : null,
-    date: recuring.status ? dateChoice : null,
+    status: recuring.status ? recuring.status : '',
+    period: recuring.status ? recuring.period : '',
+    dayOfWeek: '',
+    recurringDate: recuring.status ? recuring.date : '',
   };
 
+  console.log(recuring.period, 'ini hasil recuring');
+  console.log(recuring.status, 'ini status recuring');
+
+  const paymentMethod = {
+    type: 'Bank Transfer',
+    bank_destination_id: '1',
+  };
+
+  // `${dateNow}-09-${valueDate}`
   const toggleOverlay = () => {
     setVisible(!visible);
   };
   const toggleOverlayDate = () => {
     setVisibleDate(!visibleDate);
   };
+
+  const DetailRes = useSelector(state => state.LandlineReducer?.dataUser.data);
+  console.log(DetailRes, '<=== hasil resDetail Landline');
+  const billData = {
+    No_Telephone: DetailRes?.No_Telephone,
+    Period: DetailRes?.Period,
+    Bill: DetailRes?.Bill,
+    Admin: DetailRes?.Admin,
+    Late_Payment_Fee: DetailRes?.Late_Payment_Fee,
+    Total: DetailRes?.Total,
+    PIN: DetailRes?.PIN,
+  };
+
   const submitData = () => {
+    toggleOverlay();
     dispatch(
       LandlineCreatePaymentAction({
         data: billData,
@@ -87,22 +156,9 @@ const DetailPaymentLandline = props => {
     );
   };
 
-  const DetailRes = useSelector(state => state.LandlineReducer?.dataUser.data);
-  console.log(DetailRes, '<=== hasil resDetail Landline');
-  const billData = {
-    name: DetailRes?.name,
-    customer_number: DetailRes?.customer_number,
-    provider: DetailRes?.provider,
-    address: DetailRes?.address,
-    payment_period: DetailRes?.payment_period,
-    bill: DetailRes?.bill,
-    late_payment: DetailRes?.late_payment,
-    admin_fee: DetailRes?.admin_fee,
-    total: DetailRes?.total,
-  };
-
   const CompareToken = () => {
-    let resCompare = bcrypt.compareSync(pinuser, DetailRes.pin);
+    console.log(pinuser, DetailRes, '<< perbandingan');
+    let resCompare = bcrypt.compareSync(pinuser, DetailRes.PIN);
     console.log(resCompare, '<=====ini compare token');
     console.log(countFalse, '<=====ini hasil count false');
     resCompare
@@ -125,18 +181,13 @@ const DetailPaymentLandline = props => {
     );
   };
 
-  const dateChoice = () => {
-    let res = date + '';
-    let resDate = res.slice(4, 16);
-    return resDate;
-  };
+  console.log(date, ' ini date picker');
   const isLoading = useSelector(state => state.GlobalReducer.Loading);
-  const dateNow = () => {
-    return DetailRes?.Period;
-    //   .slice(4, 8);
-  };
 
-  console.log(dateNow(), 'inidate now');
+  const dateNow = DetailRes?.Period;
+  console.log(dateNow, 'inidate now');
+
+  console.log(resDatePicker(), ' ini date picker New');
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -342,7 +393,7 @@ const DetailPaymentLandline = props => {
           mode={'date'}
           androidVariant={'nativeAndroid'}
           textColor={'#4493AC'}
-          minimumDate={new Date(dateNow())}
+          minimumDate={new Date(dateNow)}
           // DetailRes?.payment_period,
         />
       </Overlay>
