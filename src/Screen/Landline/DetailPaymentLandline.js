@@ -27,7 +27,7 @@ import {
   CheckActive,
   InfoPayment,
   IconSubscribtion,
-  IconInternetActive,
+  IconLandlineActive,
 } from '../../Assets/Assets';
 import Loading from '../../Component/Loading/Loading';
 import {LandlineCreatePaymentAction} from './redux/action';
@@ -161,12 +161,12 @@ const DetailPaymentLandline = props => {
                   <View style={styles.ContainerLogo}>
                     <FastImage
                       style={styles.Logo}
-                      source={IconInternetActive}
+                      source={IconLandlineActive}
                       resizeMode={FastImage.resizeMode.contain}
                     />
                   </View>
                   <View style={styles.ContainerText}>
-                    <Text style={styles.TextList}>{DetailRes?.provider}</Text>
+                    <Text style={styles.TextList}>Landline</Text>
                   </View>
                 </View>
               </View>
@@ -175,40 +175,30 @@ const DetailPaymentLandline = props => {
               <View style={styles.ContainerTextBillDetail1}>
                 <Text style={styles.TextHeadBill}>Bill Details</Text>
                 <View style={styles.ContainerTextData}>
-                  <Text style={styles.TextData}>No Costomer</Text>
+                  <Text style={styles.TextData}>No Telephone</Text>
                   <Text style={styles.TextDataRes}>
-                    {DetailRes?.customer_number}
+                    {DetailRes?.No_Telephone}
                   </Text>
                 </View>
                 <View style={styles.ContainerTextData}>
-                  <Text style={styles.TextData}>Fullname</Text>
-                  <Text style={styles.TextDataRes}>{DetailRes?.name}</Text>
-                </View>
-                <View style={styles.ContainerTextData}>
-                  <Text style={styles.TextData}>Address</Text>
-                  <Text style={styles.TextDataRes}>{DetailRes?.address}</Text>
-                </View>
-                <View style={styles.ContainerTextData}>
-                  <Text style={styles.TextData}>Payment Period</Text>
-                  <Text style={styles.TextDataRes}>
-                    {DetailRes?.payment_period}
-                  </Text>
+                  <Text style={styles.TextData}>Period</Text>
+                  <Text style={styles.TextDataRes}>{DetailRes?.Period}</Text>
                 </View>
               </View>
               <View style={styles.ContainerTextBillDetail2}>
                 <View style={styles.ContainerTextData}>
                   <Text style={styles.TextData}>Bill</Text>
-                  <Text style={styles.TextDataRes}>{DetailRes?.bill}</Text>
+                  <Text style={styles.TextDataRes}>{DetailRes?.Bill}</Text>
                 </View>
                 <View style={styles.ContainerTextData}>
                   <Text style={styles.TextData}>Late Payment</Text>
                   <Text style={styles.TextDataRes}>
-                    {DetailRes?.late_payment}
+                    {DetailRes?.Late_Payment_Fee}
                   </Text>
                 </View>
                 <View style={styles.ContainerTextData}>
                   <Text style={styles.TextData}>Admin</Text>
-                  <Text style={styles.TextDataRes}>{DetailRes?.admin_fee}</Text>
+                  <Text style={styles.TextDataRes}>{DetailRes?.Admin}</Text>
                 </View>
                 <View style={styles.ContainerTextData}>
                   <Text
@@ -217,7 +207,7 @@ const DetailPaymentLandline = props => {
                   </Text>
                   <Text
                     style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
-                    {DetailRes?.total}
+                    {DetailRes?.Total}
                   </Text>
                 </View>
               </View>
@@ -337,7 +327,7 @@ const DetailPaymentLandline = props => {
                 style={styles.ContainerButton}>
                 <View>
                   <Text style={styles.TextButtonBuy}>
-                    Pay : <Text>{DetailRes?.total}</Text>
+                    Pay : <Text>{DetailRes?.Total}</Text>
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -472,7 +462,7 @@ const styles = StyleSheet.create({
     marginTop: moderateScale(53),
     marginLeft: moderateScale(28),
     width: widthPercentageToDP(85),
-    height: heightPercentageToDP(48),
+    height: heightPercentageToDP(40),
     borderTopStartRadius: moderateScale(13),
     borderTopEndRadius: moderateScale(13),
     borderBottomStartRadius: moderateScale(13),
