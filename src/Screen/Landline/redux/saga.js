@@ -15,7 +15,7 @@ import {
 // POST ID LANDLINE
 const LandlineUserId = (payload, token) => {
   return axios({
-    method: 'POST',
+    method: 'GET',
     url: 'https://biller-app-api.herokuapp.com/api/biller/landline/bill/info',
     data: payload,
     headers: {
