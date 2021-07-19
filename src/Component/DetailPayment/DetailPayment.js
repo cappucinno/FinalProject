@@ -27,6 +27,9 @@ import {
   CheckActive,
   InfoPayment,
   IconSubscribtion,
+  mandiri,
+  BCA,
+  BNI,
 } from '../../Assets/Assets';
 import Loading from '../../Component/Loading/Loading';
 import {
@@ -106,6 +109,7 @@ const DetailPayment = ({
   const DetailRes = useSelector(
     state => state.ElectricityReducer?.dataUser.data,
   );
+
   console.log(DetailRes, '<=== hasil user detail electricity');
   const billData = {
     No_Meter: DetailRes?.No_Meter,
@@ -139,9 +143,13 @@ const DetailPayment = ({
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }, []);
 
+  const dataMethodPayment = useSelector(
+    state => state.BankReducer?.paymentMethod,
+  );
+
   const paymentMethod = {
-    type: 'Bank Transfer',
-    bank_destination_id: '1',
+    type: dataMethodPayment.type,
+    bank_destination_id: dataMethodPayment.bank_destination_id,
   };
 
   // `${dateNow}-09-${valueDate}`
@@ -215,6 +223,10 @@ const DetailPayment = ({
   //     console.log(`${dateNow}-09-${valueDate}, ini tanggal loh`);
   //   }
   // };
+
+  // cek info bank
+  const BankInfo = b =>
+    b === 'BCA' ? BCA : b === 'Mandiri' ? mandiri : b === 'BNI' ? BNI : null;
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -350,12 +362,28 @@ const DetailPayment = ({
                 <Text style={styles.TextPaymentMethod}>Payment Method</Text>
                 <View>
                   <TouchableOpacity
-                    onPress={() => navigation.navigate('PaymentMethod')}>
+                    onPress={() =>
+                      navigation.navigate(
+                        'PaymentMethod',
+                        'DetailPaymentElectricity',
+                      )
+                    }>
                     <Text style={styles.TextChange}>change</Text>
                   </TouchableOpacity>
                 </View>
               </View>
-              <Text style={styles.ResPaymentMethod}>Bank Transfer</Text>
+              <View
+                style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
+                <Text style={styles.ResPaymentMethod}>
+                  {dataMethodPayment.type}
+                  {': '}
+                </Text>
+                <FastImage
+                  style={styles.LogoBank}
+                  source={BankInfo(dataMethodPayment.bank_name)}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
             </View>
 
             {titleicon === 'PLN - Tagihan' ? (
@@ -652,7 +680,7 @@ const styles = StyleSheet.create({
     marginTop: moderateScale(30),
     marginLeft: moderateScale(28),
     width: widthPercentageToDP(85),
-    height: heightPercentageToDP(12),
+    height: heightPercentageToDP(14),
     borderTopStartRadius: moderateScale(13),
     borderTopEndRadius: moderateScale(13),
     borderBottomStartRadius: moderateScale(13),
@@ -679,11 +707,12 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   ResPaymentMethod: {
-    marginTop: moderateScale(12),
     marginLeft: moderateScale(18),
+    marginRight: moderateScale(148),
     color: '#000000',
     fontFamily: 'Montserrat-Regular',
     fontSize: moderateScale(12),
+    alignSelf: 'center',
   },
   RecurringBilling: {
     marginTop: moderateScale(30),
@@ -773,6 +802,11 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(11),
     color: '#263765',
     fontFamily: 'Montserrat-Regular',
+  },
+  LogoBank: {
+    alignSelf: 'center',
+    height: heightPercentageToDP(10),
+    width: widthPercentageToDP(10),
   },
 });
 
