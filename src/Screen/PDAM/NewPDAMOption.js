@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -14,8 +14,31 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import {TextInput} from 'react-native-gesture-handler';
+import {useDispatch, useSelector} from 'react-redux';
+import {PDAMOptionAction} from './redux/action';
 
 const NewPDAMOption = props => {
+  const dispatch = useDispatch();
+
+  const DataOptionPDAM = useSelector(state => {
+    console.log(state, '<===== ini state');
+    // ini aku tambahin untuk handling data pertama kali waktu masih null
+    if (
+      state.PDAMReducer.dataOption.data != null &&
+      state.PDAMReducer.dataOption.data.length > 0
+    ) {
+      return state.PDAMReducer.dataOption.data;
+    } else {
+      return [];
+    }
+  });
+
+  console.log(DataOptionPDAM, 'ini hasil data option internet tv');
+
+  useEffect(() => {
+    dispatch(PDAMOptionAction());
+  }, [dispatch]);
+
   return (
     <SafeAreaView
       style={{
