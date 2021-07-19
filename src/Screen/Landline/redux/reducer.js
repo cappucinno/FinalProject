@@ -4,43 +4,44 @@ const initialState = {
   resBill: [],
 };
 
-const inTvReducer = (state = initialState, action) => {
+const LandlineReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'GET_OPTION_INTV':
+    case 'GET_OPTION_LANDLINE':
       return {
         ...state,
       };
 
-    case 'GET_OPTION_INTV_SUCCESS':
+    case 'GET_OPTION_LANDLINE_SUCCESS':
       return {
         ...state,
         dataOption: action.payload,
       };
 
-    case 'GET_ACCOUNT_INTV':
+    case 'GET_ACCOUNT_LANDLINE':
       return {
         ...state,
       };
 
-    case 'GET_ACCOUNT_INTV_SUCCESS':
+    case 'GET_ACCOUNT_LANDLINE_SUCCESS':
       return {
         ...state,
         dataUser: action.payload,
       };
 
-    case 'CREATE_INTV_PAYMENT':
+    case 'CREATE_LANDLINE_PAYMENT':
       return {
         ...state,
       };
 
-    case 'CREATE_INTV_PAYMENT_SUCCESS':
+    case 'CREATE_LANDLINE_PAYMENT_SUCCESS':
       return {
         ...state,
         resBill: action.payload,
       };
+
     default:
       return state;
   }
 };
 
-export default inTvReducer;
+export default LandlineReducer;

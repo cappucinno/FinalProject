@@ -26,7 +26,8 @@ import {
   InternetTv,
   ListPaymentInternetTv,
   DetailPaymentInternetTv,
-  ResultPaymentInternetTv,
+  ResultPaymentCreditInternetTv,
+  ResultPaymentBankInternetTv,
   NewSubscription,
   NSBillsCategory,
   NSMobile,
@@ -45,6 +46,7 @@ import {
   NewPDAMBillDetail,
   NewPDAMBankPayment,
   EditProfile,
+  DetailPaymentLandline,
 } from './src/Screen/Screen';
 import {useSelector} from 'react-redux';
 import {BottomNav} from './src/Component/Component';
@@ -170,8 +172,13 @@ const Root = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="ResultPaymentInternetTv"
-          component={ResultPaymentInternetTv}
+          name="ResultPaymentCreditInternetTv"
+          component={ResultPaymentCreditInternetTv}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ResultPaymentBankInternetTv"
+          component={ResultPaymentBankInternetTv}
           options={{headerShown: false}}
         />
         <Stack.Screen
@@ -262,6 +269,11 @@ const Root = () => {
         <Stack.Screen
           name="NewPDAMBankPayment"
           component={NewPDAMBankPayment}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="DetailPaymentLandline"
+          component={DetailPaymentLandline}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

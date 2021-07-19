@@ -26,7 +26,7 @@ const DetailPaymentElectricity = props => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView contentContainerStyle={styles.Grow} style={styles.container}>
-        {title === 'PLN-Token' ? (
+        {title === 'PLN - Token' ? (
           <DetailPayment
             header={'Electricity'}
             icon={IconElectricityActive}
@@ -35,7 +35,7 @@ const DetailPaymentElectricity = props => {
             token={true}
             page={page1}
           />
-        ) : title === 'PLN-Tagihan Listrik' ? (
+        ) : title === 'PLN - Tagihan' ? (
           <DetailPayment
             header={'Electricity'}
             icon={IconElectricityActive}

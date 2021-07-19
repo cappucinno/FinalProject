@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,49 +9,54 @@ import {
 } from 'react-native';
 import ComListPayElec from '../../../Component/ComListPayElec/ComListPayElec';
 import {moderateScale} from 'react-native-size-matters';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import {IconElectricityActive} from '../../../Assets/Assets';
+import {
+  ElectricityTokenAction,
+  ElectricityTagihanAction,
+} from '../redux/action';
 
 const ListPaymentElectricity = props => {
-  const DataCostomer = '12345';
-  const alamat = 'DetailPaymentElectricity';
-  const ListHarga = [
-    {
-      harga: '20.000',
-    },
-    {
-      harga: '50.000',
-    },
-    {
-      harga: '100.000',
-    },
-    {
-      harga: '200.000',
-    },
-    {
-      harga: '500.000',
-    },
-    {
-      harga: '1000.000',
-    },
-    {
-      harga: '5.000.000',
-    },
-    {
-      harga: '10.000.000',
-    },
-  ];
-
   const title = props.route.params;
   console.log(title, '<<<<< ini title');
+  const dispatch = useDispatch();
+  const DataListElectricity = useSelector(state => {
+    console.log(state, '<===== ini state');
+    // ini aku tambahin untuk handling data pertama kali waktu masih null
+    if (
+      state.ElectricityReducer.priceList.data != null &&
+      state.ElectricityReducer.priceList.data.length > 0
+    ) {
+      return state.ElectricityReducer.priceList.data;
+    } else {
+      return [];
+    }
+  });
+
+  console.log(DataListElectricity, 'ini hasil data Price list Electric Token');
+
+  useEffect(() => {
+    if (title === 'PLN - Token') {
+      dispatch(ElectricityTokenAction({option_id: '1'}));
+    }
+    if (title === 'PLN - Tagihan') {
+      dispatch(ElectricityTagihanAction());
+    }
+  }, [dispatch]);
+
+  const DataCostomer = useSelector(state => state.GlobalReducer.Success);
+  console.log(DataCostomer, 'status datacostumer');
+  const alamat = 'DetailPaymentElectricity';
+  const ListHarga = DataListElectricity;
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView contentContainerStyle={styles.Grow} style={styles.container}>
-        {title === 'PLN-Token' ? (
+        {title === 'PLN - Token' ? (
           <ComListPayElec
             navigation={props.navigation}
             headtitle={'Electricity'}
@@ -63,7 +68,7 @@ const ListPaymentElectricity = props => {
             alamat={alamat}
             token={true}
           />
-        ) : title === 'PLN-Tagihan Listrik' ? (
+        ) : title === 'PLN - Tagihan' ? (
           <ComListPayElec
             navigation={props.navigation}
             headtitle={'Electricity'}

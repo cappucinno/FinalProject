@@ -28,29 +28,18 @@ import {
   InfoPayment,
   IconSubscribtion,
   IconInternetActive,
-} from '../../../Assets/Assets';
-import Loading from '../../../Component/Loading/Loading';
-import {inTvCreatePaymentAction} from '../redux/action';
+} from '../../Assets/Assets';
+import Loading from '../../Component/Loading/Loading';
+import {LandlineCreatePaymentAction} from './redux/action';
 
-const DetailPaymentInternetTv = props => {
+const DetailPaymentLandline = props => {
   const [cheked, setCheked] = useState(false);
   const [period, setPeriod] = useState(false);
-  const [Dates, setDates] = useState(false);
   const [value, setValue] = useState('');
   const [items, setItems] = useState([
     {label: 'Every Week', value: 'Week'},
     {label: 'Every Month', value: 'Month'},
     {label: 'Every Year', value: 'Year'},
-  ]);
-  const [valueDate, setValueDate] = useState('');
-  const [tanggal, setTanggal] = useState([
-    {label: '01', value: '01'},
-    {label: '02', value: '02'},
-    {label: '03', value: '03'},
-    {label: '04', value: '04'},
-    {label: '05', value: '05'},
-    {label: '06', value: '06'},
-    {label: '07', value: '07'},
   ]);
   const [date, setDate] = useState(new Date());
   const [visible, setVisible] = useState(false);
@@ -58,20 +47,7 @@ const DetailPaymentInternetTv = props => {
   const [pinuser, setPinUser] = useState('');
   const [countFalse, setCountFalse] = useState(2);
   const dispatch = useDispatch();
-  const month = {
-    Jan: '01',
-    Feb: '02',
-    Mar: '03',
-    Apr: '04',
-    May: '05',
-    Jun: '06',
-    Jul: '07',
-    Agu: '08',
-    Oct: '09',
-    Sep: '10',
-    Nov: '11',
-    Des: '12',
-  };
+
   const [recuring, setRecuring] = useState({
     status: false,
     period: value,
@@ -88,12 +64,11 @@ const DetailPaymentInternetTv = props => {
     type: 'Bank Transfer',
     bank_destination: 'Mandiri',
   };
-
-  // Data yg diKirim
+  // Dummy Data
   const recuringBilling = {
-    status: recuring.status ? recuring.status : '',
-    period: recuring.status ? period.value : '',
-    date: recuring.status ? dateChoice : '',
+    status: recuring.status ? recuring.status : null,
+    period: recuring.status ? period.value : null,
+    date: recuring.status ? dateChoice : null,
   };
 
   const toggleOverlay = () => {
@@ -103,9 +78,8 @@ const DetailPaymentInternetTv = props => {
     setVisibleDate(!visibleDate);
   };
   const submitData = () => {
-    toggleOverlay();
     dispatch(
-      inTvCreatePaymentAction({
+      LandlineCreatePaymentAction({
         data: billData,
         payment: paymentMethod,
         recurringBilling: recuringBilling,
@@ -113,8 +87,8 @@ const DetailPaymentInternetTv = props => {
     );
   };
 
-  const DetailRes = useSelector(state => state.inTvReducer?.dataUser.data);
-  console.log(DetailRes, '<=== hasil resDetail InTv');
+  const DetailRes = useSelector(state => state.LandlineReducer?.dataUser.data);
+  console.log(DetailRes, '<=== hasil resDetail Landline');
   const billData = {
     name: DetailRes?.name,
     customer_number: DetailRes?.customer_number,
@@ -157,20 +131,13 @@ const DetailPaymentInternetTv = props => {
     return resDate;
   };
   const isLoading = useSelector(state => state.GlobalReducer.Loading);
-
-  const dateNow = DetailRes?.payment_period[0].slice(4, 8);
-  console.log(dateNow, 'inidate now');
-
-  const ConvertMonth = DetailRes?.payment_period[0].slice(0, 3);
-  console.log(ConvertMonth, ' ini bulan');
-  console.log(month.ConvertMonth, ' ini bulan angka');
-
-  const sendDate = () => {
-    if (value === 'Week') {
-      console.log(`${dateNow}-09-${valueDate}, ini tanggal loh`);
-    }
+  const dateNow = () => {
+    return DetailRes?.Period;
+    //   .slice(4, 8);
   };
-  sendDate();
+
+  console.log(dateNow(), 'inidate now');
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView contentContainerStyle={styles.Grow} style={styles.container}>
@@ -187,7 +154,7 @@ const DetailPaymentInternetTv = props => {
                     resizeMode={FastImage.resizeMode.contain}
                   />
                 </TouchableOpacity>
-                <Text style={styles.Judul}>Internet & TV</Text>
+                <Text style={styles.Judul}>Landline</Text>
               </View>
               <View>
                 <View style={styles.ContainerListPayment}>
@@ -314,45 +281,29 @@ const DetailPaymentInternetTv = props => {
                       setItems={setItems}
                     />
                     <Text style={styles.HeaderDropdown}>Date</Text>
-                    {value === 'Week' ? (
-                      <DropDownPicker
-                        placeholder="Select an Period"
-                        style={styles.dropDownContainerStyle}
-                        dropDownDirection="BOTTOM"
-                        open={Dates}
-                        value={valueDate}
-                        items={tanggal}
-                        setOpen={setDates}
-                        setValue={setValueDate}
-                        setItems={setTanggal}
-                      />
-                    ) : (
-                      <>
-                        <TouchableOpacity
-                          style={styles.ContainerDate}
-                          onPress={toggleOverlayDate}>
-                          <View>
-                            {date ? (
-                              <Text
-                                style={{
-                                  marginTop: moderateScale(10),
-                                  marginLeft: moderateScale(12),
-                                }}>
-                                {dateChoice()}
-                              </Text>
-                            ) : (
-                              <Text
-                                style={{
-                                  marginTop: moderateScale(10),
-                                  marginLeft: moderateScale(12),
-                                }}>
-                                Select an Date
-                              </Text>
-                            )}
-                          </View>
-                        </TouchableOpacity>
-                      </>
-                    )}
+                    <TouchableOpacity
+                      style={styles.ContainerDate}
+                      onPress={toggleOverlayDate}>
+                      <View>
+                        {date ? (
+                          <Text
+                            style={{
+                              marginTop: moderateScale(10),
+                              marginLeft: moderateScale(12),
+                            }}>
+                            {dateChoice()}
+                          </Text>
+                        ) : (
+                          <Text
+                            style={{
+                              marginTop: moderateScale(10),
+                              marginLeft: moderateScale(12),
+                            }}>
+                            Select an Date
+                          </Text>
+                        )}
+                      </View>
+                    </TouchableOpacity>
                     <View style={styles.ContainerInfoPayment}>
                       <FastImage
                         style={styles.InfoPaymentStyle}
@@ -401,7 +352,7 @@ const DetailPaymentInternetTv = props => {
           mode={'date'}
           androidVariant={'nativeAndroid'}
           textColor={'#4493AC'}
-          minimumDate={new Date(dateNow)}
+          minimumDate={new Date(dateNow())}
           // DetailRes?.payment_period,
         />
       </Overlay>
@@ -457,7 +408,7 @@ const DetailPaymentInternetTv = props => {
   );
 };
 
-export default DetailPaymentInternetTv;
+export default DetailPaymentLandline;
 
 const styles = StyleSheet.create({
   Grow: {
@@ -670,7 +621,6 @@ const styles = StyleSheet.create({
     width: widthPercentageToDP(87),
     marginLeft: moderateScale(24),
     marginBottom: moderateScale(64),
-    marginTop: moderateScale(12),
   },
   TextButtonBuy: {
     color: 'white',

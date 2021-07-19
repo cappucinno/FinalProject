@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,19 +8,33 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import {moderateScale} from 'react-native-size-matters';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
-import {ArrowBack, IconElectricityActive, mandiri} from '../../Assets/Assets';
+import {ArrowBack} from '../../Assets/Assets';
+import {LandlineAccountAction} from './redux/action';
 
 const Landline = props => {
-  const [nometer, setNometer] = useState('');
+  const dispatch = useDispatch();
+
+  const [input, setInput] = useState('');
   const [pres, setPres] = useState('');
 
-  const DataCostomer = '12345';
+  const DataCostomer = useSelector(state => state.GlobalReducer.Success);
+  console.log(DataCostomer, 'status datacostumer');
+
+  const submitDataCostomer = () => {
+    dispatch(
+      LandlineAccountAction({
+        telephone_number: input,
+      }),
+    );
+  };
+  useEffect(() => {}, [DataCostomer]);
 
   const styles = StyleSheet.create({
     Grow: {
@@ -105,26 +119,12 @@ const Landline = props => {
       height: moderateScale(44),
       width: moderateScale(290),
       marginTop: moderateScale(4),
-      backgroundColor:
-        nometer === ''
-          ? 'white'
-          : nometer.length <= DataCostomer.length
-          ? 'white'
-          : nometer !== DataCostomer
-          ? '#FFF4F7'
-          : 'white',
+      backgroundColor: DataCostomer ? 'white' : '#FFF4F7',
     },
     TextNotRegister: {
       paddingTop: moderateScale(4),
       alignSelf: 'center',
-      color:
-        nometer === ''
-          ? '#EBEDF4'
-          : nometer.length <= DataCostomer.length
-          ? '#EBEDF4'
-          : nometer !== DataCostomer
-          ? '#EB5757'
-          : '#EBEDF4',
+      color: DataCostomer ? '#EBEDF4' : '#EB5757',
       fontSize: moderateScale(12),
       fontFamily: 'Montserrat-Regular',
     },
@@ -195,8 +195,8 @@ const Landline = props => {
             <Text style={styles.TextHeadNometer}>Telephone number</Text>
             <TextInput
               style={styles.inputNoMeter}
-              onChangeText={setNometer}
-              value={nometer}
+              onChangeText={setInput}
+              value={input}
               placeholder=" E.g 141234567890"
               keyboardType="numeric"
             />
@@ -207,9 +207,7 @@ const Landline = props => {
 
         <View style={styles.ContainerHarga}>
           <TouchableOpacity
-            onPress={() =>
-              props.navigation.navigate('LandlineResult', 'Landline')
-            }
+            onPress={submitDataCostomer}
             style={styles.ContainerButtonConfirm}>
             <View style={styles.ButtonConfirm}>
               <Text style={styles.TextButtonConfirm}>Confirm</Text>

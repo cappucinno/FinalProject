@@ -20,7 +20,8 @@ import LandlineResult from './Landline/LandlineResult';
 import InternetTv from './InternetTv/InternetTv';
 import ListPaymentInternetTv from './InternetTv/ListPayment/ListPaymentInternetTv';
 import DetailPaymentInternetTv from './InternetTv/DetailPaymentINternetTv/DetailPaymentInternetTv';
-import ResultPaymentInternetTv from './InternetTv/ResultPaymentInternetTv/ResultPaymentInternetTv';
+import ResultPaymentCreditInternetTv from './InternetTv/ResultPaymentInternetTv/ResultPaymentCreditInternetTv';
+import ResultPaymentBankInternetTv from './InternetTv/ResultPaymentInternetTv/ResultPaymentBankInternetTv';
 import BPJS from './BPJS/BPJS';
 import DetailPaymentBPJS from './BPJS/DetailPaymentBPJS';
 import ResultPaymentBPJS from './BPJS/ResultPaymentBPJS';
@@ -40,6 +41,7 @@ import NewPDAMBlank from './PDAM/NewPDAMBlank';
 import NewPDAMBillDetail from './PDAM/NewPDAMBillDetail';
 import NewPDAMBankPayment from './PDAM/NewPDAMBankPayment';
 import EditProfile from './Profile/EditProfile';
+import DetailPaymentLandline from './Landline/DetailPaymentLandline';
 
 export {
   Electricity,
@@ -64,7 +66,8 @@ export {
   InternetTv,
   ListPaymentInternetTv,
   DetailPaymentInternetTv,
-  ResultPaymentInternetTv,
+  ResultPaymentCreditInternetTv,
+  ResultPaymentBankInternetTv,
   NewSubscription,
   NSBillsCategory,
   NSMobile,
@@ -83,4 +86,5 @@ export {
   NewPDAMBillDetail,
   NewPDAMBankPayment,
   EditProfile,
+  DetailPaymentLandline,
 };
