@@ -30,7 +30,7 @@ const ResultPaymentBankInternetTv = props => {
   const [second, setSecond] = useState(59);
   const [upload, setUpload] = useState(false);
 
-  const resPayment = useSelector(state => state.inTvReducer?.resBill);
+  const resPayment = useSelector(state => state.inTvReducer?.resBill.data);
   console.log(resPayment, '<==== ini res payment');
 
   const toggleOverlayUpload = () => {

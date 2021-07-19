@@ -22,7 +22,7 @@ const Mobile = props => {
     }
   });
 
-  console.log(DataOptionMobile, 'ini hasil data option internet tv');
+  console.log(DataOptionMobile, 'ini hasil data option Mobile');
 
   useEffect(() => {
     dispatch(MobileOptionAction());
@@ -35,6 +35,8 @@ const Mobile = props => {
       Page: d.name,
     };
   });
+
+  console.log(dataentry, '<==== ini data entry');
 
   return (
     <SafeAreaView style={{flex: 1}}>

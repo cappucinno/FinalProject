@@ -58,44 +58,73 @@ const DetailPaymentInternetTv = props => {
   const [pinuser, setPinUser] = useState('');
   const [countFalse, setCountFalse] = useState(2);
   const dispatch = useDispatch();
-  const month = {
-    Jan: '01',
-    Feb: '02',
-    Mar: '03',
-    Apr: '04',
-    May: '05',
-    Jun: '06',
-    Jul: '07',
-    Agu: '08',
-    Oct: '09',
-    Sep: '10',
-    Nov: '11',
-    Des: '12',
+
+  const dateChoice = () => date + ''.slice(4, 16);
+  const resDatePicker = () => {
+    let year = dateChoice().slice(11, 15);
+    let dateChoicez = dateChoice().slice(9, 10);
+    let months = dateChoice().slice(4, 7);
+    let resMonth =
+      months === 'Jan'
+        ? '01'
+        : months === 'Feb'
+        ? '02'
+        : months === 'Mar'
+        ? '03'
+        : months === 'Apr'
+        ? '04'
+        : months === 'May'
+        ? '05'
+        : months === 'Jun'
+        ? '06'
+        : months === 'Jul'
+        ? '07'
+        : months === 'Aug'
+        ? '08'
+        : months === 'Oct'
+        ? '09'
+        : months === 'Sep'
+        ? '10'
+        : months === 'Nov'
+        ? '11'
+        : months === 'Dec'
+        ? '12'
+        : null;
+    return year + '-' + resMonth + '-' + dateChoicez;
   };
-  const [recuring, setRecuring] = useState({
-    status: false,
-    period: value,
-    date: '',
-  });
-  console.log(value, 'ini values');
-  console.log(recuring.status, 'ini status recuring');
+  useEffect(() => {
+    setRecuring({
+      ...recuring,
+      period: value,
+    });
+  }, [period]);
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }, []);
 
-  const paymentMethod = {
-    type: 'Bank Transfer',
-    bank_destination: 'Mandiri',
-  };
+  // Data yg diKirim MASIH BUG PERIOD TAK TERBACA
+  const [recuring, setRecuring] = useState({
+    status: cheked,
+    period: '',
+    date: value === 'Week' ? `${dateNow}-09-${valueDate}` : resDatePicker(),
+  });
 
-  // Data yg diKirim
   const recuringBilling = {
     status: recuring.status ? recuring.status : '',
-    period: recuring.status ? period.value : '',
-    date: recuring.status ? dateChoice : '',
+    period: recuring.status ? recuring.period : '',
+    date: recuring.status ? recuring.date : '',
   };
 
+  console.log(recuring.period, 'ini hasil recuring');
+  console.log(recuring.status, 'ini status recuring');
+
+  const paymentMethod = {
+    type: 'Bank Transfer',
+    bank_destination: '1',
+  };
+
+  // `${dateNow}-09-${valueDate}`
   const toggleOverlay = () => {
     setVisible(!visible);
   };
@@ -151,26 +180,20 @@ const DetailPaymentInternetTv = props => {
     );
   };
 
-  const dateChoice = () => {
-    let res = date + '';
-    let resDate = res.slice(4, 16);
-    return resDate;
-  };
+  console.log(date, ' ini date picker');
   const isLoading = useSelector(state => state.GlobalReducer.Loading);
 
   const dateNow = DetailRes?.payment_period[0].slice(4, 8);
   console.log(dateNow, 'inidate now');
 
-  const ConvertMonth = DetailRes?.payment_period[0].slice(0, 3);
-  console.log(ConvertMonth, ' ini bulan');
-  console.log(month.ConvertMonth, ' ini bulan angka');
+  console.log(resDatePicker(), ' ini date picker New');
 
-  const sendDate = () => {
-    if (value === 'Week') {
-      console.log(`${dateNow}-09-${valueDate}, ini tanggal loh`);
-    }
-  };
-  sendDate();
+  // const sendDate = () => {
+  //   if (value === 'Week') {
+  //     console.log(`${dateNow}-09-${valueDate}, ini tanggal loh`);
+  //   }
+  // };
+  // sendDate();
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView contentContainerStyle={styles.Grow} style={styles.container}>
@@ -338,7 +361,7 @@ const DetailPaymentInternetTv = props => {
                                   marginTop: moderateScale(10),
                                   marginLeft: moderateScale(12),
                                 }}>
-                                {dateChoice()}
+                                {resDatePicker()}
                               </Text>
                             ) : (
                               <Text
@@ -367,12 +390,12 @@ const DetailPaymentInternetTv = props => {
                               fontFamily: 'Montserrat-Bold',
                               color: '#263765',
                             }}>
-                            {dateChoice()}
+                            {resDatePicker()}
                           </Text>
                         </Text>
                         <Text style={styles.TextInfo1}>
-                          Pay before {dateChoice()}, 23:59 to avoid late payment
-                          fee
+                          Pay before {resDatePicker()}, 23:59 to avoid late
+                          payment fee
                         </Text>
                       </View>
                     </View>
@@ -398,7 +421,7 @@ const DetailPaymentInternetTv = props => {
         <DatePicker
           date={date}
           onDateChange={setDate}
-          mode={'date'}
+          mode={('year', 'month', 'date')}
           androidVariant={'nativeAndroid'}
           textColor={'#4493AC'}
           minimumDate={new Date(dateNow)}

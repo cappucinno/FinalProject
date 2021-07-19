@@ -5,7 +5,9 @@ import {takeLatest, put, select} from 'redux-saga/effects';
 import {
   ElectricityOptionActionSuccess,
   ElectricityTokenActionSuccess,
-  ElectricityAccountActionSuccess,
+  ElectricityTokenAccountActionSuccess,
+  ElectricityTokenCreatePaymentActionSuccess,
+  ElectricityTagihanAccountActionSuccess,
 } from './action';
 import {
   actionLoading,
@@ -60,7 +62,7 @@ function* ElectricityOptionAction(action) {
   }
 }
 
-// GET Token
+// GET Token List Pay
 const ElectricityToken = (payload, token) => {
   return axios({
     method: 'POST',
@@ -72,7 +74,7 @@ const ElectricityToken = (payload, token) => {
   });
 };
 
-// GET TOKEN
+//GET Token List Pay
 function* ElectricityTokenAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
   try {
@@ -120,7 +122,7 @@ const ElectricityUserToken = (payload, token) => {
 };
 
 // GET User Elect Token
-function* ElectricityAccountAction(action) {
+function* ElectricityTokenAccountAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
   try {
     yield put(actionLoading(true));
@@ -129,13 +131,72 @@ function* ElectricityAccountAction(action) {
       action.payload,
       '<=======ini hasil Get User Token Electricity API',
     );
+    if (res.status === 200 && res.data) {
+      console.log(res.data, 'ini hasil res');
+      console.log('Berhasil Mengambil data Get User Token Electricity');
+
+      yield put(ElectricityTokenAccountActionSuccess(res.data));
+      yield put(actionLoading(false));
+      yield navigate('DetailPaymentElectricity', 'PLN - Token');
+    }
+    if (res.status === 202) {
+      yield put(actionSuccess(false));
+
+      const errorMessage = res.statusText + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
+    }
+    if (res.status === 204) {
+      yield put(actionSuccess(false));
+      yield put(actionIsLogged(false));
+
+      const errorMessage = res.statusText + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
+    }
+  } catch (err) {
+    if (err.response === 401) {
+      yield put(actionIsLogged(false));
+      const errorMessage = err.response.data.message + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
+    } else {
+      yield put(actionSuccess(false));
+      console.log(err.response, 'Gagal Mengambil data');
+      const errorMessage = err.response.data.message + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
+    }
+  } finally {
+    yield put(actionLoading(false));
+  }
+}
+
+// CREATE PAY Elect Token
+const ElectricityCreatePayToken = (payload, token) => {
+  return axios({
+    method: 'POST',
+    url: 'https://biller-app-api.herokuapp.com/api/biller/electricity/bill/token/bankpayment',
+    data: payload,
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  });
+};
+
+// CREATE PAY Elect Token
+function* ElectricityTokenCreatePayAction(action) {
+  const token = yield select(state => state.GlobalReducer.token);
+  try {
+    yield put(actionLoading(true));
+    const res = yield ElectricityCreatePayToken(action.payload, token);
+    console.log(
+      action.payload,
+      '<=======ini hasil Get User Token Electricity API',
+    );
     if (res && res.data) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Mengambil data Get User Token Electricity');
 
-      yield put(ElectricityAccountActionSuccess(res.data));
+      yield put(ElectricityTokenCreatePaymentActionSuccess(res.data));
       yield put(actionLoading(false));
-      yield navigate('DetailPaymentElectricity', 'PLN - Token');
+      yield navigate('ResultPaymentElectToken', 'PLN - Token');
     } else if (res.status === 204) {
       yield put(actionSuccess(false));
       yield put(actionIsLogged(false));
@@ -149,6 +210,66 @@ function* ElectricityAccountAction(action) {
       const errorMessage = err.response.data.message + '';
       ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
     } else {
+      yield put(actionSuccess(false));
+      console.log(err.response, 'Gagal Mengambil data');
+      const errorMessage = err.response.data.message + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
+    }
+  } finally {
+    yield put(actionLoading(false));
+  }
+}
+
+// GET User Elect TAGIHAN
+const ElectricityUserTagihan = (payload, token) => {
+  return axios({
+    method: 'POST',
+    url: 'https://biller-app-api.herokuapp.com/api/biller/electricity/bill/tagihan/info',
+    data: payload,
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  });
+};
+
+// GET User Elect TAGIHAN
+function* ElectricityTagihanAccountAction(action) {
+  const token = yield select(state => state.GlobalReducer.token);
+  try {
+    yield put(actionLoading(true));
+    const res = yield ElectricityUserTagihan(action.payload, token);
+    console.log(
+      action.payload,
+      '<=======ini hasil Get User Tagihan Electricity API',
+    );
+    if (res.status === 200 && res.data) {
+      console.log(res.data, 'ini hasil res');
+      console.log('Berhasil Mengambil data Get User Tagihan Electricity');
+
+      yield put(ElectricityTagihanAccountActionSuccess(res.data));
+      yield put(actionLoading(false));
+      yield navigate('DetailPaymentElectricity', 'PLN - Tagihan');
+    }
+    if (res.status === 202) {
+      yield put(actionSuccess(false));
+
+      const errorMessage = res.statusText + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
+    }
+    if (res.status === 204) {
+      yield put(actionSuccess(false));
+      yield put(actionIsLogged(false));
+
+      const errorMessage = res.statusText + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
+    }
+  } catch (err) {
+    if (err.response === 401) {
+      yield put(actionIsLogged(false));
+      const errorMessage = err.response.data.message + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
+    } else {
+      yield put(actionSuccess(false));
       console.log(err.response, 'Gagal Mengambil data');
       const errorMessage = err.response.data.message + '';
       ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
@@ -161,7 +282,18 @@ function* ElectricityAccountAction(action) {
 function* ElectricitySaga() {
   yield takeLatest('GET_OPTION_ELECTRICITY', ElectricityOptionAction);
   yield takeLatest('GET_TOKEN_ELECTRICITY', ElectricityTokenAction);
-  yield takeLatest('GET_ACCOUNT_ELECTRICITY', ElectricityAccountAction);
+  yield takeLatest(
+    'GET_TOKEN_ACCOUNT_ELECTRICITY',
+    ElectricityTokenAccountAction,
+  );
+  yield takeLatest(
+    'CREATE_TOKEN_ELECTRICITY_PAYMENT',
+    ElectricityTokenCreatePayAction,
+  );
+  yield takeLatest(
+    'GET_TAGIHAN_ACCOUNT_ELECTRICITY',
+    ElectricityTagihanAccountAction,
+  );
 }
 
 export default ElectricitySaga;

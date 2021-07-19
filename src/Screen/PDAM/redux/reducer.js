@@ -1,6 +1,7 @@
 const initialState = {
   dataOption: [],
   dataUser: [],
+  resBill: [],
 };
 
 const PDAMOptionReducer = (state = initialState, action) => {
@@ -25,6 +26,17 @@ const PDAMOptionReducer = (state = initialState, action) => {
       return {
         ...state,
         dataUser: action.payload,
+      };
+
+    case 'CREATE_PDAM_PAYMENT':
+      return {
+        ...state,
+      };
+
+    case 'CREATE_PDAM_PAYMENT_SUCCESS':
+      return {
+        ...state,
+        resBill: action.payload,
       };
     default:
       return state;

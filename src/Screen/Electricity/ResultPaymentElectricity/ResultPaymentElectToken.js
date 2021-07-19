@@ -6,11 +6,13 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
 import {moderateScale} from 'react-native-size-matters';
 import FastImage from 'react-native-fast-image';
 import {BottomSheet} from 'react-native-elements';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
@@ -24,11 +26,16 @@ import {
 const ResultPaymentElectToken = props => {
   const [pay, setPay] = useState(false);
   const [image, setImage] = useState('');
-  console.log(image, 'ini image');
-  const [visible, setVisible] = useState(false);
+  const [timer, setTimer] = useState(59);
+  const [second, setSecond] = useState(59);
+  const [upload, setUpload] = useState(false);
+  const resPayment = useSelector(
+    state => state.ElectricityReducer?.resBill.data,
+  );
+  console.log(resPayment, '<==== ini res payment');
 
-  const toggleOverlay = () => {
-    setVisible(!visible);
+  const toggleOverlayUpload = () => {
+    setUpload(!upload);
   };
 
   const pickImage = () => {
@@ -63,6 +70,33 @@ const ResultPaymentElectToken = props => {
       },
     );
   };
+
+  useEffect(() => {
+    if (!second && timer) {
+      setSecond(60);
+      setTimer(timer - 1);
+    }
+    if (pay === true) {
+      return;
+    }
+    if (timer === 0 && second === 0) {
+      ToastAndroid.show(
+        'Waktu anda habis, Transaksi di batalkan',
+        ToastAndroid.LONG,
+        ToastAndroid.TOP,
+      );
+      props.navigation.navigate('Home');
+    }
+    if (!second) {
+      return;
+    }
+
+    const intervalId = setInterval(() => {
+      setSecond(second - 1);
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [second]);
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -257,25 +291,34 @@ const ResultPaymentElectToken = props => {
                       fontSize: moderateScale(13),
                       fontFamily: 'Montserrat-Bold',
                     }}>
-                    59min 59s
+                    {`${timer}min ${second}S`}
                   </Text>
                 </View>
                 <View style={styles.ContainerForm1}>
                   <View style={styles.Form1}>
                     <Text>Total</Text>
-                    <Text style={styles.textRes}>RP 51.500,000</Text>
+                    <Text
+                      style={
+                        styles.textRes
+                      }>{`Rp ${resPayment?.bankTransferDetails.Total}`}</Text>
                   </View>
                   <View style={styles.Form1}>
                     <Text>Bank</Text>
-                    <Text style={styles.textRes}>Bank Central Asia</Text>
+                    <Text style={styles.textRes}>
+                      {resPayment?.bankTransferDetails.account_bank}
+                    </Text>
                   </View>
                   <View style={styles.Form1}>
                     <Text>Account Name</Text>
-                    <Text style={styles.textRes}>PT.Biller Indonesia</Text>
+                    <Text style={styles.textRes}>
+                      {resPayment?.bankTransferDetails.account_name}
+                    </Text>
                   </View>
                   <View style={styles.Form1}>
                     <Text>Account No</Text>
-                    <Text style={styles.textRes}>1234567890</Text>
+                    <Text style={styles.textRes}>
+                      {resPayment?.bankTransferDetails.account_number}
+                    </Text>
                   </View>
 
                   {/* gambar */}
@@ -317,7 +360,7 @@ const ResultPaymentElectToken = props => {
                   ) : (
                     <TouchableOpacity
                       style={styles.ContainerAdd}
-                      onPress={toggleOverlay}>
+                      onPress={toggleOverlayUpload}>
                       <Text style={styles.TextAddCard}>Upload Receipt</Text>
                     </TouchableOpacity>
                   )}
@@ -327,34 +370,48 @@ const ResultPaymentElectToken = props => {
                 <View style={styles.ContainerTextBillDetail1}>
                   <Text style={styles.TextHeadBill}>Bill Details</Text>
                   <View style={styles.ContainerTextData}>
+                    <Text style={styles.TextData}>No Meter</Text>
+                    <Text style={styles.TextDataRes}>
+                      {resPayment.accInfo.No_Meter}
+                    </Text>
+                  </View>
+                  <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>IDPEL</Text>
-                    <Text style={styles.TextDataRes}>511234567890</Text>
+                    <Text style={styles.TextDataRes}>
+                      {resPayment.accInfo.IDPEL}
+                    </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>Name</Text>
-                    <Text style={styles.TextDataRes}>Justin Junaedi</Text>
+                    <Text style={styles.TextDataRes}>
+                      {resPayment.accInfo.Name}
+                    </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>Tarif/Daya</Text>
-                    <Text style={styles.TextDataRes}>R1/2200 VA</Text>
-                  </View>
-                  <View style={styles.ContainerTextData}>
-                    <Text style={styles.TextData}>Bulan/Tahun</Text>
-                    <Text style={styles.TextDataRes}>May 2021</Text>
-                  </View>
-                  <View style={styles.ContainerTextData}>
-                    <Text style={styles.TextData}>Stand Meter</Text>
-                    <Text style={styles.TextDataRes}>00001804-00002054</Text>
+                    <Text style={styles.TextDataRes}>
+                      {resPayment.accInfo.Tarif_Daya}
+                    </Text>
                   </View>
                 </View>
                 <View style={styles.ContainerTextBillDetail2}>
                   <View style={styles.ContainerTextData}>
-                    <Text style={styles.TextData}>Bill</Text>
-                    <Text style={styles.TextDataRes}>Rp 89.704,00</Text>
+                    <Text style={styles.TextData}>Token</Text>
+                    <Text style={styles.TextDataRes}>
+                      Rp {resPayment.accInfo.Token}
+                    </Text>
+                  </View>
+                  <View style={styles.ContainerTextData}>
+                    <Text style={styles.TextData}>PPJ</Text>
+                    <Text style={styles.TextDataRes}>
+                      Rp {resPayment.accInfo.PPJ}
+                    </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>Admin</Text>
-                    <Text style={styles.TextDataRes}>Rp 1.500,00</Text>
+                    <Text style={styles.TextDataRes}>
+                      Rp {resPayment.accInfo.Admin}
+                    </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text
@@ -363,7 +420,7 @@ const ResultPaymentElectToken = props => {
                     </Text>
                     <Text
                       style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
-                      Rp 51.500,00
+                      Rp {resPayment.accInfo.Total}
                     </Text>
                   </View>
                 </View>
@@ -381,7 +438,7 @@ const ResultPaymentElectToken = props => {
               Back to home
             </Text>
           </TouchableOpacity>
-          <BottomSheet isVisible={visible}>
+          <BottomSheet isVisible={upload}>
             <View style={styles.containerOverlay}>
               <View style={styles.HeaderBottmSheet}>
                 <Text style={styles.headerOverlay}>Upload Receipt</Text>
@@ -441,7 +498,7 @@ const ResultPaymentElectToken = props => {
                     borderRadius: moderateScale(4),
                     alignSelf: 'center',
                   }}
-                  onPress={toggleOverlay}>
+                  onPress={toggleOverlayUpload}>
                   <Text
                     style={{
                       color: 'white',

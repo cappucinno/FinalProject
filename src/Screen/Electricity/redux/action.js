@@ -18,22 +18,42 @@ export const ElectricityTokenActionSuccess = payload => {
   return {type: 'GET_TOKEN_ELECTRICITY_SUCCESS', payload};
 };
 
-// GET Tagihan Price List
-export const ElectricityTagihanAction = payload => {
-  return {type: 'GET_TAGIHAN_ELECTRICITY', payload};
+// GET TOKEN ACCOUNT ELECTRICITY
+export const ElectricityTokenAccountAction = payload => {
+  return {type: 'GET_TOKEN_ACCOUNT_ELECTRICITY', payload};
 };
 
-// GET Tagihan Price List
-export const ElectricityTagihanActionSuccess = payload => {
-  return {type: 'GET_TAGIHAN_ELECTRICITY_SUCCESS', payload};
+// GET TOKEN ACCOUNT ELECTRICITY
+export const ElectricityTokenAccountActionSuccess = payload => {
+  return {type: 'GET_TOKEN_ACCOUNT_ELECTRICITY_SUCCESS', payload};
 };
 
-// GET ACCOUNT ELECTRICITY
-export const ElectricityAccountAction = payload => {
-  return {type: 'GET_ACCOUNT_ELECTRICITY', payload};
+// GET TAGIHAN ACCOUNT ELECTRICITY
+export const ElectricityTagihanAccountAction = payload => {
+  return {type: 'GET_TAGIHAN_ACCOUNT_ELECTRICITY', payload};
 };
 
-// GET ACCOUNT ELECTRICITY
-export const ElectricityAccountActionSuccess = payload => {
-  return {type: 'GET_ACCOUNT_ELECTRICITY_SUCCESS', payload};
+// GET TAGIHAN ACCOUNT ELECTRICITY
+export const ElectricityTagihanAccountActionSuccess = payload => {
+  return {type: 'GET_TAGIHAN_ACCOUNT_ELECTRICITY_SUCCESS', payload};
+};
+
+// CREATE TOKEN PAYMENT ELECTRICITY
+export const ElectricityTokenCreatePaymentAction = payload => {
+  return {type: 'CREATE_TOKEN_ELECTRICITY_PAYMENT', payload};
+};
+
+// CREATE TOKEN PAYMENT ELECTRICITY
+export const ElectricityTokenCreatePaymentActionSuccess = payload => {
+  return {type: 'CREATE_TOKEN_ELECTRICITY_PAYMENT_SUCCESS', payload};
+};
+
+// CREATE TOKEN PAYMENT ELECTRICITY
+export const ElectricityTagihanCreatePaymentAction = payload => {
+  return {type: 'CREATE_TAGIHAN_ELECTRICITY_PAYMENT', payload};
+};
+
+// CREATE TOKEN PAYMENT ELECTRICITY
+export const ElectricityTagihanCreatePaymentActionSuccess = payload => {
+  return {type: 'CREATE_TAGIHAN_ELECTRICITY_PAYMENT_SUCCESS', payload};
 };

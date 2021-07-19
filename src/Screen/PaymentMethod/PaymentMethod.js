@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,12 +8,13 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import {useDispatch, useSelector} from 'react-redux';
 import {moderateScale} from 'react-native-size-matters';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
-
+import {BankAccountAction, SavePaymentMethodAction} from './redux/action';
 import {
   ArrowBack,
   Radio,
@@ -22,46 +23,59 @@ import {
   IconMasterCard,
   mandiri,
   BCA,
+  BNI,
 } from '../../Assets/Assets';
 
 const PaymentMethod = props => {
-  const [isselected, setIsSelected] = useState('');
-  const [radio, setRadio] = useState('');
+  const [selectBg, setSelectBg] = useState(false);
+  const [radio, setRadio] = useState(false);
   const [savedata, Setsavedata] = useState({
     type: '',
-    bank_destination: '',
+    bank_destination_id: '',
+    bank_name: '',
   });
-  console.log(savedata.type, 'ini hasil senddata Payment Method');
-  console.log(savedata.bank_destination, 'ini hasil senddata Bank');
   console.log(savedata, 'data full payment Method');
+  const dispatch = useDispatch();
+  const DataBank = useSelector(state => {
+    console.log(state, '<===== ini state');
+    // ini aku tambahin untuk handling data pertama kali waktu masih null
+    if (
+      state.BankReducer.dataBank.data != null &&
+      state.BankReducer.dataBank.data.length > 0
+    ) {
+      return state.BankReducer.dataBank.data;
+    } else {
+      return [];
+    }
+  });
 
-  const PaymentMethod = [
-    {
-      TransferBank: [
-        {name: 'BCA', logo: BCA},
-        {name: 'MANDIRI', logo: mandiri},
-      ],
-    },
-    {
-      CreditCard: [
-        {name: 'VISA', logo: IconVisa},
-        {name: 'MasterCard', logo: IconMasterCard},
-      ],
-    },
-  ];
+  useEffect(() => {
+    dispatch(BankAccountAction());
+  }, [dispatch]);
 
-  const DataBankUser = '1234 1234 1234 1234';
+  const PageDetail = props.route.params + '';
+  console.log(PageDetail, '<<<<< ini Page Detail');
+
+  const paymentMethod = ['Bank Transfer', 'Credit Card'];
 
   const cardHide = card => {
     let hideNum = [];
     for (let i = 0; i < card.length; i++) {
-      if (i < card.length - 4) {
+      if (i < card.length - 6) {
         hideNum.push('*');
       } else {
         hideNum.push(card[i]);
       }
     }
     return hideNum.join('');
+  };
+
+  // cek info bank
+  const BankInfo = b =>
+    b === 'BCA' ? BCA : b === 'Mandiri' ? mandiri : b === 'BNI' ? BNI : null;
+
+  const saveData = () => {
+    dispatch(SavePaymentMethodAction(savedata));
   };
 
   return (
@@ -80,80 +94,92 @@ const PaymentMethod = props => {
           </View>
         </View>
         <View style={styles.ContainerIsiPayment}>
-          {PaymentMethod.map((v, i) => {
-            console.log(v, ' ini v');
-            return (
-              <View key={i}>
-                <View
-                  style={[
-                    styles.ContainerBank,
-                    {
-                      borderColor: isselected === i ? '#3E89AE' : 'white',
-                      height:
-                        isselected === i
-                          ? heightPercentageToDP(30)
-                          : heightPercentageToDP(6),
-                    },
-                  ]}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      Setsavedata({
-                        ...savedata,
-                        type: Object.keys(v).join(''),
-                      });
-                      setIsSelected(i);
-                    }}>
-                    <Text style={styles.TextBank}>{Object.keys(v)}</Text>
-                  </TouchableOpacity>
-                  {isselected === i ? (
-                    <>
-                      {v[Object.keys(v)].map((e, z) => {
-                        return (
+          <View>
+            {paymentMethod.map((v, i) => {
+              return (
+                <TouchableOpacity
+                  key={i}
+                  onPress={() => {
+                    Setsavedata({
+                      ...savedata,
+                      type: paymentMethod[i],
+                    });
+                    setSelectBg(i);
+                  }}>
+                  <View
+                    style={[
+                      styles.ContainerBank,
+                      {
+                        borderColor: selectBg === i ? '#3E89AE' : 'white',
+                        height:
+                          selectBg === i
+                            ? heightPercentageToDP(30)
+                            : heightPercentageToDP(7),
+                      },
+                    ]}>
+                    <View>
+                      <Text style={styles.TextBank}>{paymentMethod[i]}</Text>
+                    </View>
+                    {selectBg === i ? (
+                      <>
+                        {paymentMethod[i] === 'Bank Transfer' ? (
+                          <>
+                            {DataBank.map((z, x) => {
+                              return (
+                                <TouchableOpacity
+                                  key={x}
+                                  onPress={() => {
+                                    Setsavedata({
+                                      ...savedata,
+                                      bank_destination_id: z.id,
+                                      bank_name: z.account_bank,
+                                    });
+                                    setRadio(x);
+                                  }}>
+                                  <View style={styles.ContainerRadio}>
+                                    <FastImage
+                                      style={styles.RadioBtn}
+                                      source={radio === x ? RadioActive : Radio}
+                                      resizeMode={FastImage.resizeMode.contain}
+                                    />
+                                    <FastImage
+                                      style={styles.LogoBank}
+                                      source={BankInfo(z.account_bank)}
+                                      resizeMode={FastImage.resizeMode.contain}
+                                    />
+                                    <Text style={styles.NumberCard}>
+                                      {cardHide(z.account_number)}
+                                    </Text>
+                                  </View>
+                                </TouchableOpacity>
+                              );
+                            })}
+                          </>
+                        ) : null}
+                        {paymentMethod[i] === 'Bank Transfer' ? null : (
                           <TouchableOpacity
-                            key={z}
-                            onPress={() => {
-                              Setsavedata({
-                                ...savedata,
-                                bank_destination: e.name,
-                              });
-                              setRadio(z);
-                            }}>
-                            <View style={styles.ContainerRadio}>
-                              <FastImage
-                                style={styles.RadioBtn}
-                                source={radio === z ? RadioActive : Radio}
-                                resizeMode={FastImage.resizeMode.contain}
-                              />
-                              <FastImage
-                                style={styles.LogoBank}
-                                source={e.logo}
-                                resizeMode={FastImage.resizeMode.contain}
-                              />
-                              <Text style={styles.NumberCard}>
-                                {cardHide(DataBankUser)}
-                              </Text>
-                            </View>
+                            style={styles.ContainerAdd}
+                            onPress={() =>
+                              props.navigation.navigate(
+                                'AddPaymentCardElectric',
+                              )
+                            }>
+                            <Text style={styles.TextAddCard}>Add NewCard</Text>
                           </TouchableOpacity>
-                        );
-                      })}
-                    </>
-                  ) : null}
-                  {isselected === i ? (
-                    <TouchableOpacity
-                      style={styles.ContainerAdd}
-                      onPress={() =>
-                        props.navigation.navigate('AddPaymentCardElectric')
-                      }>
-                      <Text style={styles.TextAddCard}>Add NewCard</Text>
-                    </TouchableOpacity>
-                  ) : null}
-                </View>
-              </View>
-            );
-          })}
+                        )}
+                      </>
+                    ) : null}
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
         </View>
       </ScrollView>
-      <TouchableOpacity onPress={() => props.navigation.navigate(savedata)}>
+      <TouchableOpacity
+        onPress={() => {
+          saveData(), props.navigation.navigate(PageDetail);
+        }}>
         <View style={styles.ContainerSave}>
           <Text style={styles.TextButtonSave}>SAVE</Text>
         </View>

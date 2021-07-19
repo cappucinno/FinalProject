@@ -18,12 +18,12 @@ export const LandlineAccountActionSuccess = payload => {
   return {type: 'GET_ACCOUNT_LANDLINE_SUCCESS', payload};
 };
 
-// CREATE PAYMENT INTV
+// CREATE PAYMENT LANDLINE
 export const LandlineCreatePaymentAction = payload => {
-  return {type: 'CREATE_INTV_PAYMENT', payload};
+  return {type: 'CREATE_LANDLINE_PAYMENT', payload};
 };
 
-// GET ACCOUNT INTV
+// GET ACCOUNT LANDLINE
 export const LandlineCreatePaymentActionSuccess = payload => {
-  return {type: 'CREATE_INTV_PAYMENT_SUCCESS', payload};
+  return {type: 'CREATE_LANDLINE_PAYMENT_SUCCESS', payload};
 };

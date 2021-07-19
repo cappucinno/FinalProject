@@ -43,9 +43,6 @@ const ListPaymentElectricity = props => {
     if (title === 'PLN - Token') {
       dispatch(ElectricityTokenAction({option_id: '1'}));
     }
-    if (title === 'PLN - Tagihan') {
-      dispatch(ElectricityTagihanAction());
-    }
   }, [dispatch]);
 
   const DataCostomer = useSelector(state => state.GlobalReducer.Success);

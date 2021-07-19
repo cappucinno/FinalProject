@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,15 +10,14 @@ import {
 import ComListPayMobile from '../../../Component/ComListPayMobile/ComListPayMobile';
 import FastImage from 'react-native-fast-image';
 import {moderateScale} from 'react-native-size-matters';
-import {
-  heightPercentageToDP,
-  widthPercentageToDP,
-} from 'react-native-responsive-screen';
 import {IconMobileActive} from '../../../Assets/Assets';
+import {MobileAccountAction} from '../redux/action';
+import {useSelector, useDispatch} from 'react-redux';
 
 const ListPaymentMobile = props => {
+  const [input, setInput] = useState('');
   const title = props.route.params;
-  console.log(title, '<<<<< ini title');
+  console.log(title, '<<<<< ini Mobile');
   const ListHargaMobile = [
     {
       harga: '20.000',
@@ -67,7 +66,7 @@ const ListPaymentMobile = props => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView contentContainerStyle={styles.Grow} style={styles.container}>
-        {title === 'Pulsa(pre-paid)' ? (
+        {title === 'Pulsa (Pre-Paid)' ? (
           <ComListPayMobile
             navigation={props.navigation}
             headtitle={'Mobile'}
@@ -78,7 +77,7 @@ const ListPaymentMobile = props => {
             datacostomer={DataCostomer}
             alamat={alamat}
           />
-        ) : title === 'Internet(pre-paid)' ? (
+        ) : title === 'Internet (Pre-Paid)' ? (
           <ComListPayMobile
             navigation={props.navigation}
             headtitle={'Mobile'}
@@ -89,7 +88,7 @@ const ListPaymentMobile = props => {
             datacostomer={DataCostomer}
             alamat={alamat}
           />
-        ) : title === 'Pasca bayar(post-paid' ? (
+        ) : title === 'Pasca Bayar (Post-Paid)' ? (
           <ComListPayMobile
             navigation={props.navigation}
             headtitle={'Mobile'}

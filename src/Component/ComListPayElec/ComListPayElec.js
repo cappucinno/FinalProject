@@ -16,7 +16,10 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import {ArrowBack, IconElectricityActive} from '../../Assets/Assets';
-import {ElectricityAccountAction} from '../../Screen/Electricity/redux/action';
+import {
+  ElectricityTokenAccountAction,
+  ElectricityTagihanAccountAction,
+} from '../../Screen/Electricity/redux/action';
 
 const ComListPayElec = ({
   navigation,
@@ -42,12 +45,21 @@ const ComListPayElec = ({
   const dispatch = useDispatch();
 
   const submitDataCostomer = () => {
-    dispatch(
-      ElectricityAccountAction({
-        nomor_meter: nometer,
-        price: priceSelect.price,
-      }),
-    );
+    if (titleicon === 'PLN - Token') {
+      dispatch(
+        ElectricityTokenAccountAction({
+          nomor_meter: nometer,
+          price: priceSelect.price,
+        }),
+      );
+    }
+    if (titleicon === 'PLN - Tagihan') {
+      dispatch(
+        ElectricityTagihanAccountAction({
+          idpel: nometer,
+        }),
+      );
+    }
   };
 
   const styles = StyleSheet.create({
