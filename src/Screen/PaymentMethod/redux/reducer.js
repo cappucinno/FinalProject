@@ -1,6 +1,7 @@
 const initialState = {
   dataBank: [],
   paymentMethod: [],
+  paymentCreate: [],
 };
 
 const BankReducer = (state = initialState, action) => {
@@ -19,6 +20,17 @@ const BankReducer = (state = initialState, action) => {
       return {
         ...state,
         paymentMethod: action.payload,
+      };
+
+    case 'CONFIRMATION_PAYMENT':
+      return {
+        ...state,
+      };
+
+    case 'CONFIRMATION_PAYMENT_SUCCESS':
+      return {
+        ...state,
+        paymentCreate: action.payload,
       };
 
     default:

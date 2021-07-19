@@ -17,6 +17,7 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
+import {ConfirmationPaymentAction} from '../../PaymentMethod/redux/action';
 import {
   IconElectricityActive,
   IconCloseWhite,
@@ -33,7 +34,7 @@ const ResultPaymentElectToken = props => {
     state => state.ElectricityReducer?.resBill.data,
   );
   console.log(resPayment, '<==== ini res payment');
-
+  const dispatch = useDispatch();
   const toggleOverlayUpload = () => {
     setUpload(!upload);
   };
@@ -70,13 +71,16 @@ const ResultPaymentElectToken = props => {
       },
     );
   };
+  const StatusPayment = useSelector(
+    state => state.BankReducer?.paymentCreate.message,
+  );
 
   useEffect(() => {
     if (!second && timer) {
       setSecond(60);
       setTimer(timer - 1);
     }
-    if (pay === true) {
+    if (StatusPayment === 'Payment Created') {
       return;
     }
     if (timer === 0 && second === 0) {
@@ -97,6 +101,25 @@ const ResultPaymentElectToken = props => {
 
     return () => clearInterval(intervalId);
   }, [second]);
+
+  const dataMethodPayment = useSelector(
+    state => state.BankReducer?.paymentMethod,
+  );
+  console.log(dataMethodPayment?.bank_destination_id, 'ini bank id payment');
+  const submitReceipt = () => {
+    dispatch(
+      ConfirmationPaymentAction({
+        billId: resPayment?.bill_id,
+        transactionId: resPayment?.transaction_id,
+        bankDestinationId: dataMethodPayment?.bank_destination_id,
+        receipt: image,
+      }),
+    );
+  };
+
+  const ResCreatePayment = useSelector(
+    state => state.BankReducer?.paymentCreate.data.receipt,
+  );
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -128,7 +151,7 @@ const ResultPaymentElectToken = props => {
           </View>
         </View>
         <View>
-          {pay ? (
+          {StatusPayment === 'Payment Created' ? (
             <>
               {/* Recipe */}
               <View style={styles.ContainerReceipt}>
@@ -136,19 +159,27 @@ const ResultPaymentElectToken = props => {
                   <Text style={styles.TextHeadBill}>Receipt</Text>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>No Meter</Text>
-                    <Text style={styles.TextDataRes}>141234567890</Text>
+                    <Text style={styles.TextDataRes}>
+                      {ResCreatePayment.meter_number}
+                    </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>IDPEL</Text>
-                    <Text style={styles.TextDataRes}>511234567890</Text>
+                    <Text style={styles.TextDataRes}>
+                      {ResCreatePayment.customer_number}
+                    </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>Name</Text>
-                    <Text style={styles.TextDataRes}>Justin Junaedi</Text>
+                    <Text style={styles.TextDataRes}>
+                      {ResCreatePayment.name}
+                    </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>Trif/Daya</Text>
-                    <Text style={styles.TextDataRes}>R1/2200</Text>
+                    <Text style={styles.TextDataRes}>
+                      {`${ResCreatePayment.rates}/${ResCreatePayment.power}`}
+                    </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>Ref</Text>
@@ -159,26 +190,35 @@ const ResultPaymentElectToken = props => {
                         fontFamily: 'Montserrat-Bold',
                         marginLeft: moderateScale(150),
                       }}>
-                      0213170Z1E5B19370EAE44JKUID76384
+                      {ResCreatePayment.ref}
                     </Text>
                   </View>
                 </View>
                 <View style={styles.ContainerTextBillDetail2}>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>kwh</Text>
-                    <Text style={styles.TextDataRes}>32,1</Text>
+                    <Text style={styles.TextDataRes}>
+                      {ResCreatePayment.kwh}
+                    </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>Rp Stroom/Token</Text>
-                    <Text style={styles.TextDataRes}>Rp 46.296,00</Text>
+                    <Text style={styles.TextDataRes}>
+                      {`Rp ${ResCreatePayment.token}`}
+                    </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>PPJ</Text>
-                    <Text style={styles.TextDataRes}>Rp 3.704,00</Text>
+                    <Text
+                      style={
+                        styles.TextDataRes
+                      }>{`Rp ${ResCreatePayment.ppj}`}</Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>Admin</Text>
-                    <Text style={styles.TextDataRes}>Rp 1.500,00</Text>
+                    <Text style={styles.TextDataRes}>
+                      {`Rp ${ResCreatePayment.admin_fee}`}
+                    </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text
@@ -187,7 +227,7 @@ const ResultPaymentElectToken = props => {
                     </Text>
                     <Text
                       style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
-                      Rp 51.500,00
+                      {`Rp ${ResCreatePayment.total}`}
                     </Text>
                   </View>
                   <View style={styles.ContainerStromToken}>
@@ -200,7 +240,7 @@ const ResultPaymentElectToken = props => {
                           marginTop: moderateScale(9),
                           alignSelf: 'center',
                         }}>
-                        4060 7604 1644 1230 5567
+                        {ResCreatePayment.stroom_code}
                       </Text>
                     </View>
                   </View>
@@ -229,9 +269,14 @@ const ResultPaymentElectToken = props => {
                   <View style={styles.ContainerListBill}>
                     <View>
                       <Text style={styles.TextIcon1}>PLN - Token</Text>
-                      <Text style={styles.TextIcon2}>141234567890</Text>
+                      <Text style={styles.TextIcon2}>
+                        {ResCreatePayment.meter_number}
+                      </Text>
                     </View>
-                    <Text style={styles.TextIcon3}>Rp.51,500</Text>
+                    <Text
+                      style={
+                        styles.TextIcon3
+                      }>{`Rp ${ResCreatePayment.total}`}</Text>
                   </View>
                 </View>
                 <View style={styles.ContainerTotal}>
@@ -251,7 +296,7 @@ const ResultPaymentElectToken = props => {
                       marginTop: moderateScale(9),
                       marginRight: moderateScale(9),
                     }}>
-                    Rp. 51.500
+                    {`Rp ${ResCreatePayment.total}`}
                   </Text>
                 </View>
                 <View style={styles.ContainerInfoSubscription}>
@@ -344,7 +389,7 @@ const ResultPaymentElectToken = props => {
                           borderRadius: moderateScale(4),
                           alignSelf: 'center',
                         }}
-                        onPress={() => setPay(true)}>
+                        onPress={submitReceipt}>
                         <Text
                           style={{
                             color: 'white',
@@ -372,25 +417,25 @@ const ResultPaymentElectToken = props => {
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>No Meter</Text>
                     <Text style={styles.TextDataRes}>
-                      {resPayment.accInfo.No_Meter}
+                      {resPayment.token_bill_details.No_Meter}
                     </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>IDPEL</Text>
                     <Text style={styles.TextDataRes}>
-                      {resPayment.accInfo.IDPEL}
+                      {resPayment.token_bill_details.IDPEL}
                     </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>Name</Text>
                     <Text style={styles.TextDataRes}>
-                      {resPayment.accInfo.Name}
+                      {resPayment.token_bill_details.Name}
                     </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>Tarif/Daya</Text>
                     <Text style={styles.TextDataRes}>
-                      {resPayment.accInfo.Tarif_Daya}
+                      {resPayment.token_bill_details.Tarif_Daya}
                     </Text>
                   </View>
                 </View>
@@ -398,19 +443,19 @@ const ResultPaymentElectToken = props => {
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>Token</Text>
                     <Text style={styles.TextDataRes}>
-                      Rp {resPayment.accInfo.Token}
+                      Rp {resPayment.token_bill_details.Token}
                     </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>PPJ</Text>
                     <Text style={styles.TextDataRes}>
-                      Rp {resPayment.accInfo.PPJ}
+                      Rp {resPayment.token_bill_details.PPJ}
                     </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>Admin</Text>
                     <Text style={styles.TextDataRes}>
-                      Rp {resPayment.accInfo.Admin}
+                      Rp {resPayment.token_bill_details.Admin}
                     </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
@@ -420,7 +465,7 @@ const ResultPaymentElectToken = props => {
                     </Text>
                     <Text
                       style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
-                      Rp {resPayment.accInfo.Total}
+                      Rp {resPayment.token_bill_details.Total}
                     </Text>
                   </View>
                 </View>
