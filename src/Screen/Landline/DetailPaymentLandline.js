@@ -322,29 +322,45 @@ const DetailPaymentLandline = props => {
                       setItems={setItems}
                     />
                     <Text style={styles.HeaderDropdown}>Date</Text>
-                    <TouchableOpacity
-                      style={styles.ContainerDate}
-                      onPress={toggleOverlayDate}>
-                      <View>
-                        {date ? (
-                          <Text
-                            style={{
-                              marginTop: moderateScale(10),
-                              marginLeft: moderateScale(12),
-                            }}>
-                            {dateChoice()}
-                          </Text>
-                        ) : (
-                          <Text
-                            style={{
-                              marginTop: moderateScale(10),
-                              marginLeft: moderateScale(12),
-                            }}>
-                            Select an Date
-                          </Text>
-                        )}
-                      </View>
-                    </TouchableOpacity>
+                    {value === 'Week' ? (
+                      <DropDownPicker
+                        placeholder="Select an Period"
+                        style={styles.dropDownContainerStyle}
+                        dropDownDirection="BOTTOM"
+                        open={Dates}
+                        value={valueDate}
+                        items={tanggal}
+                        setOpen={setDates}
+                        setValue={setValueDate}
+                        setItems={setTanggal}
+                      />
+                    ) : (
+                      <>
+                        <TouchableOpacity
+                          style={styles.ContainerDate}
+                          onPress={toggleOverlayDate}>
+                          <View>
+                            {date ? (
+                              <Text
+                                style={{
+                                  marginTop: moderateScale(10),
+                                  marginLeft: moderateScale(12),
+                                }}>
+                                {resDatePicker()}
+                              </Text>
+                            ) : (
+                              <Text
+                                style={{
+                                  marginTop: moderateScale(10),
+                                  marginLeft: moderateScale(12),
+                                }}>
+                                Select an Date
+                              </Text>
+                            )}
+                          </View>
+                        </TouchableOpacity>
+                      </>
+                    )}
                     <View style={styles.ContainerInfoPayment}>
                       <FastImage
                         style={styles.InfoPaymentStyle}
@@ -359,12 +375,12 @@ const DetailPaymentLandline = props => {
                               fontFamily: 'Montserrat-Bold',
                               color: '#263765',
                             }}>
-                            {dateChoice()}
+                            {resDatePicker()}
                           </Text>
                         </Text>
                         <Text style={styles.TextInfo1}>
-                          Pay before {dateChoice()}, 23:59 to avoid late payment
-                          fee
+                          Pay before {resDatePicker()}, 23:59 to avoid late
+                          payment fee
                         </Text>
                       </View>
                     </View>
@@ -390,7 +406,7 @@ const DetailPaymentLandline = props => {
         <DatePicker
           date={date}
           onDateChange={setDate}
-          mode={'date'}
+          mode={('year', 'month', 'date')}
           androidVariant={'nativeAndroid'}
           textColor={'#4493AC'}
           minimumDate={new Date(dateNow)}
@@ -513,7 +529,7 @@ const styles = StyleSheet.create({
     marginTop: moderateScale(53),
     marginLeft: moderateScale(28),
     width: widthPercentageToDP(85),
-    height: heightPercentageToDP(40),
+    height: heightPercentageToDP(48),
     borderTopStartRadius: moderateScale(13),
     borderTopEndRadius: moderateScale(13),
     borderBottomStartRadius: moderateScale(13),
@@ -662,6 +678,7 @@ const styles = StyleSheet.create({
     width: widthPercentageToDP(87),
     marginLeft: moderateScale(24),
     marginBottom: moderateScale(64),
+    marginTop: moderateScale(12),
   },
   TextButtonBuy: {
     color: 'white',
