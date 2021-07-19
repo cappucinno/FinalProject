@@ -71,16 +71,13 @@ const ResultPaymentElectToken = props => {
       },
     );
   };
-  const StatusPayment = useSelector(
-    state => state.BankReducer?.paymentCreate.message,
-  );
 
   useEffect(() => {
     if (!second && timer) {
       setSecond(60);
       setTimer(timer - 1);
     }
-    if (StatusPayment === 'Payment Created' && pay === true) {
+    if (pay === true) {
       return;
     }
     if (timer === 0 && second === 0) {
@@ -119,7 +116,7 @@ const ResultPaymentElectToken = props => {
   };
 
   const ResCreatePayment = useSelector(
-    state => state.BankReducer?.paymentCreate.data.receipt,
+    state => state.BankReducer?.paymentCreate,
   );
 
   return (
@@ -152,7 +149,7 @@ const ResultPaymentElectToken = props => {
           </View>
         </View>
         <View>
-          {StatusPayment === 'Payment Created' && pay === true ? (
+          {pay === true ? (
             <>
               {/* Recipe */}
               <View style={styles.ContainerReceipt}>
@@ -161,25 +158,25 @@ const ResultPaymentElectToken = props => {
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>No Meter</Text>
                     <Text style={styles.TextDataRes}>
-                      {ResCreatePayment.meter_number}
+                      {ResCreatePayment?.data?.receipt?.meter_number}
                     </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>IDPEL</Text>
                     <Text style={styles.TextDataRes}>
-                      {ResCreatePayment.customer_number}
+                      {ResCreatePayment?.data?.receipt?.customer_number}
                     </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>Name</Text>
                     <Text style={styles.TextDataRes}>
-                      {ResCreatePayment.name}
+                      {ResCreatePayment?.data?.receipt?.name}
                     </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>Trif/Daya</Text>
                     <Text style={styles.TextDataRes}>
-                      {`${ResCreatePayment.rates}/${ResCreatePayment.power}`}
+                      {`${ResCreatePayment?.data?.receipt?.rates}/${ResCreatePayment?.data?.receipt?.power}`}
                     </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
@@ -191,7 +188,7 @@ const ResultPaymentElectToken = props => {
                         fontFamily: 'Montserrat-Bold',
                         marginLeft: moderateScale(150),
                       }}>
-                      {ResCreatePayment.ref}
+                      {ResCreatePayment?.data?.receipt?.ref}
                     </Text>
                   </View>
                 </View>
@@ -199,13 +196,13 @@ const ResultPaymentElectToken = props => {
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>kwh</Text>
                     <Text style={styles.TextDataRes}>
-                      {ResCreatePayment.kwh}
+                      {ResCreatePayment?.data?.receipt?.kwh}
                     </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>Rp Stroom/Token</Text>
                     <Text style={styles.TextDataRes}>
-                      {`Rp ${ResCreatePayment.token}`}
+                      {`Rp ${ResCreatePayment?.data?.receipt?.token}`}
                     </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
@@ -213,12 +210,12 @@ const ResultPaymentElectToken = props => {
                     <Text
                       style={
                         styles.TextDataRes
-                      }>{`Rp ${ResCreatePayment.ppj}`}</Text>
+                      }>{`Rp ${ResCreatePayment?.data?.receipt?.ppj}`}</Text>
                   </View>
                   <View style={styles.ContainerTextData}>
                     <Text style={styles.TextData}>Admin</Text>
                     <Text style={styles.TextDataRes}>
-                      {`Rp ${ResCreatePayment.admin_fee}`}
+                      {`Rp ${ResCreatePayment?.data?.receipt?.admin_fee}`}
                     </Text>
                   </View>
                   <View style={styles.ContainerTextData}>
@@ -228,7 +225,7 @@ const ResultPaymentElectToken = props => {
                     </Text>
                     <Text
                       style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
-                      {`Rp ${ResCreatePayment.total}`}
+                      {`Rp ${ResCreatePayment?.data?.receipt?.total}`}
                     </Text>
                   </View>
                   <View style={styles.ContainerStromToken}>
@@ -241,7 +238,7 @@ const ResultPaymentElectToken = props => {
                           marginTop: moderateScale(9),
                           alignSelf: 'center',
                         }}>
-                        {ResCreatePayment.stroom_code}
+                        {ResCreatePayment?.data?.receipt?.stroom_code}
                       </Text>
                     </View>
                   </View>
@@ -271,13 +268,13 @@ const ResultPaymentElectToken = props => {
                     <View>
                       <Text style={styles.TextIcon1}>PLN - Token</Text>
                       <Text style={styles.TextIcon2}>
-                        {ResCreatePayment.meter_number}
+                        {ResCreatePayment?.data?.receipt?.meter_number}
                       </Text>
                     </View>
                     <Text
                       style={
                         styles.TextIcon3
-                      }>{`Rp ${ResCreatePayment.total}`}</Text>
+                      }>{`Rp ${ResCreatePayment?.data?.receipt?.total}`}</Text>
                   </View>
                 </View>
                 <View style={styles.ContainerTotal}>
@@ -297,7 +294,7 @@ const ResultPaymentElectToken = props => {
                       marginTop: moderateScale(9),
                       marginRight: moderateScale(9),
                     }}>
-                    {`Rp ${ResCreatePayment.total}`}
+                    {`Rp ${ResCreatePayment?.data?.receipt?.total}`}
                   </Text>
                 </View>
                 <View style={styles.ContainerInfoSubscription}>
