@@ -80,7 +80,7 @@ const ResultPaymentElectToken = props => {
       setSecond(60);
       setTimer(timer - 1);
     }
-    if (StatusPayment === 'Payment Created') {
+    if (StatusPayment === 'Payment Created' && pay === true) {
       return;
     }
     if (timer === 0 && second === 0) {
@@ -107,6 +107,7 @@ const ResultPaymentElectToken = props => {
   );
   console.log(dataMethodPayment?.bank_destination_id, 'ini bank id payment');
   const submitReceipt = () => {
+    setPay(true);
     dispatch(
       ConfirmationPaymentAction({
         billId: resPayment?.bill_id,
@@ -151,7 +152,7 @@ const ResultPaymentElectToken = props => {
           </View>
         </View>
         <View>
-          {StatusPayment === 'Payment Created' ? (
+          {StatusPayment === 'Payment Created' && pay === true ? (
             <>
               {/* Recipe */}
               <View style={styles.ContainerReceipt}>
