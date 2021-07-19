@@ -39,6 +39,7 @@ import IconEditProfile from './IconEditProfile.png';
 import FullLogo from './FullLogo.png';
 import mandiri from './mandiri.png';
 import BCA from './BCA.png';
+import BNI from './BNI.png';
 
 export {
   FullLogo,
@@ -82,4 +83,5 @@ export {
   IconEditProfile,
   mandiri,
   BCA,
+  BNI,
 };
