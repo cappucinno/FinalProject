@@ -137,7 +137,7 @@ const DetailPaymentLandline = props => {
   console.log(DetailRes, '<=== hasil resDetail Landline');
   const billData = {
     No_Telephone: DetailRes?.No_Telephone,
-    Period: DetailRes?.Period,
+    Period: [DetailRes?.Period],
     Bill: DetailRes?.Bill,
     Admin: DetailRes?.Admin,
     Late_Payment_Fee: DetailRes?.Late_Payment_Fee,
