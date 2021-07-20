@@ -71,6 +71,7 @@ function* LandlineUserIdAction(action) {
 // POST Create Payment Landline
 const LandlineCreate = (payload, token) => {
   console.log(payload, '<==== ini data payload dari input userid');
+  console.log(token, '<=== ini Token');
   return axios({
     method: 'POST',
     url: 'https://biller-app-api.herokuapp.com/api/biller/landline/bill/bankpayment',

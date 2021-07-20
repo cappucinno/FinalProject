@@ -28,6 +28,9 @@ import {
   InfoPayment,
   IconSubscribtion,
   IconInternetActive,
+  mandiri,
+  BCA,
+  BNI,
 } from '../../../Assets/Assets';
 import Loading from '../../../Component/Loading/Loading';
 import {inTvCreatePaymentAction} from '../redux/action';
@@ -119,9 +122,13 @@ const DetailPaymentInternetTv = props => {
   console.log(recuring.period, 'ini hasil recuring');
   console.log(recuring.status, 'ini status recuring');
 
+  const dataMethodPayment = useSelector(
+    state => state.BankReducer?.paymentMethod,
+  );
+
   const paymentMethod = {
-    type: 'Bank Transfer',
-    bank_destination: '1',
+    type: dataMethodPayment.type,
+    bank_destination_id: dataMethodPayment.bank_destination_id,
   };
 
   // `${dateNow}-09-${valueDate}`
@@ -186,14 +193,17 @@ const DetailPaymentInternetTv = props => {
   const dateNow = DetailRes?.payment_period[0].slice(4, 8);
   console.log(dateNow, 'inidate now');
 
-  console.log(resDatePicker(), ' ini date picker New');
-
   // const sendDate = () => {
   //   if (value === 'Week') {
   //     console.log(`${dateNow}-09-${valueDate}, ini tanggal loh`);
   //   }
   // };
   // sendDate();
+
+  // cek info bank
+  const BankInfo = b =>
+    b === 'BCA' ? BCA : b === 'Mandiri' ? mandiri : b === 'BNI' ? BNI : null;
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView contentContainerStyle={styles.Grow} style={styles.container}>
@@ -284,12 +294,28 @@ const DetailPaymentInternetTv = props => {
                 <Text style={styles.TextPaymentMethod}>Payment Method</Text>
                 <View>
                   <TouchableOpacity
-                    onPress={() => props.navigation.navigate('PaymentMethod')}>
+                    onPress={() =>
+                      props.navigation.navigate(
+                        'PaymentMethod',
+                        'DetailPaymentInternetTv',
+                      )
+                    }>
                     <Text style={styles.TextChange}>change</Text>
                   </TouchableOpacity>
                 </View>
               </View>
-              <Text style={styles.ResPaymentMethod}>Bank Transfer</Text>
+              <View
+                style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
+                <Text style={styles.ResPaymentMethod}>
+                  {dataMethodPayment.type}
+                  {': '}
+                </Text>
+                <FastImage
+                  style={styles.LogoBank}
+                  source={BankInfo(dataMethodPayment.bank_name)}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
             </View>
             <View
               style={[
@@ -595,7 +621,7 @@ const styles = StyleSheet.create({
     marginTop: moderateScale(30),
     marginLeft: moderateScale(28),
     width: widthPercentageToDP(85),
-    height: heightPercentageToDP(12),
+    height: heightPercentageToDP(14),
     borderTopStartRadius: moderateScale(13),
     borderTopEndRadius: moderateScale(13),
     borderBottomStartRadius: moderateScale(13),
@@ -622,11 +648,12 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   ResPaymentMethod: {
-    marginTop: moderateScale(12),
     marginLeft: moderateScale(18),
+    marginRight: moderateScale(148),
     color: '#000000',
     fontFamily: 'Montserrat-Regular',
     fontSize: moderateScale(12),
+    alignSelf: 'center',
   },
   RecurringBilling: {
     marginTop: moderateScale(30),
@@ -725,6 +752,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderColor: '#000000',
     borderRadius: moderateScale(6),
+  },
+  LogoBank: {
+    alignSelf: 'center',
+    height: heightPercentageToDP(10),
+    width: widthPercentageToDP(10),
   },
 });
 

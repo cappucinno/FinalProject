@@ -13,6 +13,8 @@ import {moderateScale} from 'react-native-size-matters';
 import FastImage from 'react-native-fast-image';
 import {BottomSheet} from 'react-native-elements';
 import {useSelector, useDispatch} from 'react-redux';
+import {ConfirmationPaymentAction} from '../../PaymentMethod/redux/action';
+import Loading from '../../../Component/Loading/Loading';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
@@ -32,7 +34,7 @@ const ResultPaymentBankInternetTv = props => {
 
   const resPayment = useSelector(state => state.inTvReducer?.resBill.data);
   console.log(resPayment, '<==== ini res payment');
-
+  const dispatch = useDispatch();
   const toggleOverlayUpload = () => {
     setUpload(!upload);
   };
@@ -97,422 +99,463 @@ const ResultPaymentBankInternetTv = props => {
     return () => clearInterval(intervalId);
   }, [second]);
 
+  const dataMethodPayment = useSelector(
+    state => state.BankReducer?.paymentMethod,
+  );
+  console.log(dataMethodPayment?.bank_destination_id, 'ini bank id payment');
+  const submitReceipt = () => {
+    setPay(true);
+    dispatch(
+      ConfirmationPaymentAction({
+        billId: resPayment?.bill_id,
+        transactionId: resPayment?.transaction_id,
+        bankDestinationId: dataMethodPayment?.bank_destination_id,
+        receipt: image,
+      }),
+    );
+  };
+  const ResCreatePayment = useSelector(
+    state => state.BankReducer?.paymentCreate,
+  );
+  const isLoading = useSelector(state => state.GlobalReducer.Loading);
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView contentContainerStyle={styles.Grow} style={styles.container}>
-        <View style={styles.ContainerHeaderPayment}>
-          <View style={styles.HeaderPayment}>
-            <Text style={styles.Judul}>Internet & TV</Text>
-            <TouchableOpacity onPress={() => props.navigation.navigate('Home')}>
-              <FastImage
-                style={styles.Logo}
-                source={IconCloseWhite}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </TouchableOpacity>
-          </View>
-          <View>
-            <View style={styles.ContainerListPayment}>
-              <View style={styles.ContainerLogo}>
-                <FastImage
-                  style={styles.Logo}
-                  source={IconInternetActive}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            <View style={styles.ContainerHeaderPayment}>
+              <View style={styles.HeaderPayment}>
+                <Text style={styles.Judul}>Internet & TV</Text>
+                <TouchableOpacity
+                  onPress={() => props.navigation.navigate('Home')}>
+                  <FastImage
+                    style={styles.Logo}
+                    source={IconCloseWhite}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                </TouchableOpacity>
               </View>
-              <View style={styles.ContainerText}>
-                <Text style={styles.TextList}>
-                  {resPayment?.bill_details.provider}
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View>
-          {pay ? (
-            <>
-              {/* Recipe */}
-              <View style={styles.ContainerReceipt}>
-                <View style={styles.ContainerTextBillDetail1}>
-                  <Text style={styles.TextHeadBill}>Receipt</Text>
-                  <View style={styles.ContainerTextData}>
-                    <Text style={styles.TextData}>No Meter</Text>
-                    <Text style={styles.TextDataRes}>141234567890</Text>
+              <View>
+                <View style={styles.ContainerListPayment}>
+                  <View style={styles.ContainerLogo}>
+                    <FastImage
+                      style={styles.Logo}
+                      source={IconInternetActive}
+                      resizeMode={FastImage.resizeMode.contain}
+                    />
                   </View>
-                  <View style={styles.ContainerTextData}>
-                    <Text style={styles.TextData}>IDPEL</Text>
-                    <Text style={styles.TextDataRes}>511234567890</Text>
-                  </View>
-                  <View style={styles.ContainerTextData}>
-                    <Text style={styles.TextData}>Name</Text>
-                    <Text style={styles.TextDataRes}>Justin Junaedi</Text>
-                  </View>
-                  <View style={styles.ContainerTextData}>
-                    <Text style={styles.TextData}>Trif/Daya</Text>
-                    <Text style={styles.TextDataRes}>R1/2200</Text>
-                  </View>
-                  <View style={styles.ContainerTextData}>
-                    <Text style={styles.TextData}>Ref</Text>
-                    <Text
-                      style={{
-                        color: '#000000',
-                        fontSize: moderateScale(12),
-                        fontFamily: 'Montserrat-Bold',
-                        marginLeft: moderateScale(150),
-                      }}>
-                      0213170Z1E5B19370EAE44JKUID76384
+                  <View style={styles.ContainerText}>
+                    <Text style={styles.TextList}>
+                      {resPayment?.bill_details.provider}
                     </Text>
                   </View>
                 </View>
-                <View style={styles.ContainerTextBillDetail2}>
-                  <View style={styles.ContainerTextData}>
-                    <Text style={styles.TextData}>kwh</Text>
-                    <Text style={styles.TextDataRes}>32,1</Text>
+              </View>
+            </View>
+            <View>
+              {pay === true ? (
+                <>
+                  {/* Recipe */}
+                  <View style={styles.ContainerReceipt}>
+                    <View style={styles.ContainerTextBillDetail1}>
+                      <Text style={styles.TextHeadBill}>Receipt</Text>
+                      <View style={styles.ContainerTextData}>
+                        <Text style={styles.TextData}>No Meter</Text>
+                        <Text style={styles.TextDataRes}>141234567890</Text>
+                      </View>
+                      <View style={styles.ContainerTextData}>
+                        <Text style={styles.TextData}>IDPEL</Text>
+                        <Text style={styles.TextDataRes}>511234567890</Text>
+                      </View>
+                      <View style={styles.ContainerTextData}>
+                        <Text style={styles.TextData}>Name</Text>
+                        <Text style={styles.TextDataRes}>Justin Junaedi</Text>
+                      </View>
+                      <View style={styles.ContainerTextData}>
+                        <Text style={styles.TextData}>Trif/Daya</Text>
+                        <Text style={styles.TextDataRes}>R1/2200</Text>
+                      </View>
+                      <View style={styles.ContainerTextData}>
+                        <Text style={styles.TextData}>Ref</Text>
+                        <Text
+                          style={{
+                            color: '#000000',
+                            fontSize: moderateScale(12),
+                            fontFamily: 'Montserrat-Bold',
+                            marginLeft: moderateScale(150),
+                          }}>
+                          0213170Z1E5B19370EAE44JKUID76384
+                        </Text>
+                      </View>
+                    </View>
+                    <View style={styles.ContainerTextBillDetail2}>
+                      <View style={styles.ContainerTextData}>
+                        <Text style={styles.TextData}>kwh</Text>
+                        <Text style={styles.TextDataRes}>32,1</Text>
+                      </View>
+                      <View style={styles.ContainerTextData}>
+                        <Text style={styles.TextData}>Rp Stroom/Token</Text>
+                        <Text style={styles.TextDataRes}>Rp 46.296,00</Text>
+                      </View>
+                      <View style={styles.ContainerTextData}>
+                        <Text style={styles.TextData}>PPJ</Text>
+                        <Text style={styles.TextDataRes}>Rp 3.704,00</Text>
+                      </View>
+                      <View style={styles.ContainerTextData}>
+                        <Text style={styles.TextData}>Admin</Text>
+                        <Text style={styles.TextDataRes}>Rp 1.500,00</Text>
+                      </View>
+                      <View style={styles.ContainerTextData}>
+                        <Text
+                          style={{
+                            fontFamily: 'Montserrat-Bold',
+                            color: '#000000',
+                          }}>
+                          Total
+                        </Text>
+                        <Text
+                          style={{
+                            fontFamily: 'Montserrat-Bold',
+                            color: '#000000',
+                          }}>
+                          Rp 51.500,00
+                        </Text>
+                      </View>
+                      <View style={styles.ContainerStromToken}>
+                        <Text style={styles.TextData}>Stroom / Token</Text>
+                        <View style={styles.ContainerToken}>
+                          <Text
+                            style={{
+                              fontFamily: 'Montserrat-Bold',
+                              color: '#000000',
+                              marginTop: moderateScale(9),
+                              alignSelf: 'center',
+                            }}>
+                            4060 7604 1644 1230 5567
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
                   </View>
-                  <View style={styles.ContainerTextData}>
-                    <Text style={styles.TextData}>Rp Stroom/Token</Text>
-                    <Text style={styles.TextDataRes}>Rp 46.296,00</Text>
-                  </View>
-                  <View style={styles.ContainerTextData}>
-                    <Text style={styles.TextData}>PPJ</Text>
-                    <Text style={styles.TextDataRes}>Rp 3.704,00</Text>
-                  </View>
-                  <View style={styles.ContainerTextData}>
-                    <Text style={styles.TextData}>Admin</Text>
-                    <Text style={styles.TextDataRes}>Rp 1.500,00</Text>
-                  </View>
-                  <View style={styles.ContainerTextData}>
-                    <Text
-                      style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
-                      Total
-                    </Text>
-                    <Text
-                      style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
-                      Rp 51.500,00
-                    </Text>
-                  </View>
-                  <View style={styles.ContainerStromToken}>
-                    <Text style={styles.TextData}>Stroom / Token</Text>
-                    <View style={styles.ContainerToken}>
+                  {/* yang ini */}
+                  <View style={styles.Containerres}>
+                    <View style={styles.Headerres}>
+                      <Text
+                        style={{
+                          color: '#364F90',
+                          fontSize: moderateScale(13),
+                          fontFamily: 'Montserrat-Bold',
+                        }}>
+                        Billed every month at 12nd
+                      </Text>
+                    </View>
+                    <View style={styles.isiBilled}>
+                      <View style={styles.ContainerIconPayment}>
+                        <FastImage
+                          style={styles.IconPayment}
+                          source={IconInternetActive}
+                          resizeMode={FastImage.resizeMode.contain}
+                        />
+                      </View>
+                      <View style={styles.ContainerListBill}>
+                        <View>
+                          <Text style={styles.TextIcon1}>PLN - Token</Text>
+                          <Text style={styles.TextIcon2}>141234567890</Text>
+                        </View>
+                        <Text style={styles.TextIcon3}>Rp.51,500</Text>
+                      </View>
+                    </View>
+                    <View style={styles.ContainerTotal}>
+                      <Text
+                        style={{
+                          fontFamily: 'Montserrat-Regular',
+                          color: '#000000',
+                          marginTop: moderateScale(9),
+                          marginLeft: moderateScale(9),
+                        }}>
+                        Total
+                      </Text>
                       <Text
                         style={{
                           fontFamily: 'Montserrat-Bold',
                           color: '#000000',
                           marginTop: moderateScale(9),
-                          alignSelf: 'center',
+                          marginRight: moderateScale(9),
                         }}>
-                        4060 7604 1644 1230 5567
+                        Rp. 51.500
                       </Text>
                     </View>
-                  </View>
-                </View>
-              </View>
-              {/* yang ini */}
-              <View style={styles.Containerres}>
-                <View style={styles.Headerres}>
-                  <Text
-                    style={{
-                      color: '#364F90',
-                      fontSize: moderateScale(13),
-                      fontFamily: 'Montserrat-Bold',
-                    }}>
-                    Billed every month at 12nd
-                  </Text>
-                </View>
-                <View style={styles.isiBilled}>
-                  <View style={styles.ContainerIconPayment}>
-                    <FastImage
-                      style={styles.IconPayment}
-                      source={IconInternetActive}
-                      resizeMode={FastImage.resizeMode.contain}
-                    />
-                  </View>
-                  <View style={styles.ContainerListBill}>
-                    <View>
-                      <Text style={styles.TextIcon1}>PLN - Token</Text>
-                      <Text style={styles.TextIcon2}>141234567890</Text>
-                    </View>
-                    <Text style={styles.TextIcon3}>Rp.51,500</Text>
-                  </View>
-                </View>
-                <View style={styles.ContainerTotal}>
-                  <Text
-                    style={{
-                      fontFamily: 'Montserrat-Regular',
-                      color: '#000000',
-                      marginTop: moderateScale(9),
-                      marginLeft: moderateScale(9),
-                    }}>
-                    Total
-                  </Text>
-                  <Text
-                    style={{
-                      fontFamily: 'Montserrat-Bold',
-                      color: '#000000',
-                      marginTop: moderateScale(9),
-                      marginRight: moderateScale(9),
-                    }}>
-                    Rp. 51.500
-                  </Text>
-                </View>
-                <View style={styles.ContainerInfoSubscription}>
-                  <FastImage
-                    style={styles.InfoSubscriptionStyle}
-                    source={InfoPayment}
-                    resizeMode={FastImage.resizeMode.contain}
-                  />
-                  <View style={styles.TextInfoContainer}>
-                    <Text style={styles.TextInfo1}>
-                      Next payment will due {''}
-                      <Text
-                        style={{
-                          fontFamily: 'Montserrat-Bold',
-                          color: '#263765',
-                        }}>
-                        14 June 2022
-                      </Text>
-                    </Text>
-                    <Text style={styles.TextInfo1}>
-                      Your bill will be avalible in 9 June 2021 Pay withing 7
-                      day to avoid late payment fee
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </>
-          ) : (
-            <>
-              {/* ini tyimer */}
-              <View style={styles.Containerisi}>
-                <View style={styles.Headerisi}>
-                  <Text style={styles.TitleIsi}>
-                    Please complete your payment in
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: moderateScale(13),
-                      fontFamily: 'Montserrat-Bold',
-                    }}>
-                    {`${timer}min ${second}S`}
-                  </Text>
-                </View>
-                <View style={styles.ContainerForm1}>
-                  <View style={styles.Form1}>
-                    <Text>Total</Text>
-                    <Text style={styles.textRes}>
-                      {resPayment?.payment_details.total}
-                    </Text>
-                  </View>
-                  <View style={styles.Form1}>
-                    <Text>Bank</Text>
-                    <Text style={styles.textRes}>
-                      {resPayment?.payment_details.bank}
-                    </Text>
-                  </View>
-                  <View style={styles.Form1}>
-                    <Text>Account Name</Text>
-                    <Text style={styles.textRes}>
-                      {resPayment?.payment_details.account_name}
-                    </Text>
-                  </View>
-                  <View style={styles.Form1}>
-                    <Text>Account No</Text>
-                    <Text style={styles.textRes}>
-                      {resPayment?.payment_details.account_number}
-                    </Text>
-                  </View>
-
-                  {/* gambar */}
-                  {image ? (
-                    <>
+                    <View style={styles.ContainerInfoSubscription}>
                       <FastImage
-                        style={{
-                          height: moderateScale(190),
-                          width: moderateScale(190),
-                          alignSelf: 'center',
-                        }}
-                        source={{uri: image}}
+                        style={styles.InfoSubscriptionStyle}
+                        source={InfoPayment}
                         resizeMode={FastImage.resizeMode.contain}
                       />
-                      <TouchableOpacity
+                      <View style={styles.TextInfoContainer}>
+                        <Text style={styles.TextInfo1}>
+                          Next payment will due {''}
+                          <Text
+                            style={{
+                              fontFamily: 'Montserrat-Bold',
+                              color: '#263765',
+                            }}>
+                            14 June 2022
+                          </Text>
+                        </Text>
+                        <Text style={styles.TextInfo1}>
+                          Your bill will be avalible in 9 June 2021 Pay withing
+                          7 day to avoid late payment fee
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </>
+              ) : (
+                <>
+                  {/* ini tyimer */}
+                  <View style={styles.Containerisi}>
+                    <View style={styles.Headerisi}>
+                      <Text style={styles.TitleIsi}>
+                        Please complete your payment in
+                      </Text>
+                      <Text
                         style={{
-                          marginTop: moderateScale(4),
-                          marginBottom: moderateScale(24),
-                          height: moderateScale(43),
-                          width: moderateScale(290),
-                          borderWidth: moderateScale(1),
-                          backgroundColor: '#4493AC',
-                          borderRadius: moderateScale(4),
-                          alignSelf: 'center',
-                        }}
-                        onPress={() => setPay(true)}>
+                          fontSize: moderateScale(13),
+                          fontFamily: 'Montserrat-Bold',
+                        }}>
+                        {`${timer}min ${second}S`}
+                      </Text>
+                    </View>
+                    <View style={styles.ContainerForm1}>
+                      <View style={styles.Form1}>
+                        <Text>Total</Text>
+                        <Text style={styles.textRes}>
+                          {resPayment?.payment_details.total}
+                        </Text>
+                      </View>
+                      <View style={styles.Form1}>
+                        <Text>Bank</Text>
+                        <Text style={styles.textRes}>
+                          {resPayment?.payment_details.bank}
+                        </Text>
+                      </View>
+                      <View style={styles.Form1}>
+                        <Text>Account Name</Text>
+                        <Text style={styles.textRes}>
+                          {resPayment?.payment_details.account_name}
+                        </Text>
+                      </View>
+                      <View style={styles.Form1}>
+                        <Text>Account No</Text>
+                        <Text style={styles.textRes}>
+                          {resPayment?.payment_details.account_number}
+                        </Text>
+                      </View>
+
+                      {/* gambar */}
+                      {image ? (
+                        <>
+                          <FastImage
+                            style={{
+                              height: moderateScale(190),
+                              width: moderateScale(190),
+                              alignSelf: 'center',
+                            }}
+                            source={{uri: image}}
+                            resizeMode={FastImage.resizeMode.contain}
+                          />
+                          <TouchableOpacity
+                            style={{
+                              marginTop: moderateScale(4),
+                              marginBottom: moderateScale(24),
+                              height: moderateScale(43),
+                              width: moderateScale(290),
+                              borderWidth: moderateScale(1),
+                              backgroundColor: '#4493AC',
+                              borderRadius: moderateScale(4),
+                              alignSelf: 'center',
+                            }}
+                            onPress={() => setPay(true)}>
+                            <Text
+                              style={{
+                                color: 'white',
+                                paddingTop: moderateScale(12),
+                                fontSize: moderateScale(12),
+                                fontFamily: 'Montserrat-Bold',
+                                alignSelf: 'center',
+                              }}>
+                              Confirm
+                            </Text>
+                          </TouchableOpacity>
+                        </>
+                      ) : (
+                        <TouchableOpacity
+                          style={styles.ContainerAdd}
+                          onPress={toggleOverlayUpload}>
+                          <Text style={styles.TextAddCard}>Upload Receipt</Text>
+                        </TouchableOpacity>
+                      )}
+                    </View>
+                  </View>
+                  <View style={styles.ContainerDetail}>
+                    <View style={styles.ContainerTextBillDetail1}>
+                      <Text style={styles.TextHeadBill}>Bill Details</Text>
+                      <View style={styles.ContainerTextData}>
+                        <Text style={styles.TextData}>No Customer</Text>
+                        <Text style={styles.TextDataRes}>
+                          {resPayment?.bill_details.no_customer}
+                        </Text>
+                      </View>
+                      <View style={styles.ContainerTextData}>
+                        <Text style={styles.TextData}>Fullname</Text>
+                        <Text style={styles.TextDataRes}>
+                          {resPayment?.bill_details.name}
+                        </Text>
+                      </View>
+                      <View style={styles.ContainerTextData}>
+                        <Text style={styles.TextData}>Address</Text>
+                        <Text style={styles.TextDataRes}>
+                          {resPayment?.bill_details.address}
+                        </Text>
+                      </View>
+                      <View style={styles.ContainerTextData}>
+                        <Text style={styles.TextData}>Payment Period</Text>
+                        <Text style={styles.TextDataRes}>
+                          {resPayment?.bill_details.period}
+                        </Text>
+                      </View>
+                    </View>
+                    <View style={styles.ContainerTextBillDetail2}>
+                      <View style={styles.ContainerTextData}>
+                        <Text style={styles.TextData}>Bill</Text>
+                        <Text style={styles.TextDataRes}>
+                          {resPayment?.bill}
+                        </Text>
+                      </View>
+                      <View style={styles.ContainerTextData}>
+                        <Text style={styles.TextData}>Late Payment</Text>
+                        <Text style={styles.TextDataRes}>
+                          {resPayment?.bill_details.late_payment}
+                        </Text>
+                      </View>
+                      <View style={styles.ContainerTextData}>
+                        <Text style={styles.TextData}>Admin</Text>
+                        <Text style={styles.TextDataRes}>
+                          {resPayment?.bill_details.admin}
+                        </Text>
+                      </View>
+                      <View style={styles.ContainerTextData}>
                         <Text
                           style={{
-                            color: 'white',
-                            paddingTop: moderateScale(12),
-                            fontSize: moderateScale(12),
                             fontFamily: 'Montserrat-Bold',
-                            alignSelf: 'center',
+                            color: '#000000',
                           }}>
-                          Confirm
+                          Total
                         </Text>
-                      </TouchableOpacity>
-                    </>
-                  ) : (
+                        <Text
+                          style={{
+                            fontFamily: 'Montserrat-Bold',
+                            color: '#000000',
+                          }}>
+                          {resPayment?.bill_details.total}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </>
+              )}
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate('Home')}>
+                <Text
+                  style={{
+                    fontFamily: 'Montserrat-Bold',
+                    color: 'white',
+                    alignSelf: 'center',
+                    paddingBottom: moderateScale(24),
+                  }}>
+                  Back to home
+                </Text>
+              </TouchableOpacity>
+              <BottomSheet isVisible={upload}>
+                <View style={styles.containerOverlay}>
+                  <View style={styles.HeaderBottmSheet}>
+                    <Text style={styles.headerOverlay}>Upload Receipt</Text>
+                  </View>
+                  <View>
                     <TouchableOpacity
-                      style={styles.ContainerAdd}
-                      onPress={toggleOverlayUpload}>
-                      <Text style={styles.TextAddCard}>Upload Receipt</Text>
+                      style={{
+                        marginTop: moderateScale(24),
+                        marginBottom: moderateScale(13),
+                        height: moderateScale(43),
+                        width: moderateScale(290),
+                        borderWidth: moderateScale(1),
+                        backgroundColor: '#4493AC',
+                        borderRadius: moderateScale(4),
+                        alignSelf: 'center',
+                      }}
+                      onPress={() => imageFromCamera()}>
+                      <Text
+                        style={{
+                          color: 'white',
+                          paddingTop: moderateScale(12),
+                          fontSize: moderateScale(12),
+                          fontFamily: 'Montserrat-Bold',
+                          alignSelf: 'center',
+                        }}>
+                        Take Photo
+                      </Text>
                     </TouchableOpacity>
-                  )}
-                </View>
-              </View>
-              <View style={styles.ContainerDetail}>
-                <View style={styles.ContainerTextBillDetail1}>
-                  <Text style={styles.TextHeadBill}>Bill Details</Text>
-                  <View style={styles.ContainerTextData}>
-                    <Text style={styles.TextData}>No Customer</Text>
-                    <Text style={styles.TextDataRes}>
-                      {resPayment?.bill_details.no_customer}
-                    </Text>
-                  </View>
-                  <View style={styles.ContainerTextData}>
-                    <Text style={styles.TextData}>Fullname</Text>
-                    <Text style={styles.TextDataRes}>
-                      {resPayment?.bill_details.name}
-                    </Text>
-                  </View>
-                  <View style={styles.ContainerTextData}>
-                    <Text style={styles.TextData}>Address</Text>
-                    <Text style={styles.TextDataRes}>
-                      {resPayment?.bill_details.address}
-                    </Text>
-                  </View>
-                  <View style={styles.ContainerTextData}>
-                    <Text style={styles.TextData}>Payment Period</Text>
-                    <Text style={styles.TextDataRes}>
-                      {resPayment?.bill_details.period}
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.ContainerTextBillDetail2}>
-                  <View style={styles.ContainerTextData}>
-                    <Text style={styles.TextData}>Bill</Text>
-                    <Text style={styles.TextDataRes}>{resPayment?.bill}</Text>
-                  </View>
-                  <View style={styles.ContainerTextData}>
-                    <Text style={styles.TextData}>Late Payment</Text>
-                    <Text style={styles.TextDataRes}>
-                      {resPayment?.bill_details.late_payment}
-                    </Text>
-                  </View>
-                  <View style={styles.ContainerTextData}>
-                    <Text style={styles.TextData}>Admin</Text>
-                    <Text style={styles.TextDataRes}>
-                      {resPayment?.bill_details.admin}
-                    </Text>
-                  </View>
-                  <View style={styles.ContainerTextData}>
-                    <Text
-                      style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
-                      Total
-                    </Text>
-                    <Text
-                      style={{fontFamily: 'Montserrat-Bold', color: '#000000'}}>
-                      {resPayment?.bill_details.total}
-                    </Text>
+                    <TouchableOpacity
+                      style={{
+                        marginBottom: moderateScale(13),
+                        height: moderateScale(43),
+                        width: moderateScale(290),
+                        borderWidth: moderateScale(1),
+                        backgroundColor: '#4493AC',
+                        borderRadius: moderateScale(4),
+                        alignSelf: 'center',
+                      }}
+                      onPress={() => pickImage()}>
+                      <Text
+                        style={{
+                          color: 'white',
+                          paddingTop: moderateScale(12),
+                          fontSize: moderateScale(12),
+                          fontFamily: 'Montserrat-Bold',
+                          alignSelf: 'center',
+                        }}>
+                        Choose From Library
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={{
+                        height: moderateScale(43),
+                        width: moderateScale(290),
+                        borderWidth: moderateScale(1),
+                        backgroundColor: '#EB5757',
+                        borderRadius: moderateScale(4),
+                        alignSelf: 'center',
+                      }}
+                      onPress={toggleOverlayUpload}>
+                      <Text
+                        style={{
+                          color: 'white',
+                          paddingTop: moderateScale(12),
+                          fontSize: moderateScale(12),
+                          fontFamily: 'Montserrat-Bold',
+                          alignSelf: 'center',
+                        }}>
+                        Cancle
+                      </Text>
+                    </TouchableOpacity>
                   </View>
                 </View>
-              </View>
-            </>
-          )}
-          <TouchableOpacity onPress={() => props.navigation.navigate('Home')}>
-            <Text
-              style={{
-                fontFamily: 'Montserrat-Bold',
-                color: 'white',
-                alignSelf: 'center',
-                paddingBottom: moderateScale(24),
-              }}>
-              Back to home
-            </Text>
-          </TouchableOpacity>
-          <BottomSheet isVisible={upload}>
-            <View style={styles.containerOverlay}>
-              <View style={styles.HeaderBottmSheet}>
-                <Text style={styles.headerOverlay}>Upload Receipt</Text>
-              </View>
-              <View>
-                <TouchableOpacity
-                  style={{
-                    marginTop: moderateScale(24),
-                    marginBottom: moderateScale(13),
-                    height: moderateScale(43),
-                    width: moderateScale(290),
-                    borderWidth: moderateScale(1),
-                    backgroundColor: '#4493AC',
-                    borderRadius: moderateScale(4),
-                    alignSelf: 'center',
-                  }}
-                  onPress={() => imageFromCamera()}>
-                  <Text
-                    style={{
-                      color: 'white',
-                      paddingTop: moderateScale(12),
-                      fontSize: moderateScale(12),
-                      fontFamily: 'Montserrat-Bold',
-                      alignSelf: 'center',
-                    }}>
-                    Take Photo
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={{
-                    marginBottom: moderateScale(13),
-                    height: moderateScale(43),
-                    width: moderateScale(290),
-                    borderWidth: moderateScale(1),
-                    backgroundColor: '#4493AC',
-                    borderRadius: moderateScale(4),
-                    alignSelf: 'center',
-                  }}
-                  onPress={() => pickImage()}>
-                  <Text
-                    style={{
-                      color: 'white',
-                      paddingTop: moderateScale(12),
-                      fontSize: moderateScale(12),
-                      fontFamily: 'Montserrat-Bold',
-                      alignSelf: 'center',
-                    }}>
-                    Choose From Library
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={{
-                    height: moderateScale(43),
-                    width: moderateScale(290),
-                    borderWidth: moderateScale(1),
-                    backgroundColor: '#EB5757',
-                    borderRadius: moderateScale(4),
-                    alignSelf: 'center',
-                  }}
-                  onPress={toggleOverlayUpload}>
-                  <Text
-                    style={{
-                      color: 'white',
-                      paddingTop: moderateScale(12),
-                      fontSize: moderateScale(12),
-                      fontFamily: 'Montserrat-Bold',
-                      alignSelf: 'center',
-                    }}>
-                    Cancle
-                  </Text>
-                </TouchableOpacity>
-              </View>
+              </BottomSheet>
             </View>
-          </BottomSheet>
-        </View>
+          </>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

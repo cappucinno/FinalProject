@@ -12,3 +12,13 @@ export const BankAccountActionSuccess = payload => {
 export const SavePaymentMethodAction = payload => {
   return {type: 'SAVE_PAYMENT_METHOD', payload};
 };
+
+// CHECK CONFIRMATION PAYMENT
+export const ConfirmationPaymentAction = payload => {
+  return {type: 'CONFIRMATION_PAYMENT', payload};
+};
+
+// CHECK CONFIRMATION PAYMENT
+export const ConfirmationPaymentActionSuccess = payload => {
+  return {type: 'CONFIRMATION_PAYMENT_SUCCESS', payload};
+};
