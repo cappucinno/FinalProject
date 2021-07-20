@@ -33,7 +33,10 @@ const NewPDAMOption = props => {
     }
   });
 
-  console.log(DataOptionPDAM, 'ini hasil data option internet tv');
+  console.log(DataOptionPDAM, 'ini hasil data option PDAM');
+
+  const DetailRes = useSelector(state => state.PDAMReducer.dataOption.data);
+  console.log(DetailRes, '<==== hasil resDetail PDAM');
 
   useEffect(() => {
     dispatch(PDAMOptionAction());
@@ -59,48 +62,17 @@ const NewPDAMOption = props => {
           placeholderTextColor="#999999"
           onChangeText={text => setFirstName(text)}
         />
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
-          <View style={styles.textLokasi}>
-            <Text style={styles.textTitle}>DKI Jakarta - AETRA</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
-          <View style={styles.textLokasi}>
-            <Text style={styles.textTitle}>DKI Jakarta - PALYJA</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
-          <View style={styles.textLokasi}>
-            <Text style={styles.textTitle}>Kota Bandung</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
-          <View style={styles.textLokasi}>
-            <Text style={styles.textTitle}>Kab Bandung</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
-          <View style={styles.textLokasi}>
-            <Text style={styles.textTitle}>Kota Surabaya</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
-          <View style={styles.textLokasi}>
-            <Text style={styles.textTitle}>Kota Semarang</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
-          <View style={styles.textLokasi}>
-            <Text style={styles.textTitle}>Yogyakarta</Text>
-          </View>
-        </TouchableOpacity>
+        {DetailRes.map((v, i) => {
+          return (
+            <TouchableOpacity
+              key={i}
+              onPress={() => props.navigation.navigate('NewPDAMBlank')}>
+              <View style={styles.textLokasi}>
+                <Text style={styles.textTitle}>{v.name}</Text>
+              </View>
+            </TouchableOpacity>
+          );
+        })}
       </ScrollView>
     </SafeAreaView>
   );
