@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {moderateScale} from 'react-native-size-matters';
+import {useSelector, useDispatch} from 'react-redux';
+import Loading from '../../Component/Loading/Loading';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
@@ -17,36 +19,45 @@ import {
 const CoverPayment = ({navigation, titlecover, iconcover, data}) => {
   const dataentry = data;
   console.log(dataentry, ' ini hasil componen cover');
+  const isLoading = useSelector(state => state.GlobalReducer.Loading);
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView
         contentContainerStyle={styles.Grow}
         style={styles.containerSub}>
-        <View style={styles.ContainerHeader}>
-          <Text style={styles.TextHeader}>{titlecover}</Text>
-        </View>
-        {dataentry.map((v, i) => {
-          return (
-            <TouchableOpacity
-              key={i}
-              onPress={() => navigation.navigate(v.Navigations, v.Page)}>
-              <View style={styles.ContainerList}>
-                <View style={styles.ContainerLogo}>
-                  <FastImage
-                    style={styles.Logo}
-                    source={iconcover}
-                    resizeMode={FastImage.resizeMode.contain}
-                  />
-                </View>
-                <View style={styles.ContainerText}>
-                  <Text style={styles.TextList}>{v.NameData}</Text>
-                </View>
+        <>
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <>
+              <View style={styles.ContainerHeader}>
+                <Text style={styles.TextHeader}>{titlecover}</Text>
               </View>
-            </TouchableOpacity>
-          );
-        })}
-        <View />
+              {dataentry.map((v, i) => {
+                return (
+                  <TouchableOpacity
+                    key={i}
+                    onPress={() => navigation.navigate(v.Navigations, v.Page)}>
+                    <View style={styles.ContainerList}>
+                      <View style={styles.ContainerLogo}>
+                        <FastImage
+                          style={styles.Logo}
+                          source={iconcover}
+                          resizeMode={FastImage.resizeMode.contain}
+                        />
+                      </View>
+                      <View style={styles.ContainerText}>
+                        <Text style={styles.TextList}>{v.NameData}</Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
+              <View />
+            </>
+          )}
+        </>
       </ScrollView>
     </SafeAreaView>
   );
