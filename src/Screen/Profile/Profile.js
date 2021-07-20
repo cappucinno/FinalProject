@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   SafeAreaView,
@@ -14,10 +14,33 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import {moderateScale} from 'react-native-size-matters';
-import {ArrowBack, IconProfile, IconEditProfile} from '../../Assets/Assets';
+import {
+  ArrowBack,
+  IconEditProfilePict,
+  IconEditProfile,
+  IconEditPassword,
+  IconEditPin,
+} from '../../Assets/Assets';
 
 const Profile = props => {
-  const dispatch = useDispatch();
+  // const [firstName, setFirstName] = useState(true);
+  // const [lastName, setLastName] = useState(true);
+  // const [email, setEmail] = useState(true);
+  // const [password, setPassword] = useState(true);
+  // const [pin, setPin] = useState(true);
+  // const dispatch = useDispatch();
+
+  // const isLoading = useSelector(state => state.GlobalReducer.Loading);
+  // const isLogged = useSelector(state => state.GlobalReducer.isLogged);
+
+  // useEffect(() => {
+  //   if (isLogged) {
+  //     props.navigation.navigate('Mainapp');
+  //   } else {
+  //     props.navigation.navigate('Login');
+  //   }
+  // }, [isLogged]);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topContainer}>
@@ -27,23 +50,26 @@ const Profile = props => {
       </View>
       <View style={styles.userInfoSection}>
         <View style={{flexDirection: 'row', marginTop: 15}}>
-          <FastImage
-            style={styles.iconProfile}
-            source={IconProfile}
-            resizeMode={FastImage.resizeMode.contain}
-          />
+          <TouchableOpacity>
+            <FastImage
+              style={styles.iconProfile}
+              source={IconEditProfilePict}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </TouchableOpacity>
+
           <View style={styles.nameContainer}>
             <Text style={styles.textName}>John Doe</Text>
-            <Text style={styles.textCallName}>@j_doe</Text>
+            {/* <Text style={styles.textCallName}>@j_doe</Text> */}
           </View>
         </View>
       </View>
 
       <View style={styles.userInfoSection}>
-        <View style={styles.row}>
+        {/* <View style={styles.row}>
           <Icon name="map-marker-radius" color="#777777" size={20} />
           <Text style={{color: '#777777', marginLeft: 20}}>Kolkata, India</Text>
-        </View>
+        </View> */}
         <View style={styles.row}>
           <Icon name="phone" color="#777777" size={20} />
           <Text style={{color: '#777777', marginLeft: 20}}>+91-900000009</Text>
@@ -56,7 +82,7 @@ const Profile = props => {
         </View>
       </View>
 
-      <View style={styles.infoBoxWrapper}>
+      {/* <View style={styles.infoBoxWrapper}>
         <View
           style={[
             styles.infoBox,
@@ -72,11 +98,31 @@ const Profile = props => {
           <Text style={styles.textAtas}>12</Text>
           <Text style={styles.textBawah}>Orders</Text>
         </View>
+      </View> */}
+
+      <View>
+        <TouchableOpacity style={styles.changeContainer}>
+          <FastImage
+            style={styles.iconEdit}
+            source={IconEditPassword}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+          <Text style={styles.menuItemText}>Change Password</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.changeContainer}>
+          <FastImage
+            style={styles.iconEdit}
+            source={IconEditPin}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+          <Text style={styles.menuItemText}>Change PIN</Text>
+        </TouchableOpacity>
       </View>
+
       <View style={styles.menuWrapper}>
         <TouchableOpacity>
           <View style={styles.menuItem}>
-            <Icon name="credit-card" color="#FF6347" size={25} />
+            <Icon name="credit-card" color="#FF6347" size={50} />
             <Text style={styles.menuItemText}>Payment</Text>
           </View>
         </TouchableOpacity>
@@ -86,8 +132,7 @@ const Profile = props => {
             props.navigation.navigate('Login');
           }}>
           <View style={styles.menuItem2}>
-            <Icon name="settings-outline" color="#FF6347" size={25} />
-            <Text style={styles.menuItemText2}>LOGOUT</Text>
+            <Text style={styles.menuItemText2}>LOG OUT</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -127,16 +172,22 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
   iconProfile: {
-    width: moderateScale(80),
-    height: moderateScale(80),
+    width: moderateScale(100),
+    height: moderateScale(100),
+  },
+  iconEdit: {
+    width: moderateScale(50),
+    height: moderateScale(50),
   },
   nameContainer: {
     marginTop: moderateScale(18),
     left: moderateScale(25),
+    // justifyContent: 'center',
   },
   textName: {
     fontFamily: 'Montserrat-Bold',
     fontSize: moderateScale(20),
+    paddingTop: 10,
   },
   textCallName: {
     fontFamily: 'Montserrat-Regular',
@@ -171,7 +222,10 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(14),
     color: '#777777',
   },
-
+  menuItemTop: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   menuWrapper: {
     marginTop: 10,
   },
@@ -179,11 +233,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 15,
     paddingHorizontal: 30,
+    justifyContent: 'flex-start',
   },
   menuItemText: {
     color: '#777777',
     marginLeft: 20,
-    fontWeight: '600',
+    fontWeight: 'bold',
     fontSize: 16,
     lineHeight: 26,
   },
@@ -191,12 +246,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 15,
     paddingHorizontal: 35,
+    borderWidth: 2,
+    borderColor: 'white',
+    backgroundColor: '#4493AC',
+    borderRadius: 50,
+    justifyContent: 'center',
+    marginTop: 50,
   },
   menuItemText2: {
-    color: '#777777',
-    marginLeft: 28,
-    fontWeight: '600',
+    color: 'white',
+    fontWeight: 'bold',
     fontSize: 16,
     lineHeight: 26,
+  },
+  changeContainer: {
+    flexDirection: 'row',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
   },
 });

@@ -27,7 +27,7 @@ const PaymentCard = ({late = false, success = false, ongoing = false}) => {
         ? moderateScale(353)
         : moderateScale(319),
       alignSelf: 'center',
-      marginTop: moderateScale(15),
+      marginTop: moderateScale(18),
       marginBottom: moderateScale(8),
       elevation: 10,
     },

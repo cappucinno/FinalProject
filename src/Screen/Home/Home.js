@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'Montserrat-Regular',
     fontWeight: 'bold',
-    top: moderateScale(30),
+    marginTop: moderateScale(30),
     marginLeft: wp(5),
   },
   ContainerImgSub: {
