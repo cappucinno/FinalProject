@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -21,9 +21,11 @@ import {
   RadioActive,
   IconVisa,
   AddNewCard,
-} from '../../../Assets/Assets';
+} from '../../Assets/Assets';
 
-const AddPaymentCardElectric = props => {
+const AddPaymentCard = props => {
+  const [cardnumber, setCardNumber] = useState('');
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView contentContainerStyle={styles.Grow} style={styles.container}>
@@ -87,7 +89,7 @@ const AddPaymentCardElectric = props => {
   );
 };
 
-export default AddPaymentCardElectric;
+export default AddPaymentCard;
 
 const styles = StyleSheet.create({
   Grow: {

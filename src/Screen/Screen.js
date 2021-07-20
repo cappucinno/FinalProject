@@ -11,7 +11,7 @@ import PaymentMethod from './PaymentMethod/PaymentMethod';
 import ResultPaymentElectricity from './Electricity/ResultPaymentElectricity/ResultPaymentElectricity';
 import ResultPaymentElectToken from './Electricity/ResultPaymentElectricity/ResultPaymentElectToken';
 import RecurringBilling from './Subscription/RecurringBilling/RecurringBilling';
-import AddPaymentCardElectric from './Electricity/AddPaymentCardElectric/AddPaymentCardElectric';
+import AddPaymentCard from './PaymentMethod/AddPayment';
 import Mobile from './Mobile/Mobile';
 import ListPaymentMobile from './Mobile/ListPayment/ListPaymentMobile';
 import ResultPaymentMobile from './Mobile/ResultPaymentMobile/ResultPaymentMobile';
@@ -50,7 +50,7 @@ export {
   PaymentMethod,
   ResultPaymentElectricity,
   ResultPaymentElectToken,
-  AddPaymentCardElectric,
+  AddPaymentCard,
   Home,
   History,
   Subscription,

@@ -15,7 +15,7 @@ import {
   ListPaymentElectricity,
   DetailPaymentElectricity,
   PaymentMethod,
-  AddPaymentCardElectric,
+  AddPaymentCard,
   ResultPaymentElectricity,
   ResultPaymentElectToken,
   Mobile,
@@ -117,8 +117,8 @@ const Root = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="AddPaymentCardElectric"
-          component={AddPaymentCardElectric}
+          name="AddPaymentCard"
+          component={AddPaymentCard}
           options={{headerShown: false}}
         />
         <Stack.Screen
