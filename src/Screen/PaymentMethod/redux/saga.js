@@ -23,7 +23,7 @@ const GetBankAccount = (payload, token) => {
   });
 };
 
-// GET OPTIONS
+// GET BANK ACCOUNT
 function* BankAccountAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
   try {
@@ -58,7 +58,7 @@ function* BankAccountAction(action) {
   }
 }
 
-// GET BANK ACCOUNT
+// CONFIRMASI PAYMENT
 const GetConfirmationPayment = (payload, token) => {
   return axios({
     method: 'POST',
@@ -75,7 +75,7 @@ const GetConfirmationPayment = (payload, token) => {
   });
 };
 
-// GET OPTIONS
+//CONFIRMATION PAYMENT
 function* ConfirmationPayment(action) {
   const token = yield select(state => state.GlobalReducer.token);
   try {
@@ -110,9 +110,57 @@ function* ConfirmationPayment(action) {
   }
 }
 
+// ADD_NEW_CARD
+const AddNewCard = (payload, token) => {
+  return axios({
+    method: 'POST',
+    url: 'https://biller-app-api.herokuapp.com/api/biller/payment/new/card',
+    data: payload,
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  });
+};
+
+// ADD_NEW_CARD
+function* NewCardAction(action) {
+  const token = yield select(state => state.GlobalReducer.token);
+  try {
+    yield put(actionLoading(true));
+    const res = yield AddNewCard(action.payload, token);
+    console.log(action.payload, '<=======ini hasil Menambah Credit Card');
+    if (res && res.data) {
+      console.log(res.data, 'ini hasil res');
+      console.log('Berhasil Menambah Credit Card');
+
+      yield put(actionLoading(false));
+      yield navigate('PaymentMethod');
+    } else if (res.status === 204) {
+      yield put(actionSuccess(false));
+      yield put(actionIsLogged(false));
+
+      const errorMessage = res.statusText + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
+    }
+  } catch (err) {
+    if (err.response === 401) {
+      yield put(actionIsLogged(false));
+      const errorMessage = err.response.data.message + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
+    } else {
+      console.log(err.response, 'Gagal Mengambil data');
+      const errorMessage = err.response.data.message + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
+    }
+  } finally {
+    yield put(actionLoading(false));
+  }
+}
+
 function* BankSaga() {
   yield takeLatest('GET_BANK_ACCOUNT', BankAccountAction);
   yield takeLatest('CONFIRMATION_PAYMENT', ConfirmationPayment);
+  yield takeLatest('ADD_NEW_CARD', NewCardAction);
 }
 
 export default BankSaga;
