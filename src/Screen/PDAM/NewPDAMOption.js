@@ -19,28 +19,30 @@ import {PDAMOptionAction} from './redux/action';
 
 const NewPDAMOption = props => {
   const dispatch = useDispatch();
+  const [search, setSearch] = useState('');
 
-  const DataOptionPDAM = useSelector(state => {
-    console.log(state, '<===== ini state');
-    // ini aku tambahin untuk handling data pertama kali waktu masih null
-    if (
-      state.PDAMReducer.dataOption.data != null &&
-      state.PDAMReducer.dataOption.data.length > 0
-    ) {
-      return state.PDAMReducer.dataOption.data;
-    } else {
-      return [];
-    }
-  });
-
-  console.log(DataOptionPDAM, 'ini hasil data option PDAM');
-
-  const DetailRes = useSelector(state => state.PDAMReducer.dataOption.data);
+  const DetailRes = useSelector(state => state.PDAMReducer?.dataOption?.data);
   console.log(DetailRes, '<==== hasil resDetail PDAM');
+  console.log(search, 'inisearch');
 
   useEffect(() => {
     dispatch(PDAMOptionAction());
   }, [dispatch]);
+
+  const searchFilter = text => {
+    if (text) {
+      const newData = DetailRes.filter(item => {
+        const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
+
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+
+      setSearch(text);
+    } else {
+      setSearch(text);
+    }
+  };
 
   return (
     <SafeAreaView
@@ -60,15 +62,18 @@ const NewPDAMOption = props => {
           style={styles.textContainer1}
           placeholder="Search by region"
           placeholderTextColor="#999999"
-          onChangeText={text => setFirstName(text)}
+          onChangeText={text => searchFilter(text)}
+          value={search}
         />
-        {DetailRes.map((v, i) => {
+        {DetailRes?.filter(data =>
+          data.name.toLowerCase().includes(search.toLowerCase()),
+        ).map((v, i) => {
           return (
             <TouchableOpacity
               key={i}
               onPress={() => props.navigation.navigate('NewPDAMBlank')}>
               <View style={styles.textLokasi}>
-                <Text style={styles.textTitle}>{v.name}</Text>
+                <Text style={styles.textTitle}>{v?.name}</Text>
               </View>
             </TouchableOpacity>
           );
@@ -94,7 +99,7 @@ const styles = StyleSheet.create({
     top: moderateScale(20),
   },
   textContainer1: {
-    width: moderateScale(307),
+    width: moderateScale(324),
     height: moderateScale(44),
     alignSelf: 'center',
     borderRadius: moderateScale(5),
