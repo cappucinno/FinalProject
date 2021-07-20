@@ -22,6 +22,11 @@ const BankReducer = (state = initialState, action) => {
         paymentMethod: action.payload,
       };
 
+    case 'ADD_NEW_CARD':
+      return {
+        ...state,
+      };
+
     case 'CONFIRMATION_PAYMENT':
       return {
         ...state,

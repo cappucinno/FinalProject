@@ -60,12 +60,23 @@ const DetailPaymentInternetTv = props => {
   const [visibleDate, setVisibleDate] = useState(false);
   const [pinuser, setPinUser] = useState('');
   const [countFalse, setCountFalse] = useState(2);
+  const [weekchoice, SetWeekChoice] = useState({
+    year: '',
+    month: '',
+    date: '',
+  });
   const dispatch = useDispatch();
+
+  const DetailRes = useSelector(state => state.inTvReducer?.dataUser.data);
+  console.log(DetailRes, '<=== hasil resDetail InTv');
+  const dataMethodPayment = useSelector(
+    state => state.BankReducer?.paymentMethod,
+  );
 
   const dateChoice = () => date + ''.slice(4, 16);
   const resDatePicker = () => {
     let year = dateChoice().slice(11, 15);
-    let dateChoicez = dateChoice().slice(9, 10);
+    let dateChoicez = dateChoice().slice(8, 11);
     let months = dateChoice().slice(4, 7);
     let resMonth =
       months === 'Jan'
@@ -95,6 +106,56 @@ const DetailPaymentInternetTv = props => {
         : null;
     return year + '-' + resMonth + '-' + dateChoicez;
   };
+  console.log(resDatePicker(), 'ini res date picker');
+
+  const MonthToNum = () => {
+    let month = DetailRes?.payment_period[0].slice(0, 3);
+    console.log(month, '<==== ini MonthToNum');
+    let resMonth =
+      month === 'Jan'
+        ? '01'
+        : month === 'Feb'
+        ? '02'
+        : month === 'Mar'
+        ? '03'
+        : month === 'Apr'
+        ? '04'
+        : month === 'May'
+        ? '05'
+        : month === 'Jun'
+        ? '06'
+        : month === 'Jul'
+        ? '07'
+        : month === 'Aug'
+        ? '08'
+        : month === 'Oct'
+        ? '09'
+        : month === 'Sep'
+        ? '10'
+        : month === 'Nov'
+        ? '11'
+        : month === 'Dec'
+        ? '12'
+        : null;
+
+    return resMonth;
+  };
+
+  const dateNow = DetailRes?.payment_period[0].slice(4, 8);
+  console.log(dateNow, 'inidate now');
+
+  const SumMonth = MonthToNum();
+  console.log(SumMonth, ' ini month new in');
+
+  useEffect(() => {
+    SetWeekChoice({
+      ...weekchoice,
+      year: dateNow,
+      month: SumMonth,
+      date: valueDate,
+    });
+  }, [valueDate]);
+
   useEffect(() => {
     setRecuring({
       ...recuring,
@@ -103,32 +164,53 @@ const DetailPaymentInternetTv = props => {
   }, [period]);
 
   useEffect(() => {
+    if (value === 'Month' || 'Year') {
+      setRecuring({
+        ...recuring,
+        recurringDate: resDatePicker(),
+      });
+    }
+  }, [date]);
+
+  useEffect(() => {
+    if (value === 'Week') {
+      setRecuring({
+        ...recuring,
+        recurringDate: `${weekchoice.year}-${weekchoice.month}-${weekchoice.date}`,
+      });
+    }
+  }, [weekchoice]);
+
+  console.log(weekchoice, 'ini week choice');
+
+  useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }, []);
+
+  // SetWeekChoice(`${dateNow}-${SumMonth}-${valueDate}`);
 
   // Data yg diKirim MASIH BUG PERIOD TAK TERBACA
   const [recuring, setRecuring] = useState({
     status: cheked,
     period: '',
-    date: value === 'Week' ? `${dateNow}-09-${valueDate}` : resDatePicker(),
+    recurringDate: '',
   });
 
-  const recuringBilling = {
-    status: recuring.status ? recuring.status : '',
-    period: recuring.status ? recuring.period : '',
-    date: recuring.status ? recuring.date : '',
-  };
+  // value === 'Week'
+  // ? `${weekchoice.year}-${weekchoice.month}-${weekchoice.date}`
+  // : value === 'Month'
+  // ? resDatePicker()
+  // : value === 'Year'
+  // ? resDatePicker()
+  // : '',
 
   console.log(recuring.period, 'ini hasil recuring');
   console.log(recuring.status, 'ini status recuring');
-
-  const dataMethodPayment = useSelector(
-    state => state.BankReducer?.paymentMethod,
-  );
+  console.log(recuring.recurringDate, 'ini date recuring');
 
   const paymentMethod = {
     type: dataMethodPayment.type,
-    bank_destination_id: dataMethodPayment.bank_destination_id,
+    bank_destination: dataMethodPayment.bank_destination_id,
   };
 
   // `${dateNow}-09-${valueDate}`
@@ -138,19 +220,6 @@ const DetailPaymentInternetTv = props => {
   const toggleOverlayDate = () => {
     setVisibleDate(!visibleDate);
   };
-  const submitData = () => {
-    toggleOverlay();
-    dispatch(
-      inTvCreatePaymentAction({
-        data: billData,
-        payment: paymentMethod,
-        recurringBilling: recuringBilling,
-      }),
-    );
-  };
-
-  const DetailRes = useSelector(state => state.inTvReducer?.dataUser.data);
-  console.log(DetailRes, '<=== hasil resDetail InTv');
   const billData = {
     name: DetailRes?.name,
     customer_number: DetailRes?.customer_number,
@@ -161,6 +230,17 @@ const DetailPaymentInternetTv = props => {
     late_payment: DetailRes?.late_payment,
     admin_fee: DetailRes?.admin_fee,
     total: DetailRes?.total,
+  };
+
+  const submitData = () => {
+    toggleOverlay();
+    dispatch(
+      inTvCreatePaymentAction({
+        data: billData,
+        payment: paymentMethod,
+        recurringBilling: recuring,
+      }),
+    );
   };
 
   const CompareToken = () => {
@@ -189,16 +269,6 @@ const DetailPaymentInternetTv = props => {
 
   console.log(date, ' ini date picker');
   const isLoading = useSelector(state => state.GlobalReducer.Loading);
-
-  const dateNow = DetailRes?.payment_period[0].slice(4, 8);
-  console.log(dateNow, 'inidate now');
-
-  // const sendDate = () => {
-  //   if (value === 'Week') {
-  //     console.log(`${dateNow}-09-${valueDate}, ini tanggal loh`);
-  //   }
-  // };
-  // sendDate();
 
   // cek info bank
   const BankInfo = b =>
@@ -450,7 +520,8 @@ const DetailPaymentInternetTv = props => {
           mode={('year', 'month', 'date')}
           androidVariant={'nativeAndroid'}
           textColor={'#4493AC'}
-          minimumDate={new Date(dateNow)}
+          minimumDate={new Date(dateNow, SumMonth, 1)}
+
           // DetailRes?.payment_period,
         />
       </Overlay>

@@ -23,6 +23,7 @@ import {
   IconInternetActive,
   IconCloseWhite,
   InfoPayment,
+  ButtonDownload,
 } from '../../../Assets/Assets';
 
 const ResultPaymentBankInternetTv = props => {
@@ -107,8 +108,8 @@ const ResultPaymentBankInternetTv = props => {
     setPay(true);
     dispatch(
       ConfirmationPaymentAction({
-        billId: resPayment?.bill_id,
-        transactionId: resPayment?.transaction_id,
+        billId: resPayment?.billId,
+        transactionId: resPayment?.transactionId,
         bankDestinationId: dataMethodPayment?.bank_destination_id,
         receipt: image,
       }),
@@ -158,155 +159,53 @@ const ResultPaymentBankInternetTv = props => {
               {pay === true ? (
                 <>
                   {/* Recipe */}
-                  <View style={styles.ContainerReceipt}>
-                    <View style={styles.ContainerTextBillDetail1}>
-                      <Text style={styles.TextHeadBill}>Receipt</Text>
-                      <View style={styles.ContainerTextData}>
-                        <Text style={styles.TextData}>No Meter</Text>
-                        <Text style={styles.TextDataRes}>141234567890</Text>
-                      </View>
-                      <View style={styles.ContainerTextData}>
-                        <Text style={styles.TextData}>IDPEL</Text>
-                        <Text style={styles.TextDataRes}>511234567890</Text>
-                      </View>
-                      <View style={styles.ContainerTextData}>
-                        <Text style={styles.TextData}>Name</Text>
-                        <Text style={styles.TextDataRes}>Justin Junaedi</Text>
-                      </View>
-                      <View style={styles.ContainerTextData}>
-                        <Text style={styles.TextData}>Trif/Daya</Text>
-                        <Text style={styles.TextDataRes}>R1/2200</Text>
-                      </View>
-                      <View style={styles.ContainerTextData}>
-                        <Text style={styles.TextData}>Ref</Text>
-                        <Text
-                          style={{
-                            color: '#000000',
-                            fontSize: moderateScale(12),
-                            fontFamily: 'Montserrat-Bold',
-                            marginLeft: moderateScale(150),
-                          }}>
-                          0213170Z1E5B19370EAE44JKUID76384
-                        </Text>
-                      </View>
-                    </View>
-                    <View style={styles.ContainerTextBillDetail2}>
-                      <View style={styles.ContainerTextData}>
-                        <Text style={styles.TextData}>kwh</Text>
-                        <Text style={styles.TextDataRes}>32,1</Text>
-                      </View>
-                      <View style={styles.ContainerTextData}>
-                        <Text style={styles.TextData}>Rp Stroom/Token</Text>
-                        <Text style={styles.TextDataRes}>Rp 46.296,00</Text>
-                      </View>
-                      <View style={styles.ContainerTextData}>
-                        <Text style={styles.TextData}>PPJ</Text>
-                        <Text style={styles.TextDataRes}>Rp 3.704,00</Text>
-                      </View>
-                      <View style={styles.ContainerTextData}>
-                        <Text style={styles.TextData}>Admin</Text>
-                        <Text style={styles.TextDataRes}>Rp 1.500,00</Text>
-                      </View>
-                      <View style={styles.ContainerTextData}>
-                        <Text
-                          style={{
-                            fontFamily: 'Montserrat-Bold',
-                            color: '#000000',
-                          }}>
-                          Total
-                        </Text>
-                        <Text
-                          style={{
-                            fontFamily: 'Montserrat-Bold',
-                            color: '#000000',
-                          }}>
-                          Rp 51.500,00
-                        </Text>
-                      </View>
-                      <View style={styles.ContainerStromToken}>
-                        <Text style={styles.TextData}>Stroom / Token</Text>
-                        <View style={styles.ContainerToken}>
-                          <Text
-                            style={{
-                              fontFamily: 'Montserrat-Bold',
-                              color: '#000000',
-                              marginTop: moderateScale(9),
-                              alignSelf: 'center',
-                            }}>
-                            4060 7604 1644 1230 5567
-                          </Text>
+                  <View style={styles.ContainerRes}>
+                    <View style={styles.HeaderRes}>
+                      <Text style={styles.TitleRes}>Reciept</Text>
+                      <TouchableOpacity>
+                        <View style={styles.ContainerDownload}>
+                          <FastImage
+                            style={styles.buttonDownload}
+                            source={ButtonDownload}
+                            resizeMode={FastImage.resizeMode.contain}
+                          />
+                          <Text style={styles.TextDownload}>Download</Text>
                         </View>
-                      </View>
+                      </TouchableOpacity>
                     </View>
-                  </View>
-                  {/* yang ini */}
-                  <View style={styles.Containerres}>
-                    <View style={styles.Headerres}>
-                      <Text
-                        style={{
-                          color: '#364F90',
-                          fontSize: moderateScale(13),
-                          fontFamily: 'Montserrat-Bold',
-                        }}>
-                        Billed every month at 12nd
-                      </Text>
-                    </View>
-                    <View style={styles.isiBilled}>
-                      <View style={styles.ContainerIconPayment}>
-                        <FastImage
-                          style={styles.IconPayment}
-                          source={IconInternetActive}
-                          resizeMode={FastImage.resizeMode.contain}
-                        />
-                      </View>
-                      <View style={styles.ContainerListBill}>
-                        <View>
-                          <Text style={styles.TextIcon1}>PLN - Token</Text>
-                          <Text style={styles.TextIcon2}>141234567890</Text>
-                        </View>
-                        <Text style={styles.TextIcon3}>Rp.51,500</Text>
-                      </View>
-                    </View>
-                    <View style={styles.ContainerTotal}>
-                      <Text
-                        style={{
-                          fontFamily: 'Montserrat-Regular',
-                          color: '#000000',
-                          marginTop: moderateScale(9),
-                          marginLeft: moderateScale(9),
-                        }}>
-                        Total
-                      </Text>
-                      <Text
-                        style={{
-                          fontFamily: 'Montserrat-Bold',
-                          color: '#000000',
-                          marginTop: moderateScale(9),
-                          marginRight: moderateScale(9),
-                        }}>
-                        Rp. 51.500
-                      </Text>
-                    </View>
-                    <View style={styles.ContainerInfoSubscription}>
-                      <FastImage
-                        style={styles.InfoSubscriptionStyle}
-                        source={InfoPayment}
-                        resizeMode={FastImage.resizeMode.contain}
-                      />
-                      <View style={styles.TextInfoContainer}>
-                        <Text style={styles.TextInfo1}>
-                          Next payment will due {''}
-                          <Text
-                            style={{
-                              fontFamily: 'Montserrat-Bold',
-                              color: '#263765',
-                            }}>
-                            14 June 2022
-                          </Text>
+                    <View style={styles.sprit} />
+                    <View style={styles.ContainerRes1}>
+                      <View style={styles.Form1}>
+                        <Text>Phone Number</Text>
+                        <Text style={styles.textRes}>
+                          {resPayment?.payment_details.account_number}
                         </Text>
-                        <Text style={styles.TextInfo1}>
-                          Your bill will be avalible in 9 June 2021 Pay withing
-                          7 day to avoid late payment fee
+                      </View>
+                      <View style={styles.Form1}>
+                        <Text>Provider</Text>
+                        <Text style={styles.textRes}>
+                          {resPayment?.bill_details.provider}
+                        </Text>
+                      </View>
+                    </View>
+                    <View style={styles.ContainerForm2}>
+                      <View style={styles.Form2}>
+                        <Text>Bill</Text>
+                        <Text style={styles.textRes}>
+                          {resPayment?.bill_details.bill}
+                        </Text>
+                      </View>
+
+                      <View style={styles.Form2}>
+                        <Text>Admin</Text>
+                        <Text style={styles.textRes}>
+                          {resPayment?.bill_details.admin}
+                        </Text>
+                      </View>
+                      <View style={styles.Form2}>
+                        <Text style={styles.textRes}>Total</Text>
+                        <Text style={styles.textRes}>
+                          {resPayment?.bill_details.total}
                         </Text>
                       </View>
                     </View>
@@ -377,7 +276,7 @@ const ResultPaymentBankInternetTv = props => {
                               borderRadius: moderateScale(4),
                               alignSelf: 'center',
                             }}
-                            onPress={() => setPay(true)}>
+                            onPress={submitReceipt}>
                             <Text
                               style={{
                                 color: 'white',
@@ -474,6 +373,7 @@ const ResultPaymentBankInternetTv = props => {
                     color: 'white',
                     alignSelf: 'center',
                     paddingBottom: moderateScale(24),
+                    marginTop: pay ? moderateScale(235) : moderateScale(0),
                   }}>
                   Back to home
                 </Text>
@@ -721,130 +621,74 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Bold',
     marginLeft: moderateScale(80),
   },
-  ContainerReceipt: {
+  ContainerRes: {
     marginTop: moderateScale(28),
-    marginLeft: moderateScale(28),
-    marginBottom: moderateScale(32),
-    width: widthPercentageToDP(85),
-    height: heightPercentageToDP(65),
-    borderTopStartRadius: moderateScale(13),
-    borderTopEndRadius: moderateScale(13),
-    borderBottomStartRadius: moderateScale(13),
-    borderBottomEndRadius: moderateScale(13),
-    backgroundColor: 'white',
-    elevation: moderateScale(8),
-  },
-  ContainerStromToken: {
-    justifyContent: 'space-between',
-    flexDirection: 'column',
-    marginTop: moderateScale(12),
-    marginRight: moderateScale(24),
-  },
-  ContainerToken: {
-    marginTop: moderateScale(12),
-    marginBottom: moderateScale(32),
-    width: widthPercentageToDP(75),
-    height: heightPercentageToDP(5),
-    borderTopStartRadius: moderateScale(4),
-    borderTopEndRadius: moderateScale(4),
-    borderBottomStartRadius: moderateScale(4),
-    borderBottomEndRadius: moderateScale(4),
-    backgroundColor: '#EBEDF4',
-  },
-  Containerres: {
-    marginTop: moderateScale(14),
-    marginLeft: moderateScale(28),
-    marginBottom: moderateScale(32),
-    width: widthPercentageToDP(85),
-    height: heightPercentageToDP(40),
-    borderTopStartRadius: moderateScale(13),
-    borderTopEndRadius: moderateScale(13),
-    borderBottomStartRadius: moderateScale(13),
-    borderBottomEndRadius: moderateScale(13),
-    backgroundColor: 'white',
-    elevation: moderateScale(8),
-  },
-  Headerres: {
-    marginTop: moderateScale(24),
-    marginRight: moderateScale(24),
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-  isiBilled: {
-    paddingTop: moderateScale(36),
-    marginLeft: moderateScale(24),
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    marginRight: widthPercentageToDP(16),
-  },
-  ContainerIconPayment: {
-    display: 'flex',
-    borderRadius: moderateScale(5),
-    backgroundColor: '#EBEDF4',
-    width: widthPercentageToDP(9),
-    height: heightPercentageToDP(5),
-    marginRight: moderateScale(18),
-  },
-  // Icon Payment
-  IconPayment: {
-    height: heightPercentageToDP(5),
-    width: widthPercentageToDP(3),
     alignSelf: 'center',
+    height: heightPercentageToDP(40),
+    width: widthPercentageToDP(90),
+    borderTopStartRadius: moderateScale(13),
+    borderTopEndRadius: moderateScale(13),
+    borderBottomStartRadius: moderateScale(13),
+    borderBottomEndRadius: moderateScale(13),
+    backgroundColor: 'white',
   },
-  ContainerListBill: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-  },
-  //nama List
-  TextIcon1: {
-    color: '#000000',
-    fontSize: moderateScale(12),
-    fontFamily: 'Montserrat-Bold',
-    paddingRight: moderateScale(79),
-  },
-  TextIcon2: {
-    color: '#828282',
-    fontSize: moderateScale(12),
-    fontFamily: 'Montserrat-Regular',
-    paddingRight: moderateScale(79),
-  },
-  // Uang
-  TextIcon3: {
-    color: '#000000',
-    fontSize: moderateScale(12),
-    fontFamily: 'Montserrat-Regulr',
-    marginRight: moderateScale(8),
-  },
-  ContainerTotal: {
-    marginTop: moderateScale(18),
-    marginBottom: moderateScale(1),
-    marginLeft: moderateScale(23),
-    width: widthPercentageToDP(73),
-    height: heightPercentageToDP(5),
-    borderTopStartRadius: moderateScale(4),
-    borderTopEndRadius: moderateScale(4),
-    borderBottomStartRadius: moderateScale(4),
-    borderBottomEndRadius: moderateScale(4),
-    backgroundColor: '#EBEDF4',
+  HeaderRes: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  ContainerInfoSubscription: {
+  ContainerDownload: {
+    marginTop: moderateScale(12),
+    marginRight: moderateScale(24),
+    flexDirection: 'row',
     alignItems: 'center',
   },
-  InfoSubscriptionStyle: {
-    height: moderateScale(116),
-    width: moderateScale(290),
+  buttonDownload: {
+    width: widthPercentageToDP(7),
+    height: heightPercentageToDP(7),
   },
-  TextInfoContainer: {
-    position: 'absolute',
-    marginTop: moderateScale(30),
-    marginLeft: moderateScale(65),
-  },
-  TextInfo1: {
-    color: '#263765',
-    fontSize: moderateScale(11),
+  TextDownload: {
+    color: '#828282',
+    fontSize: moderateScale(13),
     fontFamily: 'Montserrat-Regular',
+  },
+  TitleRes: {
+    marginTop: moderateScale(32),
+    marginLeft: moderateScale(24),
+    fontSize: moderateScale(13),
+    fontFamily: 'Montserrat-Regular',
+  },
+  sprit: {
+    backgroundColor: '#E5E5E5',
+    height: moderateScale(0),
+    width: moderateScale(310),
+    borderWidth: moderateScale(1),
+    borderRadius: moderateScale(20),
+    alignSelf: 'center',
+    borderStyle: 'dashed',
+  },
+  ContainerRes1: {
+    marginTop: moderateScale(8),
+  },
+  Res: {
+    marginTop: moderateScale(8),
+    marginRight: moderateScale(24),
+    marginLeft: moderateScale(24),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  ContainerForm2: {
+    marginTop: moderateScale(12),
+  },
+  Form2: {
+    marginTop: moderateScale(8),
+    marginRight: moderateScale(24),
+    marginLeft: moderateScale(24),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  textRes: {
+    fontSize: moderateScale(13),
+    fontFamily: 'Montserrat-Bold',
   },
   containerOverlay: {
     marginTop: moderateScale(410),

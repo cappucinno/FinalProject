@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,20 +10,40 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {moderateScale} from 'react-native-size-matters';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import {CheckBox} from 'react-native-elements';
+import {AddNewCardAction} from './redux/action';
 import {
   ArrowBack,
   Radio,
   RadioActive,
   IconVisa,
   AddNewCard,
-} from '../../../Assets/Assets';
+} from '../../Assets/Assets';
 
-const AddPaymentCardElectric = props => {
+const AddPaymentCard = props => {
+  const [cardnumber, setCardNumber] = useState('');
+  const [holdername, setHolderName] = useState('');
+  const [expiredate, setExpireDate] = useState('');
+  const [kode, setKode] = useState('');
+  const dispatch = useDispatch();
+
+  const submitData = () => {
+    dispatch(
+      AddNewCardAction({
+        cardNumber: cardnumber,
+        cardHolderName: holdername,
+        expireDate: expiredate,
+        cvv: kode,
+        type: 'Credit Card',
+      }),
+    );
+  };
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView contentContainerStyle={styles.Grow} style={styles.container}>
@@ -48,6 +68,7 @@ const AddPaymentCardElectric = props => {
                   style={styles.inputText}
                   keyboardType="numeric"
                   placeholder=" xxxx xxxx xxxx xxxx"
+                  onChangeText={text => setCardNumber(text)}
                 />
               </View>
             </View>
@@ -57,29 +78,37 @@ const AddPaymentCardElectric = props => {
                 <TextInput
                   style={styles.inputText}
                   placeholder=" Your Name On The Card"
+                  onChangeText={text => setHolderName(text)}
                 />
               </View>
             </View>
             <View>
               <Text style={styles.Label}>Expiry date</Text>
               <View style={styles.ContainerTextInput}>
-                <TextInput style={styles.inputText} placeholder=" MM/YYYY" />
+                <TextInput
+                  style={styles.inputText}
+                  placeholder=" YYYY-MM-DD"
+                  onChangeText={text => setExpireDate(text)}
+                />
               </View>
             </View>
             <View>
               <Text style={styles.Label}>CVV/CVC</Text>
               <View style={styles.ContainerTextInput}>
-                <TextInput style={styles.inputText} placeholder=" MM/YYYY" />
+                <TextInput
+                  style={styles.inputText}
+                  placeholder=" CVV"
+                  onChangeText={text => setKode(text)}
+                />
               </View>
             </View>
-            <TouchableOpacity
-              onPress={() =>
-                props.navigation.navigate('PaymentMethodElectricity')
-              }>
-              <View style={styles.ContainerSave}>
-                <Text style={styles.TextButtonSave}>SAVE</Text>
-              </View>
-            </TouchableOpacity>
+            <View style={styles.containerButton}>
+              <TouchableOpacity onPress={submitData}>
+                <View style={styles.ContainerSave}>
+                  <Text style={styles.TextButtonSave}>SAVE</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -87,7 +116,7 @@ const AddPaymentCardElectric = props => {
   );
 };
 
-export default AddPaymentCardElectric;
+export default AddPaymentCard;
 
 const styles = StyleSheet.create({
   Grow: {
@@ -144,8 +173,12 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(14),
     marginLeft: moderateScale(8),
   },
-  ContainerSave: {
+
+  containerButton: {
     marginTop: heightPercentageToDP(28),
+  },
+
+  ContainerSave: {
     backgroundColor: '#4493AC',
     borderTopStartRadius: moderateScale(5),
     borderTopEndRadius: moderateScale(5),

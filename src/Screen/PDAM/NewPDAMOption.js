@@ -19,21 +19,10 @@ import {PDAMOptionAction} from './redux/action';
 
 const NewPDAMOption = props => {
   const dispatch = useDispatch();
+  const [search, setSearch] = useState('');
 
-  const DataOptionPDAM = useSelector(state => {
-    console.log(state, '<===== ini state');
-    // ini aku tambahin untuk handling data pertama kali waktu masih null
-    if (
-      state.PDAMReducer.dataOption.data != null &&
-      state.PDAMReducer.dataOption.data.length > 0
-    ) {
-      return state.PDAMReducer.dataOption.data;
-    } else {
-      return [];
-    }
-  });
-
-  console.log(DataOptionPDAM, 'ini hasil data option internet tv');
+  const DetailRes = useSelector(state => state.PDAMReducer?.dataOption?.data);
+  console.log(DetailRes, '<==== hasil resDetail PDAM');
 
   useEffect(() => {
     dispatch(PDAMOptionAction());
@@ -57,50 +46,24 @@ const NewPDAMOption = props => {
           style={styles.textContainer1}
           placeholder="Search by region"
           placeholderTextColor="#999999"
-          onChangeText={text => setFirstName(text)}
+          onChangeText={text => setSearch(text)}
+          value={search}
         />
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
-          <View style={styles.textLokasi}>
-            <Text style={styles.textTitle}>DKI Jakarta - AETRA</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
-          <View style={styles.textLokasi}>
-            <Text style={styles.textTitle}>DKI Jakarta - PALYJA</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
-          <View style={styles.textLokasi}>
-            <Text style={styles.textTitle}>Kota Bandung</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
-          <View style={styles.textLokasi}>
-            <Text style={styles.textTitle}>Kab Bandung</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
-          <View style={styles.textLokasi}>
-            <Text style={styles.textTitle}>Kota Surabaya</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
-          <View style={styles.textLokasi}>
-            <Text style={styles.textTitle}>Kota Semarang</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('NewPDAMBlank')}>
-          <View style={styles.textLokasi}>
-            <Text style={styles.textTitle}>Yogyakarta</Text>
-          </View>
-        </TouchableOpacity>
+        {DetailRes?.filter(data =>
+          data.name.toLowerCase().includes(search.toLowerCase()),
+        ).map((v, i) => {
+          return (
+            <TouchableOpacity
+              key={i}
+              onPress={() =>
+                props.navigation.navigate('NewPDAMBlank', v?.name)
+              }>
+              <View style={styles.textLokasi}>
+                <Text style={styles.textTitle}>{v?.name}</Text>
+              </View>
+            </TouchableOpacity>
+          );
+        })}
       </ScrollView>
     </SafeAreaView>
   );
@@ -122,7 +85,7 @@ const styles = StyleSheet.create({
     top: moderateScale(20),
   },
   textContainer1: {
-    width: moderateScale(307),
+    width: moderateScale(324),
     height: moderateScale(44),
     alignSelf: 'center',
     borderRadius: moderateScale(5),

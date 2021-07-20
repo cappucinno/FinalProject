@@ -190,14 +190,21 @@ function* ElectricityTokenCreatePayAction(action) {
       action.payload,
       '<=======ini hasil Get User Token Electricity API',
     );
-    if (res && res.data) {
+    if (res.status === 200 && res.data) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Mengambil data Get User Token Electricity');
 
       yield put(ElectricityTokenCreatePaymentActionSuccess(res.data));
       yield put(actionLoading(false));
       yield navigate('ResultPaymentElectToken', 'PLN - Token');
-    } else if (res.status === 204) {
+    }
+    if (res.status === 202) {
+      yield put(actionSuccess(false));
+
+      const errorMessage = res.statusText + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
+    }
+    if (res.status === 204) {
       yield put(actionSuccess(false));
       yield put(actionIsLogged(false));
 
