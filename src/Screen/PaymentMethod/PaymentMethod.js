@@ -160,9 +160,7 @@ const PaymentMethod = props => {
                           <TouchableOpacity
                             style={styles.ContainerAdd}
                             onPress={() =>
-                              props.navigation.navigate(
-                                'AddPaymentCardElectric',
-                              )
+                              props.navigation.navigate('AddPaymentCard')
                             }>
                             <Text style={styles.TextAddCard}>Add NewCard</Text>
                           </TouchableOpacity>

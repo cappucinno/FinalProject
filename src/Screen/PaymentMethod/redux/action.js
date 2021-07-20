@@ -22,3 +22,8 @@ export const ConfirmationPaymentAction = payload => {
 export const ConfirmationPaymentActionSuccess = payload => {
   return {type: 'CONFIRMATION_PAYMENT_SUCCESS', payload};
 };
+
+// ADD NEW CARD
+export const AddNewCardAction = payload => {
+  return {type: 'ADD_NEW_CARD', payload};
+};
