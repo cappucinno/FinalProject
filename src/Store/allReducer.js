@@ -8,6 +8,7 @@ import LandlineReducer from '../Screen/Landline/redux/reducer';
 import PDAMReducer from '../Screen/PDAM/redux/reducer';
 import ElectricityReducer from '../Screen/Electricity/redux/reducer';
 import BankReducer from '../Screen/PaymentMethod/redux/reducer';
+import ProfileReducer from '../Screen/Profile/redux/reducer';
 
 export const allReducer = combineReducers({
   GlobalReducer: GlobalReducer,
@@ -19,4 +20,5 @@ export const allReducer = combineReducers({
   PDAMReducer: PDAMReducer,
   ElectricityReducer: ElectricityReducer,
   BankReducer: BankReducer,
+  ProfileReducer: ProfileReducer,
 });
