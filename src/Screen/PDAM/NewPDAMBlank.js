@@ -18,6 +18,10 @@ import {IconPDAMActive} from '../../Assets/Assets';
 import {TextInput} from 'react-native-gesture-handler';
 
 const NewPDAMBlank = props => {
+  const [input, setInput] = useState('');
+  const title = props.route.params;
+  console.log(title, '<<<<< ini tempat PDAM');
+
   return (
     <SafeAreaView
       style={{backgroundColor: 'white', width: wp(100), height: hp(100)}}>
@@ -41,7 +45,7 @@ const NewPDAMBlank = props => {
                 resizeMode={FastImage.resizeMode.contain}
               />
             </View>
-            <Text style={styles.textLocation}>DKI Jakarta - AERTA</Text>
+            <Text style={styles.textLocation}>{title}</Text>
           </View>
         </View>
         <View style={styles.middleContainer}>
