@@ -16,140 +16,56 @@ import {
 import {ArrowBack} from '../../Assets/Assets';
 import {Line, PLN} from '../../Assets/Assets';
 
-const NSRecurringBilling = () => {
+const RecurringBillingCard = props => {
   return (
-    <SafeAreaView>
-      <ScrollView style={styles.containerAll}>
-        <View style={styles.containerHead}>
-          <View style={styles.HeaderBilling}>
-            <TouchableOpacity>
-              <FastImage
-                style={styles.ArrowBack}
-                source={ArrowBack}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </TouchableOpacity>
-            <Text style={styles.Judul}>New Subscription</Text>
+    <View>
+      <View style={styles.containerBillAtas}>
+        <View style={styles.containerData1}>
+          <View style={styles.containerToken}>
+            <FastImage
+              style={styles.imageToken}
+              source={PLN}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </View>
+          <View style={styles.boxText}>
+            <View style={styles.data1}>
+              <Text style={styles.textPLN}>PLN-Token</Text>
+              <Text style={styles.textNo}>141234567890</Text>
+            </View>
+            <Text style={styles.data2}>Rp. 51.500</Text>
           </View>
         </View>
-        <View style={styles.containerBox}>
-          <Text style={styles.fontText}>Recurring Billing</Text>
-          <Text style={styles.fontText2}>
-            Create automatic billing for your next puchase.
-          </Text>
-          <Text style={styles.fontText2}>
-            Available in weekly, montly and yearly basis
-          </Text>
-          <View>
-            <Text
-              style={{
-                alignSelf: 'center',
-                color: '#BDBDBD',
-                top: moderateScale(38),
-              }}>
-              {' '}
-              - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-              - - - - - - - - - -
-            </Text>
+        <TouchableOpacity style={styles.seeDetail}>
+          <Text style={styles.textseeDetail}>see detail</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.containerBillBawah}>
+        <View style={styles.containerData1}>
+          <View style={styles.containerToken}>
+            <FastImage
+              style={styles.imageToken}
+              source={PLN}
+              resizeMode={FastImage.resizeMode.contain}
+            />
           </View>
-          <Text style={styles.fontText3}>Period</Text>
-          <View style={styles.boxKecil}>
-            <View style={styles.textDirection}>
-              <Text style={styles.textSelect}>Please select</Text>
-              <TouchableOpacity
-                style={{
-                  top: moderateScale(15),
-                  left: moderateScale(160),
-                }}>
-                <FastImage
-                  style={styles.imageLine}
-                  source={Line}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </TouchableOpacity>
+          <View style={styles.boxText}>
+            <View style={styles.data1}>
+              <Text style={styles.textPLN}>Pulsa - Telkomsel</Text>
+              <Text style={styles.textNo}>141234567890</Text>
             </View>
+            <Text style={styles.data2}>Rp. 51.500</Text>
           </View>
         </View>
-        <View style={styles.containerBox2}>
-          <Text style={styles.fontText}>Bills</Text>
-          <Text
-            style={{
-              alignSelf: 'center',
-              color: '#BDBDBD',
-              top: moderateScale(25),
-            }}>
-            {' '}
-            - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-            - - - - - - - -
-          </Text>
-          <View style={styles.containerBillAtas}>
-            <View style={styles.containerData1}>
-              <View style={styles.containerToken}>
-                <FastImage
-                  style={styles.imageToken}
-                  source={PLN}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </View>
-              <View style={styles.boxText}>
-                <View style={styles.data1}>
-                  <Text style={styles.textPLN}>PLN-Token</Text>
-                  <Text style={styles.textNo}>141234567890</Text>
-                </View>
-                <Text style={styles.data2}>Rp. 51.500</Text>
-              </View>
-            </View>
-            <TouchableOpacity style={styles.seeDetail}>
-              <Text style={styles.textseeDetail}>see detail</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.containerBillBawah}>
-            <View style={styles.containerData1}>
-              <View style={styles.containerToken}>
-                <FastImage
-                  style={styles.imageToken}
-                  source={PLN}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </View>
-              <View style={styles.boxText}>
-                <View style={styles.data1}>
-                  <Text style={styles.textPLN}>Pulsa - Telkomsel</Text>
-                  <Text style={styles.textNo}>141234567890</Text>
-                </View>
-                <Text style={styles.data2}>Rp. 51.500</Text>
-              </View>
-            </View>
-            <TouchableOpacity style={styles.seeDetail}>
-              <Text style={styles.textseeDetail}>see detail</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.addnewbill}>
-            <TouchableOpacity style={{top: moderateScale(15)}}>
-              <Text
-                style={{
-                  alignSelf: 'center',
-                  fontSize: moderateScale(12),
-                  fontFamily: 'Montserrat-Regular',
-                }}>
-                Add New Bill
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={{width: wp(100), height: hp(30)}}>
-          <TouchableOpacity style={styles.ContainerButtonSubs}>
-            <View style={styles.ButtonSubs}>
-              <Text style={styles.TextButtonSubs}>Create</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+        <TouchableOpacity style={styles.seeDetail}>
+          <Text style={styles.textseeDetail}>see detail</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 
-export default NSRecurringBilling;
+export default RecurringBillingCard;
 
 const styles = StyleSheet.create({
   containerAll: {

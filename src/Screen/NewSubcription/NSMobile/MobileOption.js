@@ -14,25 +14,19 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 // background
-import BackgroundPurple from '../../Component/Background/BackgroundPurple';
+import BackgroundPurple from '../../../Component/Background/BackgroundPurple';
 // Icon
-import {
-  ArrowBack,
-  IconElectricityActive,
-  IconMobileActive,
-  IconInternetActive,
-  IconLandlineActive,
-  IconPDAMActive,
-  IconBPJSActive,
-} from '../../Assets/Assets';
+import {ArrowBack, IconMobileActive} from '../../../Assets/Assets';
 
-const NSMobile = () => {
+const MobileOption = props => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <BackgroundPurple>
         <ScrollView>
           <View style={styles.HeaderBilling}>
-            <TouchableOpacity style={styles.iconTop}>
+            <TouchableOpacity
+              style={styles.iconTop}
+              onPress={() => props.navigation.goBack()}>
               <FastImage
                 style={styles.ArrowBack}
                 source={ArrowBack}
@@ -43,7 +37,9 @@ const NSMobile = () => {
           </View>
           <View>
             <View style={styles.allToken}>
-              <TouchableOpacity style={styles.containerToken}>
+              <TouchableOpacity
+                style={styles.containerToken}
+                onPress={() => props.navigation.navigate('MobileTransaction')}>
                 <FastImage
                   style={styles.styleMobile}
                   source={IconMobileActive}
@@ -53,7 +49,9 @@ const NSMobile = () => {
               <Text style={styles.huruf}>Pulsa (pre-paid)</Text>
             </View>
             <View style={styles.allToken}>
-              <TouchableOpacity style={styles.containerToken}>
+              <TouchableOpacity
+                style={styles.containerToken}
+                onPress={() => props.navigation.navigate('MobileTransaction')}>
                 <FastImage
                   style={styles.styleMobile}
                   source={IconMobileActive}
@@ -63,7 +61,9 @@ const NSMobile = () => {
               <Text style={styles.huruf}>Internet (pre-paid)</Text>
             </View>
             <View style={styles.allToken}>
-              <TouchableOpacity style={styles.containerToken}>
+              <TouchableOpacity
+                style={styles.containerToken}
+                onPress={() => props.navigation.navigate('MobileTransaction')}>
                 <FastImage
                   style={styles.styleMobile}
                   source={IconMobileActive}
@@ -79,7 +79,7 @@ const NSMobile = () => {
   );
 };
 
-export default NSMobile;
+export default MobileOption;
 
 const styles = StyleSheet.create({
   HeaderBilling: {

@@ -30,10 +30,8 @@ import {
   ResultPaymentBankInternetTv,
   NewSubscription,
   NSBillsCategory,
-  NSMobile,
-  NSPulsa,
   NSBillDetail,
-  NSRecurringBilling,
+  RecurringBillingCard,
   NSSubscription,
   Notification,
   Profile,
@@ -48,6 +46,15 @@ import {
   EditProfile,
   DetailPaymentLandline,
   ResultPaymentBankLandline,
+  BPJSTransaction,
+  ElectricityTransaction,
+  InTvOption,
+  InTvTransaction,
+  LandlineTransaction,
+  MobileOption,
+  MobileTransaction,
+  PDAMOption,
+  PDAMTransaction,
 } from './src/Screen/Screen';
 import {useSelector} from 'react-redux';
 import {BottomNav} from './src/Component/Component';
@@ -208,23 +215,13 @@ const Root = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="NSMobile"
-          component={NSMobile}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="NSPulsa"
-          component={NSPulsa}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
           name="NSBillDetail"
           component={NSBillDetail}
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="NSRecurringBilling"
-          component={NSRecurringBilling}
+          name="RecurringBillingCard"
+          component={RecurringBillingCard}
           options={{headerShown: false}}
         />
         <Stack.Screen
@@ -280,6 +277,51 @@ const Root = () => {
         <Stack.Screen
           name="ResultPaymentBankLandline"
           component={ResultPaymentBankLandline}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="BPJSTransaction"
+          component={BPJSTransaction}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ElectricityTransaction"
+          component={ElectricityTransaction}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="InTvOption"
+          component={InTvOption}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="InTvTransaction"
+          component={InTvTransaction}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="LandlineTransaction"
+          component={LandlineTransaction}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="MobileOption"
+          component={MobileOption}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="MobileTransaction"
+          component={MobileTransaction}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PDAMOption"
+          component={PDAMOption}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PDAMTransaction"
+          component={PDAMTransaction}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

@@ -14,38 +14,38 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import {ArrowBack} from '../../Assets/Assets';
-import {Line, IconMobileActive} from '../../Assets/Assets';
+import {ArrowBack} from '../../../Assets/Assets';
+import {Line, IconInternetActive} from '../../../Assets/Assets';
 
-const NSPulsa = () => {
+const InTvTransaction = props => {
   return (
     <SafeAreaView>
       <ScrollView style={styles.containerAll}>
         <View style={styles.containerHead}>
           <View style={styles.HeaderBilling}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => props.navigation.goBack()}>
               <FastImage
                 style={styles.ArrowBack}
                 source={ArrowBack}
                 resizeMode={FastImage.resizeMode.contain}
               />
             </TouchableOpacity>
-            <Text style={styles.Judul}>Mobile</Text>
+            <Text style={styles.Judul}>Internet & TV</Text>
           </View>
           <View>
             <View style={styles.containerIconTop}>
               <FastImage
                 style={styles.iconMobile}
-                source={IconMobileActive}
+                source={IconInternetActive}
                 resizeMode={FastImage.resizeMode.contain}
               />
             </View>
-            <Text style={styles.textPulsa}>Pulsa-Telkomsel</Text>
+            <Text style={styles.textPulsa}>Internet & TV</Text>
           </View>
         </View>
 
         <View style={styles.containerBox}>
-          <Text style={styles.fontText}>Phone Number</Text>
+          <Text style={styles.fontText}>Number Customer</Text>
           <TextInput
             style={styles.textInput}
             placeholder=""
@@ -87,7 +87,9 @@ const NSPulsa = () => {
             </TouchableOpacity>
           </View>
           <View style={{width: wp(100), height: hp(30)}}>
-            <TouchableOpacity style={styles.ContainerButtonSubs}>
+            <TouchableOpacity
+              style={styles.ContainerButtonSubs}
+              onPress={() => props.navigation.navigate('NSBillDetail')}>
               <View style={styles.ButtonSubs}>
                 <Text style={styles.TextButtonSubs}>Create</Text>
               </View>
@@ -99,7 +101,7 @@ const NSPulsa = () => {
   );
 };
 
-export default NSPulsa;
+export default InTvTransaction;
 
 const styles = StyleSheet.create({
   containerAll: {

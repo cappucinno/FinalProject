@@ -28,10 +28,8 @@ import ResultPaymentBPJS from './BPJS/ResultPaymentBPJS';
 import Login from './Login/Login';
 import NewSubscription from './NewSubcription/NewSubscription';
 import NSBillsCategory from './NewSubcription/NSBillsCategory';
-import NSMobile from './NewSubcription/NSMobile';
-import NSPulsa from './NewSubcription/NSPulsa';
 import NSBillDetail from './NewSubcription/NSBillDetail';
-import NSRecurringBilling from './NewSubcription/NSRecurringBilling';
+import RecurringBillingCard from './NewSubcription/RecurringBillingCard';
 import NSSubscription from './NewSubcription/NSSubscription';
 import Notification from './Notification/Notification';
 import Profile from './Profile/Profile';
@@ -43,6 +41,16 @@ import NewPDAMBankPayment from './PDAM/NewPDAMBankPayment';
 import EditProfile from './Profile/EditProfile';
 import DetailPaymentLandline from './Landline/DetailPaymentLandline';
 import ResultPaymentBankLandline from './Landline/ResultPaymentLandline/ResultPaymentBankLandline';
+// file terbaru
+import BPJSTransaction from './NewSubcription/NSBPJS/BPJSTransaction';
+import ElectricityTransaction from './NewSubcription/NSElectricity/ElectricityTransaction';
+import InTvOption from './NewSubcription/NSInTv/InTvOption';
+import InTvTransaction from './NewSubcription/NSInTv/InTvTransaction';
+import LandlineTransaction from './NewSubcription/NSLandline/LandlineTransaction';
+import MobileOption from './NewSubcription/NSMobile/MobileOption';
+import MobileTransaction from './NewSubcription/NSMobile/MobileTransaction';
+import PDAMOption from './NewSubcription/NSPDAM/PDAMOption';
+import PDAMTransaction from './NewSubcription/NSPDAM/PDAMTransaction';
 
 export {
   Electricity,
@@ -71,10 +79,8 @@ export {
   ResultPaymentBankInternetTv,
   NewSubscription,
   NSBillsCategory,
-  NSMobile,
-  NSPulsa,
   NSBillDetail,
-  NSRecurringBilling,
+  RecurringBillingCard,
   NSSubscription,
   Notification,
   Profile,
@@ -89,4 +95,13 @@ export {
   EditProfile,
   DetailPaymentLandline,
   ResultPaymentBankLandline,
+  BPJSTransaction,
+  ElectricityTransaction,
+  InTvOption,
+  InTvTransaction,
+  LandlineTransaction,
+  MobileOption,
+  MobileTransaction,
+  PDAMOption,
+  PDAMTransaction,
 };

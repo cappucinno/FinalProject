@@ -17,7 +17,7 @@ import {
 import {ArrowBack} from '../../Assets/Assets';
 import {Line, IconMobileActive} from '../../Assets/Assets';
 
-const NSBillDetail = () => {
+const NSBillDetail = props => {
   return (
     <SafeAreaView>
       <ScrollView style={styles.containerAll}>
@@ -74,7 +74,9 @@ const NSBillDetail = () => {
         </View>
 
         <View style={{width: wp(100), height: hp(30)}}>
-          <TouchableOpacity style={styles.ContainerButtonSubs}>
+          <TouchableOpacity
+            style={styles.ContainerButtonSubs}
+            onPress={() => props.navigation.navigate('NewSubscription')}>
             <View style={styles.ButtonSubs}>
               <Text style={styles.TextButtonSubs}>Add Bill</Text>
             </View>
