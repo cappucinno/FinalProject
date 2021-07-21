@@ -1,43 +1,20 @@
 const initialState = {
-  dataOption: [],
-  dataUser: [],
-  resBill: [],
+  dataHistory: [],
 };
 
 const HistoryReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'GET_OPTION_HISTORY':
+    case 'GET_HISTORY':
       return {
         ...state,
       };
 
-    case 'GET_OPTION_HISTORY_SUCCESS':
+    case 'GET_HISTORY_SUCCESS':
       return {
         ...state,
-        dataOption: action.payload,
+        dataHistory: action.payload,
       };
 
-    case 'GET_ACCOUNT_HISTORY':
-      return {
-        ...state,
-      };
-
-    case 'GET_ACCOUNT_HISTORY_SUCCESS':
-      return {
-        ...state,
-        dataUser: action.payload,
-      };
-
-    case 'CREATE_HISTORY_PAYMENT':
-      return {
-        ...state,
-      };
-
-    case 'CREATE_HISTORY_PAYMENT_SUCCESS':
-      return {
-        ...state,
-        resBill: action.payload,
-      };
     default:
       return state;
   }

@@ -9,6 +9,7 @@ import PDAMReducer from '../Screen/PDAM/redux/reducer';
 import ElectricityReducer from '../Screen/Electricity/redux/reducer';
 import BankReducer from '../Screen/PaymentMethod/redux/reducer';
 import ProfileReducer from '../Screen/Profile/redux/reducer';
+import HistoryReducer from '../Screen/History/redux/reducer';
 
 export const allReducer = combineReducers({
   GlobalReducer: GlobalReducer,
@@ -21,4 +22,5 @@ export const allReducer = combineReducers({
   ElectricityReducer: ElectricityReducer,
   BankReducer: BankReducer,
   ProfileReducer: ProfileReducer,
+  HistoryReducer: HistoryReducer,
 });

@@ -41,7 +41,6 @@ const DetailPaymentLandline = props => {
   const [Dates, setDates] = useState(false);
   const [value, setValue] = useState('');
   const [items, setItems] = useState([
-    {label: 'Every Week', value: 'Week'},
     {label: 'Every Month', value: 'Month'},
     {label: 'Every Year', value: 'Year'},
   ]);
@@ -61,6 +60,11 @@ const DetailPaymentLandline = props => {
   const [pinuser, setPinUser] = useState('');
   const [countFalse, setCountFalse] = useState(2);
   const dispatch = useDispatch();
+  const [weekchoice, SetWeekChoice] = useState({
+    year: '',
+    month: '',
+    date: '',
+  });
 
   const DetailRes = useSelector(state => state.LandlineReducer?.dataUser.data);
   console.log(DetailRes, '<=== hasil resDetail Landline');
@@ -102,12 +106,81 @@ const DetailPaymentLandline = props => {
         : null;
     return year + '-' + resMonth + '-' + dateChoicez;
   };
+
+  const MonthToNum = () => {
+    let month = DetailRes?.Period[0].slice(5, 6);
+    console.log(month, '<==== ini MonthToNum');
+    let resMonth =
+      month === '1'
+        ? '01'
+        : month === '2'
+        ? '02'
+        : month === '3'
+        ? '03'
+        : month === '4'
+        ? '04'
+        : month === '5'
+        ? '05'
+        : month === '6'
+        ? '06'
+        : month === '7'
+        ? '07'
+        : month === '8'
+        ? '08'
+        : month === '9'
+        ? '09'
+        : month === '10'
+        ? '10'
+        : month === '11'
+        ? '11'
+        : month === '12'
+        ? '12'
+        : null;
+
+    return resMonth;
+  };
+
+  const dateNow = DetailRes?.Period[0].slice(0, 4);
+  console.log(dateNow, 'inidate now');
+
+  const SumMonth = MonthToNum();
+  console.log(SumMonth, ' ini month new in');
+
+  useEffect(() => {
+    SetWeekChoice({
+      ...weekchoice,
+      year: dateNow,
+      month: SumMonth,
+      date: valueDate,
+    });
+  }, [valueDate]);
+
   useEffect(() => {
     setRecuring({
       ...recuring,
       period: value,
     });
   }, [period]);
+
+  useEffect(() => {
+    if (value === 'Month' || 'Year') {
+      setRecuring({
+        ...recuring,
+        recurringDate: resDatePicker(),
+      });
+    }
+  }, [date]);
+
+  // useEffect(() => {
+  //   if (value === 'Week') {
+  //     setRecuring({
+  //       ...recuring,
+  //       recurringDate: `${weekchoice.year}-${weekchoice.month}-${weekchoice.date}`,
+  //     });
+  //   }
+  // }, [weekchoice]);
+
+  // console.log(weekchoice, 'ini week choice');
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
@@ -117,22 +190,17 @@ const DetailPaymentLandline = props => {
   const [recuring, setRecuring] = useState({
     status: cheked,
     period: '',
-    date: value === 'Week' ? `${dateNow}-09-${valueDate}` : resDatePicker(),
+    dayofweek: '2',
+    recurringDate: '',
   });
-
-  const recuringBilling = {
-    status: recuring.status ? recuring.status : '',
-    period: recuring.status ? recuring.period : '',
-    dayOfWeek: '2',
-    recurringDate: recuring.status ? recuring.date : '',
-  };
 
   console.log(recuring.period, 'ini hasil recuring');
   console.log(recuring.status, 'ini status recuring');
+  console.log(recuring.recurringDate, 'ini date recuring');
 
   const paymentMethod = {
-    type: dataMethodPayment.type,
-    bank_destination_id: dataMethodPayment.bank_destination_id,
+    type: dataMethodPayment?.type,
+    bank_destination_id: dataMethodPayment?.bank_destination_id,
   };
 
   // `${dateNow}-09-${valueDate}`
@@ -142,10 +210,9 @@ const DetailPaymentLandline = props => {
   const toggleOverlayDate = () => {
     setVisibleDate(!visibleDate);
   };
-
   const billData = {
     No_Telephone: DetailRes?.No_Telephone,
-    Period: [DetailRes?.Period],
+    Period: DetailRes?.Period,
     Bill: DetailRes?.Bill,
     Admin: DetailRes?.Admin,
     Late_Payment_Fee: DetailRes?.Late_Payment_Fee,
@@ -159,7 +226,7 @@ const DetailPaymentLandline = props => {
       LandlineCreatePaymentAction({
         data: billData,
         payment: paymentMethod,
-        recurringBilling: recuringBilling,
+        recurringBilling: recuring,
       }),
     );
   };
@@ -191,11 +258,6 @@ const DetailPaymentLandline = props => {
 
   console.log(date, ' ini date picker');
   const isLoading = useSelector(state => state.GlobalReducer.Loading);
-
-  const dateNow = DetailRes?.Period;
-  console.log(dateNow, 'inidate now');
-
-  console.log(resDatePicker(), ' ini date picker New');
 
   // cek info bank
   const BankInfo = b =>
@@ -350,19 +412,7 @@ const DetailPaymentLandline = props => {
                       setItems={setItems}
                     />
                     <Text style={styles.HeaderDropdown}>Date</Text>
-                    {value === 'Week' ? (
-                      <DropDownPicker
-                        placeholder="Select an Period"
-                        style={styles.dropDownContainerStyle}
-                        dropDownDirection="BOTTOM"
-                        open={Dates}
-                        value={valueDate}
-                        items={tanggal}
-                        setOpen={setDates}
-                        setValue={setValueDate}
-                        setItems={setTanggal}
-                      />
-                    ) : (
+                    {value === 'Week' ? null : ( // /> //   setItems={setTanggal} //   setValue={setValueDate} //   setOpen={setDates} //   items={tanggal} //   value={valueDate} //   open={Dates} //   dropDownDirection="BOTTOM" //   style={styles.dropDownContainerStyle} //   placeholder="Select an Period" // <DropDownPicker
                       <>
                         <TouchableOpacity
                           style={styles.ContainerDate}
@@ -608,7 +658,7 @@ const styles = StyleSheet.create({
     marginTop: moderateScale(30),
     marginLeft: moderateScale(28),
     width: widthPercentageToDP(85),
-    height: heightPercentageToDP(12),
+    height: heightPercentageToDP(14),
     borderTopStartRadius: moderateScale(13),
     borderTopEndRadius: moderateScale(13),
     borderBottomStartRadius: moderateScale(13),

@@ -13,11 +13,10 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import {ArrowBack} from '../../Assets/Assets';
-import {ButtonClose, PLN, InfoPayment} from '../../Assets/Assets';
+import {IconCloseWhite, PLN, InfoPayment} from '../../Assets/Assets';
 import {COLOR} from '../../Assets/Color/Color';
 
-const NSSubscription = () => {
+const NSSubscription = props => {
   return (
     <SafeAreaView
       style={{backgroundColor: '#263765', width: wp(100), height: hp(100)}}>
@@ -27,10 +26,10 @@ const NSSubscription = () => {
         }}>
         <View style={styles.topContainer}>
           <Text style={styles.text1}>Subscription</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => props.navigation.goBack()}>
             <FastImage
               style={styles.closeIcon}
-              source={ButtonClose}
+              source={IconCloseWhite}
               resizeMode={FastImage.resizeMode.contain}
             />
           </TouchableOpacity>
@@ -107,7 +106,7 @@ const NSSubscription = () => {
           </View>
         </View>
         <View style={styles.tombolHome}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => props.navigation.navigate('Home')}>
             <Text style={styles.textToHome}>Back to home</Text>
           </TouchableOpacity>
         </View>
@@ -123,7 +122,6 @@ const styles = StyleSheet.create({
     width: moderateScale(14),
     height: moderateScale(14),
     top: moderateScale(23),
-    backgroundColor: 'white',
   },
   topContainer: {
     flexDirection: 'row',

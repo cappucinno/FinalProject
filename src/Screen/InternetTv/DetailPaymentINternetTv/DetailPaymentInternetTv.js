@@ -196,14 +196,6 @@ const DetailPaymentInternetTv = props => {
     recurringDate: '',
   });
 
-  // value === 'Week'
-  // ? `${weekchoice.year}-${weekchoice.month}-${weekchoice.date}`
-  // : value === 'Month'
-  // ? resDatePicker()
-  // : value === 'Year'
-  // ? resDatePicker()
-  // : '',
-
   console.log(recuring.period, 'ini hasil recuring');
   console.log(recuring.status, 'ini status recuring');
   console.log(recuring.recurringDate, 'ini date recuring');

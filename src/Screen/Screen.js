@@ -29,7 +29,7 @@ import Login from './Login/Login';
 import NewSubscription from './NewSubcription/NewSubscription';
 import NSBillsCategory from './NewSubcription/NSBillsCategory';
 import NSBillDetail from './NewSubcription/NSBillDetail';
-import NSRecurringBilling from './NewSubcription/NSRecurringBilling';
+import RecurringBillingCard from './NewSubcription/RecurringBillingCard';
 import NSSubscription from './NewSubcription/NSSubscription';
 import Notification from './Notification/Notification';
 import Profile from './Profile/Profile';
@@ -80,7 +80,7 @@ export {
   NewSubscription,
   NSBillsCategory,
   NSBillDetail,
-  NSRecurringBilling,
+  RecurringBillingCard,
   NSSubscription,
   Notification,
   Profile,

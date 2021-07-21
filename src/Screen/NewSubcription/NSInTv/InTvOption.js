@@ -24,7 +24,9 @@ const InTvOption = props => {
       <BackgroundPurple>
         <ScrollView>
           <View style={styles.HeaderBilling}>
-            <TouchableOpacity style={styles.iconTop}>
+            <TouchableOpacity
+              style={styles.iconTop}
+              onPress={() => props.navigation.goBack()}>
               <FastImage
                 style={styles.ArrowBack}
                 source={ArrowBack}
