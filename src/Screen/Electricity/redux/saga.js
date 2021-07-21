@@ -31,6 +31,7 @@ const ElectricityOptions = (payload, token) => {
 function* ElectricityOptionAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
   try {
+    yield put(actionSuccess(true));
     yield put(actionLoading(true));
     const res = yield ElectricityOptions(action.payload, token);
     console.log(action.payload, '<=======ini hasil Option Electricity API');
@@ -78,6 +79,7 @@ const ElectricityToken = (payload, token) => {
 function* ElectricityTokenAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
   try {
+    yield put(actionSuccess(true));
     yield put(actionLoading(true));
     const res = yield ElectricityToken(action.payload, token);
     console.log(action.payload, '<=======ini hasil List Token Electricity API');
@@ -125,6 +127,7 @@ const ElectricityUserToken = (payload, token) => {
 function* ElectricityTokenAccountAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
   try {
+    yield put(actionSuccess(true));
     yield put(actionLoading(true));
     const res = yield ElectricityUserToken(action.payload, token);
     console.log(
@@ -184,6 +187,7 @@ const ElectricityCreatePayToken = (payload, token) => {
 function* ElectricityTokenCreatePayAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
   try {
+    yield put(actionSuccess(true));
     yield put(actionLoading(true));
     const res = yield ElectricityCreatePayToken(action.payload, token);
     console.log(
@@ -243,6 +247,7 @@ const ElectricityUserTagihan = (payload, token) => {
 function* ElectricityTagihanAccountAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
   try {
+    yield put(actionSuccess(true));
     yield put(actionLoading(true));
     const res = yield ElectricityUserTagihan(action.payload, token);
     console.log(

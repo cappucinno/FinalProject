@@ -176,7 +176,7 @@ const ResultPaymentBankInternetTv = props => {
                     <View style={styles.sprit} />
                     <View style={styles.ContainerRes1}>
                       <View style={styles.Form1}>
-                        <Text>Phone Number</Text>
+                        <Text>No Customer</Text>
                         <Text style={styles.textRes}>
                           {resPayment?.payment_details.account_number}
                         </Text>
