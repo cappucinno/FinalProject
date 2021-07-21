@@ -42,6 +42,7 @@ import NewPDAMBillDetail from './PDAM/NewPDAMBillDetail';
 import NewPDAMBankPayment from './PDAM/NewPDAMBankPayment';
 import EditProfile from './Profile/EditProfile';
 import DetailPaymentLandline from './Landline/DetailPaymentLandline';
+import ResultPaymentBankLandline from './Landline/ResultPaymentLandline/ResultPaymentBankLandline';
 
 export {
   Electricity,
@@ -87,4 +88,5 @@ export {
   NewPDAMBankPayment,
   EditProfile,
   DetailPaymentLandline,
+  ResultPaymentBankLandline,
 };

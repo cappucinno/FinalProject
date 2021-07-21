@@ -3,8 +3,8 @@ import {ToastAndroid} from 'react-native';
 import {navigate} from '../../../Function/Nav';
 import {takeLatest, put, select} from 'redux-saga/effects';
 import {
-  LandlineOptionActionSuccess,
   LandlineAccountActionSuccess,
+  LandlineCreatePaymentActionSuccess,
 } from './action';
 import {
   actionLoading,
@@ -25,7 +25,7 @@ const LandlineUserId = (payload, token) => {
 };
 
 // POST GET ID LANDLINE
-function* LandlineUserIdAction(action) {
+function* LandlineAccountAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
   try {
     yield put(actionLoading(true));
@@ -83,7 +83,7 @@ const LandlineCreate = (payload, token) => {
 };
 
 // POST User_ID Landline
-function* LandlineCreateAction(action) {
+function* LandlineCreatePaymentAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
 
   try {
@@ -98,9 +98,9 @@ function* LandlineCreateAction(action) {
       yield put(actionSuccess(true));
       let methodPayment = 'Bank Transfer';
       methodPayment === 'Bank Transfer'
-        ? yield navigate('ResultPaymentBankInternetTv')
+        ? yield navigate('ResultPaymentBankLandline')
         : methodPayment === 'Payment Card'
-        ? yield navigate('ResultPaymentCreditInternetTv')
+        ? yield navigate('ResultPaymentCreditLandline')
         : null;
     } else if (res.status === 204) {
       yield put(actionSuccess(false));
@@ -125,8 +125,8 @@ function* LandlineCreateAction(action) {
 }
 
 function* LandlineSaga() {
-  yield takeLatest('GET_ACCOUNT_LANDLINE', LandlineUserIdAction);
-  yield takeLatest('CREATE_LANDLINE_PAYMENT', LandlineCreateAction);
+  yield takeLatest('GET_ACCOUNT_LANDLINE', LandlineAccountAction);
+  yield takeLatest('CREATE_LANDLINE_PAYMENT', LandlineCreatePaymentAction);
 }
 
 export default LandlineSaga;

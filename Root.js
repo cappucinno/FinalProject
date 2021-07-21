@@ -47,6 +47,7 @@ import {
   NewPDAMBankPayment,
   EditProfile,
   DetailPaymentLandline,
+  ResultPaymentBankLandline,
 } from './src/Screen/Screen';
 import {useSelector} from 'react-redux';
 import {BottomNav} from './src/Component/Component';
@@ -274,6 +275,11 @@ const Root = () => {
         <Stack.Screen
           name="DetailPaymentLandline"
           component={DetailPaymentLandline}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ResultPaymentBankLandline"
+          component={ResultPaymentBankLandline}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
