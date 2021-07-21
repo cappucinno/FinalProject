@@ -87,7 +87,9 @@ const ElectricityTransaction = props => {
             </TouchableOpacity>
           </View>
           <View style={{width: wp(100), height: hp(30)}}>
-            <TouchableOpacity style={styles.ContainerButtonSubs}>
+            <TouchableOpacity
+              style={styles.ContainerButtonSubs}
+              onPress={() => props.navigation.navigate('NSBillDetail')}>
               <View style={styles.ButtonSubs}>
                 <Text style={styles.TextButtonSubs}>Create</Text>
               </View>
