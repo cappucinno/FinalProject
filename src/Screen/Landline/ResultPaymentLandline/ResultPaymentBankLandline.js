@@ -108,15 +108,15 @@ const ResultPaymentBankLandline = props => {
     setPay(true);
     dispatch(
       ConfirmationPaymentAction({
-        billId: resPayment?.billId,
-        transactionId: resPayment?.transactionId,
+        billId: resPayment?.bill_id,
+        transactionId: resPayment?.transaction_id,
         bankDestinationId: dataMethodPayment?.bank_destination_id,
         receipt: image,
       }),
     );
   };
   const ResCreatePayment = useSelector(
-    state => state.BankReducer?.paymentCreate,
+    state => state.BankReducer?.paymentCreate.data,
   );
   const isLoading = useSelector(state => state.GlobalReducer.Loading);
   return (
@@ -147,11 +147,6 @@ const ResultPaymentBankLandline = props => {
                       resizeMode={FastImage.resizeMode.contain}
                     />
                   </View>
-                  <View style={styles.ContainerText}>
-                    <Text style={styles.TextList}>
-                      {resPayment?.bill_details.provider}
-                    </Text>
-                  </View>
                 </View>
               </View>
             </View>
@@ -178,13 +173,13 @@ const ResultPaymentBankLandline = props => {
                       <View style={styles.Form1}>
                         <Text>Phone Number</Text>
                         <Text style={styles.textRes}>
-                          {resPayment?.payment_details.account_number}
+                          {ResCreatePayment?.receipt?.phone_number}
                         </Text>
                       </View>
                       <View style={styles.Form1}>
-                        <Text>Provider</Text>
+                        <Text>Periodr</Text>
                         <Text style={styles.textRes}>
-                          {resPayment?.bill_details.provider}
+                          {ResCreatePayment?.receipt?.period}
                         </Text>
                       </View>
                     </View>
@@ -192,20 +187,26 @@ const ResultPaymentBankLandline = props => {
                       <View style={styles.Form2}>
                         <Text>Bill</Text>
                         <Text style={styles.textRes}>
-                          {resPayment?.bill_details.bill}
+                          {`Rp ${ResCreatePayment?.receipt?.bill_fee}`}
+                        </Text>
+                      </View>
+                      <View style={styles.Form2}>
+                        <Text>Late Payment</Text>
+                        <Text style={styles.textRes}>
+                          {`Rp ${ResCreatePayment?.receipt?.late_payment_fee}`}
                         </Text>
                       </View>
 
                       <View style={styles.Form2}>
                         <Text>Admin</Text>
                         <Text style={styles.textRes}>
-                          {resPayment?.bill_details.admin}
+                          {`Rp ${ResCreatePayment?.receipt?.admin_fee}`}
                         </Text>
                       </View>
                       <View style={styles.Form2}>
                         <Text style={styles.textRes}>Total</Text>
                         <Text style={styles.textRes}>
-                          {resPayment?.bill_details.total}
+                          {`Rp ${ResCreatePayment?.receipt?.total}`}
                         </Text>
                       </View>
                     </View>
@@ -231,25 +232,25 @@ const ResultPaymentBankLandline = props => {
                       <View style={styles.Form1}>
                         <Text>Total</Text>
                         <Text style={styles.textRes}>
-                          {resPayment?.payment_details.total}
+                          {resPayment?.bankTransferDetails.Total}
                         </Text>
                       </View>
                       <View style={styles.Form1}>
                         <Text>Bank</Text>
                         <Text style={styles.textRes}>
-                          {resPayment?.payment_details.bank}
+                          {resPayment?.bankTransferDetails.account_bank}
                         </Text>
                       </View>
                       <View style={styles.Form1}>
                         <Text>Account Name</Text>
                         <Text style={styles.textRes}>
-                          {resPayment?.payment_details.account_name}
+                          {resPayment?.bankTransferDetails.account_name}
                         </Text>
                       </View>
                       <View style={styles.Form1}>
                         <Text>Account No</Text>
                         <Text style={styles.textRes}>
-                          {resPayment?.payment_details.account_number}
+                          {resPayment?.bankTransferDetails.account_number}
                         </Text>
                       </View>
 
@@ -302,27 +303,15 @@ const ResultPaymentBankLandline = props => {
                     <View style={styles.ContainerTextBillDetail1}>
                       <Text style={styles.TextHeadBill}>Bill Details</Text>
                       <View style={styles.ContainerTextData}>
-                        <Text style={styles.TextData}>No Customer</Text>
+                        <Text style={styles.TextData}>No Telephone</Text>
                         <Text style={styles.TextDataRes}>
-                          {resPayment?.bill_details.no_customer}
-                        </Text>
-                      </View>
-                      <View style={styles.ContainerTextData}>
-                        <Text style={styles.TextData}>Fullname</Text>
-                        <Text style={styles.TextDataRes}>
-                          {resPayment?.bill_details.name}
-                        </Text>
-                      </View>
-                      <View style={styles.ContainerTextData}>
-                        <Text style={styles.TextData}>Address</Text>
-                        <Text style={styles.TextDataRes}>
-                          {resPayment?.bill_details.address}
+                          {resPayment?.landline_bill_details.No_Telephone}
                         </Text>
                       </View>
                       <View style={styles.ContainerTextData}>
                         <Text style={styles.TextData}>Payment Period</Text>
                         <Text style={styles.TextDataRes}>
-                          {resPayment?.bill_details.period}
+                          {resPayment?.landline_bill_details.Period}
                         </Text>
                       </View>
                     </View>
@@ -330,19 +319,19 @@ const ResultPaymentBankLandline = props => {
                       <View style={styles.ContainerTextData}>
                         <Text style={styles.TextData}>Bill</Text>
                         <Text style={styles.TextDataRes}>
-                          {resPayment?.bill}
+                          {resPayment?.landline_bill_details.Bill}
                         </Text>
                       </View>
                       <View style={styles.ContainerTextData}>
                         <Text style={styles.TextData}>Late Payment</Text>
                         <Text style={styles.TextDataRes}>
-                          {resPayment?.bill_details.late_payment}
+                          {resPayment?.landline_bill_details.Late_Payment_Fee}
                         </Text>
                       </View>
                       <View style={styles.ContainerTextData}>
                         <Text style={styles.TextData}>Admin</Text>
                         <Text style={styles.TextDataRes}>
-                          {resPayment?.bill_details.admin}
+                          {resPayment?.landline_bill_details.Admin}
                         </Text>
                       </View>
                       <View style={styles.ContainerTextData}>
@@ -358,26 +347,30 @@ const ResultPaymentBankLandline = props => {
                             fontFamily: 'Montserrat-Bold',
                             color: '#000000',
                           }}>
-                          {resPayment?.bill_details.total}
+                          {resPayment?.landline_bill_details.Total}
                         </Text>
                       </View>
                     </View>
                   </View>
                 </>
               )}
-              <TouchableOpacity
-                onPress={() => props.navigation.navigate('Home')}>
-                <Text
-                  style={{
-                    fontFamily: 'Montserrat-Bold',
-                    color: 'white',
-                    alignSelf: 'center',
-                    paddingBottom: moderateScale(24),
-                    marginTop: pay ? moderateScale(235) : moderateScale(0),
-                  }}>
-                  Back to home
-                </Text>
-              </TouchableOpacity>
+              <View
+                style={{
+                  paddingBottom: moderateScale(24),
+                  marginTop: pay ? moderateScale(235) : moderateScale(0),
+                }}>
+                <TouchableOpacity
+                  onPress={() => props.navigation.navigate('Home')}>
+                  <Text
+                    style={{
+                      fontFamily: 'Montserrat-Bold',
+                      color: 'white',
+                      alignSelf: 'center',
+                    }}>
+                    Back to home
+                  </Text>
+                </TouchableOpacity>
+              </View>
               <BottomSheet isVisible={upload}>
                 <View style={styles.containerOverlay}>
                   <View style={styles.HeaderBottmSheet}>
@@ -573,7 +566,7 @@ const styles = StyleSheet.create({
     marginLeft: moderateScale(28),
     marginBottom: moderateScale(32),
     width: widthPercentageToDP(85),
-    height: heightPercentageToDP(46),
+    height: heightPercentageToDP(38),
     borderTopStartRadius: moderateScale(13),
     borderTopEndRadius: moderateScale(13),
     borderBottomStartRadius: moderateScale(13),
@@ -619,7 +612,7 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: moderateScale(12),
     fontFamily: 'Montserrat-Bold',
-    marginLeft: moderateScale(80),
+    marginLeft: moderateScale(20),
   },
   ContainerRes: {
     marginTop: moderateScale(28),

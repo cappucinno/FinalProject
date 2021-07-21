@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -21,10 +21,13 @@ import {
   ArrowBack,
 } from '../../Assets/Assets';
 import {Overlay, BottomSheet, CheckBox} from 'react-native-elements';
+import Loading from '../../Component/Loading/Loading';
+import {useSelector, useDispatch} from 'react-redux';
+import {GetHistoryAction} from './redux/action';
 
 const History = props => {
   const [visible, setVisible] = useState(false);
-
+  const dispatch = useDispatch();
   const toggleOverlay = () => {
     setVisible(!visible);
   };
@@ -33,6 +36,15 @@ const History = props => {
   const [check2, setCheck2] = useState(false);
   const [check3, setCheck3] = useState(false);
   const [check4, setCheck4] = useState(false);
+
+  const DataHistory = useSelector(state => state.HistoryReducer?.dataHistory);
+
+  console.log(DataHistory, 'ini hasil data History User');
+
+  useEffect(() => {
+    dispatch(GetHistoryAction());
+  }, [dispatch]);
+
   return (
     <SafeAreaView>
       <ScrollView style={styles.containerAll}>
@@ -50,262 +62,49 @@ const History = props => {
             </View>
           </View>
         </View>
-        <View>
-          <Text style={styles.textTanggal}>12 May 2021</Text>
-        </View>
-        <View style={styles.topContainer}>
-          <View style={styles.containerBillAtas}>
-            <View style={styles.containerData1}>
-              <View style={styles.containerToken}>
-                <FastImage
-                  style={styles.imageToken}
-                  source={IconElectricityActive}
-                  resizeMode={FastImage.resizeMode.contain}
+        {DataHistory?.data.map((v, i) => {
+          return (
+            <>
+              <View key={i}>
+                <Text style={styles.textTanggal}>{v}</Text>
+              </View>
+              <View style={styles.topContainer}>
+                <View style={styles.containerBillAtas}>
+                  <View style={styles.containerData1}>
+                    <View style={styles.containerToken}>
+                      <FastImage
+                        style={styles.imageToken}
+                        source={IconElectricityActive}
+                        resizeMode={FastImage.resizeMode.contain}
+                      />
+                    </View>
+                    <View style={styles.boxText}>
+                      <View style={styles.data1}>
+                        <Text style={styles.textPLN}>PLN-Token</Text>
+                        <Text style={styles.textNo}>141234567890</Text>
+                      </View>
+                      <Text style={styles.data2}>Rp. 51.500</Text>
+                    </View>
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => props.navigation.navigate('HistoryReceipt')}
+                    style={styles.seeDetail}>
+                    <Text style={styles.textseeDetail}>see receipt</Text>
+                  </TouchableOpacity>
+                </View>
+                <View
+                  style={{
+                    borderBottomColor: '#EBEDF4',
+                    borderBottomWidth: 1,
+                    width: wp(92),
+                    alignSelf: 'center',
+                    top: moderateScale(25),
+                  }}
                 />
               </View>
-              <View style={styles.boxText}>
-                <View style={styles.data1}>
-                  <Text style={styles.textPLN}>PLN-Token</Text>
-                  <Text style={styles.textNo}>141234567890</Text>
-                </View>
-                <Text style={styles.data2}>Rp. 51.500</Text>
-              </View>
-            </View>
-            <TouchableOpacity
-              onPress={() => props.navigation.navigate('HistoryReceipt')}
-              style={styles.seeDetail}>
-              <Text style={styles.textseeDetail}>see receipt</Text>
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              borderBottomColor: '#EBEDF4',
-              borderBottomWidth: 1,
-              width: wp(92),
-              alignSelf: 'center',
-              top: moderateScale(25),
-            }}
-          />
-          <View style={styles.containerBillBawah}>
-            <View style={styles.containerData1}>
-              <View style={styles.containerToken}>
-                <FastImage
-                  style={styles.imageToken}
-                  source={IconElectricityActive}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </View>
-              <View style={styles.boxText}>
-                <View style={styles.data1}>
-                  <Text style={styles.textPLN}>PLN-Token</Text>
-                  <Text style={styles.textNo}>141234567890</Text>
-                </View>
-                <Text style={styles.data2}>Rp. 51.500</Text>
-              </View>
-            </View>
-            <TouchableOpacity style={styles.seeDetail}>
-              <Text style={styles.textseeDetail}>see receipt</Text>
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              borderBottomColor: '#EBEDF4',
-              borderBottomWidth: 1,
-              width: wp(92),
-              alignSelf: 'center',
-              top: moderateScale(45),
-            }}
-          />
-          <View style={styles.containerBillPalingBawah}>
-            <View style={styles.containerData1}>
-              <View style={styles.containerToken}>
-                <FastImage
-                  style={styles.imageToken}
-                  source={IconMobileActive}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </View>
-              <View style={styles.boxText}>
-                <View style={styles.data1}>
-                  <Text style={styles.textPLN}>Pulsa - Telkomsel</Text>
-                  <Text style={styles.textNo}>082134567890</Text>
-                </View>
-                <Text style={styles.data2}>Rp. 51.500</Text>
-              </View>
-            </View>
-            <TouchableOpacity style={styles.seeDetail}>
-              <Text style={styles.textseeDetail}>see receipt</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View>
-          <Text style={styles.textTanggal}>10 May 2021</Text>
-        </View>
-        <View style={styles.topContainer}>
-          <View style={styles.containerBillAtas}>
-            <View style={styles.containerData1}>
-              <View style={styles.containerToken}>
-                <FastImage
-                  style={styles.imageToken}
-                  source={IconElectricityActive}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </View>
-              <View style={styles.boxText}>
-                <View style={styles.data1}>
-                  <Text style={styles.textPLN}>PLN-Token</Text>
-                  <Text style={styles.textNo}>141234567890</Text>
-                </View>
-                <Text style={styles.data2}>Rp. 51.500</Text>
-              </View>
-            </View>
-            <TouchableOpacity style={styles.seeDetail}>
-              <Text style={styles.textseeDetail}>see receipt</Text>
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              borderBottomColor: '#EBEDF4',
-              borderBottomWidth: 1,
-              width: wp(92),
-              alignSelf: 'center',
-              top: moderateScale(25),
-            }}
-          />
-          <View style={styles.containerBillBawah}>
-            <View style={styles.containerData1}>
-              <View style={styles.containerToken}>
-                <FastImage
-                  style={styles.imageToken}
-                  source={IconElectricityActive}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </View>
-              <View style={styles.boxText}>
-                <View style={styles.data1}>
-                  <Text style={styles.textPLN}>PLN-Token</Text>
-                  <Text style={styles.textNo}>141234567890</Text>
-                </View>
-                <Text style={styles.data2}>Rp. 51.500</Text>
-              </View>
-            </View>
-            <TouchableOpacity style={styles.seeDetail}>
-              <Text style={styles.textseeDetail}>see receipt</Text>
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              borderBottomColor: '#EBEDF4',
-              borderBottomWidth: 1,
-              width: wp(92),
-              alignSelf: 'center',
-              top: moderateScale(45),
-            }}
-          />
-          <View style={styles.containerBillPalingBawah}>
-            <View style={styles.containerData1}>
-              <View style={styles.containerToken}>
-                <FastImage
-                  style={styles.imageToken}
-                  source={IconMobileActive}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </View>
-              <View style={styles.boxText}>
-                <View style={styles.data1}>
-                  <Text style={styles.textPLN}>Pulsa - Telkomsel</Text>
-                  <Text style={styles.textNo}>082134567890</Text>
-                </View>
-                <Text style={styles.data2}>Rp. 51.500</Text>
-              </View>
-            </View>
-            <TouchableOpacity style={styles.seeDetail}>
-              <Text style={styles.textseeDetail}>see receipt</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View>
-          <Text style={styles.textTanggal}>8 May 2021</Text>
-        </View>
-        <View style={styles.singleContainer}>
-          <View style={styles.containerBillAtas}>
-            <View style={styles.containerData1}>
-              <View style={styles.containerToken}>
-                <FastImage
-                  style={styles.imageToken}
-                  source={IconElectricityActive}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </View>
-              <View style={styles.boxText}>
-                <View style={styles.data1}>
-                  <Text style={styles.textPLN}>PLN-Token</Text>
-                  <Text style={styles.textNo}>141234567890</Text>
-                </View>
-                <Text style={styles.data2}>Rp. 51.500</Text>
-              </View>
-            </View>
-            <TouchableOpacity style={styles.seeDetail}>
-              <Text style={styles.textseeDetail}>see receipt</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View>
-          <Text style={styles.textTanggal}>12 May 2021</Text>
-        </View>
-        <View style={styles.topContainer}>
-          <View style={styles.containerBillAtas}>
-            <View style={styles.containerData1}>
-              <View style={styles.containerToken}>
-                <FastImage
-                  style={styles.imageToken}
-                  source={IconElectricityActive}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </View>
-              <View style={styles.boxText}>
-                <View style={styles.data1}>
-                  <Text style={styles.textPLN}>PLN-Token</Text>
-                  <Text style={styles.textNo}>141234567890</Text>
-                </View>
-                <Text style={styles.data2}>Rp. 51.500</Text>
-              </View>
-            </View>
-            <TouchableOpacity style={styles.seeDetail}>
-              <Text style={styles.textseeDetail}>see receipt</Text>
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              borderBottomColor: '#EBEDF4',
-              borderBottomWidth: 1,
-              width: wp(92),
-              alignSelf: 'center',
-              top: moderateScale(25),
-            }}
-          />
-          <View style={styles.containerBillBawah}>
-            <View style={styles.containerData1}>
-              <View style={styles.containerToken}>
-                <FastImage
-                  style={styles.imageToken}
-                  source={IconElectricityActive}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </View>
-              <View style={styles.boxText}>
-                <View style={styles.data1}>
-                  <Text style={styles.textPLN}>PLN-Token</Text>
-                  <Text style={styles.textNo}>141234567890</Text>
-                </View>
-                <Text style={styles.data2}>Rp. 51.500</Text>
-              </View>
-            </View>
-            <TouchableOpacity style={styles.seeDetail}>
-              <Text style={styles.textseeDetail}>see receipt</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+            </>
+          );
+        })}
       </ScrollView>
       <BottomSheet isVisible={visible}>
         <View style={styles.containerOverlay}>
