@@ -41,6 +41,16 @@ import NewPDAMBankPayment from './PDAM/NewPDAMBankPayment';
 import EditProfile from './Profile/EditProfile';
 import DetailPaymentLandline from './Landline/DetailPaymentLandline';
 import ResultPaymentBankLandline from './Landline/ResultPaymentLandline/ResultPaymentBankLandline';
+// file terbaru
+import BPJSTransaction from './NewSubcription/NSBPJS/BPJSTransaction';
+import ElectricityTransaction from './NewSubcription/NSElectricity/ElectricityTransaction';
+import InTvOption from './NewSubcription/NSInTv/InTvOption';
+import inTvTransaction from './NewSubcription/NSInTv/inTvTransaction';
+import LandlineTransaction from './NewSubcription/NSLandline/LandlineTransaction';
+import MobileOption from './NewSubcription/NSMobile/MobileOption';
+import MobileTransaction from './NewSubcription/NSMobile/MobileTransaction';
+import PDAMOption from './NewSubcription/NSPDAM/PDAMOption';
+import PDAMTransaction from './NewSubcription/NSPDAM/PDAMTransaction';
 
 export {
   Electricity,
@@ -85,4 +95,13 @@ export {
   EditProfile,
   DetailPaymentLandline,
   ResultPaymentBankLandline,
+  BPJSTransaction,
+  ElectricityTransaction,
+  InTvOption,
+  inTvTransaction,
+  LandlineTransaction,
+  MobileOption,
+  MobileTransaction,
+  PDAMOption,
+  PDAMTransaction,
 };

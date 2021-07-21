@@ -46,6 +46,15 @@ import {
   EditProfile,
   DetailPaymentLandline,
   ResultPaymentBankLandline,
+  BPJSTransaction,
+  ElectricityTransaction,
+  InTvOption,
+  inTvTransaction,
+  LandlineTransaction,
+  MobileOption,
+  MobileTransaction,
+  PDAMOption,
+  PDAMTransaction,
 } from './src/Screen/Screen';
 import {useSelector} from 'react-redux';
 import {BottomNav} from './src/Component/Component';
@@ -268,6 +277,51 @@ const Root = () => {
         <Stack.Screen
           name="ResultPaymentBankLandline"
           component={ResultPaymentBankLandline}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="BPJSTransaction"
+          component={BPJSTransaction}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ElectricityTransaction"
+          component={ElectricityTransaction}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="InTvOption"
+          component={InTvOption}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="inTvTransaction"
+          component={inTvTransaction}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="LandlineTransaction"
+          component={LandlineTransaction}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="MobileOption"
+          component={MobileOption}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="MobileTransaction"
+          component={MobileTransaction}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PDAMOption"
+          component={PDAMOption}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PDAMTransaction"
+          component={PDAMTransaction}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
