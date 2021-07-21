@@ -31,7 +31,7 @@ import {
   NewSubscription,
   NSBillsCategory,
   NSBillDetail,
-  NSRecurringBilling,
+  RecurringBillingCard,
   NSSubscription,
   Notification,
   Profile,
@@ -220,8 +220,8 @@ const Root = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="NSRecurringBilling"
-          component={NSRecurringBilling}
+          name="RecurringBillingCard"
+          component={RecurringBillingCard}
           options={{headerShown: false}}
         />
         <Stack.Screen

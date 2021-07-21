@@ -23,7 +23,7 @@ const MobileTransaction = props => {
       <ScrollView style={styles.containerAll}>
         <View style={styles.containerHead}>
           <View style={styles.HeaderBilling}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => props.navigation.goBack()}>
               <FastImage
                 style={styles.ArrowBack}
                 source={ArrowBack}

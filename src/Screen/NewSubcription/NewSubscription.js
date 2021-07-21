@@ -16,7 +16,7 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import {ArrowBack} from '../../Assets/Assets';
-import {Line} from '../../Assets/Assets';
+import {PLN} from '../../Assets/Assets';
 
 const NewSubscription = props => {
   const [period, setPeriod] = useState(false);
@@ -86,7 +86,7 @@ const NewSubscription = props => {
           />
         </View>
         <View style={styles.containerBox2}>
-          <Text style={styles.fontText}>Bills</Text>
+          <Text style={styles.fontText}>Bill Detail</Text>
           <Text
             style={{
               alignSelf: 'center',
@@ -97,6 +97,50 @@ const NewSubscription = props => {
             - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             - - - - - - - -
           </Text>
+          <View style={styles.containerBillDetail}>
+            <View style={styles.containerBillAtas}>
+              <View style={styles.containerData1}>
+                <View style={styles.containerToken}>
+                  <FastImage
+                    style={styles.imageToken}
+                    source={PLN}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                </View>
+                <View style={styles.boxText}>
+                  <View style={styles.data1}>
+                    <Text style={styles.textPLN}>PLN-Token</Text>
+                    <Text style={styles.textNo}>141234567890</Text>
+                  </View>
+                  <Text style={styles.data2}>Rp. 51.500</Text>
+                </View>
+              </View>
+              <TouchableOpacity style={styles.seeDetail}>
+                <Text style={styles.textseeDetail}>see detail</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.containerBillBawah}>
+              <View style={styles.containerData1}>
+                <View style={styles.containerToken}>
+                  <FastImage
+                    style={styles.imageToken}
+                    source={PLN}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                </View>
+                <View style={styles.boxText}>
+                  <View style={styles.data1}>
+                    <Text style={styles.textPLN}>Pulsa - Telkomsel</Text>
+                    <Text style={styles.textNo}>141234567890</Text>
+                  </View>
+                  <Text style={styles.data2}>Rp. 51.500</Text>
+                </View>
+              </View>
+              <TouchableOpacity style={styles.seeDetail}>
+                <Text style={styles.textseeDetail}>see detail</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
           <View style={styles.addnewbill}>
             <TouchableOpacity
               onPress={() => props.navigation.navigate('NSBillsCategory')}
@@ -113,7 +157,9 @@ const NewSubscription = props => {
           </View>
         </View>
         <View style={{width: wp(100), height: hp(30)}}>
-          <TouchableOpacity style={styles.ContainerButtonSubs}>
+          <TouchableOpacity
+            style={styles.ContainerButtonSubs}
+            onPress={() => props.navigation.navigate('NSSubscription')}>
             <View style={styles.ButtonSubs}>
               <Text style={styles.TextButtonSubs}>Create</Text>
             </View>
@@ -171,6 +217,64 @@ const styles = StyleSheet.create({
     top: moderateScale(20),
     fontFamily: 'Montserrat-Bold',
   },
+  containerBillDetail: {
+    marginTop: moderateScale(15),
+  },
+  containerBillAtas: {
+    // backgroundColor: 'green',
+    marginTop: moderateScale(20),
+  },
+  containerBillBawah: {
+    // backgroundColor: 'blue',
+    marginTop: moderateScale(20),
+  },
+  containerData1: {
+    flexDirection: 'row',
+    // top: moderateScale(41),
+    width: moderateScale(292),
+    alignSelf: 'center',
+  },
+  containerToken: {
+    width: moderateScale(32),
+    height: moderateScale(32),
+    backgroundColor: '#EBEDF4',
+  },
+  imageToken: {
+    width: moderateScale(18),
+    height: moderateScale(11),
+    alignSelf: 'center',
+    top: moderateScale(9),
+  },
+  boxText: {
+    flexDirection: 'row',
+    width: moderateScale(252),
+    left: moderateScale(10),
+    justifyContent: 'space-between',
+  },
+  data1: {},
+  textPLN: {
+    fontFamily: 'Montserrat-Bold',
+    fontSize: moderateScale(12),
+    color: '#333333',
+  },
+  textNo: {
+    fontFamily: 'Montserrat-Regular',
+    fontSize: moderateScale(12),
+    color: '#828282',
+  },
+  data2: {
+    fontFamily: 'Montserrat-Regular',
+    fontSize: moderateScale(12),
+    color: '#333333',
+  },
+  seeDetail: {
+    left: moderateScale(62),
+  },
+  textseeDetail: {
+    fontFamily: 'Montserrat-Regular',
+    fontSize: moderateScale(10),
+    textDecorationLine: 'underline',
+  },
   fontText2: {
     fontSize: moderateScale(10),
     left: moderateScale(25),
@@ -213,10 +317,10 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(20),
     backgroundColor: 'white',
     width: moderateScale(332),
-    height: moderateScale(171),
+    height: moderateScale(280),
     alignSelf: 'center',
     marginBottom: moderateScale(40),
-    top: moderateScale(30),
+    marginTop: moderateScale(30),
     elevation: 10,
     zIndex: -10,
   },
@@ -227,7 +331,7 @@ const styles = StyleSheet.create({
     borderWidth: moderateScale(1),
     borderStyle: 'dashed',
     alignSelf: 'center',
-    top: moderateScale(38),
+    marginTop: moderateScale(20),
   },
   ContainerButtonSubs: {
     alignSelf: 'center',
@@ -239,7 +343,7 @@ const styles = StyleSheet.create({
     height: hp(6),
     width: wp(90),
     elevation: moderateScale(3),
-    top: moderateScale(30),
+    marginTop: moderateScale(30),
   },
   ButtonSubs: {
     color: 'white',
