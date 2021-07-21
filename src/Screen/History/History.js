@@ -37,9 +37,12 @@ const History = props => {
   const [check3, setCheck3] = useState(false);
   const [check4, setCheck4] = useState(false);
 
-  const DataHistory = useSelector(state => state.HistoryReducer?.dataHistory);
+  const DataHistory = useSelector(
+    state => state.HistoryReducer?.dataHistory.data,
+  );
 
   console.log(DataHistory, 'ini hasil data History User');
+  // console.table(Object.values(DataHistory, '<== ini data history'));
 
   useEffect(() => {
     dispatch(GetHistoryAction());
@@ -62,45 +65,74 @@ const History = props => {
             </View>
           </View>
         </View>
-        {DataHistory?.data.map((v, i) => {
+        {/* {DataHistory.map(e => {
+          const Tanggal = () => {
+            return Object.keys(e).map(z => {
+              return <Text>{z}</Text>;
+            });
+          };
+          const DataTanggal = () => {
+            return Object.values(e).map(w => {
+              return w.map(i => {
+                return <Text>{i.bill_id}</Text>;
+              });
+            });
+          };
           return (
             <>
-              <View key={i}>
-                <Text style={styles.textTanggal}>{v}</Text>
-              </View>
-              <View style={styles.topContainer}>
-                <View style={styles.containerBillAtas}>
-                  <View style={styles.containerData1}>
-                    <View style={styles.containerToken}>
-                      <FastImage
-                        style={styles.imageToken}
-                        source={IconElectricityActive}
-                        resizeMode={FastImage.resizeMode.contain}
-                      />
-                    </View>
-                    <View style={styles.boxText}>
-                      <View style={styles.data1}>
-                        <Text style={styles.textPLN}>PLN-Token</Text>
-                        <Text style={styles.textNo}>141234567890</Text>
-                      </View>
-                      <Text style={styles.data2}>Rp. 51.500</Text>
-                    </View>
-                  </View>
-                  <TouchableOpacity
-                    onPress={() => props.navigation.navigate('HistoryReceipt')}
-                    style={styles.seeDetail}>
-                    <Text style={styles.textseeDetail}>see receipt</Text>
-                  </TouchableOpacity>
+              <Tanggal />
+              <DataTanggal />
+            </>
+          );
+        })} */}
+        {DataHistory.map((v, i) => {
+          return (
+            <>
+              <View>
+                <View key={i}>
+                  <Text style={styles.textTanggal}>{Object.keys(v)}</Text>
                 </View>
-                <View
-                  style={{
-                    borderBottomColor: '#EBEDF4',
-                    borderBottomWidth: 1,
-                    width: wp(92),
-                    alignSelf: 'center',
-                    top: moderateScale(25),
-                  }}
-                />
+                <View style={styles.topContainer}>
+                  {Object.values(Object.keys(v)).map((z, x) => {
+                    console.log(z, 'ini hasil z');
+                    return (
+                      <View style={styles.containerBillAtas}>
+                        <View style={styles.containerData1}>
+                          <View style={styles.containerToken}>
+                            <FastImage
+                              style={styles.imageToken}
+                              source={IconElectricityActive}
+                              resizeMode={FastImage.resizeMode.contain}
+                            />
+                          </View>
+                          <View style={styles.boxText}>
+                            <View style={styles.data1}>
+                              <Text style={styles.textPLN}>{z.bill_type}</Text>
+                              <Text style={styles.textNo}>141234567890</Text>
+                            </View>
+                            <Text style={styles.data2}>Rp. 51.500</Text>
+                          </View>
+                        </View>
+                        <TouchableOpacity
+                          onPress={() =>
+                            props.navigation.navigate('HistoryReceipt')
+                          }
+                          style={styles.seeDetail}>
+                          <Text style={styles.textseeDetail}>see receipt</Text>
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  })}
+                  <View
+                    style={{
+                      borderBottomColor: '#EBEDF4',
+                      borderBottomWidth: 1,
+                      width: wp(92),
+                      alignSelf: 'center',
+                      top: moderateScale(25),
+                    }}
+                  />
+                </View>
               </View>
             </>
           );
