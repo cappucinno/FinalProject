@@ -21,14 +21,13 @@ import {
   IconEditPassword,
   IconEditPin,
 } from '../../Assets/Assets';
-import {ProfileOptionAction} from './redux/action';
 
 const Profile = props => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(ProfileOptionAction());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(ProfileOptionAction());
+  // }, [dispatch]);
 
   return (
     <SafeAreaView style={styles.container}>

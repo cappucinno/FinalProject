@@ -30,6 +30,7 @@ function* inTvOptionAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
 
   try {
+    yield put(actionSuccess(true));
     yield put(actionLoading(true));
     const res = yield inTvOptions(action.payload, token);
     console.log(action.payload, '<=======ini hasil Optipn INTV Api');
@@ -75,6 +76,7 @@ function* inTvUserIdAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
 
   try {
+    yield put(actionSuccess(true));
     yield put(actionLoading(true));
     const res = yield inTvUserId(action.payload, token);
     console.log(res, '<=======ini hasil user INTV Api');
@@ -132,6 +134,7 @@ function* inTvCreateAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
 
   try {
+    yield put(actionSuccess(true));
     yield put(actionLoading(true));
     const res = yield inTvCreate(action.payload, token);
     console.log(res, '<=======ini hasil CreateBill INTV Api');
