@@ -21,25 +21,14 @@ import {
   IconEditPassword,
   IconEditPin,
 } from '../../Assets/Assets';
+import {ProfileOptionAction} from './redux/action';
 
 const Profile = props => {
-  // const [firstName, setFirstName] = useState(true);
-  // const [lastName, setLastName] = useState(true);
-  // const [email, setEmail] = useState(true);
-  // const [password, setPassword] = useState(true);
-  // const [pin, setPin] = useState(true);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // const isLoading = useSelector(state => state.GlobalReducer.Loading);
-  // const isLogged = useSelector(state => state.GlobalReducer.isLogged);
-
-  // useEffect(() => {
-  //   if (isLogged) {
-  //     props.navigation.navigate('Mainapp');
-  //   } else {
-  //     props.navigation.navigate('Login');
-  //   }
-  // }, [isLogged]);
+  useEffect(() => {
+    dispatch(ProfileOptionAction());
+  }, [dispatch]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -59,17 +48,12 @@ const Profile = props => {
           </TouchableOpacity>
 
           <View style={styles.nameContainer}>
-            <Text style={styles.textName}>John Doe</Text>
-            {/* <Text style={styles.textCallName}>@j_doe</Text> */}
+            <Text style={styles.textName}>Profile.firstName lastName={}</Text>
           </View>
         </View>
       </View>
 
       <View style={styles.userInfoSection}>
-        {/* <View style={styles.row}>
-          <Icon name="map-marker-radius" color="#777777" size={20} />
-          <Text style={{color: '#777777', marginLeft: 20}}>Kolkata, India</Text>
-        </View> */}
         <View style={styles.row}>
           <Icon name="phone" color="#777777" size={20} />
           <Text style={{color: '#777777', marginLeft: 20}}>+91-900000009</Text>
@@ -81,24 +65,6 @@ const Profile = props => {
           </Text>
         </View>
       </View>
-
-      {/* <View style={styles.infoBoxWrapper}>
-        <View
-          style={[
-            styles.infoBox,
-            {
-              borderRightColor: '#dddddd',
-              borderRightWidth: 1,
-            },
-          ]}>
-          <Text style={styles.textAtas}>Rp. 1.000.000</Text>
-          <Text style={styles.textBawah}>Wallet</Text>
-        </View>
-        <View style={styles.infoBox}>
-          <Text style={styles.textAtas}>12</Text>
-          <Text style={styles.textBawah}>Orders</Text>
-        </View>
-      </View> */}
 
       <View>
         <TouchableOpacity style={styles.changeContainer}>

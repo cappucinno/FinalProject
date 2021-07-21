@@ -3,9 +3,9 @@ import {ToastAndroid} from 'react-native';
 import {navigate} from '../../../Function/Nav';
 import {takeLatest, put, select} from 'redux-saga/effects';
 import {
-  PDAMOptionActionSuccess,
-  PDAMAccountActionSuccess,
-  PDAMCreatePaymentActionSuccess,
+  ProfileOptionActionSuccess,
+  ProfileAccountActionSuccess,
+  ProfileCreatePaymentActionSuccess,
 } from './action';
 import {
   actionLoading,
@@ -14,10 +14,10 @@ import {
 } from '../../../Store/GlobalAction';
 
 // GET OPTIONS
-const PDAMOptions = (payload, token) => {
+const ProfileOptions = (payload, token) => {
   return axios({
     method: 'GET',
-    url: 'https://biller-app-api.herokuapp.com/api/biller/pdam/bill/region/all',
+    url: 'https://biller-app-api.herokuapp.com/api/biller/user/info',
     data: payload,
     headers: {
       Authorization: 'Bearer ' + token,
@@ -26,18 +26,18 @@ const PDAMOptions = (payload, token) => {
 };
 
 // GET OPTIONS
-function* PDAMOptionAction(action) {
+function* ProfileOptionAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
 
   try {
     yield put(actionLoading(true));
-    const res = yield PDAMOptions(action.payload, token);
-    console.log(action.payload, '<=======ini hasil Option PDAM API');
+    const res = yield ProfileOptions(action.payload, token);
+    console.log(action.payload, '<=======ini hasil Option Profile Api');
     if (res && res.data) {
       console.log(res.data, 'ini hasil res');
-      console.log('Berhasil Mengambil data Option PDAM');
+      console.log('Berhasil Mengambil data Option InTv');
 
-      yield put(PDAMOptionActionSuccess(res.data));
+      yield put(ProfileOptionActionSuccess(res.data));
       yield put(actionLoading(false));
     }
   } catch (err) {
@@ -57,12 +57,12 @@ function* PDAMOptionAction(action) {
   }
 }
 
-// POST GET User_ID PDAM
-const PDAMUserId = (payload, token) => {
+// POST Foto Profile
+const ProfileFoto = (payload, token) => {
   console.log(payload, '<==== ini data payload dari input userid');
   return axios({
     method: 'POST',
-    url: 'https://biller-app-api.herokuapp.com/api/biller/pdam/bill/customer/info',
+    url: 'https://biller-app-api.herokuapp.com/api/biller/user/upload-profile',
     data: payload,
     headers: {
       Authorization: 'Bearer ' + token,
@@ -70,22 +70,22 @@ const PDAMUserId = (payload, token) => {
   });
 };
 
-// POST User_ID PDAM
-function* PDAMUserIdAction(action) {
+// POST Foto Profile
+function* ProfileFotoAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
 
   try {
     yield put(actionLoading(true));
-    const res = yield PDAMUserId(action.payload, token);
-    console.log(res, '<=======ini hasil user PDAM Api');
+    const res = yield ProfileFoto(action.payload, token);
+    console.log(res, '<=======ini hasil user Api');
     if (res && res.data) {
       console.log(res.data, 'ini hasil res');
-      console.log('Berhasil Mengambil data User PDAM');
+      console.log('Berhasil Mengambil data User');
 
-      yield put(PDAMAccountActionSuccess(res.data));
+      yield put(ProfileAccountActionSuccess(res.data));
       yield put(actionSuccess(true));
 
-      yield navigate('NewPDAMBillDetail');
+      yield navigate('Profile');
     } else if (res.status === 204) {
       yield put(actionSuccess(false));
       yield put(actionIsLogged(false));
@@ -108,8 +108,8 @@ function* PDAMUserIdAction(action) {
   }
 }
 
-// // POST Create Payment PDAM
-// const PDAMCreate = (payload, token) => {
+// POST Create Payment Internet Tv
+// const ProfileCreate = (payload, token) => {
 //   console.log(payload, '<==== ini data payload dari input userid');
 //   return axios({
 //     method: 'POST',
@@ -121,19 +121,19 @@ function* PDAMUserIdAction(action) {
 //   });
 // };
 
-// // POST User_ID PDAM
-// function* PDAMCreateAction(action) {
+// // POST User_ID Internet Tv
+// function* inTvCreateAction(action) {
 //   const token = yield select(state => state.GlobalReducer.token);
 
 //   try {
 //     yield put(actionLoading(true));
-//     const res = yield PDAMCreate(action.payload, token);
-//     console.log(res, '<=======ini hasil CreateBill PDAM Api');
+//     const res = yield inTvCreate(action.payload, token);
+//     console.log(res, '<=======ini hasil CreateBill INTV Api');
 //     if (res && res.data) {
 //       console.log(res.data, 'ini hasil res');
-//       console.log('Berhasil Create Bill PDAM');
+//       console.log('Berhasil Create Bill InTv');
 
-//       yield put(PDAMCreatePaymentActionSuccess(res.data));
+//       yield put(inTvCreatePaymentActionSuccess(res.data));
 //       yield put(actionSuccess(true));
 //       let methodPayment = 'Bank Transfer';
 //       methodPayment === 'Bank Transfer'
@@ -163,10 +163,9 @@ function* PDAMUserIdAction(action) {
 //   }
 // }
 
-function* PDAMSaga() {
-  yield takeLatest('GET_OPTION_PDAM', PDAMOptionAction);
-  yield takeLatest('GET_ACCOUNT_PDAM', PDAMUserIdAction);
-  // yield takeLatest('CREATE_PDAM_PAYMENT', PDAMCreateAction);
+function* ProfileOptionSaga() {
+  yield takeLatest('GET_OPTION_PROFILE', ProfileOptionAction);
+  yield takeLatest('GET_ACCOUNT_PROFILE', ProfileFotoAction);
+  //   yield takeLatest('CREATE_INTV_PAYMENT', inTvCreateAction);
 }
-
-export default PDAMSaga;
+export default ProfileOptionSaga;

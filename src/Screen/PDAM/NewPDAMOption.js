@@ -55,7 +55,9 @@ const NewPDAMOption = props => {
           return (
             <TouchableOpacity
               key={i}
-              onPress={() => props.navigation.navigate('NewPDAMBlank')}>
+              onPress={() =>
+                props.navigation.navigate('NewPDAMBlank', v?.name)
+              }>
               <View style={styles.textLokasi}>
                 <Text style={styles.textTitle}>{v?.name}</Text>
               </View>
