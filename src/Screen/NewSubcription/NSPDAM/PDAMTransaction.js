@@ -17,7 +17,7 @@ import {
 import {ArrowBack} from '../../../Assets/Assets';
 import {Line, IconPDAMActive} from '../../../Assets/Assets';
 
-const PDAMTransaction = () => {
+const PDAMTransaction = props => {
   return (
     <SafeAreaView>
       <ScrollView style={styles.containerAll}>

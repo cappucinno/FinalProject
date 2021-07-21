@@ -45,7 +45,7 @@ import ResultPaymentBankLandline from './Landline/ResultPaymentLandline/ResultPa
 import BPJSTransaction from './NewSubcription/NSBPJS/BPJSTransaction';
 import ElectricityTransaction from './NewSubcription/NSElectricity/ElectricityTransaction';
 import InTvOption from './NewSubcription/NSInTv/InTvOption';
-import inTvTransaction from './NewSubcription/NSInTv/inTvTransaction';
+import InTvTransaction from './NewSubcription/NSInTv/InTvTransaction';
 import LandlineTransaction from './NewSubcription/NSLandline/LandlineTransaction';
 import MobileOption from './NewSubcription/NSMobile/MobileOption';
 import MobileTransaction from './NewSubcription/NSMobile/MobileTransaction';
@@ -98,7 +98,7 @@ export {
   BPJSTransaction,
   ElectricityTransaction,
   InTvOption,
-  inTvTransaction,
+  InTvTransaction,
   LandlineTransaction,
   MobileOption,
   MobileTransaction,

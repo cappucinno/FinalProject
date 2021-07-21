@@ -17,7 +17,7 @@ import {
 import {ArrowBack} from '../../../Assets/Assets';
 import {Line, IconLandlineActive} from '../../../Assets/Assets';
 
-const LandlineTransaction = () => {
+const LandlineTransaction = props => {
   return (
     <SafeAreaView>
       <ScrollView style={styles.containerAll}>

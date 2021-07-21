@@ -17,7 +17,7 @@ import {
 import {ArrowBack} from '../../../Assets/Assets';
 import {Line, IconInternetActive} from '../../../Assets/Assets';
 
-const inTvTransaction = () => {
+const InTvTransaction = props => {
   return (
     <SafeAreaView>
       <ScrollView style={styles.containerAll}>
@@ -99,7 +99,7 @@ const inTvTransaction = () => {
   );
 };
 
-export default inTvTransaction;
+export default InTvTransaction;
 
 const styles = StyleSheet.create({
   containerAll: {

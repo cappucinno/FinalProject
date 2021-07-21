@@ -17,7 +17,7 @@ import {
 import {ArrowBack} from '../../../Assets/Assets';
 import {Line, IconElectricityActive} from '../../../Assets/Assets';
 
-const ElectricityTransaction = () => {
+const ElectricityTransaction = props => {
   return (
     <SafeAreaView>
       <ScrollView style={styles.containerAll}>

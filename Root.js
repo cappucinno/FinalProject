@@ -49,7 +49,7 @@ import {
   BPJSTransaction,
   ElectricityTransaction,
   InTvOption,
-  inTvTransaction,
+  InTvTransaction,
   LandlineTransaction,
   MobileOption,
   MobileTransaction,
@@ -295,8 +295,8 @@ const Root = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="inTvTransaction"
-          component={inTvTransaction}
+          name="InTvTransaction"
+          component={InTvTransaction}
           options={{headerShown: false}}
         />
         <Stack.Screen

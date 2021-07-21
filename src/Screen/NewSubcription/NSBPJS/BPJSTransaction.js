@@ -17,7 +17,7 @@ import {
 import {ArrowBack} from '../../../Assets/Assets';
 import {Line, IconBPJSActive} from '../../../Assets/Assets';
 
-const BPJSTransaction = () => {
+const BPJSTransaction = props => {
   return (
     <SafeAreaView>
       <ScrollView style={styles.containerAll}>

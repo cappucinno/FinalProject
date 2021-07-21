@@ -64,7 +64,8 @@ const PDAMOption = props => {
           );
         })} */}
 
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('PDAMTransaction')}>
           <View style={styles.textLokasi}>
             <Text style={styles.textTitle}>Wilayah 1</Text>
           </View>

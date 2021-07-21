@@ -17,7 +17,7 @@ import {
 import {ArrowBack} from '../../../Assets/Assets';
 import {Line, IconMobileActive} from '../../../Assets/Assets';
 
-const MobileTransaction = () => {
+const MobileTransaction = props => {
   return (
     <SafeAreaView>
       <ScrollView style={styles.containerAll}>

@@ -35,7 +35,9 @@ const InTvOption = props => {
           </View>
           <View>
             <View style={styles.allToken}>
-              <TouchableOpacity style={styles.containerToken}>
+              <TouchableOpacity
+                style={styles.containerToken}
+                onPress={() => props.navigation.navigate('InTvTransaction')}>
                 <FastImage
                   style={styles.styleMobile}
                   source={IconInternetActive}
@@ -45,7 +47,9 @@ const InTvOption = props => {
               <Text style={styles.huruf}>IndiHome</Text>
             </View>
             <View style={styles.allToken}>
-              <TouchableOpacity style={styles.containerToken}>
+              <TouchableOpacity
+                style={styles.containerToken}
+                onPress={() => props.navigation.navigate('InTvTransaction')}>
                 <FastImage
                   style={styles.styleMobile}
                   source={IconMobileActive}
@@ -55,7 +59,9 @@ const InTvOption = props => {
               <Text style={styles.huruf}>MNC Play</Text>
             </View>
             <View style={styles.allToken}>
-              <TouchableOpacity style={styles.containerToken}>
+              <TouchableOpacity
+                style={styles.containerToken}
+                onPress={() => props.navigation.navigate('InTvTransaction')}>
                 <FastImage
                   style={styles.styleMobile}
                   source={IconMobileActive}

@@ -35,7 +35,9 @@ const MobileOption = props => {
           </View>
           <View>
             <View style={styles.allToken}>
-              <TouchableOpacity style={styles.containerToken}>
+              <TouchableOpacity
+                style={styles.containerToken}
+                onPress={() => props.navigation.navigate('MobileTransaction')}>
                 <FastImage
                   style={styles.styleMobile}
                   source={IconMobileActive}
@@ -45,7 +47,9 @@ const MobileOption = props => {
               <Text style={styles.huruf}>Pulsa (pre-paid)</Text>
             </View>
             <View style={styles.allToken}>
-              <TouchableOpacity style={styles.containerToken}>
+              <TouchableOpacity
+                style={styles.containerToken}
+                onPress={() => props.navigation.navigate('MobileTransaction')}>
                 <FastImage
                   style={styles.styleMobile}
                   source={IconMobileActive}
@@ -55,7 +59,9 @@ const MobileOption = props => {
               <Text style={styles.huruf}>Internet (pre-paid)</Text>
             </View>
             <View style={styles.allToken}>
-              <TouchableOpacity style={styles.containerToken}>
+              <TouchableOpacity
+                style={styles.containerToken}
+                onPress={() => props.navigation.navigate('MobileTransaction')}>
                 <FastImage
                   style={styles.styleMobile}
                   source={IconMobileActive}

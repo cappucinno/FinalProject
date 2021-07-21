@@ -47,7 +47,9 @@ const NSBillsCategory = props => {
             <View style={styles.allToken}>
               <TouchableOpacity
                 style={styles.containerToken}
-                onPress={() => props.navigation.navigate('NSBillsDetail')}>
+                onPress={() =>
+                  props.navigation.navigate('ElectricityTransaction')
+                }>
                 <FastImage
                   style={styles.Electricity}
                   source={IconElectricityActive}
@@ -59,7 +61,7 @@ const NSBillsCategory = props => {
             <View style={styles.allToken}>
               <TouchableOpacity
                 style={styles.containerToken}
-                onPress={() => props.navigation.navigate('NSBillsDetail')}>
+                onPress={() => props.navigation.navigate('MobileOption')}>
                 <FastImage
                   style={styles.Electricity}
                   source={IconMobileActive}
@@ -71,7 +73,7 @@ const NSBillsCategory = props => {
             <View style={styles.allToken}>
               <TouchableOpacity
                 style={styles.containerToken}
-                onPress={() => props.navigation.navigate('NSBillsDetail')}>
+                onPress={() => props.navigation.navigate('InTvTransaction')}>
                 <FastImage
                   style={styles.Electricity}
                   source={IconInternetActive}
@@ -83,7 +85,9 @@ const NSBillsCategory = props => {
             <View style={styles.allToken}>
               <TouchableOpacity
                 style={styles.containerToken}
-                onPress={() => props.navigation.navigate('NSBillsDetail')}>
+                onPress={() =>
+                  props.navigation.navigate('LandlineTransaction')
+                }>
                 <FastImage
                   style={styles.Electricity}
                   source={IconLandlineActive}
@@ -95,7 +99,7 @@ const NSBillsCategory = props => {
             <View style={styles.allToken}>
               <TouchableOpacity
                 style={styles.containerToken}
-                onPress={() => props.navigation.navigate('NSBillsDetail')}>
+                onPress={() => props.navigation.navigate('PDAMOption')}>
                 <FastImage
                   style={styles.Electricity}
                   source={IconPDAMActive}
@@ -107,7 +111,7 @@ const NSBillsCategory = props => {
             <View style={styles.allToken}>
               <TouchableOpacity
                 style={styles.containerToken}
-                onPress={() => props.navigation.navigate('NSBillsDetail')}>
+                onPress={() => props.navigation.navigate('BPJSTransaction')}>
                 <FastImage
                   style={styles.Electricity}
                   source={IconBPJSActive}
