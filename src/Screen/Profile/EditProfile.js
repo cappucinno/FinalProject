@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -18,6 +18,8 @@ import {
 import {BottomSheet} from 'react-native-elements';
 import {ArrowBack, IconProfile, IconEditProfile} from '../../Assets/Assets';
 import {ScrollView} from 'react-native-gesture-handler';
+import {useDispatch, useSelector} from 'react-redux';
+import {ProfileOptionAction} from './redux/action';
 
 const EditProfile = () => {
   const [visible, setVisible] = useState(false);
@@ -26,10 +28,22 @@ const EditProfile = () => {
     setVisible(!visible);
   };
 
+  const dispatch = useDispatch();
+
+  const DetailRes = useSelector(
+    state => state.ProfileReducer?.dataOption.data.account,
+  );
+  console.log(DetailRes, '<=== hasil resDetail Profile');
+
+  useEffect(() => {
+    dispatch(ProfileOptionAction());
+  }, [dispatch]);
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [pin, setPin] = useState('');
 
   return (
     <SafeAreaView style={styles.container}>
@@ -55,7 +69,9 @@ const EditProfile = () => {
               resizeMode={FastImage.resizeMode.contain}
             />
             <View style={styles.nameContainer}>
-              <Text style={styles.textName}>John Doe</Text>
+              <Text style={styles.textName}>
+                {DetailRes?.first_name} {DetailRes?.last_name}
+              </Text>
             </View>
           </View>
         </View>
@@ -85,6 +101,13 @@ const EditProfile = () => {
             placeholderTextColor="#999999"
             secureTextEntry
             onChangeText={text => setPassword(text)}
+          />
+          <TextInput
+            style={styles.textContainerOther}
+            placeholder="PIN"
+            placeholderTextColor="#999999"
+            secureTextEntry
+            onChangeText={text => setPin(text)}
           />
         </View>
         <TouchableOpacity style={styles.ContainerButtonSubs}>
