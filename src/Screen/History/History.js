@@ -17,13 +17,17 @@ import {
   IconFilter,
   IconElectricityActive,
   IconMobileActive,
+  IconPDAMActive,
+  IconLandlineActive,
+  IconInternetActive,
+  IconBPJSActive,
   ButtonClose,
   ArrowBack,
 } from '../../Assets/Assets';
 import {Overlay, BottomSheet, CheckBox} from 'react-native-elements';
 import Loading from '../../Component/Loading/Loading';
 import {useSelector, useDispatch} from 'react-redux';
-import {GetHistoryAction} from './redux/action';
+import {GetHistoryAction, FilterHistoryAction} from './redux/action';
 
 const History = props => {
   const [visible, setVisible] = useState(false);
@@ -48,9 +52,31 @@ const History = props => {
     dispatch(GetHistoryAction());
   }, [dispatch]);
 
+  // useEffect(() => {
+  //   dispatch(FilterHistoryAction(`${check1}${check2}&${check3}&${check4}`));
+  // }, [dispatch]);
+
+  const Icons = a => {
+    if (a === 'Landline') {
+      return IconLandlineActive;
+    } else if (a === 'PDAM') {
+      return IconPDAMActive;
+    } else if (a === 'Internet-TV') {
+      return IconInternetActive;
+    } else if (a === 'Listrik-Token' && 'Listrik-Prabayar') {
+      return IconElectricityActive;
+    } else if (a === 'BPJS') {
+      return IconBPJSActive;
+    } else if (a === 'Landline') {
+      return IconLandlineActive;
+    }
+  };
+
   return (
-    <SafeAreaView>
-      <ScrollView style={styles.containerAll}>
+    <SafeAreaView style={{flex: 1}}>
+      <ScrollView
+        contentContainerStyle={styles.Grow}
+        style={styles.containerAll}>
         <View style={styles.containerHead}>
           <View style={styles.HeaderBilling}>
             <Text style={styles.Judul}>History</Text>
@@ -65,63 +91,52 @@ const History = props => {
             </View>
           </View>
         </View>
-        {/* {DataHistory.map(e => {
-          const Tanggal = () => {
-            return Object.keys(e).map(z => {
-              return <Text>{z}</Text>;
-            });
-          };
-          const DataTanggal = () => {
-            return Object.values(e).map(w => {
-              return w.map(i => {
-                return <Text>{i.bill_id}</Text>;
-              });
-            });
-          };
+        {DataHistory?.map((v, i) => {
           return (
             <>
-              <Tanggal />
-              <DataTanggal />
-            </>
-          );
-        })} */}
-        {DataHistory.map((v, i) => {
-          return (
-            <>
-              <View>
-                <View key={i}>
+              <View key={'' + i}>
+                <View>
                   <Text style={styles.textTanggal}>{Object.keys(v)}</Text>
                 </View>
-                <View style={styles.topContainer}>
-                  {Object.values(Object.keys(v)).map((z, x) => {
-                    console.log(z, 'ini hasil z');
-                    return (
-                      <View style={styles.containerBillAtas}>
-                        <View style={styles.containerData1}>
-                          <View style={styles.containerToken}>
-                            <FastImage
-                              style={styles.imageToken}
-                              source={IconElectricityActive}
-                              resizeMode={FastImage.resizeMode.contain}
-                            />
-                          </View>
-                          <View style={styles.boxText}>
-                            <View style={styles.data1}>
-                              <Text style={styles.textPLN}>{z.bill_type}</Text>
-                              <Text style={styles.textNo}>141234567890</Text>
+                <View style={[styles.topContainer]}>
+                  {Object.values(v).map((z, x) => {
+                    return z.map((item, index) => {
+                      return (
+                        <View
+                          keys={'' + index}
+                          style={styles.containerBillAtas}>
+                          <View style={styles.containerData1}>
+                            <View style={styles.containerToken}>
+                              <FastImage
+                                style={styles.imageToken}
+                                source={Icons(item.bill_type)}
+                                resizeMode={FastImage.resizeMode.contain}
+                              />
                             </View>
-                            <Text style={styles.data2}>Rp. 51.500</Text>
+                            <View style={styles.boxText}>
+                              <View style={styles.data1}>
+                                <Text style={styles.textPLN}>
+                                  {item.bill_type}
+                                </Text>
+                                <Text style={styles.textNo}>
+                                  {item.customer_number}
+                                </Text>
+                              </View>
+                              <Text style={styles.data2}>{item.total}</Text>
+                            </View>
                           </View>
+                          <TouchableOpacity
+                            onPress={() =>
+                              props.navigation.navigate('HistoryReceipt')
+                            }
+                            style={styles.seeDetail}>
+                            <Text style={styles.textseeDetail}>
+                              see receipt
+                            </Text>
+                          </TouchableOpacity>
                         </View>
-                        <TouchableOpacity
-                          onPress={() =>
-                            props.navigation.navigate('HistoryReceipt')
-                          }
-                          style={styles.seeDetail}>
-                          <Text style={styles.textseeDetail}>see receipt</Text>
-                        </TouchableOpacity>
-                      </View>
-                    );
+                      );
+                    });
                   })}
                   <View
                     style={{
@@ -184,9 +199,11 @@ const History = props => {
 export default History;
 
 const styles = StyleSheet.create({
+  Grow: {
+    flexGrow: 1,
+  },
   containerAll: {
     backgroundColor: '#EBEDF4',
-    flexGrow: 1,
     paddingBottom: moderateScale(150),
   },
   containerHead: {
@@ -223,13 +240,13 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     backgroundColor: 'white',
-    height: moderateScale(220),
   },
   singleContainer: {
     height: moderateScale(80),
     backgroundColor: 'white',
   },
   containerBillAtas: {
+    marginBottom: moderateScale(18),
     // backgroundColor: 'green',
     top: moderateScale(15),
   },
@@ -284,6 +301,7 @@ const styles = StyleSheet.create({
   textseeDetail: {
     fontFamily: 'Montserrat-Regular',
     fontSize: moderateScale(10),
+    marginLeft: moderateScale(5),
     textDecorationLine: 'underline',
   },
   boxKecil: {
