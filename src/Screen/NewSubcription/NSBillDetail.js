@@ -17,7 +17,7 @@ import {
 import {ArrowBack} from '../../Assets/Assets';
 import {Line, IconMobileActive} from '../../Assets/Assets';
 
-const NSBillDetail = () => {
+const NSBillDetail = props => {
   return (
     <SafeAreaView>
       <ScrollView style={styles.containerAll}>

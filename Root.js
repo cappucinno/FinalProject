@@ -30,8 +30,6 @@ import {
   ResultPaymentBankInternetTv,
   NewSubscription,
   NSBillsCategory,
-  NSMobile,
-  NSPulsa,
   NSBillDetail,
   NSRecurringBilling,
   NSSubscription,
@@ -205,16 +203,6 @@ const Root = () => {
         <Stack.Screen
           name="NSBillsCategory"
           component={NSBillsCategory}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="NSMobile"
-          component={NSMobile}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="NSPulsa"
-          component={NSPulsa}
           options={{headerShown: false}}
         />
         <Stack.Screen

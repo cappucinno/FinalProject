@@ -47,7 +47,7 @@ const NSBillsCategory = props => {
             <View style={styles.allToken}>
               <TouchableOpacity
                 style={styles.containerToken}
-                onPress={() => console.log('press')}>
+                onPress={() => props.navigation.navigate('NSBillsDetail')}>
                 <FastImage
                   style={styles.Electricity}
                   source={IconElectricityActive}
@@ -57,7 +57,9 @@ const NSBillsCategory = props => {
               <Text style={styles.huruf}>Electricity</Text>
             </View>
             <View style={styles.allToken}>
-              <TouchableOpacity style={styles.containerToken}>
+              <TouchableOpacity
+                style={styles.containerToken}
+                onPress={() => props.navigation.navigate('NSBillsDetail')}>
                 <FastImage
                   style={styles.Electricity}
                   source={IconMobileActive}
@@ -67,7 +69,9 @@ const NSBillsCategory = props => {
               <Text style={styles.huruf}>Mobile</Text>
             </View>
             <View style={styles.allToken}>
-              <TouchableOpacity style={styles.containerToken}>
+              <TouchableOpacity
+                style={styles.containerToken}
+                onPress={() => props.navigation.navigate('NSBillsDetail')}>
                 <FastImage
                   style={styles.Electricity}
                   source={IconInternetActive}
@@ -77,7 +81,9 @@ const NSBillsCategory = props => {
               <Text style={styles.huruf}>Internet & TV</Text>
             </View>
             <View style={styles.allToken}>
-              <TouchableOpacity style={styles.containerToken}>
+              <TouchableOpacity
+                style={styles.containerToken}
+                onPress={() => props.navigation.navigate('NSBillsDetail')}>
                 <FastImage
                   style={styles.Electricity}
                   source={IconLandlineActive}
@@ -87,7 +93,9 @@ const NSBillsCategory = props => {
               <Text style={styles.huruf}>Landline</Text>
             </View>
             <View style={styles.allToken}>
-              <TouchableOpacity style={styles.containerToken}>
+              <TouchableOpacity
+                style={styles.containerToken}
+                onPress={() => props.navigation.navigate('NSBillsDetail')}>
                 <FastImage
                   style={styles.Electricity}
                   source={IconPDAMActive}
@@ -97,7 +105,9 @@ const NSBillsCategory = props => {
               <Text style={styles.huruf}>PDAM</Text>
             </View>
             <View style={styles.allToken}>
-              <TouchableOpacity style={styles.containerToken}>
+              <TouchableOpacity
+                style={styles.containerToken}
+                onPress={() => props.navigation.navigate('NSBillsDetail')}>
                 <FastImage
                   style={styles.Electricity}
                   source={IconBPJSActive}

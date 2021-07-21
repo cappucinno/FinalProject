@@ -14,19 +14,11 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 // background
-import BackgroundPurple from '../../Component/Background/BackgroundPurple';
+import BackgroundPurple from '../../../Component/Background/BackgroundPurple';
 // Icon
-import {
-  ArrowBack,
-  IconElectricityActive,
-  IconMobileActive,
-  IconInternetActive,
-  IconLandlineActive,
-  IconPDAMActive,
-  IconBPJSActive,
-} from '../../Assets/Assets';
+import {ArrowBack, IconInternetActive} from '../../../Assets/Assets';
 
-const NSMobile = () => {
+const InTvOption = props => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <BackgroundPurple>
@@ -39,18 +31,18 @@ const NSMobile = () => {
                 resizeMode={FastImage.resizeMode.contain}
               />
             </TouchableOpacity>
-            <Text style={styles.Judul}>Mobile</Text>
+            <Text style={styles.Judul}>Internet & TV</Text>
           </View>
           <View>
             <View style={styles.allToken}>
               <TouchableOpacity style={styles.containerToken}>
                 <FastImage
                   style={styles.styleMobile}
-                  source={IconMobileActive}
+                  source={IconInternetActive}
                   resizeMode={FastImage.resizeMode.contain}
                 />
               </TouchableOpacity>
-              <Text style={styles.huruf}>Pulsa (pre-paid)</Text>
+              <Text style={styles.huruf}>IndiHome</Text>
             </View>
             <View style={styles.allToken}>
               <TouchableOpacity style={styles.containerToken}>
@@ -60,7 +52,7 @@ const NSMobile = () => {
                   resizeMode={FastImage.resizeMode.contain}
                 />
               </TouchableOpacity>
-              <Text style={styles.huruf}>Internet (pre-paid)</Text>
+              <Text style={styles.huruf}>MNC Play</Text>
             </View>
             <View style={styles.allToken}>
               <TouchableOpacity style={styles.containerToken}>
@@ -70,7 +62,7 @@ const NSMobile = () => {
                   resizeMode={FastImage.resizeMode.contain}
                 />
               </TouchableOpacity>
-              <Text style={styles.huruf}>Pasca bayar (post-paid)</Text>
+              <Text style={styles.huruf}>Biznet Home</Text>
             </View>
           </View>
         </ScrollView>
@@ -79,7 +71,7 @@ const NSMobile = () => {
   );
 };
 
-export default NSMobile;
+export default InTvOption;
 
 const styles = StyleSheet.create({
   HeaderBilling: {
@@ -99,12 +91,12 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: moderateScale(16),
     fontFamily: 'Montserrat-Bold',
-    top: moderateScale(20),
+    marginTop: moderateScale(20),
     left: moderateScale(45),
   },
   allToken: {
     flexDirection: 'row',
-    top: moderateScale(14),
+    marginTop: moderateScale(14),
     left: moderateScale(25),
     height: moderateScale(70),
   },
@@ -119,12 +111,12 @@ const styles = StyleSheet.create({
     height: moderateScale(30),
     width: moderateScale(21),
     alignSelf: 'center',
-    top: moderateScale(10),
+    marginTop: moderateScale(10),
   },
   huruf: {
     fontSize: moderateScale(12),
     fontFamily: 'Montserrat-Bold',
-    top: moderateScale(15),
+    marginTop: moderateScale(15),
     left: moderateScale(20),
     color: 'white',
   },
