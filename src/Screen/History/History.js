@@ -71,87 +71,91 @@ const History = props => {
       return IconLandlineActive;
     }
   };
-
+  const isLoading = useSelector(state => state.GlobalReducer.Loading);
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView
         contentContainerStyle={styles.Grow}
         style={styles.containerAll}>
-        <View style={styles.containerHead}>
-          <View style={styles.HeaderBilling}>
-            <Text style={styles.Judul}>History</Text>
-            <View style={styles.lokasiFilter}>
-              <TouchableOpacity onPress={toggleOverlay}>
-                <FastImage
-                  style={styles.IconFilter}
-                  source={IconFilter}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-        {DataHistory?.map((v, i) => {
-          return (
-            <>
-              <View key={'' + i}>
-                <View>
-                  <Text style={styles.textTanggal}>{Object.keys(v)}</Text>
-                </View>
-                <View style={[styles.topContainer]}>
-                  {Object.values(v).map((z, x) => {
-                    return z.map((item, index) => {
-                      return (
-                        <View
-                          keys={'' + index}
-                          style={styles.containerBillAtas}>
-                          <View style={styles.containerData1}>
-                            <View style={styles.containerToken}>
-                              <FastImage
-                                style={styles.imageToken}
-                                source={Icons(item.bill_type)}
-                                resizeMode={FastImage.resizeMode.contain}
-                              />
-                            </View>
-                            <View style={styles.boxText}>
-                              <View style={styles.data1}>
-                                <Text style={styles.textPLN}>
-                                  {item.bill_type}
-                                </Text>
-                                <Text style={styles.textNo}>
-                                  {item.customer_number}
-                                </Text>
-                              </View>
-                              <Text style={styles.data2}>{item.total}</Text>
-                            </View>
-                          </View>
-                          <TouchableOpacity
-                            onPress={() =>
-                              props.navigation.navigate('HistoryReceipt')
-                            }
-                            style={styles.seeDetail}>
-                            <Text style={styles.textseeDetail}>
-                              see receipt
-                            </Text>
-                          </TouchableOpacity>
-                        </View>
-                      );
-                    });
-                  })}
-                  <View
-                    style={{
-                      borderBottomColor: '#EBEDF4',
-                      borderBottomWidth: 1,
-                      width: wp(92),
-                      alignSelf: 'center',
-                      top: moderateScale(25),
-                    }}
-                  />
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            <View style={styles.containerHead}>
+              <View style={styles.HeaderBilling}>
+                <Text style={styles.Judul}>History</Text>
+                <View style={styles.lokasiFilter}>
+                  <TouchableOpacity onPress={toggleOverlay}>
+                    <FastImage
+                      style={styles.IconFilter}
+                      source={IconFilter}
+                      resizeMode={FastImage.resizeMode.contain}
+                    />
+                  </TouchableOpacity>
                 </View>
               </View>
-            </>
-          );
-        })}
+            </View>
+            {DataHistory?.map((v, i) => {
+              return (
+                <View key={i}>
+                  <View>
+                    <View>
+                      <Text style={styles.textTanggal}>{Object.keys(v)}</Text>
+                    </View>
+                    <View style={[styles.topContainer]}>
+                      {Object.values(v).map((z, x) => {
+                        return z.map((item, index) => {
+                          return (
+                            <View keys={index} style={styles.containerBillAtas}>
+                              <View style={styles.containerData1}>
+                                <View style={styles.containerToken}>
+                                  <FastImage
+                                    style={styles.imageToken}
+                                    source={Icons(item.bill_type)}
+                                    resizeMode={FastImage.resizeMode.contain}
+                                  />
+                                </View>
+                                <View style={styles.boxText}>
+                                  <View style={styles.data1}>
+                                    <Text style={styles.textPLN}>
+                                      {item.bill_type}
+                                    </Text>
+                                    <Text style={styles.textNo}>
+                                      {item.customer_number}
+                                    </Text>
+                                  </View>
+                                  <Text style={styles.data2}>{item.total}</Text>
+                                </View>
+                              </View>
+                              <TouchableOpacity
+                                onPress={() =>
+                                  props.navigation.navigate('HistoryReceipt')
+                                }
+                                style={styles.seeDetail}>
+                                <Text style={styles.textseeDetail}>
+                                  see receipt
+                                </Text>
+                              </TouchableOpacity>
+                            </View>
+                          );
+                        });
+                      })}
+                      <View
+                        style={{
+                          borderBottomColor: '#EBEDF4',
+                          borderBottomWidth: 1,
+                          width: wp(92),
+                          alignSelf: 'center',
+                          top: moderateScale(25),
+                        }}
+                      />
+                    </View>
+                  </View>
+                </View>
+              );
+            })}
+          </>
+        )}
       </ScrollView>
       <BottomSheet isVisible={visible}>
         <View style={styles.containerOverlay}>
