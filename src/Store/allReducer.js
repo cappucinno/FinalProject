@@ -10,6 +10,7 @@ import ElectricityReducer from '../Screen/Electricity/redux/reducer';
 import BankReducer from '../Screen/PaymentMethod/redux/reducer';
 import ProfileReducer from '../Screen/Profile/redux/reducer';
 import HistoryReducer from '../Screen/History/redux/reducer';
+import newSubReducer from '../Screen/NewSubcription/redux/reducer';
 
 export const allReducer = combineReducers({
   GlobalReducer: GlobalReducer,
@@ -23,4 +24,5 @@ export const allReducer = combineReducers({
   BankReducer: BankReducer,
   ProfileReducer: ProfileReducer,
   HistoryReducer: HistoryReducer,
+  newSubReducer: newSubReducer,
 });

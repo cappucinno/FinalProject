@@ -55,6 +55,7 @@ import {
   MobileTransaction,
   PDAMOption,
   PDAMTransaction,
+  ElectricityOption,
 } from './src/Screen/Screen';
 import {useSelector} from 'react-redux';
 import {BottomNav} from './src/Component/Component';
@@ -322,6 +323,11 @@ const Root = () => {
         <Stack.Screen
           name="PDAMTransaction"
           component={PDAMTransaction}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ElectricityOption"
+          component={ElectricityOption}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

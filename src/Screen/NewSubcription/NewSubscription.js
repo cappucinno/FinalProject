@@ -17,6 +17,25 @@ import {
 } from 'react-native-responsive-screen';
 import {ArrowBack} from '../../Assets/Assets';
 import {PLN} from '../../Assets/Assets';
+import {
+  BpjsPeriodAction,
+  BpjsAccountAction,
+  BpjsCreatePaymentAction,
+  ElectricityOptionAction,
+  ElectricityTokenAction,
+  ElectricityTokenAccountAction,
+  ElectricityTokenCreatePayAction,
+  ElectricityTagihanAccountAction,
+  inTvOptionAction,
+  inTvUserIdAction,
+  inTvCreateAction,
+  LandlineAccountAction,
+  LandlineCreatePaymentAction,
+  MobileOptionAction,
+  PDAMOptionAction,
+  PDAMUserIdAction,
+} from './redux/action';
+import {useDispatch, useSelector} from 'react-redux';
 
 const NewSubscription = props => {
   const [period, setPeriod] = useState(false);
@@ -26,6 +45,8 @@ const NewSubscription = props => {
     {label: 'Every Month', value: 'Every Month'},
     {label: 'Every Year', value: 'Every Year'},
   ]);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
