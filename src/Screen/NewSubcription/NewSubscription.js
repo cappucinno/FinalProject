@@ -18,22 +18,22 @@ import {
 import {ArrowBack} from '../../Assets/Assets';
 import {PLN} from '../../Assets/Assets';
 import {
-  BpjsPeriodAction,
-  BpjsAccountAction,
-  BpjsCreatePaymentAction,
-  ElectricityOptionAction,
-  ElectricityTokenAction,
-  ElectricityTokenAccountAction,
-  ElectricityTokenCreatePayAction,
-  ElectricityTagihanAccountAction,
-  inTvOptionAction,
-  inTvUserIdAction,
-  inTvCreateAction,
-  LandlineAccountAction,
-  LandlineCreatePaymentAction,
-  MobileOptionAction,
-  PDAMOptionAction,
-  PDAMUserIdAction,
+  NSBpjsPeriodAction,
+  NSBpjsAccountAction,
+  NSBpjsCreatePaymentAction,
+  NSElectricityOptionAction,
+  NSElectricityTokenAction,
+  NSElectricityTokenAccountAction,
+  NSElectricityTokenCreatePayAction,
+  NSElectricityTagihanAccountAction,
+  NSinTvOptionAction,
+  NSinTvUserIdAction,
+  NSinTvCreateAction,
+  NSLandlineAccountAction,
+  NSLandlineCreatePaymentAction,
+  NSMobileOptionAction,
+  NSPDAMOptionAction,
+  NSPDAMUserIdAction,
 } from './redux/action';
 import {useDispatch, useSelector} from 'react-redux';
 

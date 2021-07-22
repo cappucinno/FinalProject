@@ -1,205 +1,205 @@
 // BPJS
 // GET BPJS PERIOD
-export const BpjsPeriodAction = payload => {
-  return {type: 'GET_BPJS_PERIOD', payload};
+export const NSBpjsPeriodAction = payload => {
+  return {type: 'NS_GET_BPJS_PERIOD', payload};
 };
 
 // GET BPJS PERIOD
-export const BpjsPeriodActionSuccess = payload => {
-  return {type: 'GET_BPJS_PERIOD_SUCCESS', payload};
+export const NSBpjsPeriodActionSuccess = payload => {
+  return {type: 'NS_GET_BPJS_PERIOD_SUCCESS', payload};
 };
 
 // GET ACCOUNT BPJS
-export const BpjsAccountAction = payload => {
-  return {type: 'GET_ACCOUNT_BPJS', payload};
+export const NSBpjsAccountAction = payload => {
+  return {type: 'NS_GET_ACCOUNT_BPJS', payload};
 };
 
 // GET ACCOUNT BPJS
-export const BpjsAccountActionSuccess = payload => {
-  return {type: 'GET_ACCOUNT_BPJS_SUCCESS', payload};
+export const NSBpjsAccountActionSuccess = payload => {
+  return {type: 'NS_GET_ACCOUNT_BPJS_SUCCESS', payload};
 };
 
 // CREATE PAYMENT BPJS
-export const BpjsCreatePaymentAction = payload => {
-  return {type: 'CREATE_BPJS_PAYMENT', payload};
+export const NSBpjsCreatePaymentAction = payload => {
+  return {type: 'NS_CREATE_BPJS_PAYMENT', payload};
 };
 
 // CREATE PAYMENT BPJS
-export const BpjsCreatePaymentActionSuccess = payload => {
-  return {type: 'CREATE_BPJS_PAYMENT_SUCCESS', payload};
+export const NSBpjsCreatePaymentActionSuccess = payload => {
+  return {type: 'NS_CREATE_BPJS_PAYMENT_SUCCESS', payload};
 };
 
 // ELECTRICITY
 // GET OPTIONS ELECTRICITY
-export const ElectricityOptionAction = payload => {
-  return {type: 'GET_OPTION_ELECTRICITY', payload};
+export const NSElectricityOptionAction = payload => {
+  return {type: 'NS_GET_OPTION_ELECTRICITY', payload};
 };
 
 // GET OPTIONS ELECTRICITY
-export const ElectricityOptionActionSuccess = payload => {
-  return {type: 'GET_OPTION_ELECTRICITY_SUCCESS', payload};
+export const NSElectricityOptionActionSuccess = payload => {
+  return {type: 'NS_GET_OPTION_ELECTRICITY_SUCCESS', payload};
 };
 
 // GET Token Price List ELECTRICITY
-export const ElectricityTokenAction = payload => {
-  return {type: 'GET_TOKEN_ELECTRICITY', payload};
+export const NSElectricityTokenAction = payload => {
+  return {type: 'NS_GET_TOKEN_ELECTRICITY', payload};
 };
 
 // GET Token Price List ELECTRICITY
-export const ElectricityTokenActionSuccess = payload => {
-  return {type: 'GET_TOKEN_ELECTRICITY_SUCCESS', payload};
+export const NSElectricityTokenActionSuccess = payload => {
+  return {type: 'NS_GET_TOKEN_ELECTRICITY_SUCCESS', payload};
 };
 
 // GET TOKEN ACCOUNT ELECTRICITY
-export const ElectricityTokenAccountAction = payload => {
-  return {type: 'GET_TOKEN_ACCOUNT_ELECTRICITY', payload};
+export const NSElectricityTokenAccountAction = payload => {
+  return {type: 'NS_GET_TOKEN_ACCOUNT_ELECTRICITY', payload};
 };
 
 // GET TOKEN ACCOUNT ELECTRICITY
-export const ElectricityTokenAccountActionSuccess = payload => {
-  return {type: 'GET_TOKEN_ACCOUNT_ELECTRICITY_SUCCESS', payload};
+export const NSElectricityTokenAccountActionSuccess = payload => {
+  return {type: 'NS_GET_TOKEN_ACCOUNT_ELECTRICITY_SUCCESS', payload};
 };
 
 // GET TAGIHAN ACCOUNT ELECTRICITY
-export const ElectricityTagihanAccountAction = payload => {
-  return {type: 'GET_TAGIHAN_ACCOUNT_ELECTRICITY', payload};
+export const NSElectricityTagihanAccountAction = payload => {
+  return {type: 'NS_GET_TAGIHAN_ACCOUNT_ELECTRICITY', payload};
 };
 
 // GET TAGIHAN ACCOUNT ELECTRICITY
-export const ElectricityTagihanAccountActionSuccess = payload => {
-  return {type: 'GET_TAGIHAN_ACCOUNT_ELECTRICITY_SUCCESS', payload};
+export const NSElectricityTagihanAccountActionSuccess = payload => {
+  return {type: 'NS_GET_TAGIHAN_ACCOUNT_ELECTRICITY_SUCCESS', payload};
 };
 
 // CREATE TOKEN PAYMENT ELECTRICITY
-export const ElectricityTokenCreatePaymentAction = payload => {
-  return {type: 'CREATE_TOKEN_ELECTRICITY_PAYMENT', payload};
+export const NSElectricityTokenCreatePaymentAction = payload => {
+  return {type: 'NS_CREATE_TOKEN_ELECTRICITY_PAYMENT', payload};
 };
 
 // CREATE TOKEN PAYMENT ELECTRICITY
-export const ElectricityTokenCreatePaymentActionSuccess = payload => {
-  return {type: 'CREATE_TOKEN_ELECTRICITY_PAYMENT_SUCCESS', payload};
+export const NSElectricityTokenCreatePaymentActionSuccess = payload => {
+  return {type: 'NS_CREATE_TOKEN_ELECTRICITY_PAYMENT_SUCCESS', payload};
 };
 
 // CREATE TOKEN PAYMENT ELECTRICITY
-export const ElectricityTagihanCreatePaymentAction = payload => {
-  return {type: 'CREATE_TAGIHAN_ELECTRICITY_PAYMENT', payload};
+export const NSElectricityTagihanCreatePaymentAction = payload => {
+  return {type: 'NS_CREATE_TAGIHAN_ELECTRICITY_PAYMENT', payload};
 };
 
 // CREATE TOKEN PAYMENT ELECTRICITY
-export const ElectricityTagihanCreatePaymentActionSuccess = payload => {
-  return {type: 'CREATE_TAGIHAN_ELECTRICITY_PAYMENT_SUCCESS', payload};
+export const NSElectricityTagihanCreatePaymentActionSuccess = payload => {
+  return {type: 'NS_CREATE_TAGIHAN_ELECTRICITY_PAYMENT_SUCCESS', payload};
 };
 
 // INTV
 // GET OPTIONS INTV
-export const inTvOptionAction = payload => {
-  return {type: 'GET_OPTION_INTV', payload};
+export const NSinTvOptionAction = payload => {
+  return {type: 'NS_GET_OPTION_INTV', payload};
 };
 
 // GET OPTIONS INTV
-export const inTvOptionActionSuccess = payload => {
-  return {type: 'GET_OPTION_INTV_SUCCESS', payload};
+export const NSinTvOptionActionSuccess = payload => {
+  return {type: 'NS_GET_OPTION_INTV_SUCCESS', payload};
 };
 
 // GET ACCOUNT INTV
-export const inTvAccountAction = payload => {
-  return {type: 'GET_ACCOUNT_INTV', payload};
+export const NSinTvAccountAction = payload => {
+  return {type: 'NS_GET_ACCOUNT_INTV', payload};
 };
 
 // GET ACCOUNT INTV
-export const inTvAccountActionSuccess = payload => {
-  return {type: 'GET_ACCOUNT_INTV_SUCCESS', payload};
+export const NSinTvAccountActionSuccess = payload => {
+  return {type: 'NS_GET_ACCOUNT_INTV_SUCCESS', payload};
 };
 
 // CREATE PAYMENT INTV
-export const inTvCreatePaymentAction = payload => {
-  return {type: 'CREATE_INTV_PAYMENT', payload};
+export const NSinTvCreatePaymentAction = payload => {
+  return {type: 'NS_CREATE_INTV_PAYMENT', payload};
 };
 
 // CREATE PAYMENT INTV
-export const inTvCreatePaymentActionSuccess = payload => {
-  return {type: 'CREATE_INTV_PAYMENT_SUCCESS', payload};
+export const NSinTvCreatePaymentActionSuccess = payload => {
+  return {type: 'NS_CREATE_INTV_PAYMENT_SUCCESS', payload};
 };
 
 // LANDLINE
 // GET ACCOUNT LANDLINE
-export const LandlineAccountAction = payload => {
-  return {type: 'GET_ACCOUNT_LANDLINE', payload};
+export const NSLandlineAccountAction = payload => {
+  return {type: 'NS_GET_ACCOUNT_LANDLINE', payload};
 };
 
 // GET ACCOUNT LANDLINE
-export const LandlineAccountActionSuccess = payload => {
-  return {type: 'GET_ACCOUNT_LANDLINE_SUCCESS', payload};
+export const NSLandlineAccountActionSuccess = payload => {
+  return {type: 'NS_GET_ACCOUNT_LANDLINE_SUCCESS', payload};
 };
 
 // CREATE PAYMENT LANDLINE
-export const LandlineCreatePaymentAction = payload => {
-  return {type: 'CREATE_LANDLINE_PAYMENT', payload};
+export const NSLandlineCreatePaymentAction = payload => {
+  return {type: 'NS_CREATE_LANDLINE_PAYMENT', payload};
 };
 
 // CREATE PAYMENT LANDLINE
-export const LandlineCreatePaymentActionSuccess = payload => {
-  return {type: 'CREATE_LANDLINE_PAYMENT_SUCCESS', payload};
+export const NSLandlineCreatePaymentActionSuccess = payload => {
+  return {type: 'NS_CREATE_LANDLINE_PAYMENT_SUCCESS', payload};
 };
 
 // MOBILE
 // GET OPTIONS MOBILE
-export const MobileOptionAction = payload => {
-  return {type: 'GET_OPTION_MOBILE', payload};
+export const NSMobileOptionAction = payload => {
+  return {type: 'NS_GET_OPTION_MOBILE', payload};
 };
 
 // GET OPTIONS MOBILE
-export const MobileOptionActionSuccess = payload => {
-  return {type: 'GET_OPTION_MOBILE_SUCCESS', payload};
+export const NSMobileOptionActionSuccess = payload => {
+  return {type: 'NS_GET_OPTION_MOBILE_SUCCESS', payload};
 };
 
 // GET ACCOUNT MOBILE
-export const MobileAccountAction = payload => {
-  return {type: 'GET_ACCOUNT_MOBILE', payload};
+export const NSMobileAccountAction = payload => {
+  return {type: 'NS_GET_ACCOUNT_MOBILE', payload};
 };
 
 // GET ACCOUNT MOBILE
-export const MobileAccountActionSuccess = payload => {
-  return {type: 'GET_ACCOUNT_MOBILE_SUCCESS', payload};
+export const NSMobileAccountActionSuccess = payload => {
+  return {type: 'NS_GET_ACCOUNT_MOBILE_SUCCESS', payload};
 };
 
 // CREATE PAYMENT MOBILE
-export const MobileCreatePaymentAction = payload => {
-  return {type: 'CREATE_MOBILE_PAYMENT', payload};
+export const NSMobileCreatePaymentAction = payload => {
+  return {type: 'NS_CREATE_MOBILE_PAYMENT', payload};
 };
 
 // CREATE PAYMENT MOBILE
-export const MobileCreatePaymentActionSuccess = payload => {
-  return {type: 'CREATE_MOBILE_PAYMENT_SUCCESS', payload};
+export const NSMobileCreatePaymentActionSuccess = payload => {
+  return {type: 'NS_CREATE_MOBILE_PAYMENT_SUCCESS', payload};
 };
 
 // PDAM
 // GET OPTIONS PDAM
-export const PDAMOptionAction = payload => {
-  return {type: 'GET_OPTION_PDAM', payload};
+export const NSPDAMOptionAction = payload => {
+  return {type: 'NS_GET_OPTION_PDAM', payload};
 };
 
 // GET OPTIONS PDAM
-export const PDAMOptionActionSuccess = payload => {
-  return {type: 'GET_OPTION_PDAM_SUCCESS', payload};
+export const NSPDAMOptionActionSuccess = payload => {
+  return {type: 'NS_GET_OPTION_PDAM_SUCCESS', payload};
 };
 
 // GET ACCOUNT PDAM
-export const PDAMAccountAction = payload => {
-  return {type: 'GET_ACCOUNT_PDAM', payload};
+export const NSPDAMAccountAction = payload => {
+  return {type: 'NS_GET_ACCOUNT_PDAM', payload};
 };
 
 // GET ACCOUNT PDAM
-export const PDAMAccountActionSuccess = payload => {
-  return {type: 'GET_ACCOUNT_PDAM_SUCCESS', payload};
+export const NSPDAMAccountActionSuccess = payload => {
+  return {type: 'NS_GET_ACCOUNT_PDAM_SUCCESS', payload};
 };
 
 // CREATE PAYMENT PDAM
-export const PDAMCreatePaymentAction = payload => {
-  return {type: 'CREATE_PDAM_PAYMENT', payload};
+export const NSPDAMCreatePaymentAction = payload => {
+  return {type: 'NS_CREATE_PDAM_PAYMENT', payload};
 };
 
 // CREATE PAYMENT PDAM
-export const PDAMCreatePaymentActionSuccess = payload => {
-  return {type: 'CREATE_PDAM_PAYMENT_SUCCESS', payload};
+export const NSPDAMCreatePaymentActionSuccess = payload => {
+  return {type: 'NS_CREATE_PDAM_PAYMENT_SUCCESS', payload};
 };

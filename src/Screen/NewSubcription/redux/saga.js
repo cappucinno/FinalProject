@@ -3,25 +3,25 @@ import {ToastAndroid} from 'react-native';
 import {navigate} from '../../../Function/Nav';
 import {takeLatest, put, select} from 'redux-saga/effects';
 import {
-  BpjsPeriodActionSuccess,
-  BpjsAccountActionSuccess,
-  BpjsCreatePaymentActionSuccess,
-  ElectricityOptionActionSuccess,
-  ElectricityTokenActionSuccess,
-  ElectricityTokenAccountActionSuccess,
-  ElectricityTagihanAccountActionSuccess,
-  ElectricityTokenCreatePaymentActionSuccess,
-  inTvOptionActionSuccess,
-  inTvAccountActionSuccess,
-  inTvCreatePaymentActionSuccess,
-  LandlineAccountActionSuccess,
-  LandlineCreatePaymentActionSuccess,
-  MobileOptionActionSuccess,
-  MobileAccountActionSuccess,
-  MobileCreatePaymentActionSuccess,
-  PDAMOptionActionSuccess,
-  PDAMAccountActionSuccess,
-  PDAMCreatePaymentActionSuccess,
+  NSBpjsPeriodActionSuccess,
+  NSBpjsAccountActionSuccess,
+  NSBpjsCreatePaymentActionSuccess,
+  NSElectricityOptionActionSuccess,
+  NSElectricityTokenActionSuccess,
+  NSElectricityTokenAccountActionSuccess,
+  NSElectricityTagihanAccountActionSuccess,
+  NSElectricityTokenCreatePaymentActionSuccess,
+  NSinTvOptionActionSuccess,
+  NSinTvAccountActionSuccess,
+  NSinTvCreatePaymentActionSuccess,
+  NSLandlineAccountActionSuccess,
+  NSLandlineCreatePaymentActionSuccess,
+  NSMobileOptionActionSuccess,
+  NSMobileAccountActionSuccess,
+  NSMobileCreatePaymentActionSuccess,
+  NSPDAMOptionActionSuccess,
+  NSPDAMAccountActionSuccess,
+  NSPDAMCreatePaymentActionSuccess,
 } from './action';
 import {
   actionLoading,
@@ -30,7 +30,7 @@ import {
 } from '../../../Store/GlobalAction';
 
 // GET BPJS PERIOD
-const BpjsPeriods = (payload, token) => {
+const NSBpjsPeriods = (payload, token) => {
   return axios({
     method: 'GET',
     url: 'https://biller-app-api.herokuapp.com/api/biller/bpjs/bill/period',
@@ -42,18 +42,18 @@ const BpjsPeriods = (payload, token) => {
 };
 
 // GET BPJS PERIOD
-function* BpjsPeriodAction(action) {
+function* NSBpjsPeriodAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
 
   try {
     yield put(actionLoading(true));
-    const res = yield BpjsPeriods(action.payload, token);
+    const res = yield NSBpjsPeriods(action.payload, token);
     console.log(action.payload, '<=======ini hasil BPJS API');
     if (res && res.data) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Mengambil data Period BPJS');
 
-      yield put(BpjsPeriodActionSuccess(res.data));
+      yield put(NSBpjsPeriodActionSuccess(res.data));
       yield put(actionLoading(false));
     }
   } catch (err) {
@@ -74,7 +74,7 @@ function* BpjsPeriodAction(action) {
 }
 
 // GET ACCOUNT BPJS
-const BpjsAccountId = (payload, token) => {
+const NSBpjsAccountId = (payload, token) => {
   console.log(payload, '<==== ini data payload dari input userid');
   return axios({
     method: 'POST',
@@ -87,18 +87,18 @@ const BpjsAccountId = (payload, token) => {
 };
 
 // GET ACCOUNT BPJS
-function* BpjsAccountAction(action) {
+function* NSBpjsAccountAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
 
   try {
     yield put(actionLoading(true));
-    const res = yield BpjsAccountId(action.payload, token);
+    const res = yield NSBpjsAccountId(action.payload, token);
     console.log(res, '<=======ini hasil user account BPJS API');
     if (res && res.data) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Mengambil data user account BPJS API');
 
-      yield put(BpjsAccountActionSuccess(res.data));
+      yield put(NSBpjsAccountActionSuccess(res.data));
       yield put(actionSuccess(true));
 
       yield navigate('BPJSTransaction');
@@ -125,7 +125,7 @@ function* BpjsAccountAction(action) {
 }
 
 // POST Create Payment BPJS
-const BpjsCreate = (payload, token) => {
+const NSBpjsCreate = (payload, token) => {
   console.log(payload, '<==== ini data payload dari input userid');
   return axios({
     method: 'POST',
@@ -138,18 +138,18 @@ const BpjsCreate = (payload, token) => {
 };
 
 // POST Create Payment BPJS
-function* BpjsCreatePaymentAction(action) {
+function* NSBpjsCreatePaymentAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
 
   try {
     yield put(actionLoading(true));
-    const res = yield BpjsCreate(action.payload, token);
+    const res = yield NSBpjsCreate(action.payload, token);
     console.log(res, '<=======ini hasil CreateBill BPJS API');
     if (res && res.data) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Create Bill BPJS API');
 
-      yield put(BpjsCreatePaymentActionSuccess(res.data));
+      yield put(NSBpjsCreatePaymentActionSuccess(res.data));
       yield put(actionSuccess(true));
       let methodPayment = 'Bank Transfer';
       methodPayment === 'Bank Transfer'
@@ -180,7 +180,7 @@ function* BpjsCreatePaymentAction(action) {
 }
 
 // GET OPTIONS ELECTRICITY
-const ElectricityOptions = (payload, token) => {
+const NSElectricityOptions = (payload, token) => {
   return axios({
     method: 'GET',
     url: 'https://biller-app-api.herokuapp.com/api/biller/electricity/bill/options/1',
@@ -192,18 +192,18 @@ const ElectricityOptions = (payload, token) => {
 };
 
 // GET OPTIONS ELECTRICITY
-function* ElectricityOptionAction(action) {
+function* NSElectricityOptionAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
   try {
     yield put(actionSuccess(true));
     yield put(actionLoading(true));
-    const res = yield ElectricityOptions(action.payload, token);
+    const res = yield NSElectricityOptions(action.payload, token);
     console.log(action.payload, '<=======ini hasil Option Electricity API');
     if (res && res.data) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Mengambil data Option Electricity');
 
-      yield put(ElectricityOptionActionSuccess(res.data));
+      yield put(NSElectricityOptionActionSuccess(res.data));
       yield put(actionLoading(false));
     } else if (res.status === 204) {
       yield put(actionSuccess(false));
@@ -228,7 +228,7 @@ function* ElectricityOptionAction(action) {
 }
 
 // GET Token List Pay ELECTRICITY
-const ElectricityToken = (payload, token) => {
+const NSElectricityToken = (payload, token) => {
   return axios({
     method: 'POST',
     url: 'https://biller-app-api.herokuapp.com/api/biller/electricity/bill/token/blank',
@@ -240,18 +240,18 @@ const ElectricityToken = (payload, token) => {
 };
 
 //GET Token List Pay ELECTRICITY
-function* ElectricityTokenAction(action) {
+function* NSElectricityTokenAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
   try {
     yield put(actionSuccess(true));
     yield put(actionLoading(true));
-    const res = yield ElectricityToken(action.payload, token);
+    const res = yield NSElectricityToken(action.payload, token);
     console.log(action.payload, '<=======ini hasil List Token Electricity API');
     if (res && res.data) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Mengambil data List Token Electricity');
 
-      yield put(ElectricityTokenActionSuccess(res.data));
+      yield put(NSElectricityTokenActionSuccess(res.data));
       yield put(actionLoading(false));
     } else if (res.status === 204) {
       yield put(actionSuccess(false));
@@ -276,7 +276,7 @@ function* ElectricityTokenAction(action) {
 }
 
 // GET User Elect Token ELECTRICITY
-const ElectricityUserToken = (payload, token) => {
+const NSElectricityUserToken = (payload, token) => {
   return axios({
     method: 'POST',
     url: 'https://biller-app-api.herokuapp.com/api/biller/electricity/bill/token/info',
@@ -288,12 +288,12 @@ const ElectricityUserToken = (payload, token) => {
 };
 
 // GET User Elect Token ELECTRICITY
-function* ElectricityTokenAccountAction(action) {
+function* NSElectricityTokenAccountAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
   try {
     yield put(actionSuccess(true));
     yield put(actionLoading(true));
-    const res = yield ElectricityUserToken(action.payload, token);
+    const res = yield NSElectricityUserToken(action.payload, token);
     console.log(
       action.payload,
       '<=======ini hasil Get User Token Electricity API',
@@ -302,9 +302,10 @@ function* ElectricityTokenAccountAction(action) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Mengambil data Get User Token Electricity');
 
-      yield put(ElectricityTokenAccountActionSuccess(res.data));
+      yield put(NSElectricityTokenAccountActionSuccess(res.data));
       yield put(actionLoading(false));
-      yield navigate('ElectricityTransaction', 'PLN - Token');
+      yield navigate('NSBillDetail', 'PLN - Token');
+      console.log(navigate, 'NSBillDetail');
     }
     if (res.status === 202) {
       yield put(actionSuccess(false));
@@ -336,7 +337,7 @@ function* ElectricityTokenAccountAction(action) {
 }
 
 // CREATE PAY Elect Token ELECTRICITY
-const ElectricityCreatePayToken = (payload, token) => {
+const NSElectricityCreatePayToken = (payload, token) => {
   return axios({
     method: 'POST',
     url: 'https://biller-app-api.herokuapp.com/api/biller/electricity/bill/token/bankpayment',
@@ -348,12 +349,12 @@ const ElectricityCreatePayToken = (payload, token) => {
 };
 
 // CREATE PAY Elect Token
-function* ElectricityTokenCreatePayAction(action) {
+function* NSElectricityTokenCreatePayAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
   try {
     yield put(actionSuccess(true));
     yield put(actionLoading(true));
-    const res = yield ElectricityCreatePayToken(action.payload, token);
+    const res = yield NSElectricityCreatePayToken(action.payload, token);
     console.log(
       action.payload,
       '<=======ini hasil Get User Token Electricity API',
@@ -362,9 +363,9 @@ function* ElectricityTokenCreatePayAction(action) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Mengambil data Get User Token Electricity');
 
-      yield put(ElectricityTokenCreatePaymentActionSuccess(res.data));
+      yield put(NSElectricityTokenCreatePaymentActionSuccess(res.data));
       yield put(actionLoading(false));
-      yield navigate('ElectricityTransaction', 'PLN - Token');
+      yield navigate('NSBillDetail', 'PLN - Token');
     }
     if (res.status === 202) {
       yield put(actionSuccess(false));
@@ -396,7 +397,7 @@ function* ElectricityTokenCreatePayAction(action) {
 }
 
 // GET User Elect TAGIHAN
-const ElectricityUserTagihan = (payload, token) => {
+const NSElectricityUserTagihan = (payload, token) => {
   return axios({
     method: 'POST',
     url: 'https://biller-app-api.herokuapp.com/api/biller/electricity/bill/tagihan/info',
@@ -408,12 +409,12 @@ const ElectricityUserTagihan = (payload, token) => {
 };
 
 // GET User Elect TAGIHAN
-function* ElectricityTagihanAccountAction(action) {
+function* NSElectricityTagihanAccountAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
   try {
     yield put(actionSuccess(true));
     yield put(actionLoading(true));
-    const res = yield ElectricityUserTagihan(action.payload, token);
+    const res = yield NSElectricityUserTagihan(action.payload, token);
     console.log(
       action.payload,
       '<=======ini hasil Get User Tagihan Electricity API',
@@ -422,9 +423,9 @@ function* ElectricityTagihanAccountAction(action) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Mengambil data Get User Tagihan Electricity');
 
-      yield put(ElectricityTagihanAccountActionSuccess(res.data));
+      yield put(NSElectricityTagihanAccountActionSuccess(res.data));
       yield put(actionLoading(false));
-      yield navigate('ElectricityTransaction', 'PLN - Tagihan');
+      yield navigate('NSBillDetail', 'PLN - Tagihan');
     }
     if (res.status === 202) {
       yield put(actionSuccess(false));
@@ -456,7 +457,7 @@ function* ElectricityTagihanAccountAction(action) {
 }
 
 // GET OPTIONS INTERNET & TV
-const inTvOptions = (payload, token) => {
+const NSinTvOptions = (payload, token) => {
   return axios({
     method: 'GET',
     url: 'https://biller-app-api.herokuapp.com/api/biller/internet_TV/options/3',
@@ -468,19 +469,19 @@ const inTvOptions = (payload, token) => {
 };
 
 // GET OPTIONS INTERNET & TV
-function* inTvOptionAction(action) {
+function* NSinTvOptionAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
 
   try {
     yield put(actionSuccess(true));
     yield put(actionLoading(true));
-    const res = yield inTvOptions(action.payload, token);
+    const res = yield NSinTvOptions(action.payload, token);
     console.log(action.payload, '<=======ini hasil Option INTV Api');
     if (res && res.data) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Mengambil data Option InTv');
 
-      yield put(inTvOptionActionSuccess(res.data));
+      yield put(NSinTvOptionActionSuccess(res.data));
       yield put(actionLoading(false));
     }
   } catch (err) {
@@ -501,7 +502,7 @@ function* inTvOptionAction(action) {
 }
 
 // POST User_ID Internet Tv
-const inTvUserId = (payload, token) => {
+const NSinTvUserId = (payload, token) => {
   console.log(payload, '<==== ini data payload dari input userid');
   return axios({
     method: 'POST',
@@ -514,19 +515,19 @@ const inTvUserId = (payload, token) => {
 };
 
 // POST User_ID Internet Tv
-function* inTvUserIdAction(action) {
+function* NSinTvUserIdAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
 
   try {
     yield put(actionSuccess(true));
     yield put(actionLoading(true));
-    const res = yield inTvUserId(action.payload, token);
+    const res = yield NSinTvUserId(action.payload, token);
     console.log(res, '<=======ini hasil user INTV Api');
     if (res.status === 200 && res.data) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Mengambil data User InTv');
 
-      yield put(inTvAccountActionSuccess(res.data));
+      yield put(NSinTvAccountActionSuccess(res.data));
       yield put(actionSuccess(true));
 
       yield navigate('InTvTransaction');
@@ -559,7 +560,7 @@ function* inTvUserIdAction(action) {
 }
 
 // POST Create Payment Internet Tv
-const inTvCreate = (payload, token) => {
+const NSinTvCreate = (payload, token) => {
   console.log(payload, '<==== ini data payload dari input userid');
   return axios({
     method: 'POST',
@@ -572,19 +573,19 @@ const inTvCreate = (payload, token) => {
 };
 
 // POST Create Payment Internet Tv
-function* inTvCreateAction(action) {
+function* NSinTvCreateAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
 
   try {
     yield put(actionSuccess(true));
     yield put(actionLoading(true));
-    const res = yield inTvCreate(action.payload, token);
+    const res = yield NSinTvCreate(action.payload, token);
     console.log(res, '<=======ini hasil CreateBill INTV Api');
     if (res.status === 200 && res.data) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Create Bill InTv');
 
-      yield put(inTvCreatePaymentActionSuccess(res.data));
+      yield put(NSinTvCreatePaymentActionSuccess(res.data));
       yield put(actionSuccess(true));
       let methodPayment = 'Bank Transfer';
       methodPayment === 'Bank Transfer'
@@ -622,7 +623,7 @@ function* inTvCreateAction(action) {
 
 // LANDLINE
 // POST GET ID LANDLINE
-const LandlineUserId = (payload, token) => {
+const NSLandlineUserId = (payload, token) => {
   return axios({
     method: 'POST',
     url: 'https://biller-app-api.herokuapp.com/api/biller/landline/bill/info',
@@ -634,17 +635,17 @@ const LandlineUserId = (payload, token) => {
 };
 
 // POST GET ID LANDLINE
-function* LandlineAccountAction(action) {
+function* NSLandlineAccountAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
   try {
     yield put(actionLoading(true));
-    const res = yield LandlineUserId(action.payload, token);
+    const res = yield NSLandlineUserId(action.payload, token);
     console.log(res, '<=======ini hasil user Landline Api');
     if (res.status === 200 && res.data) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Mengambil data User Landline');
 
-      yield put(LandlineAccountActionSuccess(res.data));
+      yield put(NSLandlineAccountActionSuccess(res.data));
       yield put(actionSuccess(true));
 
       yield navigate('LandlineTransaction');
@@ -678,7 +679,7 @@ function* LandlineAccountAction(action) {
 }
 
 // POST Create Payment Landline
-const LandlineCreate = (payload, token) => {
+const NSLandlineCreate = (payload, token) => {
   console.log(payload, '<==== ini data payload dari input userid');
   console.log(token, '<=== ini Token');
   return axios({
@@ -692,18 +693,18 @@ const LandlineCreate = (payload, token) => {
 };
 
 // POST User_ID Landline
-function* LandlineCreatePaymentAction(action) {
+function* NSLandlineCreatePaymentAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
 
   try {
     yield put(actionLoading(true));
-    const res = yield LandlineCreate(action.payload, token);
+    const res = yield NSLandlineCreate(action.payload, token);
     console.log(res, '<=======ini hasil CreateBill Landline Api');
     if (res && res.data) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Create Bill Landline');
 
-      yield put(LandlineCreatePaymentActionSuccess(res.data));
+      yield put(NSLandlineCreatePaymentActionSuccess(res.data));
       yield put(actionSuccess(true));
       let methodPayment = 'Bank Transfer';
       methodPayment === 'Bank Transfer'
@@ -735,7 +736,7 @@ function* LandlineCreatePaymentAction(action) {
 
 // MOBILE
 // GET OPTIONS MOBILE
-const MobileOptions = (payload, token) => {
+const NSMobileOptions = (payload, token) => {
   return axios({
     method: 'GET',
     url: 'https://biller-app-api.herokuapp.com/api/biller/mobile/bill/options',
@@ -746,18 +747,18 @@ const MobileOptions = (payload, token) => {
   });
 };
 // GET OPTIONS MOBILE
-function* MobileOptionAction(action) {
+function* NSMobileOptionAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
 
   try {
     yield put(actionLoading(true));
-    const res = yield MobileOptions(action.payload, token);
+    const res = yield NSMobileOptions(action.payload, token);
     console.log(action.payload, '<=======ini hasil Option Mobile Api');
     if (res && res.data) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Mengambil data Option Mobile');
 
-      yield put(MobileOptionActionSuccess(res.data));
+      yield put(NSMobileOptionActionSuccess(res.data));
       yield put(actionLoading(false));
     }
   } catch (err) {
@@ -779,7 +780,7 @@ function* MobileOptionAction(action) {
 
 // PDAM
 // GET OPTIONS PDAM
-const PDAMOptions = (payload, token) => {
+const NSPDAMOptions = (payload, token) => {
   return axios({
     method: 'GET',
     url: 'https://biller-app-api.herokuapp.com/api/biller/pdam/bill/region/all',
@@ -791,18 +792,18 @@ const PDAMOptions = (payload, token) => {
 };
 
 // GET OPTIONS PDAM
-function* PDAMOptionAction(action) {
+function* NSPDAMOptionAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
 
   try {
     yield put(actionLoading(true));
-    const res = yield PDAMOptions(action.payload, token);
+    const res = yield NSPDAMOptions(action.payload, token);
     console.log(action.payload, '<=======ini hasil Option PDAM API');
     if (res && res.data) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Mengambil data Option PDAM');
 
-      yield put(PDAMOptionActionSuccess(res.data));
+      yield put(NSPDAMOptionActionSuccess(res.data));
       yield put(actionLoading(false));
     }
   } catch (err) {
@@ -823,7 +824,7 @@ function* PDAMOptionAction(action) {
 }
 
 // POST GET User_ID PDAM
-const PDAMUserId = (payload, token) => {
+const NSPDAMUserId = (payload, token) => {
   console.log(payload, '<==== ini data payload dari input userid');
   return axios({
     method: 'POST',
@@ -836,18 +837,18 @@ const PDAMUserId = (payload, token) => {
 };
 
 // POST User_ID PDAM
-function* PDAMUserIdAction(action) {
+function* NSPDAMUserIdAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
 
   try {
     yield put(actionLoading(true));
-    const res = yield PDAMUserId(action.payload, token);
+    const res = yield NSPDAMUserId(action.payload, token);
     console.log(res, '<=======ini hasil user PDAM Api');
     if (res && res.data) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Mengambil data User PDAM');
 
-      yield put(PDAMAccountActionSuccess(res.data));
+      yield put(NSPDAMAccountActionSuccess(res.data));
       yield put(actionSuccess(true));
 
       yield navigate('PDAMTransaction');
@@ -874,30 +875,30 @@ function* PDAMUserIdAction(action) {
 }
 
 function* newSubOptionSaga() {
-  yield takeLatest('GET_BPJS_PERIOD', BpjsPeriodAction);
-  yield takeLatest('GET_ACCOUNT_BPJS', BpjsAccountAction);
-  yield takeLatest('CREATE_BPJS_PAYMENT', BpjsCreatePaymentAction);
-  yield takeLatest('GET_OPTION_ELECTRICITY', ElectricityOptionAction);
-  yield takeLatest('GET_TOKEN_ELECTRICITY', ElectricityTokenAction);
+  yield takeLatest('NS_GET_BPJS_PERIOD', NSBpjsPeriodAction);
+  yield takeLatest('NS_GET_ACCOUNT_BPJS', NSBpjsAccountAction);
+  yield takeLatest('NS_CREATE_BPJS_PAYMENT', NSBpjsCreatePaymentAction);
+  yield takeLatest('NS_GET_OPTION_ELECTRICITY', NSElectricityOptionAction);
+  yield takeLatest('NS_GET_TOKEN_ELECTRICITY', NSElectricityTokenAction);
   yield takeLatest(
-    'GET_TOKEN_ACCOUNT_ELECTRICITY',
-    ElectricityTokenAccountAction,
+    'NS_GET_TOKEN_ACCOUNT_ELECTRICITY',
+    NSElectricityTokenAccountAction,
   );
   yield takeLatest(
-    'CREATE_TOKEN_ELECTRICITY_PAYMENT',
-    ElectricityTokenCreatePayAction,
+    'NS_CREATE_TOKEN_ELECTRICITY_PAYMENT',
+    NSElectricityTokenCreatePayAction,
   );
   yield takeLatest(
-    'GET_TAGIHAN_ACCOUNT_ELECTRICITY',
-    ElectricityTagihanAccountAction,
+    'NS_GET_TAGIHAN_ACCOUNT_ELECTRICITY',
+    NSElectricityTagihanAccountAction,
   );
-  yield takeLatest('GET_OPTION_INTV', inTvOptionAction);
-  yield takeLatest('GET_ACCOUNT_INTV', inTvUserIdAction);
-  yield takeLatest('CREATE_INTV_PAYMENT', inTvCreateAction);
-  yield takeLatest('GET_ACCOUNT_LANDLINE', LandlineAccountAction);
-  yield takeLatest('CREATE_LANDLINE_PAYMENT', LandlineCreatePaymentAction);
-  yield takeLatest('GET_OPTION_MOBILE', MobileOptionAction);
-  yield takeLatest('GET_OPTION_PDAM', PDAMOptionAction);
-  yield takeLatest('GET_ACCOUNT_PDAM', PDAMUserIdAction);
+  yield takeLatest('NS_GET_OPTION_INTV', NSinTvOptionAction);
+  yield takeLatest('NS_GET_ACCOUNT_INTV', NSinTvUserIdAction);
+  yield takeLatest('NS_CREATE_INTV_PAYMENT', NSinTvCreateAction);
+  yield takeLatest('NS_GET_ACCOUNT_LANDLINE', NSLandlineAccountAction);
+  yield takeLatest('NS_CREATE_LANDLINE_PAYMENT', NSLandlineCreatePaymentAction);
+  yield takeLatest('NS_GET_OPTION_MOBILE', NSMobileOptionAction);
+  yield takeLatest('NS_GET_OPTION_PDAM', NSPDAMOptionAction);
+  yield takeLatest('NS_GET_ACCOUNT_PDAM', NSPDAMUserIdAction);
 }
 export default newSubOptionSaga;
