@@ -52,6 +52,7 @@ import MobileOption from './NewSubcription/NSMobile/MobileOption';
 import MobileTransaction from './NewSubcription/NSMobile/MobileTransaction';
 import PDAMOption from './NewSubcription/NSPDAM/PDAMOption';
 import PDAMTransaction from './NewSubcription/NSPDAM/PDAMTransaction';
+import NSDetPayElec from './NewSubcription/NSElectricity/NSDetPayElec';
 
 export {
   Electricity,
@@ -106,4 +107,5 @@ export {
   PDAMOption,
   PDAMTransaction,
   ElectricityOption,
+  NSDetPayElec,
 };

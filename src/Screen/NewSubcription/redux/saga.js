@@ -304,8 +304,8 @@ function* NSElectricityTokenAccountAction(action) {
 
       yield put(NSElectricityTokenAccountActionSuccess(res.data));
       yield put(actionLoading(false));
-      yield navigate('NSBillDetail', 'PLN - Token');
-      console.log(navigate, 'NSBillDetail');
+      yield navigate('NSDetPayElec', 'PLN - Token');
+      console.log(navigate, 'NSDetPayElec');
     }
     if (res.status === 202) {
       yield put(actionSuccess(false));
@@ -365,7 +365,7 @@ function* NSElectricityTokenCreatePayAction(action) {
 
       yield put(NSElectricityTokenCreatePaymentActionSuccess(res.data));
       yield put(actionLoading(false));
-      yield navigate('NSBillDetail', 'PLN - Token');
+      yield navigate('NSDetPayElec', 'PLN - Token');
     }
     if (res.status === 202) {
       yield put(actionSuccess(false));
@@ -425,7 +425,7 @@ function* NSElectricityTagihanAccountAction(action) {
 
       yield put(NSElectricityTagihanAccountActionSuccess(res.data));
       yield put(actionLoading(false));
-      yield navigate('NSBillDetail', 'PLN - Tagihan');
+      yield navigate('NSDetPayElec', 'PLN - Tagihan');
     }
     if (res.status === 202) {
       yield put(actionSuccess(false));

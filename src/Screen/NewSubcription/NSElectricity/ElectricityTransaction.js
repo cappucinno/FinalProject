@@ -48,7 +48,7 @@ const ElectricityTransaction = props => {
 
   const DataCostomer = useSelector(state => state.GlobalReducer.Success);
   console.log(DataCostomer, 'status datacostumer');
-  const alamat = 'NSBillDetail';
+  const alamat = 'NSDetPayElec';
   const ListHarga = DataListElectricity;
 
   return (

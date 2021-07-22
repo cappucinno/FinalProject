@@ -203,3 +203,8 @@ export const NSPDAMCreatePaymentAction = payload => {
 export const NSPDAMCreatePaymentActionSuccess = payload => {
   return {type: 'NS_CREATE_PDAM_PAYMENT_SUCCESS', payload};
 };
+
+// SAVE PAYMENT METHOD ELEC
+export const NSSavePaymentMethodAction = payload => {
+  return {type: 'NS_SAVE_PAYMENT_METHOD', payload};
+};

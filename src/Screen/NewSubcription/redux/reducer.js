@@ -6,6 +6,7 @@ const initialState = {
   priceListElectricity: [],
   dataUserElectricity: [],
   resBillElectricity: [],
+  dataInfoSaveElectricity: [],
   dataOptionInternetTV: [],
   dataUserInternetTV: [],
   resBillInternetTV: [],
@@ -234,6 +235,11 @@ const newSubReducer = (state = initialState, action) => {
       return {
         ...state,
         resBillPDAM: action.payload,
+      };
+    case 'NS_SAVE_PAYMENT_METHOD':
+      return {
+        ...state,
+        dataInfoSaveElectricity: action.payload,
       };
     default:
       return state;
