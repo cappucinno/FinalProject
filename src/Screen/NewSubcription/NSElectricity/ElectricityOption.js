@@ -16,9 +16,9 @@ import {
 // background
 import BackgroundPurple from '../../../Component/Background/BackgroundPurple';
 // Icon
-import {ArrowBack, IconInternetActive} from '../../../Assets/Assets';
+import {ArrowBack, IconElectricityActive} from '../../../Assets/Assets';
 
-const InTvOption = props => {
+const ElectricityOption = props => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <BackgroundPurple>
@@ -33,44 +33,46 @@ const InTvOption = props => {
                 resizeMode={FastImage.resizeMode.contain}
               />
             </TouchableOpacity>
-            <Text style={styles.Judul}>Internet & TV</Text>
+            <Text style={styles.Judul}>Electricity</Text>
           </View>
           <View>
             <View style={styles.allToken}>
               <TouchableOpacity
                 style={styles.containerToken}
-                onPress={() => props.navigation.navigate('InTvTransaction')}>
+                onPress={() =>
+                  props.navigation.navigate('ElectricityTransaction')
+                }>
                 <FastImage
                   style={styles.styleMobile}
-                  source={IconInternetActive}
+                  source={IconElectricityActive}
                   resizeMode={FastImage.resizeMode.contain}
                 />
               </TouchableOpacity>
-              <Text style={styles.huruf}>IndiHome</Text>
+              <TouchableOpacity
+                onPress={() =>
+                  props.navigation.navigate('ElectricityTransaction')
+                }>
+                <Text style={styles.huruf}>PLN - Token</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.allToken}>
               <TouchableOpacity
                 style={styles.containerToken}
-                onPress={() => props.navigation.navigate('InTvTransaction')}>
+                onPress={() =>
+                  props.navigation.navigate('ElectricityTransaction')
+                }>
                 <FastImage
                   style={styles.styleMobile}
-                  source={IconInternetActive}
+                  source={IconElectricityActive}
                   resizeMode={FastImage.resizeMode.contain}
                 />
               </TouchableOpacity>
-              <Text style={styles.huruf}>MNC Play</Text>
-            </View>
-            <View style={styles.allToken}>
               <TouchableOpacity
-                style={styles.containerToken}
-                onPress={() => props.navigation.navigate('InTvTransaction')}>
-                <FastImage
-                  style={styles.styleMobile}
-                  source={IconInternetActive}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
+                onPress={() =>
+                  props.navigation.navigate('ElectricityTransaction')
+                }>
+                <Text style={styles.huruf}>PLN - Tagihan</Text>
               </TouchableOpacity>
-              <Text style={styles.huruf}>Biznet Home</Text>
             </View>
           </View>
         </ScrollView>
@@ -79,7 +81,7 @@ const InTvOption = props => {
   );
 };
 
-export default InTvOption;
+export default ElectricityOption;
 
 const styles = StyleSheet.create({
   HeaderBilling: {

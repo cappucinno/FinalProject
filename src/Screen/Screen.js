@@ -43,6 +43,7 @@ import DetailPaymentLandline from './Landline/DetailPaymentLandline';
 import ResultPaymentBankLandline from './Landline/ResultPaymentLandline/ResultPaymentBankLandline';
 // file terbaru
 import BPJSTransaction from './NewSubcription/NSBPJS/BPJSTransaction';
+import ElectricityOption from './NewSubcription/NSElectricity/ElectricityOption';
 import ElectricityTransaction from './NewSubcription/NSElectricity/ElectricityTransaction';
 import InTvOption from './NewSubcription/NSInTv/InTvOption';
 import InTvTransaction from './NewSubcription/NSInTv/InTvTransaction';
@@ -104,4 +105,5 @@ export {
   MobileTransaction,
   PDAMOption,
   PDAMTransaction,
+  ElectricityOption,
 };

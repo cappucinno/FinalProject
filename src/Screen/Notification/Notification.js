@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,92 +13,179 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import {useSelector, useDispatch} from 'react-redux';
+import Loading from '../../Component/Loading/Loading';
 import {
   ArrowBack,
   Subtract,
   NotifikasiSucces,
   NotifikasiFailed,
 } from '../../Assets/Assets';
+import {NotifAction} from './redux/action';
 
 const Notification = props => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(NotifAction());
+  }, [dispatch]);
+
+  const DataNotif = useSelector(state => state.NotifReducer?.dataNotif?.data);
+
+  console.log(DataNotif, 'ini hasil data Notif User');
+
+  const getCurrentDate = () => {
+    let date = new Date().getDate();
+    let month = new Date().getMonth();
+    let year = new Date().getFullYear();
+    let Bulan =
+      month === 1
+        ? 'Jan'
+        : month === 2
+        ? 'Feb'
+        : month === 3
+        ? 'Mar'
+        : month === 4
+        ? 'Apr'
+        : month === 5
+        ? 'May'
+        : month === 6
+        ? 'Jun'
+        : month === 7
+        ? 'Jul'
+        : month === 8
+        ? 'Aug'
+        : month === 9
+        ? 'Oct'
+        : month === 10
+        ? 'Sep'
+        : month === 11
+        ? 'Nov'
+        : month === 12
+        ? 'Dec'
+        : null;
+
+    return date + '  ' + Bulan + '  ' + year; //format: dd-mm-yyyy;
+  };
+
+  console.log(getCurrentDate(), 'ini date now');
+
+  const numHide = card => {
+    let hideNum = [];
+    for (let i = 0; i < card.length; i++) {
+      if (i < card.length - 6) {
+        hideNum.push('*');
+      } else {
+        hideNum.push(card[i]);
+      }
+    }
+    return hideNum.join('');
+  };
+  const isLoading = useSelector(state => state.GlobalReducer.Loading);
+
   return (
     <SafeAreaView
       style={{width: wp(100), height: hp(100), backgroundColor: 'white'}}>
       <ScrollView style={styles.containerAll}>
-        <View style={styles.backgroundTanggal}>
-          <Text style={styles.textTanggal}>12 May 2021</Text>
-        </View>
-        <View style={styles.containerHead}>
-          <View style={styles.HeaderBilling}>
-            <TouchableOpacity onPress={() => props.navigation.goBack()}>
-              <FastImage
-                style={styles.ArrowBack}
-                source={ArrowBack}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </TouchableOpacity>
-            <Text style={styles.Judul}>Notification</Text>
-          </View>
-        </View>
-        <View style={styles.notifikasiAll}>
-          <FastImage
-            style={styles.notifikasiSucces}
-            source={NotifikasiSucces}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-          <View style={styles.paymentSuccess}>
-            <Text style={styles.textAtas}>PLN Token - Payment Success</Text>
-            <Text style={styles.textBawah}>
-              Transaction of Rp. 51.500 for ***7890 (Justin Junaedi) has been
-              successfully paid.
-            </Text>
-          </View>
-        </View>
-        <View style={styles.garis} />
-        <View style={styles.notifikasiAll}>
-          <FastImage
-            style={styles.notifikasiSucces}
-            source={NotifikasiSucces}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-          <View style={styles.paymentSuccess2}>
-            <Text style={styles.textAtas}>PLN Token - Payment Success</Text>
-            <Text style={styles.textBawah}>
-              Subscription for 082123456789 has been successfully created.
-            </Text>
-          </View>
-        </View>
-        <View style={styles.garis} />
-        <View style={styles.notifikasiAll}>
-          <FastImage
-            style={styles.notifikasiFailed}
-            source={NotifikasiFailed}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-          <View style={styles.paymentFailed}>
-            <Text style={styles.textAtas}>PLN Token - Payment Failed</Text>
-            <Text style={styles.textBawah}>
-              We couldn't procees your transaction Rp 51.500 for ***7890 (Justin
-              Junaedi). Please try again.
-            </Text>
-          </View>
-        </View>
-        <View style={styles.garis} />
-        <View style={styles.notifikasiAll}>
-          <FastImage
-            style={styles.notifikasiOngoing}
-            source={Subtract}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-          <View style={styles.paymentOngoing}>
-            <Text style={styles.textAtas}>Your subscription due in 2 days</Text>
-            <Text style={styles.textBawah}>
-              Montly subscribtion (Rp. 103.500) due in 28 June 2021. Please pay
-              before due date to avoid late fee.
-            </Text>
-          </View>
-        </View>
-        <View style={styles.garis} />
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            <View style={styles.backgroundTanggal}>
+              <Text style={styles.textTanggal}>{getCurrentDate()}</Text>
+            </View>
+            <View style={styles.containerHead}>
+              <View style={styles.HeaderBilling}>
+                <TouchableOpacity onPress={() => props.navigation.goBack()}>
+                  <FastImage
+                    style={styles.ArrowBack}
+                    source={ArrowBack}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                </TouchableOpacity>
+                <Text style={styles.Judul}>Notification</Text>
+              </View>
+            </View>
+            <View>
+              {DataNotif?.success?.map((v, i) => {
+                return (
+                  <View key={i}>
+                    <View style={styles.notifikasiAll}>
+                      <FastImage
+                        style={styles.notifikasiSucces}
+                        source={NotifikasiSucces}
+                        resizeMode={FastImage.resizeMode.contain}
+                      />
+                      <View style={styles.paymentSuccess}>
+                        <Text style={styles.textAtas}>
+                          {`${v.bill_type} - Payment Success`}
+                        </Text>
+                        <Text style={styles.textBawah}>
+                          {`Transaction of Rp.${v.total} for ${numHide(
+                            v.customer_number,
+                          )} (${v.name}) has been successfully paid.`}
+                        </Text>
+                      </View>
+                    </View>
+                    <View style={styles.garis} />
+                  </View>
+                );
+              })}
+            </View>
+            <View>
+              {DataNotif?.failed?.map((v, i) => {
+                return (
+                  <View key={i}>
+                    <View style={styles.notifikasiAll}>
+                      <FastImage
+                        style={styles.notifikasiFailed}
+                        source={NotifikasiFailed}
+                        resizeMode={FastImage.resizeMode.contain}
+                      />
+                      <View style={styles.paymentFailed}>
+                        <Text style={styles.textAtas}>
+                          {`${v.bill_type} - Payment Failed`}
+                        </Text>
+                        <Text style={styles.textBawah}>
+                          {`We couldn't procees your transaction Rp.${
+                            v.total
+                          } for ${numHide(v.customer_number)} (${
+                            v.name
+                          })  Please try again.`}
+                        </Text>
+                      </View>
+                    </View>
+                    <View style={styles.garis} />
+                  </View>
+                );
+              })}
+            </View>
+            <View>
+              {DataNotif?.reminder?.map((v, i) => {
+                return (
+                  <View key={i}>
+                    <View style={styles.notifikasiAll}>
+                      <FastImage
+                        style={styles.notifikasiOngoing}
+                        source={Subtract}
+                        resizeMode={FastImage.resizeMode.contain}
+                      />
+                      <View style={styles.paymentOngoing}>
+                        <Text style={styles.textAtas}>
+                          Your subscription due in 2 days
+                        </Text>
+                        <Text style={styles.textBawah}>
+                          {`Montly subscribtion  Rp.${v.total} due in 28 June 2021. Please pay before due date to avoid late fee..`}
+                        </Text>
+                      </View>
+                    </View>
+                    <View style={styles.garis} />
+                  </View>
+                );
+              })}
+            </View>
+          </>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

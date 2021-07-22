@@ -47,16 +47,17 @@ const NSBillsCategory = props => {
             <View style={styles.allToken}>
               <TouchableOpacity
                 style={styles.containerToken}
-                onPress={() =>
-                  props.navigation.navigate('ElectricityTransaction')
-                }>
+                onPress={() => props.navigation.navigate('ElectricityOption')}>
                 <FastImage
                   style={styles.Electricity}
                   source={IconElectricityActive}
                   resizeMode={FastImage.resizeMode.contain}
                 />
               </TouchableOpacity>
-              <Text style={styles.huruf}>Electricity</Text>
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate('ElectricityOption')}>
+                <Text style={styles.huruf}>Electricity</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.allToken}>
               <TouchableOpacity
@@ -68,19 +69,25 @@ const NSBillsCategory = props => {
                   resizeMode={FastImage.resizeMode.contain}
                 />
               </TouchableOpacity>
-              <Text style={styles.huruf}>Mobile</Text>
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate('MobileOption')}>
+                <Text style={styles.huruf}>Mobile</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.allToken}>
               <TouchableOpacity
                 style={styles.containerToken}
-                onPress={() => props.navigation.navigate('InTvTransaction')}>
+                onPress={() => props.navigation.navigate('InTvOption')}>
                 <FastImage
                   style={styles.Electricity}
                   source={IconInternetActive}
                   resizeMode={FastImage.resizeMode.contain}
                 />
               </TouchableOpacity>
-              <Text style={styles.huruf}>Internet & TV</Text>
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate('InTvOption')}>
+                <Text style={styles.huruf}>Internet & TV</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.allToken}>
               <TouchableOpacity
@@ -94,7 +101,12 @@ const NSBillsCategory = props => {
                   resizeMode={FastImage.resizeMode.contain}
                 />
               </TouchableOpacity>
-              <Text style={styles.huruf}>Landline</Text>
+              <TouchableOpacity
+                onPress={() =>
+                  props.navigation.navigate('LandlineTransaction')
+                }>
+                <Text style={styles.huruf}>Landline</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.allToken}>
               <TouchableOpacity
@@ -106,7 +118,10 @@ const NSBillsCategory = props => {
                   resizeMode={FastImage.resizeMode.contain}
                 />
               </TouchableOpacity>
-              <Text style={styles.huruf}>PDAM</Text>
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate('PDAMOption')}>
+                <Text style={styles.huruf}>PDAM</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.allToken}>
               <TouchableOpacity
@@ -118,7 +133,10 @@ const NSBillsCategory = props => {
                   resizeMode={FastImage.resizeMode.contain}
                 />
               </TouchableOpacity>
-              <Text style={styles.huruf}>BPJS</Text>
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate('BPJSTransaction')}>
+                <Text style={styles.huruf}>BPJS</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </ScrollView>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -16,11 +16,22 @@ import {
 import {ArrowBack} from '../../Assets/Assets';
 import {IconPDAMActive} from '../../Assets/Assets';
 import {TextInput} from 'react-native-gesture-handler';
+import {useSelector, useDispatch} from 'react-redux';
+import {PDAMAccountAction} from './redux/action';
 
 const NewPDAMBlank = props => {
   const [input, setInput] = useState('');
   const title = props.route.params;
   console.log(title, '<<<<< ini tempat PDAM');
+  const dispatch = useDispatch();
+
+  const submitDataCostomer = () => {
+    dispatch(
+      PDAMAccountAction({
+        customerNumber: input,
+      }),
+    );
+  };
 
   return (
     <SafeAreaView
@@ -55,11 +66,10 @@ const NewPDAMBlank = props => {
             placeholder="E.g 00123456789"
             placeholderTextColor="#999999"
             keyboardType="numeric"
-            // onChangeText={text => setFirstName(text)}
+            onChangeText={text => setInput(text)}
           />
         </View>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('NewPDAMBillDetail')}>
+        <TouchableOpacity onPress={submitDataCostomer}>
           <View style={styles.bottomButton}>
             <Text style={styles.textConfirm}>Confirm</Text>
           </View>
