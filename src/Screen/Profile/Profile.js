@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   SafeAreaView,
@@ -14,20 +14,20 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import {moderateScale} from 'react-native-size-matters';
-import {
-  ArrowBack,
-  IconEditProfilePict,
-  IconEditProfile,
-  IconEditPassword,
-  IconEditPin,
-} from '../../Assets/Assets';
+import {IconEditProfilePict, IconEditProfile2} from '../../Assets/Assets';
+import {ProfileOptionAction} from './redux/action';
 
 const Profile = props => {
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(ProfileOptionAction());
-  // }, [dispatch]);
+  const DetailRes = useSelector(
+    state => state.ProfileReducer?.dataOption.data.account,
+  );
+  console.log(DetailRes, '<=== hasil resDetail Profile');
+
+  useEffect(() => {
+    dispatch(ProfileOptionAction());
+  }, [dispatch]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -38,16 +38,18 @@ const Profile = props => {
       </View>
       <View style={styles.userInfoSection}>
         <View style={{flexDirection: 'row', marginTop: 15}}>
-          <TouchableOpacity>
+          <View>
             <FastImage
               style={styles.iconProfile}
               source={IconEditProfilePict}
               resizeMode={FastImage.resizeMode.contain}
             />
-          </TouchableOpacity>
+          </View>
 
           <View style={styles.nameContainer}>
-            <Text style={styles.textName}>Profile.firstName lastName={}</Text>
+            <Text style={styles.textName}>
+              {DetailRes?.first_name} {DetailRes?.last_name}
+            </Text>
           </View>
         </View>
       </View>
@@ -55,37 +57,38 @@ const Profile = props => {
       <View style={styles.userInfoSection}>
         <View style={styles.row}>
           <Icon name="phone" color="#777777" size={20} />
-          <Text style={{color: '#777777', marginLeft: 20}}>+91-900000009</Text>
+          <Text style={{color: '#777777', marginLeft: 20}}>
+            {DetailRes?.phone_number}
+          </Text>
         </View>
         <View style={styles.row}>
           <Icon name="email" color="#777777" size={20} />
           <Text style={{color: '#777777', marginLeft: 20}}>
-            john_doe@email.com
+            {DetailRes?.email}
           </Text>
         </View>
       </View>
 
       <View>
-        <TouchableOpacity style={styles.changeContainer}>
+        <TouchableOpacity
+          style={styles.changeContainer}
+          onPress={() => {
+            props.navigation.navigate('EditProfile');
+          }}>
           <FastImage
             style={styles.iconEdit}
-            source={IconEditPassword}
+            source={IconEditProfile2}
             resizeMode={FastImage.resizeMode.contain}
           />
-          <Text style={styles.menuItemText}>Change Password</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.changeContainer}>
-          <FastImage
-            style={styles.iconEdit}
-            source={IconEditPin}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-          <Text style={styles.menuItemText}>Change PIN</Text>
+          <Text style={styles.menuItemText}>Edit Profile</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.menuWrapper}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate('PaymentMethod');
+          }}>
           <View style={styles.menuItem}>
             <Icon name="credit-card" color="#FF6347" size={50} />
             <Text style={styles.menuItemText}>Payment</Text>

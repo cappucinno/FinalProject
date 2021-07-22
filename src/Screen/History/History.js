@@ -17,13 +17,17 @@ import {
   IconFilter,
   IconElectricityActive,
   IconMobileActive,
+  IconPDAMActive,
+  IconLandlineActive,
+  IconInternetActive,
+  IconBPJSActive,
   ButtonClose,
   ArrowBack,
 } from '../../Assets/Assets';
 import {Overlay, BottomSheet, CheckBox} from 'react-native-elements';
 import Loading from '../../Component/Loading/Loading';
 import {useSelector, useDispatch} from 'react-redux';
-import {GetHistoryAction} from './redux/action';
+import {GetHistoryAction, FilterHistoryAction} from './redux/action';
 
 const History = props => {
   const [visible, setVisible] = useState(false);
@@ -37,74 +41,121 @@ const History = props => {
   const [check3, setCheck3] = useState(false);
   const [check4, setCheck4] = useState(false);
 
-  const DataHistory = useSelector(state => state.HistoryReducer?.dataHistory);
+  const DataHistory = useSelector(
+    state => state.HistoryReducer?.dataHistory.data,
+  );
 
   console.log(DataHistory, 'ini hasil data History User');
+  // console.table(Object.values(DataHistory, '<== ini data history'));
 
   useEffect(() => {
     dispatch(GetHistoryAction());
   }, [dispatch]);
 
+  // useEffect(() => {
+  //   dispatch(FilterHistoryAction(`${check1}${check2}&${check3}&${check4}`));
+  // }, [dispatch]);
+
+  const Icons = a => {
+    if (a === 'Landline') {
+      return IconLandlineActive;
+    } else if (a === 'PDAM') {
+      return IconPDAMActive;
+    } else if (a === 'Internet-TV') {
+      return IconInternetActive;
+    } else if (a === 'Listrik-Token' && 'Listrik-Prabayar') {
+      return IconElectricityActive;
+    } else if (a === 'BPJS') {
+      return IconBPJSActive;
+    } else if (a === 'Landline') {
+      return IconLandlineActive;
+    }
+  };
+  const isLoading = useSelector(state => state.GlobalReducer.Loading);
   return (
-    <SafeAreaView>
-      <ScrollView style={styles.containerAll}>
-        <View style={styles.containerHead}>
-          <View style={styles.HeaderBilling}>
-            <Text style={styles.Judul}>History</Text>
-            <View style={styles.lokasiFilter}>
-              <TouchableOpacity onPress={toggleOverlay}>
-                <FastImage
-                  style={styles.IconFilter}
-                  source={IconFilter}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-        {DataHistory?.data.map((v, i) => {
-          return (
-            <>
-              <View key={i}>
-                <Text style={styles.textTanggal}>{v}</Text>
-              </View>
-              <View style={styles.topContainer}>
-                <View style={styles.containerBillAtas}>
-                  <View style={styles.containerData1}>
-                    <View style={styles.containerToken}>
-                      <FastImage
-                        style={styles.imageToken}
-                        source={IconElectricityActive}
-                        resizeMode={FastImage.resizeMode.contain}
-                      />
-                    </View>
-                    <View style={styles.boxText}>
-                      <View style={styles.data1}>
-                        <Text style={styles.textPLN}>PLN-Token</Text>
-                        <Text style={styles.textNo}>141234567890</Text>
-                      </View>
-                      <Text style={styles.data2}>Rp. 51.500</Text>
-                    </View>
-                  </View>
-                  <TouchableOpacity
-                    onPress={() => props.navigation.navigate('HistoryReceipt')}
-                    style={styles.seeDetail}>
-                    <Text style={styles.textseeDetail}>see receipt</Text>
+    <SafeAreaView style={{flex: 1}}>
+      <ScrollView
+        contentContainerStyle={styles.Grow}
+        style={styles.containerAll}>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            <View style={styles.containerHead}>
+              <View style={styles.HeaderBilling}>
+                <Text style={styles.Judul}>History</Text>
+                <View style={styles.lokasiFilter}>
+                  <TouchableOpacity onPress={toggleOverlay}>
+                    <FastImage
+                      style={styles.IconFilter}
+                      source={IconFilter}
+                      resizeMode={FastImage.resizeMode.contain}
+                    />
                   </TouchableOpacity>
                 </View>
-                <View
-                  style={{
-                    borderBottomColor: '#EBEDF4',
-                    borderBottomWidth: 1,
-                    width: wp(92),
-                    alignSelf: 'center',
-                    top: moderateScale(25),
-                  }}
-                />
               </View>
-            </>
-          );
-        })}
+            </View>
+            {DataHistory?.map((v, i) => {
+              return (
+                <View key={i}>
+                  <View>
+                    <View>
+                      <Text style={styles.textTanggal}>{Object.keys(v)}</Text>
+                    </View>
+                    <View style={[styles.topContainer]}>
+                      {Object.values(v).map((z, x) => {
+                        return z.map((item, index) => {
+                          return (
+                            <View keys={index} style={styles.containerBillAtas}>
+                              <View style={styles.containerData1}>
+                                <View style={styles.containerToken}>
+                                  <FastImage
+                                    style={styles.imageToken}
+                                    source={Icons(item.bill_type)}
+                                    resizeMode={FastImage.resizeMode.contain}
+                                  />
+                                </View>
+                                <View style={styles.boxText}>
+                                  <View style={styles.data1}>
+                                    <Text style={styles.textPLN}>
+                                      {item.bill_type}
+                                    </Text>
+                                    <Text style={styles.textNo}>
+                                      {item.customer_number}
+                                    </Text>
+                                  </View>
+                                  <Text style={styles.data2}>{item.total}</Text>
+                                </View>
+                              </View>
+                              <TouchableOpacity
+                                onPress={() =>
+                                  props.navigation.navigate('HistoryReceipt')
+                                }
+                                style={styles.seeDetail}>
+                                <Text style={styles.textseeDetail}>
+                                  see receipt
+                                </Text>
+                              </TouchableOpacity>
+                            </View>
+                          );
+                        });
+                      })}
+                      <View
+                        style={{
+                          borderBottomColor: '#EBEDF4',
+                          borderBottomWidth: 1,
+                          width: wp(92),
+                          alignSelf: 'center',
+                          top: moderateScale(25),
+                        }}
+                      />
+                    </View>
+                  </View>
+                </View>
+              );
+            })}
+          </>
+        )}
       </ScrollView>
       <BottomSheet isVisible={visible}>
         <View style={styles.containerOverlay}>
@@ -152,9 +203,11 @@ const History = props => {
 export default History;
 
 const styles = StyleSheet.create({
+  Grow: {
+    flexGrow: 1,
+  },
   containerAll: {
     backgroundColor: '#EBEDF4',
-    flexGrow: 1,
     paddingBottom: moderateScale(150),
   },
   containerHead: {
@@ -191,13 +244,13 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     backgroundColor: 'white',
-    height: moderateScale(220),
   },
   singleContainer: {
     height: moderateScale(80),
     backgroundColor: 'white',
   },
   containerBillAtas: {
+    marginBottom: moderateScale(18),
     // backgroundColor: 'green',
     top: moderateScale(15),
   },
@@ -252,6 +305,7 @@ const styles = StyleSheet.create({
   textseeDetail: {
     fontFamily: 'Montserrat-Regular',
     fontSize: moderateScale(10),
+    marginLeft: moderateScale(5),
     textDecorationLine: 'underline',
   },
   boxKecil: {

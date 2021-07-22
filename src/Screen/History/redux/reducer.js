@@ -15,6 +15,17 @@ const HistoryReducer = (state = initialState, action) => {
         dataHistory: action.payload,
       };
 
+    case 'FILTER_HISTORY':
+      return {
+        ...state,
+      };
+
+    case 'FILTER_HISTORY_SUCCESS':
+      return {
+        ...state,
+        dataHistory: action.payload,
+      };
+
     default:
       return state;
   }
