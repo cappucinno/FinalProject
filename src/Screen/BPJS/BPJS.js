@@ -16,6 +16,7 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
+import {useSelector, useDispatch} from 'react-redux';
 import {ArrowBack} from '../../Assets/Assets';
 
 const BPJS = props => {
@@ -23,12 +24,15 @@ const BPJS = props => {
   const [period, setPeriod] = useState(false);
   const [value, setValue] = useState('');
   const [items, setItems] = useState([
-    {label: 'Every Week', value: 'Every Week'},
-    {label: 'Every Month', value: 'Every Month'},
-    {label: 'Every Year', value: 'Every Year'},
+    {label: 'Jan', value: '1'},
+    {label: 'Feb', value: '2'},
+    {label: 'Mar', value: '3'},
+    {label: 'Apr', value: '4'},
+    {label: 'Mar', value: '3'},
   ]);
 
-  const DataCostomer = '12345';
+  const DataCostomer = useSelector(state => state.GlobalReducer.Success);
+  console.log(DataCostomer, 'status datacostumer');
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }, []);
@@ -117,26 +121,12 @@ const BPJS = props => {
       height: moderateScale(44),
       width: moderateScale(290),
       marginTop: moderateScale(4),
-      backgroundColor:
-        nometer === ''
-          ? 'white'
-          : nometer.length <= DataCostomer.length
-          ? 'white'
-          : nometer !== DataCostomer
-          ? '#FFF4F7'
-          : 'white',
+      backgroundColor: DataCostomer ? 'white' : '#FFF4F7',
     },
     TextNotRegister: {
       paddingTop: moderateScale(4),
       alignSelf: 'center',
-      color:
-        nometer === ''
-          ? '#EBEDF4'
-          : nometer.length <= DataCostomer.length
-          ? '#EBEDF4'
-          : nometer !== DataCostomer
-          ? '#EB5757'
-          : '#EBEDF4',
+      color: DataCostomer ? '#EBEDF4' : '#EB5757',
       fontSize: moderateScale(12),
       fontFamily: 'Montserrat-Regular',
     },

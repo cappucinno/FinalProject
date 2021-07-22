@@ -152,7 +152,7 @@ function* PDAMCreateAction(action) {
     if (res.status === 202) {
       yield put(actionSuccess(false));
 
-      const errorMessage = res.statusText + '';
+      const errorMessage = res.data.message + '';
       ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
     } else if (res.status === 204) {
       yield put(actionSuccess(false));
