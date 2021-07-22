@@ -15,17 +15,21 @@ import {
 } from 'react-native-responsive-screen';
 import {TextInput} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
+import {ArrowBack} from '../../../Assets/Assets';
+import {PDAMOptionAction} from '../redux/action';
 
 const PDAMOption = props => {
-  //   const dispatch = useDispatch();
-  //   const [search, setSearch] = useState('');
+  const dispatch = useDispatch();
+  const [search, setSearch] = useState('');
 
-  //   const DetailRes = useSelector(state => state.PDAMReducer?.dataOption?.data);
-  //   console.log(DetailRes, '<==== hasil resDetail PDAM');
+  const DetailRes = useSelector(
+    state => state.newSubReducer?.dataOptionPDAM?.data,
+  );
+  console.log(DetailRes, '<==== hasil resDetail PDAM');
 
-  //   useEffect(() => {
-  //     dispatch(PDAMOptionAction());
-  //   }, [dispatch]);
+  useEffect(() => {
+    dispatch(PDAMOptionAction());
+  }, [dispatch]);
 
   return (
     <SafeAreaView
@@ -38,38 +42,40 @@ const PDAMOption = props => {
         style={{
           flexGrow: 1,
         }}>
-        <View style={styles.topContainer}>
-          <Text style={styles.textTitle}>PDAM</Text>
+        <View style={styles.HeaderBilling}>
+          <TouchableOpacity
+            style={styles.iconTop}
+            onPress={() => props.navigation.goBack()}>
+            <FastImage
+              style={styles.ArrowBack}
+              source={ArrowBack}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </TouchableOpacity>
+          <Text style={styles.Judul}>PDAM</Text>
         </View>
         <TextInput
           style={styles.textContainer1}
           placeholder="Search by region"
           placeholderTextColor="#999999"
-          //   onChangeText={text => setSearch(text)}
-          //   value={search}
+          onChangeText={text => setSearch(text)}
+          value={search}
         />
-        {/* {DetailRes?.filter(data =>
+        {DetailRes?.filter(data =>
           data.name.toLowerCase().includes(search.toLowerCase()),
         ).map((v, i) => {
           return (
             <TouchableOpacity
               key={i}
               onPress={() =>
-                props.navigation.navigate('NewPDAMBlank', v?.name)
+                props.navigation.navigate('PDAMTransaction', v?.name)
               }>
               <View style={styles.textLokasi}>
                 <Text style={styles.textTitle}>{v?.name}</Text>
               </View>
             </TouchableOpacity>
           );
-        })} */}
-
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('PDAMTransaction')}>
-          <View style={styles.textLokasi}>
-            <Text style={styles.textTitle}>Wilayah 1</Text>
-          </View>
-        </TouchableOpacity>
+        })}
       </ScrollView>
     </SafeAreaView>
   );
@@ -83,6 +89,26 @@ const styles = StyleSheet.create({
     height: hp(10),
     width: moderateScale(307),
     alignSelf: 'center',
+  },
+  HeaderBilling: {
+    flexDirection: 'row',
+    width: wp(100),
+    height: hp(8),
+  },
+  iconTop: {
+    top: moderateScale(24),
+    left: moderateScale(25),
+  },
+  ArrowBack: {
+    height: hp(2),
+    width: wp(6),
+  },
+  Judul: {
+    color: 'white',
+    fontSize: moderateScale(16),
+    fontFamily: 'Montserrat-Bold',
+    top: moderateScale(20),
+    left: moderateScale(45),
   },
   textTitle: {
     color: 'white',
