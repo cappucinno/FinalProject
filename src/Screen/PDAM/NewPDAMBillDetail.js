@@ -64,7 +64,7 @@ const NewPDAMBillDetail = props => {
   const dispatch = useDispatch();
 
   const DetailRes = useSelector(state => state.PDAMReducer?.dataUser.data);
-  console.log(DetailRes, '<=== hasil resDetail InTv');
+  console.log(DetailRes, '<=== hasil resDetail PDAM');
   const dataMethodPayment = useSelector(
     state => state.BankReducer?.paymentMethod,
   );
@@ -72,7 +72,7 @@ const NewPDAMBillDetail = props => {
   const dateChoice = () => date + ''.slice(4, 16);
   const resDatePicker = () => {
     let year = dateChoice().slice(11, 15);
-    let dateChoicez = dateChoice().slice(8, 11);
+    let dateChoicez = dateChoice().slice(8, 10);
     let months = dateChoice().slice(4, 7);
     let resMonth =
       months === 'Jan'
@@ -130,18 +130,9 @@ const NewPDAMBillDetail = props => {
   useEffect(() => {
     setRecuring({
       ...recuring,
-      period: value,
+      period: 'Month',
     });
   }, [period]);
-
-  useEffect(() => {
-    if (value === 'Month') {
-      setRecuring({
-        ...recuring,
-        recurringDate: resDatePicker(),
-      });
-    }
-  }, [date]);
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
@@ -151,9 +142,9 @@ const NewPDAMBillDetail = props => {
 
   // Data yg diKirim MASIH BUG PERIOD TAK TERBACA
   const [recuring, setRecuring] = useState({
-    status: cheked,
+    status: true,
     period: '',
-    createDate: '',
+    createDate: DetailRes?.period,
   });
 
   console.log(recuring.period, 'ini hasil recuring');
@@ -162,7 +153,7 @@ const NewPDAMBillDetail = props => {
 
   const paymentMethod = {
     type: dataMethodPayment.type,
-    bankdestinationId: dataMethodPayment.bank_destination_id,
+    bankDestinationId: dataMethodPayment.bank_destination_id,
   };
 
   // `${dateNow}-09-${valueDate}`
@@ -191,13 +182,13 @@ const NewPDAMBillDetail = props => {
       PDAMCreatePaymentAction({
         customer_number: DetailRes?.customerNumber,
         name: DetailRes?.name,
-        period: DetailRes?.period,
+        period: [DetailRes?.period],
         lastMonthStandMeter: DetailRes?.lastMonthStandMeter,
         thisMonthStandMeter: DetailRes?.thisMonthStandMeter,
         usage: DetailRes?.usage,
         bill: DetailRes?.bill,
         latePaymentFee: DetailRes?.latePaymentFee,
-        admin: DetailRes?.admin,
+        adminFee: DetailRes?.admin,
         total: DetailRes?.total,
         payment: paymentMethod,
         recurringBilling: recuring,
@@ -380,106 +371,7 @@ const NewPDAMBillDetail = props => {
                 />
               </View>
             </View>
-            <View
-              style={[
-                styles.RecurringBilling,
-                {
-                  height: cheked
-                    ? heightPercentageToDP(52)
-                    : heightPercentageToDP(13),
-                },
-              ]}>
-              <View style={styles.ContainerRecurringBilling}>
-                <TouchableOpacity
-                  onPress={() => {
-                    setRecuring({
-                      ...recuring,
-                      status: !cheked,
-                    });
-                    setCheked(!cheked);
-                  }}>
-                  <FastImage
-                    style={styles.CheckBox}
-                    source={cheked ? CheckActive : CheckBox1}
-                    resizeMode={FastImage.resizeMode.contain}
-                  />
-                </TouchableOpacity>
-                <Text style={styles.HeaderRecurring}>Recurring Billing</Text>
-              </View>
-              <Text style={styles.TextIsiRecurring}>
-                Users will be able to make multiple billing subscriptions on
-                selected pay dates.
-              </Text>
-              <View>
-                {cheked ? (
-                  <View style={styles.ContainerDropButton}>
-                    <Text style={styles.HeaderDropdown}>Period</Text>
-                    <DropDownPicker
-                      placeholder="Select an Period"
-                      style={styles.dropDownContainerStyle}
-                      dropDownDirection="BOTTOM"
-                      open={period}
-                      value={value}
-                      items={items}
-                      setOpen={setPeriod}
-                      setValue={setValue}
-                      setItems={setItems}
-                    />
-                    <Text style={styles.HeaderDropdown}>Date</Text>
 
-                    <>
-                      <TouchableOpacity
-                        style={styles.ContainerDate}
-                        onPress={toggleOverlayDate}>
-                        <View>
-                          {date ? (
-                            <Text
-                              style={{
-                                marginTop: moderateScale(10),
-                                marginLeft: moderateScale(12),
-                              }}>
-                              {resDatePicker()}
-                            </Text>
-                          ) : (
-                            <Text
-                              style={{
-                                marginTop: moderateScale(10),
-                                marginLeft: moderateScale(12),
-                              }}>
-                              Select an Date
-                            </Text>
-                          )}
-                        </View>
-                      </TouchableOpacity>
-                    </>
-
-                    <View style={styles.ContainerInfoPayment}>
-                      <FastImage
-                        style={styles.InfoPaymentStyle}
-                        source={InfoPayment}
-                        resizeMode={FastImage.resizeMode.contain}
-                      />
-                      <View style={styles.TextInfoContainer}>
-                        <Text style={styles.TextInfo1}>
-                          Next payment will due {''}
-                          <Text
-                            style={{
-                              fontFamily: 'Montserrat-Bold',
-                              color: '#263765',
-                            }}>
-                            {resDatePicker()}
-                          </Text>
-                        </Text>
-                        <Text style={styles.TextInfo1}>
-                          Pay before {resDatePicker()}, 23:59 to avoid late
-                          payment fee
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-                ) : null}
-              </View>
-            </View>
             <View>
               <TouchableOpacity
                 onPress={toggleOverlay}
@@ -772,7 +664,7 @@ const styles = StyleSheet.create({
     width: widthPercentageToDP(87),
     marginLeft: moderateScale(24),
     marginBottom: moderateScale(64),
-    marginTop: moderateScale(12),
+    marginTop: moderateScale(48),
   },
   TextButtonBuy: {
     color: 'white',
