@@ -8,12 +8,9 @@ import PDAMSaga from '../Screen/PDAM/redux/saga';
 import ElectricitySaga from '../Screen/Electricity/redux/saga';
 import BankSaga from '../Screen/PaymentMethod/redux/saga';
 import HistorySaga from '../Screen/History/redux/saga';
-<<<<<<< HEAD
 import ProfileSaga from '../Screen/Profile/redux/saga';
-=======
 import newSubOptionSaga from '../Screen/NewSubcription/redux/saga';
 import NotifSaga from '../Screen/Notification/redux/saga';
->>>>>>> 086e0f02a50244b7b818015c33a1074ce80414ac
 
 export function* SagaWacther() {
   yield all([
