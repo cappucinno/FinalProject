@@ -19,9 +19,9 @@ import {BottomSheet} from 'react-native-elements';
 import {ArrowBack, IconProfile, IconEditProfile} from '../../Assets/Assets';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
-import {ProfileOptionAction} from './redux/action';
+import {ProfileInfoAction} from './redux/action';
 
-const EditProfile = () => {
+const EditProfile = props => {
   const [visible, setVisible] = useState(false);
 
   const toggleOverlay = () => {
@@ -36,7 +36,7 @@ const EditProfile = () => {
   console.log(DetailRes, '<=== hasil resDetail Profile');
 
   useEffect(() => {
-    dispatch(ProfileOptionAction());
+    dispatch(ProfileInfoAction());
   }, [dispatch]);
 
   const [firstName, setFirstName] = useState('');
@@ -61,7 +61,7 @@ const EditProfile = () => {
           </View>
         </View>
 
-        <View style={styles.userInfoSection}>
+        <TouchableOpacity style={styles.userInfoSection}>
           <View style={{marginTop: 30}}>
             <FastImage
               style={styles.iconProfile}
@@ -74,7 +74,7 @@ const EditProfile = () => {
               </Text>
             </View>
           </View>
-        </View>
+        </TouchableOpacity>
 
         <View style={styles.action}>
           <TextInput

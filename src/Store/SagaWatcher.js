@@ -8,6 +8,7 @@ import PDAMSaga from '../Screen/PDAM/redux/saga';
 import ElectricitySaga from '../Screen/Electricity/redux/saga';
 import BankSaga from '../Screen/PaymentMethod/redux/saga';
 import HistorySaga from '../Screen/History/redux/saga';
+import ProfileSaga from '../Screen/Profile/redux/saga';
 
 export function* SagaWacther() {
   yield all([
@@ -20,5 +21,6 @@ export function* SagaWacther() {
     ElectricitySaga(),
     BankSaga(),
     HistorySaga(),
+    ProfileSaga(),
   ]);
 }

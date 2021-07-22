@@ -3,9 +3,9 @@ import {ToastAndroid} from 'react-native';
 import {navigate} from '../../../Function/Nav';
 import {takeLatest, put, select} from 'redux-saga/effects';
 import {
-  ProfileOptionActionSuccess,
-  ProfileAccountActionSuccess,
-  ProfileCreatePaymentActionSuccess,
+  ProfileInfoActionSuccess,
+  ProfileUpdateActionSuccess,
+  ProfileUploadFotoActionSuccess,
 } from './action';
 import {
   actionLoading,
@@ -13,8 +13,8 @@ import {
   actionSuccess,
 } from '../../../Store/GlobalAction';
 
-// GET OPTIONS
-const ProfileOptions = (payload, token) => {
+// GET INFO PROFILE
+const ProfileInfo = (payload, token) => {
   return axios({
     method: 'GET',
     url: 'https://biller-app-api.herokuapp.com/api/biller/user/info',
@@ -25,19 +25,19 @@ const ProfileOptions = (payload, token) => {
   });
 };
 
-// GET OPTIONS
-function* ProfileOptionAction(action) {
+// GET INFO PROFILE
+function* ProfileInfoAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
 
   try {
     yield put(actionLoading(true));
-    const res = yield ProfileOptions(action.payload, token);
+    const res = yield ProfileInfo(action.payload, token);
     console.log(action.payload, '<=======ini hasil Option Profile Api');
     if (res && res.data) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Mengambil data Option InTv');
 
-      yield put(ProfileOptionActionSuccess(res.data));
+      yield put(ProfileInfoActionSuccess(res.data));
       yield put(actionLoading(false));
     }
   } catch (err) {
@@ -58,7 +58,7 @@ function* ProfileOptionAction(action) {
 }
 
 // POST Foto Profile
-const ProfileFoto = (payload, token) => {
+const ProfileUploadFoto = (payload, token) => {
   console.log(payload, '<==== ini data payload dari input userid');
   return axios({
     method: 'POST',
@@ -71,18 +71,18 @@ const ProfileFoto = (payload, token) => {
 };
 
 // POST Foto Profile
-function* ProfileFotoAction(action) {
+function* ProfileUploadFotoAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
 
   try {
     yield put(actionLoading(true));
-    const res = yield ProfileFoto(action.payload, token);
+    const res = yield ProfileUploadFoto(action.payload, token);
     console.log(res, '<=======ini hasil user Api');
     if (res && res.data) {
       console.log(res.data, 'ini hasil res');
       console.log('Berhasil Mengambil data User');
 
-      yield put(ProfileAccountActionSuccess(res.data));
+      yield put(ProfileUploadFotoActionSuccess(res.data));
       yield put(actionSuccess(true));
 
       yield navigate('Profile');
@@ -108,64 +108,60 @@ function* ProfileFotoAction(action) {
   }
 }
 
-// POST Create Payment Internet Tv
-// const ProfileCreate = (payload, token) => {
-//   console.log(payload, '<==== ini data payload dari input userid');
-//   return axios({
-//     method: 'POST',
-//     url: 'https://biller-app-api.herokuapp.com/api/biller/internet_TV/bill',
-//     data: payload,
-//     headers: {
-//       Authorization: 'Bearer ' + token,
-//     },
-//   });
-// };
+// PUT Edit Profile
+const ProfileUpdate = (payload, token) => {
+  console.log(payload, '<==== ini data payload dari update profile');
+  return axios({
+    method: 'PUT',
+    url: 'https://biller-app-api.herokuapp.com/api/biller/user/update',
+    data: payload,
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  });
+};
 
-// // POST User_ID Internet Tv
-// function* inTvCreateAction(action) {
-//   const token = yield select(state => state.GlobalReducer.token);
+// PUT Edit Profile
+function* ProfileUpdateAction(action) {
+  const token = yield select(state => state.GlobalReducer.token);
 
-//   try {
-//     yield put(actionLoading(true));
-//     const res = yield inTvCreate(action.payload, token);
-//     console.log(res, '<=======ini hasil CreateBill INTV Api');
-//     if (res && res.data) {
-//       console.log(res.data, 'ini hasil res');
-//       console.log('Berhasil Create Bill InTv');
+  try {
+    yield put(actionLoading(true));
+    const res = yield ProfileUpdate(action.payload, token);
+    console.log(res, '<=======ini hasil user Api');
+    if (res && res.data) {
+      console.log(res.data, 'ini hasil res');
+      console.log('Berhasil Mengambil data User');
 
-//       yield put(inTvCreatePaymentActionSuccess(res.data));
-//       yield put(actionSuccess(true));
-//       let methodPayment = 'Bank Transfer';
-//       methodPayment === 'Bank Transfer'
-//         ? yield navigate('ResultPaymentBankInternetTv')
-//         : methodPayment === 'Payment Card'
-//         ? yield navigate('ResultPaymentCreditInternetTv')
-//         : null;
-//     } else if (res.status === 204) {
-//       yield put(actionSuccess(false));
-//       yield put(actionIsLogged(false));
+      yield put(ProfileUpdateActionSuccess(res.data));
+      yield put(actionSuccess(true));
 
-//       const errorMessage = res.statusText + '';
-//       ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
-//     }
-//   } catch (err) {
-//     if (err.response === 401) {
-//       yield put(actionIsLogged(false));
-//       const errorMessage = err.response.data.message + '';
-//       ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
-//     } else {
-//       console.log(err.response, 'Gagal Mengambil data');
-//       const errorMessage = err.response.data.message + '';
-//       ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
-//     }
-//   } finally {
-//     yield put(actionLoading(false));
-//   }
-// }
+      yield navigate('Profile');
+    } else if (res.status === 204) {
+      yield put(actionSuccess(false));
+      yield put(actionIsLogged(false));
 
-function* ProfileOptionSaga() {
-  yield takeLatest('GET_OPTION_PROFILE', ProfileOptionAction);
-  yield takeLatest('GET_ACCOUNT_PROFILE', ProfileFotoAction);
-  //   yield takeLatest('CREATE_INTV_PAYMENT', inTvCreateAction);
+      const errorMessage = res.statusText + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
+    }
+  } catch (err) {
+    if (err.response === 401) {
+      yield put(actionIsLogged(false));
+      const errorMessage = err.response.data.message + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
+    } else {
+      console.log(err.response.data.message, 'Gagal Mengambil data');
+      const errorMessage = err.response.data.message + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
+    }
+  } finally {
+    yield put(actionLoading(false));
+  }
 }
-export default ProfileOptionSaga;
+
+function* ProfileSaga() {
+  yield takeLatest('GET_INFO_PROFILE', ProfileInfoAction);
+  yield takeLatest('PUT_UPDATE_PROFILE', ProfileUpdateAction);
+  yield takeLatest('POST_UPLOADFOTO_PROFILE', ProfileUploadFotoAction);
+}
+export default ProfileSaga;
