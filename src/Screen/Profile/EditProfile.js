@@ -19,7 +19,12 @@ import {BottomSheet} from 'react-native-elements';
 import {ArrowBack, IconProfile, IconEditProfile} from '../../Assets/Assets';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
-import {ProfileInfoAction} from './redux/action';
+import {
+  ProfileInfoAction,
+  ProfileUpdateAction,
+  ProfileUploadFotoAction,
+} from './redux/action';
+import * as ImagePicker from 'react-native-image-picker';
 
 const EditProfile = props => {
   const [visible, setVisible] = useState(false);
@@ -43,7 +48,57 @@ const EditProfile = props => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [pin, setPin] = useState('');
+  const [newPin, setNewPin] = useState('');
+  const [image, setImage] = useState('');
+
+  const submitData = () => {
+    dispatch(
+      ProfileUpdateAction({
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        password: password,
+        phone_number: phoneNumber,
+        pin: pin,
+        new_pin: newPin,
+      }),
+    );
+  };
+
+  const pickImage = () => {
+    ImagePicker.launchImageLibrary(
+      {
+        mediaType: 'photo',
+        quality: 0.5,
+      },
+      response => {
+        console.log(response);
+        if (response.didCancel) {
+          console.log('cancle');
+        } else {
+          setImage(response.assets[0].uri);
+        }
+      },
+    );
+  };
+
+  const imageFromCamera = () => {
+    ImagePicker.launchCamera(
+      {
+        cameraType: 'back',
+      },
+      response => {
+        console.log(response);
+        if (response.didCancel) {
+          console.log('cancle');
+        } else {
+          setImage(response.assets[0].uri);
+        }
+      },
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -61,11 +116,14 @@ const EditProfile = props => {
           </View>
         </View>
 
-        <TouchableOpacity style={styles.userInfoSection}>
+        <TouchableOpacity
+          onPress={() => pickImage()}
+          style={styles.userInfoSection}>
           <View style={{marginTop: 30}}>
             <FastImage
               style={styles.iconProfile}
-              source={IconProfile}
+              // source={image.length > 1 ? image : IconProfile}
+              source={image ? {uri: image} : IconProfile}
               resizeMode={FastImage.resizeMode.contain}
             />
             <View style={styles.nameContainer}>
@@ -104,13 +162,29 @@ const EditProfile = props => {
           />
           <TextInput
             style={styles.textContainerOther}
+            placeholder="Phone Number"
+            placeholderTextColor="#999999"
+            secureTextEntry
+            onChangeText={text => setPhoneNumber(text)}
+          />
+          <TextInput
+            style={styles.textContainerOther}
             placeholder="PIN"
             placeholderTextColor="#999999"
             secureTextEntry
             onChangeText={text => setPin(text)}
           />
+          <TextInput
+            style={styles.textContainerOther}
+            placeholder="New PIN"
+            placeholderTextColor="#999999"
+            secureTextEntry
+            onChangeText={text => setNewPin(text)}
+          />
         </View>
-        <TouchableOpacity style={styles.ContainerButtonSubs}>
+        <TouchableOpacity
+          style={styles.ContainerButtonSubs}
+          onPress={submitData}>
           <View style={styles.ButtonSubs}>
             <Text style={styles.TextButtonSubs}>Submit</Text>
           </View>
@@ -159,6 +233,7 @@ const styles = StyleSheet.create({
   iconProfile: {
     width: moderateScale(80),
     height: moderateScale(80),
+    borderRadius: 40,
   },
   nameContainer: {
     marginTop: moderateScale(8),
@@ -177,7 +252,7 @@ const styles = StyleSheet.create({
   },
   textContainer1: {
     width: wp(90),
-    height: hp(6),
+    height: hp(5),
     alignSelf: 'center',
     borderRadius: moderateScale(5),
     top: moderateScale(20),
@@ -189,7 +264,7 @@ const styles = StyleSheet.create({
   },
   textContainerOther: {
     width: wp(90),
-    height: hp(6),
+    height: hp(5),
     alignSelf: 'center',
     borderRadius: moderateScale(5),
     top: moderateScale(20),
