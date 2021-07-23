@@ -6,34 +6,34 @@ const initialState = {
 
 const ProfileReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'GET_OPTION_PROFILE':
+    case 'GET_INFO_PROFILE':
       return {
         ...state,
       };
 
-    case 'GET_OPTION_PROFILE_SUCCESS':
+    case 'GET_INFO_PROFILE_SUCCESS':
       return {
         ...state,
         dataOption: action.payload,
       };
 
-    case 'GET_ACCOUNT_PROFILE':
+    case 'PUT_UPDATE_PROFILE':
       return {
         ...state,
       };
 
-    case 'GET_ACCOUNT_INTV_PROFILE':
+    case 'PUT_UPDATE_PROFILE_SUCCESS':
       return {
         ...state,
         dataUser: action.payload,
       };
 
-    case 'CREATE_PROFILE_PAYMENT':
+    case 'POST_UPLOADFOTO_PROFIL':
       return {
         ...state,
       };
 
-    case 'CREATE_INTV_PROFILE_SUCCESS':
+    case 'POST_UPLOADFOTO_PROFILE_SUCCESS':
       return {
         ...state,
         resBill: action.payload,

@@ -15,7 +15,7 @@ import {
 } from 'react-native-responsive-screen';
 import {moderateScale} from 'react-native-size-matters';
 import {IconEditProfilePict, IconEditProfile2} from '../../Assets/Assets';
-import {ProfileOptionAction} from './redux/action';
+import {ProfileInfoAction} from './redux/action';
 
 const Profile = props => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const Profile = props => {
   console.log(DetailRes, '<=== hasil resDetail Profile');
 
   useEffect(() => {
-    dispatch(ProfileOptionAction());
+    dispatch(ProfileInfoAction());
   }, [dispatch]);
 
   return (
