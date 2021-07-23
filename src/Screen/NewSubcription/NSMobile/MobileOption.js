@@ -1,78 +1,55 @@
-import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
-import FastImage from 'react-native-fast-image';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, SafeAreaView, ScrollView} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from 'react-native-responsive-screen';
-// background
+import {useDispatch, useSelector} from 'react-redux';
+import CoverPayment from '../../../Component/CoverPayment/CoverPayment';
 import BackgroundPurple from '../../../Component/Background/BackgroundPurple';
-// Icon
-import {ArrowBack, IconMobileActive} from '../../../Assets/Assets';
+import {IconMobileActive} from '../../../Assets/Assets';
+import {NSMobileOptionAction} from '../redux/action';
 
 const MobileOption = props => {
+  const dispatch = useDispatch();
+  const DataOptionMobile = useSelector(state => {
+    console.log(state, '<===== ini state');
+    // ini aku tambahin untuk handling data pertama kali waktu masih null
+    if (
+      state.newSubReducer.dataOptionMobile.data != null &&
+      state.newSubReducer.dataOptionMobile.data.length > 0
+    ) {
+      return state.newSubReducer.dataOptionMobile.data;
+    } else {
+      return [];
+    }
+  });
+
+  console.log(DataOptionMobile, 'ini hasil data option Mobile');
+
+  useEffect(() => {
+    dispatch(NSMobileOptionAction());
+  }, [dispatch]);
+
+  const dataentry = DataOptionMobile.map((d, i) => {
+    return {
+      NameData: d.name,
+      Navigations: 'MobileTransaction',
+      Page: d.name,
+    };
+  });
+
+  console.log(dataentry, '<==== ini data entry');
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <BackgroundPurple>
-        <ScrollView>
-          <View style={styles.HeaderBilling}>
-            <TouchableOpacity
-              style={styles.iconTop}
-              onPress={() => props.navigation.goBack()}>
-              <FastImage
-                style={styles.ArrowBack}
-                source={ArrowBack}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </TouchableOpacity>
-            <Text style={styles.Judul}>Mobile</Text>
-          </View>
-          <View>
-            <View style={styles.allToken}>
-              <TouchableOpacity
-                style={styles.containerToken}
-                onPress={() => props.navigation.navigate('MobileTransaction')}>
-                <FastImage
-                  style={styles.styleMobile}
-                  source={IconMobileActive}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </TouchableOpacity>
-              <Text style={styles.huruf}>Pulsa (pre-paid)</Text>
-            </View>
-            <View style={styles.allToken}>
-              <TouchableOpacity
-                style={styles.containerToken}
-                onPress={() => props.navigation.navigate('MobileTransaction')}>
-                <FastImage
-                  style={styles.styleMobile}
-                  source={IconMobileActive}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </TouchableOpacity>
-              <Text style={styles.huruf}>Internet (pre-paid)</Text>
-            </View>
-            <View style={styles.allToken}>
-              <TouchableOpacity
-                style={styles.containerToken}
-                onPress={() => props.navigation.navigate('MobileTransaction')}>
-                <FastImage
-                  style={styles.styleMobile}
-                  source={IconMobileActive}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </TouchableOpacity>
-              <Text style={styles.huruf}>Pasca bayar (post-paid)</Text>
-            </View>
-          </View>
+        <ScrollView
+          contentContainerStyle={styles.Grow}
+          style={styles.containerSub}>
+          <CoverPayment
+            navigation={props.navigation}
+            titlecover={'Mobile'}
+            iconcover={IconMobileActive}
+            data={dataentry}
+          />
         </ScrollView>
       </BackgroundPurple>
     </SafeAreaView>
@@ -82,50 +59,10 @@ const MobileOption = props => {
 export default MobileOption;
 
 const styles = StyleSheet.create({
-  HeaderBilling: {
-    flexDirection: 'row',
-    width: wp(100),
-    height: hp(8),
+  Grow: {
+    flexGrow: 1,
   },
-  iconTop: {
-    top: moderateScale(24),
-    left: moderateScale(25),
-  },
-  ArrowBack: {
-    height: hp(2),
-    width: wp(6),
-  },
-  Judul: {
-    color: 'white',
-    fontSize: moderateScale(16),
-    fontFamily: 'Montserrat-Bold',
-    top: moderateScale(20),
-    left: moderateScale(45),
-  },
-  allToken: {
-    flexDirection: 'row',
-    top: moderateScale(14),
-    left: moderateScale(25),
-    height: moderateScale(70),
-  },
-  containerToken: {
-    width: moderateScale(55),
-    height: moderateScale(54),
-    backgroundColor: 'white',
-    borderRadius: moderateScale(5),
-  },
-  styleMobile: {
-    backgroundColor: 'white',
-    height: moderateScale(30),
-    width: moderateScale(21),
-    alignSelf: 'center',
-    top: moderateScale(10),
-  },
-  huruf: {
-    fontSize: moderateScale(12),
-    fontFamily: 'Montserrat-Bold',
-    top: moderateScale(15),
-    left: moderateScale(20),
-    color: 'white',
+  containerSub: {
+    paddingBottom: moderateScale(100),
   },
 });

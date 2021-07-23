@@ -1,80 +1,53 @@
-import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
-import FastImage from 'react-native-fast-image';
+import React, {useEffect} from 'react';
+import {StyleSheet, SafeAreaView, ScrollView, View} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from 'react-native-responsive-screen';
-// background
+import CoverPayment from '../../../Component/CoverPayment/CoverPayment';
+import {IconElectricityActive} from '../../../Assets/Assets';
 import BackgroundPurple from '../../../Component/Background/BackgroundPurple';
-// Icon
-import {ArrowBack, IconElectricityActive} from '../../../Assets/Assets';
+import {useDispatch, useSelector} from 'react-redux';
+import {NSElectricityOptionAction} from '../redux/action';
 
 const ElectricityOption = props => {
+  const dispatch = useDispatch();
+  const DataOptionElectricity = useSelector(state => {
+    console.log(state, '<===== ini state');
+    // ini aku tambahin untuk handling data pertama kali waktu masih null
+    if (
+      state.newSubReducer.dataOptionElectricity.data != null &&
+      state.newSubReducer.dataOptionElectricity.data.length > 0
+    ) {
+      return state.newSubReducer.dataOptionElectricity.data;
+    } else {
+      return [];
+    }
+  });
+
+  console.log(DataOptionElectricity, 'ini hasil data option internet tv');
+
+  useEffect(() => {
+    dispatch(NSElectricityOptionAction());
+  }, [dispatch]);
+
+  const dataentry = DataOptionElectricity.map((d, i) => {
+    return {
+      NameData: d.name,
+      Navigations: 'ElectricityTransaction',
+      Page: d.name,
+    };
+  });
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <BackgroundPurple>
-        <ScrollView>
-          <View style={styles.HeaderBilling}>
-            <TouchableOpacity
-              style={styles.iconTop}
-              onPress={() => props.navigation.goBack()}>
-              <FastImage
-                style={styles.ArrowBack}
-                source={ArrowBack}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </TouchableOpacity>
-            <Text style={styles.Judul}>Electricity</Text>
-          </View>
-          <View>
-            <View style={styles.allToken}>
-              <TouchableOpacity
-                style={styles.containerToken}
-                onPress={() =>
-                  props.navigation.navigate('ElectricityTransaction')
-                }>
-                <FastImage
-                  style={styles.styleMobile}
-                  source={IconElectricityActive}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() =>
-                  props.navigation.navigate('ElectricityTransaction')
-                }>
-                <Text style={styles.huruf}>PLN - Token</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.allToken}>
-              <TouchableOpacity
-                style={styles.containerToken}
-                onPress={() =>
-                  props.navigation.navigate('ElectricityTransaction')
-                }>
-                <FastImage
-                  style={styles.styleMobile}
-                  source={IconElectricityActive}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() =>
-                  props.navigation.navigate('ElectricityTransaction')
-                }>
-                <Text style={styles.huruf}>PLN - Tagihan</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+        <ScrollView
+          contentContainerStyle={styles.Grow}
+          style={styles.containerSub}>
+          <CoverPayment
+            navigation={props.navigation}
+            titlecover={'Electricity'}
+            iconcover={IconElectricityActive}
+            data={dataentry}
+          />
         </ScrollView>
       </BackgroundPurple>
     </SafeAreaView>
@@ -84,50 +57,10 @@ const ElectricityOption = props => {
 export default ElectricityOption;
 
 const styles = StyleSheet.create({
-  HeaderBilling: {
-    flexDirection: 'row',
-    width: wp(100),
-    height: hp(8),
+  Grow: {
+    flexGrow: 1,
   },
-  iconTop: {
-    top: moderateScale(24),
-    left: moderateScale(25),
-  },
-  ArrowBack: {
-    height: hp(2),
-    width: wp(6),
-  },
-  Judul: {
-    color: 'white',
-    fontSize: moderateScale(16),
-    fontFamily: 'Montserrat-Bold',
-    marginTop: moderateScale(20),
-    left: moderateScale(45),
-  },
-  allToken: {
-    flexDirection: 'row',
-    marginTop: moderateScale(14),
-    left: moderateScale(25),
-    height: moderateScale(70),
-  },
-  containerToken: {
-    width: moderateScale(55),
-    height: moderateScale(54),
-    backgroundColor: 'white',
-    borderRadius: moderateScale(5),
-  },
-  styleMobile: {
-    backgroundColor: 'white',
-    height: moderateScale(30),
-    width: moderateScale(21),
-    alignSelf: 'center',
-    marginTop: moderateScale(10),
-  },
-  huruf: {
-    fontSize: moderateScale(12),
-    fontFamily: 'Montserrat-Bold',
-    marginTop: moderateScale(15),
-    left: moderateScale(20),
-    color: 'white',
+  containerSub: {
+    paddingBottom: moderateScale(100),
   },
 });
