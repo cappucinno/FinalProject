@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
+  LogBox,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {moderateScale} from 'react-native-size-matters';
@@ -55,6 +56,10 @@ const History = props => {
   // useEffect(() => {
   //   dispatch(FilterHistoryAction(`${check1}${check2}&${check3}&${check4}`));
   // }, [dispatch]);
+
+  useEffect(() => {
+    LogBox.ignoreLogs(['Each child in a list should have a unique "key prop"']);
+  }, []);
 
   const Icons = a => {
     if (a === 'Landline') {

@@ -18,7 +18,6 @@ const ProfileInfo = (payload, token) => {
   return axios({
     method: 'GET',
     url: 'https://biller-app-api.herokuapp.com/api/biller/user/info',
-    data: payload,
     headers: {
       Authorization: 'Bearer ' + token,
     },

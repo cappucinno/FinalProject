@@ -14,20 +14,34 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import {moderateScale} from 'react-native-size-matters';
-import {IconEditProfilePict, IconEditProfile2} from '../../Assets/Assets';
+import {
+  IconEditProfilePict,
+  IconEditProfile2,
+  mandiri,
+  BCA,
+  BNI,
+} from '../../Assets/Assets';
 import {ProfileInfoAction} from './redux/action';
 
 const Profile = props => {
   const dispatch = useDispatch();
 
   const DetailRes = useSelector(
-    state => state.ProfileReducer?.dataOption.data.account,
+    state => state.ProfileReducer?.dataOption?.data,
   );
   console.log(DetailRes, '<=== hasil resDetail Profile');
+
+  const dataMethodPayment = useSelector(
+    state => state.BankReducer?.paymentMethod,
+  );
 
   useEffect(() => {
     dispatch(ProfileInfoAction());
   }, [dispatch]);
+
+  // cek info bank
+  const BankInfo = b =>
+    b === 'BCA' ? BCA : b === 'Mandiri' ? mandiri : b === 'BNI' ? BNI : null;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -48,7 +62,7 @@ const Profile = props => {
 
           <View style={styles.nameContainer}>
             <Text style={styles.textName}>
-              {DetailRes?.first_name} {DetailRes?.last_name}
+              {DetailRes?.first_name} {DetailRes?.account.last_name}
             </Text>
           </View>
         </View>
@@ -58,13 +72,13 @@ const Profile = props => {
         <View style={styles.row}>
           <Icon name="phone" color="#777777" size={20} />
           <Text style={{color: '#777777', marginLeft: 20}}>
-            {DetailRes?.phone_number}
+            {DetailRes?.account.phone_number}
           </Text>
         </View>
         <View style={styles.row}>
           <Icon name="email" color="#777777" size={20} />
           <Text style={{color: '#777777', marginLeft: 20}}>
-            {DetailRes?.email}
+            {DetailRes?.account.email}
           </Text>
         </View>
       </View>
@@ -87,11 +101,18 @@ const Profile = props => {
       <View style={styles.menuWrapper}>
         <TouchableOpacity
           onPress={() => {
-            props.navigation.navigate('PaymentMethod');
+            props.navigation.navigate('PaymentMethod', 'Profile');
           }}>
           <View style={styles.menuItem}>
             <Icon name="credit-card" color="#FF6347" size={50} />
-            <Text style={styles.menuItemText}>Payment</Text>
+            <View style={{flexDirection: 'column'}}>
+              <Text style={styles.menuItemText}>Payment</Text>
+              <FastImage
+                style={styles.LogoBank}
+                source={BankInfo(dataMethodPayment.bank_name)}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </View>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
@@ -208,7 +229,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     fontWeight: 'bold',
     fontSize: 16,
-    lineHeight: 26,
   },
   menuItem2: {
     flexDirection: 'row',
@@ -231,5 +251,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 15,
     paddingHorizontal: 30,
+  },
+  LogoBank: {
+    height: hp(10),
+    width: wp(10),
+    marginLeft: moderateScale(24),
   },
 });

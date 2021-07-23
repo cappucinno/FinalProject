@@ -7,7 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import ComListPayElec from '../../../Component/ComListPayElec/ComListPayElec';
+// import ComListPayElec from '../../../Component/ComListPayElec/ComListPayElec';
 import {moderateScale} from 'react-native-size-matters';
 import {useSelector, useDispatch} from 'react-redux';
 import {
