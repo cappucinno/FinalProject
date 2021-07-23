@@ -75,11 +75,15 @@ const Root = () => {
     LogBox.ignoreLogs(['Using Math.random']);
   }, []);
 
+  useEffect(() => {
+    isLogged;
+  }, [isLogged]);
+
   const isLogged = useSelector(state => state.GlobalReducer.isLogged);
 
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator initialRouteName="{isLogged ? 'Mainapp' : 'Login'}">
+      <Stack.Navigator initialRouteName={isLogged ? 'Mainapp' : 'Login'}>
         <Stack.Screen
           name="Login"
           component={Login}

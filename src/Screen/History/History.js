@@ -57,9 +57,9 @@ const History = props => {
   //   dispatch(FilterHistoryAction(`${check1}${check2}&${check3}&${check4}`));
   // }, [dispatch]);
 
-  useEffect(() => {
-    LogBox.ignoreLogs(['Each child in a list should have a unique "key prop"']);
-  }, []);
+  // useEffect(() => {
+  //   LogBox.ignoreLogs(['Each child in a list should have a unique "key prop"']);
+  // }, []);
 
   const Icons = a => {
     if (a === 'Landline') {

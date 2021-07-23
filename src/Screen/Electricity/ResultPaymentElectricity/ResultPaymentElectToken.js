@@ -40,6 +40,22 @@ const ResultPaymentElectToken = props => {
     setUpload(!upload);
   };
 
+  const imageFromCamera = () => {
+    ImagePicker.launchCamera(
+      {
+        cameraType: 'back',
+      },
+      response => {
+        console.log(response);
+        if (response.didCancel) {
+          console.log('cancle');
+        } else {
+          setImage(response?.assets[0]?.uri);
+        }
+      },
+    );
+  };
+
   const pickImage = () => {
     ImagePicker.launchImageLibrary(
       {
@@ -51,23 +67,7 @@ const ResultPaymentElectToken = props => {
         if (response.didCancel) {
           console.log('cancle');
         } else {
-          setImage(response?.assets[0].uri);
-        }
-      },
-    );
-  };
-
-  const imageFromCamera = () => {
-    ImagePicker.launchCamera(
-      {
-        cameraType: 'back',
-      },
-      response => {
-        console.log(response);
-        if (response.didCancel) {
-          console.log('cancle');
-        } else {
-          setImage(response?.assets[0].uri);
+          setImage(response?.assets[0]?.uri);
         }
       },
     );
