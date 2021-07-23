@@ -36,6 +36,12 @@ const Profile = props => {
   );
 
   useEffect(() => {
+    if (DetailRes === false) {
+      dispatch(ProfileInfoAction());
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
     dispatch(ProfileInfoAction());
   }, [dispatch]);
 
@@ -55,14 +61,18 @@ const Profile = props => {
           <View>
             <FastImage
               style={styles.iconProfile}
-              source={IconEditProfilePict}
+              source={
+                DetailRes.account.image_url
+                  ? {uri: DetailRes.account.image_url}
+                  : IconProfile
+              }
               resizeMode={FastImage.resizeMode.contain}
             />
           </View>
 
           <View style={styles.nameContainer}>
             <Text style={styles.textName}>
-              {DetailRes?.first_name} {DetailRes?.account.last_name}
+              {DetailRes?.account.first_name} {DetailRes?.account.last_name}
             </Text>
           </View>
         </View>

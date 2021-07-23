@@ -35,19 +35,22 @@ const EditProfile = props => {
 
   const dispatch = useDispatch();
 
-  const DetailRes = useSelector(
-    state => state.ProfileReducer?.dataOption.data.account,
-  );
+  const DetailRes = useSelector(state => state.ProfileReducer?.dataOption.data);
   console.log(DetailRes, '<=== hasil resDetail Profile');
 
   useEffect(() => {
-    dispatch(ProfileInfoAction());
-  }, [dispatch]);
+    dispatch(
+      ProfileInfoAction(),
+      ProfileUpdateAction(),
+      ProfileUploadFotoAction(),
+    );
+  }, [DetailRes]);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [pin, setPin] = useState('');
   const [newPin, setNewPin] = useState('');
@@ -60,9 +63,13 @@ const EditProfile = props => {
         last_name: lastName,
         email: email,
         password: password,
+        new_password: newPassword,
         phone_number: phoneNumber,
         pin: pin,
         new_pin: newPin,
+      }),
+      ProfileUploadFotoAction({
+        image: image,
       }),
     );
   };
@@ -128,7 +135,7 @@ const EditProfile = props => {
             />
             <View style={styles.nameContainer}>
               <Text style={styles.textName}>
-                {DetailRes?.first_name} {DetailRes?.last_name}
+                {DetailRes?.account.first_name} {DetailRes?.account.last_name}
               </Text>
             </View>
           </View>
@@ -159,6 +166,13 @@ const EditProfile = props => {
             placeholderTextColor="#999999"
             secureTextEntry
             onChangeText={text => setPassword(text)}
+          />
+          <TextInput
+            style={styles.textContainerOther}
+            placeholder="New Password"
+            placeholderTextColor="#999999"
+            secureTextEntry
+            onChangeText={text => setNewPassword(text)}
           />
           <TextInput
             style={styles.textContainerOther}
@@ -227,7 +241,7 @@ const styles = StyleSheet.create({
   },
   userInfoSection: {
     paddingHorizontal: 30,
-    marginBottom: 25,
+    // marginBottom: 25,
     alignSelf: 'center',
   },
   iconProfile: {
@@ -244,7 +258,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   action: {
-    marginTop: 10,
+    // marginTop: 10,
     marginBottom: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#f2f2f2',
@@ -282,10 +296,10 @@ const styles = StyleSheet.create({
     borderTopEndRadius: moderateScale(5),
     borderBottomStartRadius: moderateScale(5),
     borderBottomEndRadius: moderateScale(5),
-    height: hp(6),
+    height: hp(5),
     width: wp(90),
     elevation: moderateScale(3),
-    marginTop: moderateScale(30),
+    marginTop: moderateScale(20),
   },
   ButtonSubs: {
     color: 'white',

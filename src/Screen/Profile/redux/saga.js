@@ -15,6 +15,7 @@ import {
 
 // GET INFO PROFILE
 const ProfileInfo = (payload, token) => {
+  console.log(payload, '<==== ini data payload dari update profile');
   return axios({
     method: 'GET',
     url: 'https://biller-app-api.herokuapp.com/api/biller/user/info',

@@ -25,7 +25,7 @@ const ProfileReducer = (state = initialState, action) => {
     case 'PUT_UPDATE_PROFILE_SUCCESS':
       return {
         ...state,
-        dataUser: action.payload,
+        dataOption: action.payload,
       };
 
     case 'POST_UPLOADFOTO_PROFIL':
