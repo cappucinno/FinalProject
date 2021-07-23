@@ -17,6 +17,7 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import {useSelector, useDispatch} from 'react-redux';
+import {PeriodBPJSAction} from './redux/action';
 import {ArrowBack} from '../../Assets/Assets';
 
 const BPJS = props => {
@@ -28,8 +29,29 @@ const BPJS = props => {
     {label: 'Feb', value: '2'},
     {label: 'Mar', value: '3'},
     {label: 'Apr', value: '4'},
-    {label: 'Mar', value: '3'},
+    {label: 'Mei', value: '5'},
+    {label: 'Jun', value: '6'},
+    {label: 'Jul', value: '7'},
+    {label: 'Aug', value: '8'},
+    {label: 'Sep', value: '9'},
+    {label: 'Nov', value: '10'},
+    {label: 'Oct', value: '11'},
+    {label: 'Des', value: '12'},
   ]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(PeriodBPJSAction());
+  }, [dispatch]);
+
+  const DetailRes = useSelector(state => state.BPJSReducer?.dataPeriod?.data);
+  console.log(DetailRes, '<==== hasil resDetail BPJS');
+
+  const funPeriodvalues = DetailRes.map((v, i) => {
+    return v.period;
+  });
+
+  console.log(funPeriodvalues, 'ini fun period');
 
   const DataCostomer = useSelector(state => state.GlobalReducer.Success);
   console.log(DataCostomer, 'status datacostumer');

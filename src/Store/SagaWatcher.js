@@ -10,6 +10,7 @@ import BankSaga from '../Screen/PaymentMethod/redux/saga';
 import HistorySaga from '../Screen/History/redux/saga';
 import newSubOptionSaga from '../Screen/NewSubcription/redux/saga';
 import NotifSaga from '../Screen/Notification/redux/saga';
+import BPJSSaga from '../Screen/BPJS/redux/saga';
 
 export function* SagaWacther() {
   yield all([
@@ -24,5 +25,7 @@ export function* SagaWacther() {
     HistorySaga(),
     newSubOptionSaga(),
     NotifSaga(),
+    BPJSSaga(),
+    ,
   ]);
 }

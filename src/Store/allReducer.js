@@ -12,6 +12,7 @@ import ProfileReducer from '../Screen/Profile/redux/reducer';
 import HistoryReducer from '../Screen/History/redux/reducer';
 import newSubReducer from '../Screen/NewSubcription/redux/reducer';
 import NotifReducer from '../Screen/Notification/redux/reducer';
+import BPJSReducer from '../Screen/BPJS/redux/reducer';
 
 export const allReducer = combineReducers({
   GlobalReducer: GlobalReducer,
@@ -27,4 +28,5 @@ export const allReducer = combineReducers({
   HistoryReducer: HistoryReducer,
   newSubReducer: newSubReducer,
   NotifReducer: NotifReducer,
+  BPJSReducer: BPJSReducer,
 });

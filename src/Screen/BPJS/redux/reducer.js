@@ -1,46 +1,23 @@
-// const initialState = {
-//     dataOption: [],
-//     dataUser: [],
-//     resBill: [],
-//   };
+const initialState = {
+  dataPeriod: [],
+};
 
-//   const inTvOptionReducer = (state = initialState, action) => {
-//     switch (action.type) {
-//       case 'GET_OPTION_INTV':
-//         return {
-//           ...state,
-//         };
+const BPJSReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'GET_PERIOD_BPJS':
+      return {
+        ...state,
+      };
 
-//       case 'GET_OPTION_INTV_SUCCESS':
-//         return {
-//           ...state,
-//           dataOption: action.payload,
-//         };
+    case 'GET_PERIOD_BPJS_SUCCESS':
+      return {
+        ...state,
+        dataPeriod: action.payload,
+      };
 
-//       case 'GET_ACCOUNT_INTV':
-//         return {
-//           ...state,
-//         };
+    default:
+      return state;
+  }
+};
 
-//       case 'GET_ACCOUNT_INTV_SUCCESS':
-//         return {
-//           ...state,
-//           dataUser: action.payload,
-//         };
-
-//       case 'CREATE_INTV_PAYMENT':
-//         return {
-//           ...state,
-//         };
-
-//       case 'CREATE_INTV_PAYMENT_SUCCESS':
-//         return {
-//           ...state,
-//           resBill: action.payload,
-//         };
-//       default:
-//         return state;
-//     }
-//   };
-
-//   export default inTvOptionReducer;
+export default BPJSReducer;

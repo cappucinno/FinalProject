@@ -2,11 +2,7 @@ import axios from 'axios';
 import {ToastAndroid} from 'react-native';
 import {navigate} from '../../../Function/Nav';
 import {takeLatest, put, select} from 'redux-saga/effects';
-import {
-  inTvOptionActionSuccess,
-  inTvAccountActionSuccess,
-  inTvCreatePaymentActionSuccess,
-} from './action';
+import {PeriodBPJSActionSuccess} from './action';
 import {
   actionLoading,
   actionIsLogged,
@@ -25,19 +21,38 @@ const BPJSPeriod = (payload, token) => {
 };
 
 // GET OPTIONS
-function* inTvOptionAction(action) {
+function* BPJSPeriodAction(action) {
   const token = yield select(state => state.GlobalReducer.token);
 
   try {
     yield put(actionLoading(true));
     const res = yield BPJSPeriod(action.payload, token);
-    console.log(action.payload, '<=======ini hasil Optipn INTV Api');
+    console.log(action.payload, '<=======ini hasil BPJS Period Api');
     if (res && res.data) {
       console.log(res.data, 'ini hasil res');
-      console.log('Berhasil Mengambil data Option InTv');
+      console.log('Berhasil Mengambil data Period BPJS');
 
-      yield put(inTvOptionActionSuccess(res.data));
+      yield put(PeriodBPJSActionSuccess(res.data));
       yield put(actionLoading(false));
+    }
+    if (res.status === 200 && res.data) {
+      console.log(res.data, 'ini hasil res');
+      console.log('Berhasil Mengambil data BPJS Period ');
+
+      yield put(PeriodBPJSActionSuccess(res.data));
+      yield put(actionSuccess(true));
+    }
+    if (res.status === 202) {
+      yield put(actionSuccess(false));
+
+      const errorMessage = res.statusText + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
+    } else if (res.status === 204) {
+      yield put(actionSuccess(false));
+      yield put(actionIsLogged(false));
+
+      const errorMessage = res.statusText + '';
+      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
     }
   } catch (err) {
     if (err.response.status === 401) {
@@ -56,111 +71,7 @@ function* inTvOptionAction(action) {
   }
 }
 
-// POST User_ID Internet Tv
-const inTvUserId = (payload, token) => {
-  console.log(payload, '<==== ini data payload dari input userid');
-  return axios({
-    method: 'POST',
-    url: 'https://biller-app-api.herokuapp.com/api/biller/internet_TV/information',
-    data: payload,
-    headers: {
-      Authorization: 'Bearer ' + token,
-    },
-  });
-};
-
-// POST User_ID Internet Tv
-function* inTvUserIdAction(action) {
-  const token = yield select(state => state.GlobalReducer.token);
-
-  try {
-    yield put(actionLoading(true));
-    const res = yield inTvUserId(action.payload, token);
-    console.log(res, '<=======ini hasil user INTV Api');
-    if (res && res.data) {
-      console.log(res.data, 'ini hasil res');
-      console.log('Berhasil Mengambil data User InTv');
-
-      yield put(inTvAccountActionSuccess(res.data));
-      yield put(actionSuccess(true));
-
-      yield navigate('DetailPaymentInternetTv');
-    } else if (res.status === 204) {
-      yield put(actionSuccess(false));
-      yield put(actionIsLogged(false));
-
-      const errorMessage = res.statusText + '';
-      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
-    }
-  } catch (err) {
-    if (err.response === 401) {
-      yield put(actionIsLogged(false));
-      const errorMessage = err.response.data.message + '';
-      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
-    } else {
-      console.log(err.response.data.message, 'Gagal Mengambil data');
-      const errorMessage = err.response.data.message + '';
-      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
-    }
-  } finally {
-    yield put(actionLoading(false));
-  }
+function* BPJSSaga() {
+  yield takeLatest('GET_PERIOD_BPJS', BPJSPeriodAction);
 }
-
-// POST Create Payment Internet Tv
-const inTvCreate = (payload, token) => {
-  console.log(payload, '<==== ini data payload dari input userid');
-  return axios({
-    method: 'POST',
-    url: 'https://biller-app-api.herokuapp.com/api/biller/internet_TV/bill',
-    data: payload,
-    headers: {
-      Authorization: 'Bearer ' + token,
-    },
-  });
-};
-
-// POST User_ID Internet Tv
-function* inTvCreateAction(action) {
-  const token = yield select(state => state.GlobalReducer.token);
-
-  try {
-    yield put(actionLoading(true));
-    const res = yield inTvCreate(action.payload, token);
-    console.log(res, '<=======ini hasil CreateBill INTV Api');
-    if (res && res.data) {
-      console.log(res.data, 'ini hasil res');
-      console.log('Berhasil Create Bill InTv');
-
-      yield put(inTvCreatePaymentActionSuccess(res.data));
-      yield put(actionSuccess(true));
-
-      yield navigate('ResultPaymentInternetTv');
-    } else if (res.status === 204) {
-      yield put(actionSuccess(false));
-      yield put(actionIsLogged(false));
-
-      const errorMessage = res.statusText + '';
-      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
-    }
-  } catch (err) {
-    if (err.response === 401) {
-      yield put(actionIsLogged(false));
-      const errorMessage = err.response.data.message + '';
-      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
-    } else {
-      console.log(err.response, 'Gagal Mengambil data');
-      const errorMessage = err.response.data.message + '';
-      ToastAndroid.show(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP);
-    }
-  } finally {
-    yield put(actionLoading(false));
-  }
-}
-
-function* inTvOptionSaga() {
-  yield takeLatest('GET_OPTION_INTV', inTvOptionAction);
-  yield takeLatest('GET_ACCOUNT_INTV', inTvUserIdAction);
-  yield takeLatest('CREATE_INTV_PAYMENT', inTvCreateAction);
-}
-export default inTvOptionSaga;
+export default BPJSSaga;
