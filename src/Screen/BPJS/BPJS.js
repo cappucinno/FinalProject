@@ -17,47 +17,51 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import {useSelector, useDispatch} from 'react-redux';
-import {PeriodBPJSAction} from './redux/action';
+import {PeriodBPJSAction, CostumerBPJSAction} from './redux/action';
 import {ArrowBack} from '../../Assets/Assets';
+import Loading from '../../Component/Loading/Loading';
 
 const BPJS = props => {
   const [nometer, setNometer] = useState('');
   const [period, setPeriod] = useState(false);
   const [value, setValue] = useState('');
-  const [items, setItems] = useState([
-    {label: 'Jan', value: '1'},
-    {label: 'Feb', value: '2'},
-    {label: 'Mar', value: '3'},
-    {label: 'Apr', value: '4'},
-    {label: 'Mei', value: '5'},
-    {label: 'Jun', value: '6'},
-    {label: 'Jul', value: '7'},
-    {label: 'Aug', value: '8'},
-    {label: 'Sep', value: '9'},
-    {label: 'Nov', value: '10'},
-    {label: 'Oct', value: '11'},
-    {label: 'Des', value: '12'},
-  ]);
+  const [items, setItems] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(PeriodBPJSAction());
   }, [dispatch]);
 
+  console.log(value, 'ini items');
+
   const DetailRes = useSelector(state => state.BPJSReducer?.dataPeriod?.data);
   console.log(DetailRes, '<==== hasil resDetail BPJS');
 
-  const funPeriodvalues = DetailRes.map((v, i) => {
-    return v.period;
+  const funPeriodvalues = DetailRes?.map((v, i) => {
+    return {label: v?.period, value: v?.month};
   });
 
-  console.log(funPeriodvalues, 'ini fun period');
+  useEffect(() => {
+    setItems(funPeriodvalues);
+  }, [DetailRes]);
+
+  const submitDataCostomer = () => {
+    dispatch(
+      CostumerBPJSAction({
+        customerNumber: nometer,
+        month: value + '',
+      }),
+    );
+  };
 
   const DataCostomer = useSelector(state => state.GlobalReducer.Success);
   console.log(DataCostomer, 'status datacostumer');
+
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }, []);
+
+  const isLoading = useSelector(state => state.GlobalReducer.Loading);
 
   const styles = StyleSheet.create({
     Grow: {
@@ -123,7 +127,7 @@ const BPJS = props => {
     },
     Containerisi2: {
       backgroundColor: '#EBEDF4',
-      height: period ? heightPercentageToDP(42) : heightPercentageToDP(30),
+      height: period ? heightPercentageToDP(52) : heightPercentageToDP(30),
       borderTopStartRadius: moderateScale(8),
       borderTopEndRadius: moderateScale(8),
       borderBottomStartRadius: moderateScale(8),
@@ -185,62 +189,70 @@ const BPJS = props => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView contentContainerStyle={styles.Grow} style={styles.container}>
-        <View style={styles.ContainerHeaderPayment}>
-          <View style={styles.HeaderPayment}>
-            <TouchableOpacity onPress={() => props.navigation.goBack()}>
-              <FastImage
-                style={styles.ArrowBack}
-                source={ArrowBack}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </TouchableOpacity>
-            <Text style={styles.Judul}>BPJS</Text>
-          </View>
-        </View>
-        <View style={styles.Containerisi}>
-          <View style={styles.Containerisi2}>
-            <View style={styles.ContainerTextInput}>
-              <Text style={styles.TextHeadNometer}>No VA</Text>
-              <TextInput
-                style={styles.inputNoMeter}
-                onChangeText={setNometer}
-                value={nometer}
-                placeholder=" E.g 141234567890"
-                keyboardType="numeric"
-              />
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            <View style={styles.ContainerHeaderPayment}>
+              <View style={styles.HeaderPayment}>
+                <TouchableOpacity onPress={() => props.navigation.goBack()}>
+                  <FastImage
+                    style={styles.ArrowBack}
+                    source={ArrowBack}
+                    resizeMode={FastImage.resizeMode.contain}
+                  />
+                </TouchableOpacity>
+                <Text style={styles.Judul}>BPJS</Text>
+              </View>
             </View>
-            <Text style={styles.TextNotRegister}>Number Not Registered</Text>
-            <View style={styles.ContainerTextInput}>
-              <Text style={styles.TextHeadNometer}>Payment Period</Text>
-              <DropDownPicker
-                placeholder="Please Select..."
-                placeholderStyle={{color: '#BDBDBD'}}
-                style={styles.dropDownContainerStyle}
-                dropDownDirection="BOTTOM"
-                dropDownContainerStyle={{
-                  width: widthPercentageToDP(75),
-                }}
-                open={period}
-                value={value}
-                items={items}
-                setOpen={setPeriod}
-                setValue={setValue}
-                setItems={setItems}
-              />
+            <View style={styles.Containerisi}>
+              <View style={styles.Containerisi2}>
+                <View style={styles.ContainerTextInput}>
+                  <Text style={styles.TextHeadNometer}>No VA</Text>
+                  <TextInput
+                    style={styles.inputNoMeter}
+                    onChangeText={setNometer}
+                    value={nometer}
+                    placeholder=" E.g 141234567890"
+                    keyboardType="numeric"
+                  />
+                </View>
+                <Text style={styles.TextNotRegister}>
+                  Number Not Registered
+                </Text>
+                <View style={styles.ContainerTextInput}>
+                  <Text style={styles.TextHeadNometer}>Payment Period</Text>
+                  <DropDownPicker
+                    placeholder="Please Select..."
+                    placeholderStyle={{color: '#BDBDBD'}}
+                    style={styles.dropDownContainerStyle}
+                    dropDownDirection="BOTTOM"
+                    dropDownContainerStyle={{
+                      width: widthPercentageToDP(75),
+                    }}
+                    open={period}
+                    value={value}
+                    items={items}
+                    setOpen={setPeriod}
+                    setValue={setValue}
+                    setItems={setItems}
+                  />
+                </View>
+              </View>
             </View>
-          </View>
-        </View>
-        {/* landline */}
+            {/* landline */}
 
-        <View style={styles.ContainerHarga}>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('DetailPaymentBPJS')}
-            style={styles.ContainerButtonConfirm}>
-            <View style={styles.ButtonConfirm}>
-              <Text style={styles.TextButtonConfirm}>Confirm</Text>
+            <View style={styles.ContainerHarga}>
+              <TouchableOpacity
+                onPress={submitDataCostomer}
+                style={styles.ContainerButtonConfirm}>
+                <View style={styles.ButtonConfirm}>
+                  <Text style={styles.TextButtonConfirm}>Confirm</Text>
+                </View>
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
-        </View>
+          </>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
